@@ -1,0 +1,9 @@
+# Local secrets
+tools/integrations/.env
+
+# Runtime state (do not commit)
+tools/yt-knowledge.json
+tools/yt-study-state.json
+
+# Node
+node_modules/
