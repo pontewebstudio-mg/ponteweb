@@ -9,6 +9,15 @@ const STATE_PATH = path.join(__dirname, 'yt-study-state.json');
 const KB_PATH = path.join(__dirname, 'yt-knowledge.json');
 const KB_MAX_ITEMS = 300;
 
+// Optional: online storage (Supabase)
+let supa = null;
+try {
+  // eslint-disable-next-line
+  supa = require('./integrations/supabase-memory');
+} catch {
+  supa = null;
+}
+
 const CHANNELS = [
   { name: 'CRIPTOMANIACOS', handleUrl: 'https://www.youtube.com/@CRIPTOMANIACOS', channelId: 'UCqqFtNyN_ZWM8mfIOEfgShw' },
   { name: 'Augusto Backes', handleUrl: 'https://www.youtube.com/@AugustoBackes', channelId: 'UCNGqYuEd86K7dY70jE6dhKg' },
@@ -94,16 +103,25 @@ function saveState(state) {
 }
 
 function loadKnowledge() {
+  // local fallback only (we will prefer Supabase for persistence)
   return loadJson(KB_PATH, { version: 1, updatedAt: null, items: [] });
 }
 
 function saveKnowledge(kb) {
   kb.updatedAt = new Date().toISOString();
-  // keep only last KB_MAX_ITEMS
-  if (kb.items.length > KB_MAX_ITEMS) {
-    kb.items = kb.items.slice(0, KB_MAX_ITEMS);
-  }
+  if (kb.items.length > KB_MAX_ITEMS) kb.items = kb.items.slice(0, KB_MAX_ITEMS);
   saveJson(KB_PATH, kb);
+}
+
+async function supabaseUpsertMany(items) {
+  if (!supa?.upsertYtKnowledge) return { ok: false, reason: 'supabase not configured' };
+  let ok = 0;
+  let fail = 0;
+  for (const it of items) {
+    const { error } = await supa.upsertYtKnowledge(it);
+    if (error) fail++; else ok++;
+  }
+  return { ok: true, okCount: ok, failCount: fail };
 }
 
 function fmtDate(iso) {
@@ -140,12 +158,15 @@ async function main() {
       id: i.id || i.guid || i.link,
     }));
 
+    // Filter: horizontal videos only (watch?v=...), ignore shorts completely
+    const horizontalItems = items.filter(i => (i.link || '').includes('watch?v='));
+
     const seenSet = new Set(state.seen[ch.channelId] || []);
-    const newItems = items.filter(i => !seenSet.has(i.id));
+    const newItems = horizontalItems.filter(i => !seenSet.has(i.id));
     totalNew += newItems.length;
 
-    // mark latest items as seen (keep small)
-    state.seen[ch.channelId] = items.map(i => i.id).slice(0, 20);
+    // mark latest horizontal items as seen (keep small)
+    state.seen[ch.channelId] = horizontalItems.map(i => i.id).slice(0, 50);
 
     // Build lightweight knowledge items for NEW videos (best-effort transcript)
     for (const it of newItems) {
@@ -206,19 +227,26 @@ async function main() {
     blocks.push(lines.join('\n'));
   }
 
-  // Update knowledge base (prepend newest)
-  if (newKnowledgeItems.length) {
-    kb.items = [...newKnowledgeItems, ...kb.items];
-    saveKnowledge(kb);
-  } else {
-    saveKnowledge(kb);
+  // Update knowledge base (prefer Supabase). Keep local fallback minimal.
+  let supaResult = null;
+  if (newKnowledgeItems.length && supa?.upsertYtKnowledge) {
+    supaResult = await supabaseUpsertMany(newKnowledgeItems);
   }
+
+  if (newKnowledgeItems.length) {
+    kb.items = [...newKnowledgeItems, ...kb.items].slice(0, KB_MAX_ITEMS);
+  }
+  saveKnowledge(kb);
 
   state.lastRunAt = nowIso;
   saveState(state);
 
   const header = `[CRIPTO/INVEST] Estudo YouTube (Sun/Wed 22:00 BRT)\nGerado: ${fmtDate(nowIso)}\nNovos uploads detectados: ${totalNew}\n`;
-  const footer = `\n\nObs: eu guardo um “conhecimento compacto” (até ${KB_MAX_ITEMS} vídeos) pra eu conseguir te responder depois sem lotar o SSD.\nSe um vídeo não tiver transcrição pública, eu marco como indisponível.`;
+  const supaLine = supaResult?.ok
+    ? `\nSupabase: upserts ok=${supaResult.okCount} falhas=${supaResult.failCount}`
+    : '';
+
+  const footer = `\n\nObs: eu guardo um “conhecimento compacto” (até ${KB_MAX_ITEMS} vídeos).${supa?.upsertYtKnowledge ? ' Preferindo Supabase (online).' : ''}${supaLine}\nSe um vídeo não tiver transcrição pública, eu marco como indisponível.`;
 
   console.log(header + blocks.join('\n') + footer);
 }
