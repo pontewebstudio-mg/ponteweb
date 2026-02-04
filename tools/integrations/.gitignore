@@ -1,0 +1,4 @@
+# Secrets / tokens
+.env
+google-oauth-client.json
+google-token.json
