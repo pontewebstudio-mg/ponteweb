@@ -156,18 +156,18 @@ async function main() {
       if (kb.items.some(x => x.videoId === vid)) continue;
 
       const isShort = (it.link || '').includes('/shorts/');
+      if (isShort) continue; // user preference: ignore shorts
+
       let transcriptText = null;
       let hasTranscript = false;
       let bullets = [];
       let keyQuotes = [];
 
-      if (!isShort) {
-        transcriptText = await tryGetTranscriptText(vid);
-        hasTranscript = !!transcriptText;
-        if (transcriptText) {
-          bullets = quickBulletsFromTranscript(transcriptText, 6);
-          keyQuotes = pickKeySentences(transcriptText, 4);
-        }
+      transcriptText = await tryGetTranscriptText(vid);
+      hasTranscript = !!transcriptText;
+      if (transcriptText) {
+        bullets = quickBulletsFromTranscript(transcriptText, 6);
+        keyQuotes = pickKeySentences(transcriptText, 4);
       }
 
       newKnowledgeItems.push({
@@ -178,7 +178,7 @@ async function main() {
         url: it.link,
         publishedAt: it.pubDate,
         collectedAt: nowIso,
-        isShort,
+        isShort: false,
         hasTranscript,
         bullets,
         keyQuotes,
@@ -194,7 +194,7 @@ async function main() {
       for (const it of newItems.slice(0, 3)) {
         const vid = extractVideoId(it.link || '');
         const kbItem = vid ? newKnowledgeItems.find(x => x.videoId === vid) : null;
-        const tFlag = kbItem ? (kbItem.hasTranscript ? 'transcrição: OK' : (kbItem.isShort ? 'transcrição: (shorts)' : 'transcrição: indisponível')) : 'transcrição: ?';
+        const tFlag = kbItem ? (kbItem.hasTranscript ? 'transcrição: OK' : 'transcrição: indisponível') : 'transcrição: ?';
         lines.push(`- ${it.title} (${fmtDate(it.pubDate)})\n  ${it.link}\n  ${tFlag}`);
       }
       if (newItems.length > 3) lines.push(`- (+${newItems.length - 3} outros)`);
