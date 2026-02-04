@@ -44,8 +44,12 @@ async function authorize(scopes) {
     prompt: 'consent',
   });
 
-  console.log('Open this URL in your browser to authorize:');
+  const authUrlPath = path.join(__dirname, 'google-last-auth-url.txt');
+  fs.writeFileSync(authUrlPath, authUrl + '\n', 'utf8');
+
+  console.log('Open this URL in your browser to authorize (copie a URL inteira, sem cortar):');
   console.log(authUrl);
+  console.log(`(Saved to ${authUrlPath})`);
 
   // Local callback server
   const urlObj = new URL(redirectUri);
@@ -81,6 +85,7 @@ async function authorize(scopes) {
     });
     server.listen(port, () => {
       console.log(`Listening on ${redirectUri} ...`);
+  console.log('Dica: se o CMD quebrar a linha, abra o arquivo google-last-auth-url.txt e copie de lá.');
     });
   });
 
