@@ -131,14 +131,22 @@
 
         <div class="reveal">
           <div class="rounded-3xl border border-white/10 bg-white/5 backdrop-blur p-4 gridline">
-            <div class="rounded-2xl overflow-hidden">
-              <img src="./assets/dish-6.jpg" alt="Pratos Via Japa" class="w-full h-[360px] object-cover" />
+            <div class="rounded-2xl overflow-hidden relative">
+              <img id="heroSlide" src="./assets/dish-6.jpg" alt="Pratos Via Japa" class="w-full h-[360px] object-cover" />
+              <button type="button" aria-label="Foto anterior" onclick="heroPrev()" class="absolute left-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-black/35 hover:bg-black/55 border border-white/15 flex items-center justify-center">
+                ‹
+              </button>
+              <button type="button" aria-label="Próxima foto" onclick="heroNext()" class="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-black/35 hover:bg-black/55 border border-white/15 flex items-center justify-center">
+                ›
+              </button>
             </div>
-            <div class="grid grid-cols-3 gap-3 mt-3">
-              <img src="./assets/dish-2.jpg" alt="Prato" class="h-24 w-full object-cover rounded-xl border border-white/10" />
-              <img src="./assets/dish-3.jpg" alt="Prato" class="h-24 w-full object-cover rounded-xl border border-white/10" />
-              <img src="./assets/dish-4.jpg" alt="Prato" class="h-24 w-full object-cover rounded-xl border border-white/10" />
+            <div class="grid grid-cols-4 gap-3 mt-3" id="heroThumbs">
+              <button type="button" class="group" onclick="heroGo(0)"><img src="./assets/dish-6.jpg" alt="Prato" class="h-20 w-full object-cover rounded-xl border border-white/10 group-hover:opacity-90" /></button>
+              <button type="button" class="group" onclick="heroGo(1)"><img src="./assets/dish-2.jpg" alt="Prato" class="h-20 w-full object-cover rounded-xl border border-white/10 group-hover:opacity-90" /></button>
+              <button type="button" class="group" onclick="heroGo(2)"><img src="./assets/dish-3.jpg" alt="Prato" class="h-20 w-full object-cover rounded-xl border border-white/10 group-hover:opacity-90" /></button>
+              <button type="button" class="group" onclick="heroGo(3)"><img src="./assets/dish-4.jpg" alt="Prato" class="h-20 w-full object-cover rounded-xl border border-white/10 group-hover:opacity-90" /></button>
             </div>
+            <div class="mt-3 text-xs text-white/50">Dica: clique nas miniaturas para trocar as fotos.</div>
           </div>
         </div>
 
@@ -338,6 +346,56 @@
     const mm = document.getElementById('mobileMenu');
     if (btn && mm) btn.addEventListener('click', () => mm.classList.toggle('hidden'));
 
+    // hero carousel
+    const HERO_SLIDES = [
+      { src: './assets/dish-6.jpg', alt: 'Combo / sushis — Via Japa' },
+      { src: './assets/dish-2.jpg', alt: 'Prato — Via Japa' },
+      { src: './assets/dish-3.jpg', alt: 'Prato — Via Japa' },
+      { src: './assets/dish-4.jpg', alt: 'Prato — Via Japa' },
+    ];
+    let heroIndex = 0;
+    let heroTimer = null;
+
+    function heroMount(){
+      // sync current slide
+      heroGo(0);
+      heroAuto();
+      // pause on hover
+      const img = document.getElementById('heroSlide');
+      const box = img?.closest('.gridline');
+      box?.addEventListener('mouseenter', heroStop);
+      box?.addEventListener('mouseleave', heroAuto);
+    }
+
+    function heroGo(i){
+      const img = document.getElementById('heroSlide');
+      if (!img) return;
+      heroIndex = (i + HERO_SLIDES.length) % HERO_SLIDES.length;
+      img.src = HERO_SLIDES[heroIndex].src;
+      img.alt = HERO_SLIDES[heroIndex].alt;
+
+      // highlight thumb
+      const root = document.getElementById('heroThumbs');
+      if (root){
+        const btns = Array.from(root.querySelectorAll('button'));
+        btns.forEach((b, bi) => {
+          b.style.opacity = (bi === heroIndex) ? '1' : '0.70';
+          b.style.transform = (bi === heroIndex) ? 'translateY(-1px)' : 'translateY(0px)';
+        });
+      }
+    }
+    function heroNext(){ heroGo(heroIndex + 1); }
+    function heroPrev(){ heroGo(heroIndex - 1); }
+
+    function heroAuto(){
+      heroStop();
+      heroTimer = setInterval(heroNext, 4500);
+    }
+    function heroStop(){
+      if (heroTimer) clearInterval(heroTimer);
+      heroTimer = null;
+    }
+
     // reveal
     function reveal(){
       const els = document.querySelectorAll('.reveal');
@@ -348,7 +406,10 @@
       }
     }
     window.addEventListener('scroll', reveal);
+
+    // init
     reveal();
+    heroMount();
   </script>
 </body>
 </html>
