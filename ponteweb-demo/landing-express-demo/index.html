@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Landing Express — Demo Restaurante (48h)</title>
+  <meta name="description" content="Demo de Landing Express (48h) para restaurante: WhatsApp, mapa, horários, cardápio, reservas e SEO básico." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+  <header class="top">
+    <div class="container">
+      <div class="brand">
+        <div class="mark">EXEMPLO</div>
+        <div>
+          <strong>Landing Express — Exemplo (Restaurante)</strong>
+          <div class="muted">Modelo de Landing Express • dados e imagens ilustrativos</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#cardapio">Cardápio</a>
+        <a href="#como-chegar">Como chegar</a>
+        <details class="viewMenu">
+          <summary class="pill" aria-label="Modo de visualização">Modo ▾</summary>
+          <div class="viewModes" aria-label="Modo de visualização (simulação)">
+            <button type="button" class="pill" onclick="setView('auto')">Auto</button>
+            <button type="button" class="pill" onclick="setView('mobile')">Celular</button>
+            <button type="button" class="pill" onclick="setView('desktop')">PC</button>
+            <button type="button" class="pill" onclick="setView('tv')">TV</button>
+          </div>
+        </details>
+        <button class="iconBtn" type="button" onclick="toggleTheme()" aria-label="Alternar tema" title="Alternar tema">🌓</button>
+        <a class="cta" href="https://wa.me/5532988400135?text=Oi!%20Quero%20reservar%20uma%20mesa." target="_blank" rel="noopener">Reservar no WhatsApp</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero">
+      <div class="container grid">
+        <div>
+          <h1>Comida de verdade. Atendimento rápido. Reserva no WhatsApp.</h1>
+          <p class="lead">Um modelo de página para transformar buscas no Google em pedidos e reservas. Feita em até 48h com CTA e informações claras.</p>
+          <div class="actions">
+            <a class="btn primary" href="https://wa.me/5532988400135?text=Oi!%20Quero%20reservar%20uma%20mesa." target="_blank" rel="noopener">Fazer reserva</a>
+            <a class="btn secondary" href="#cardapio">Ver cardápio</a>
+          </div>
+
+          <!-- modos de visualização movidos para o cabeçalho -->
+
+          <div class="chips">
+            <span>⏱️ 48h</span>
+            <span>📱 Mobile</span>
+            <span>🟢 WhatsApp</span>
+            <span>📍 Google Maps</span>
+          </div>
+        </div>
+        <div class="heroImg" aria-label="Carrossel de imagens (exemplo)">
+          <div class="carousel" aria-roledescription="carrossel">
+            <div class="carouselTrack" id="carouselTrack">
+              <img src="assets/hero-prato.jpg" alt="Prato executivo (exemplo)" />
+              <img src="assets/prato-do-dia.jpg" alt="Prato do dia (exemplo)" loading="lazy" />
+              <img src="assets/porcao.jpg" alt="Porções (exemplo)" loading="lazy" />
+              <img src="assets/bebidas.jpg" alt="Bebidas (exemplo)" loading="lazy" />
+              <img src="assets/ambiente.jpg" alt="Ambiente do restaurante (exemplo)" loading="lazy" />
+            </div>
+            <button class="carBtn prev" type="button" onclick="carouselPrev()" aria-label="Imagem anterior">‹</button>
+            <button class="carBtn next" type="button" onclick="carouselNext()" aria-label="Próxima imagem">›</button>
+            <div class="dots" id="carouselDots" aria-label="Indicadores"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Prova social">
+      <div class="container">
+        <h2>Avaliações (exemplo)</h2>
+        <div class="reviews">
+          <div class="review">
+            <div class="stars">★★★★★</div>
+            <p>"Atendimento rápido e comida excelente. Voltaremos!"</p>
+            <span class="muted">— Cliente (exemplo)</span>
+          </div>
+          <div class="review">
+            <div class="stars">★★★★★</div>
+            <p>"Reserva pelo WhatsApp foi super prática."</p>
+            <span class="muted">— Cliente (exemplo)</span>
+          </div>
+          <div class="review">
+            <div class="stars">★★★★☆</div>
+            <p>"Ótimo custo-benefício. Ambiente muito bom."</p>
+            <span class="muted">— Cliente (exemplo)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cardapio" class="section">
+      <div class="container">
+        <h2>Cardápio (exemplo)</h2>
+        <div class="menuGrid">
+          <article class="menuCard">
+            <img src="assets/prato-do-dia.jpg" alt="Prato do dia (exemplo)" loading="lazy" />
+            <div class="menuMeta"><strong>Prato do dia</strong><span>R$ 29,90</span></div>
+          </article>
+          <article class="menuCard">
+            <img src="assets/executivo.jpg" alt="Executivo (exemplo)" loading="lazy" />
+            <div class="menuMeta"><strong>Executivo</strong><span>R$ 34,90</span></div>
+          </article>
+          <article class="menuCard">
+            <img src="assets/porcao.jpg" alt="Porções (exemplo)" loading="lazy" />
+            <div class="menuMeta"><strong>Porções</strong><span>a partir de R$ 24,90</span></div>
+          </article>
+          <article class="menuCard">
+            <img src="assets/bebidas.jpg" alt="Bebidas (exemplo)" loading="lazy" />
+            <div class="menuMeta"><strong>Bebidas</strong><span>consulte</span></div>
+          </article>
+        </div>
+        <p class="muted">*Exemplo visual: as imagens são ilustrativas (modelo). Na entrega real, usamos fotos reais do cliente e itens reais do cardápio.</p>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container split">
+        <div>
+          <h2>Por que funciona</h2>
+          <ul class="bullets">
+            <li>Quem pesquisa no Google quer uma ação rápida (WhatsApp/rota).</li>
+            <li>Informação clara: horário, endereço, fotos e “o que pedir”.</li>
+            <li>SEO básico + estrutura mobile-first.</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Oferta (exemplo)</h3>
+          <p>Reserva pelo WhatsApp e ganhe uma sobremesa (segunda a quinta).</p>
+          <a class="btn primary" href="https://wa.me/5532988400135?text=Oi!%20Quero%20reservar%20uma%20mesa." target="_blank" rel="noopener">Quero reservar</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Ambiente">
+      <div class="container">
+        <h2>Ambiente (exemplo)</h2>
+        <div class="map">
+          <img class="ambientImg" src="assets/ambiente.jpg" alt="Ambiente do restaurante (exemplo)" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <section id="como-chegar" class="section">
+      <div class="container">
+        <h2>Como chegar</h2>
+        <div class="map">
+          <div class="mapInner">
+            <div class="muted">Aqui entra o mapa do Google (embed) + endereço.</div>
+            <div class="addr"><strong>Endereço:</strong> Rua Exemplo, 123 — Centro, São João del Rei — MG</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <h2>Contato</h2>
+        <div class="contact">
+          <a class="btn primary" href="https://wa.me/5532988400135?text=Oi!%20Vim%20pela%20p%C3%A1gina%20e%20quero%20fazer%20um%20pedido%2Freserva." target="_blank" rel="noopener">Chamar no WhatsApp</a>
+          <a class="btn" href="tel:+5532988400135">Ligar</a>
+        </div>
+        <p class="muted"><strong>Exemplo:</strong> esta página é um modelo (restaurante) para mostrar como a Landing Express fica. Na versão final, trocamos textos, fotos, cardápio e links pelos dados reais do cliente.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© <span id="year"></span> Demo Landing Express</div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear()</script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PonteWeb (Vertentes) — Sites e Landing Pages</title>
+  <meta name="description" content="PonteWeb (Vertentes): criação de landing pages e sites rápidos para negócios locais em São João del Rei e região. WhatsApp, mapa, SEO básico." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="container">
+      <a class="brand" href="#top" aria-label="PonteWeb">
+        <img class="logoImg" src="assets/logo-ponteweb.svg" alt="PonteWeb" />
+        <span class="brandText">
+          <strong>PonteWeb</strong>
+          <small>(Vertentes)</small>
+        </span>
+      </a>
+
+      <nav class="nav">
+        <a href="#servicos">Serviços</a>
+        <a href="#precos">Preços</a>
+        <a href="#processo">Como funciona</a>
+        <a href="#faq">FAQ</a>
+        <a class="cta" href="#contato">Pedir orçamento</a>
+      </nav>
+
+      <button class="navToggle" aria-label="Abrir menu" onclick="toggleNav()">Menu</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container grid">
+        <div>
+          <h1>Sites e landing pages que geram mensagens no WhatsApp.</h1>
+          <p class="lead">Foco em negócios locais de São João del Rei e região: página rápida, bonita, no celular, com mapa, horário, prova social e CTA.</p>
+
+          <div class="heroActions">
+            <a class="button primary" href="#contato">Quero um orçamento</a>
+            <a class="button ghost" href="#portfolio">Ver exemplos</a>
+          </div>
+
+          <div class="badges">
+            <span>Entrega rápida</span>
+            <span>Mobile-first</span>
+            <span>SEO básico</span>
+            <span>WhatsApp + Google Maps</span>
+          </div>
+
+          <p class="note">*Demonstração. Vamos ajustar a identidade visual e o texto conforme seu posicionamento.</p>
+        </div>
+
+        <div class="heroCard" aria-label="Prévia">
+          <div class="preview">
+            <img src="assets/cover.jpg" alt="Exemplo de imagem (ilustrativa)" loading="lazy" />
+            <div class="previewText">
+              <strong>Visual moderno + leve</strong>
+              <span>Modelos para negócios locais (exemplos)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicos" class="section">
+      <div class="container">
+        <h2>Serviços</h2>
+        <div class="cards">
+          <article class="card">
+            <h3>Landing Express (48h)</h3>
+            <p>1 página focada em conversão: WhatsApp, mapa, horário, oferta, FAQ e prova social. Ideal pra começar a gerar leads rápido.</p>
+            <ul>
+              <li>Copy + estrutura</li>
+              <li>Versão mobile</li>
+              <li>SEO básico</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Site 3–5 páginas</h3>
+            <p>Mais completo para posicionamento: Home, Serviços, Sobre, Contato e Privacidade. Para negócios que precisam de mais conteúdo.</p>
+            <ul>
+              <li>Páginas institucionais</li>
+              <li>Formulário/WhatsApp</li>
+              <li>Otimização básica</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Manutenção mensal</h3>
+            <p>Atualizações e ajustes contínuos: banners, promoções, trocas de fotos/textos e melhorias leves, sem dor de cabeça.</p>
+            <ul>
+              <li>2 ou 4 alterações/mês</li>
+              <li>Suporte por WhatsApp</li>
+              <li>Checklist mensal</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="precos" class="section alt">
+      <div class="container">
+        <h2>Pacotes (exemplo)</h2>
+        <p class="sub">Ajustamos valores conforme escopo, fotos, quantidade de seções e integrações.</p>
+
+        <div class="pricing">
+          <div class="price">
+            <h3>Landing Express</h3>
+            <p class="value">R$ 690</p>
+            <p class="muted">ou 2x R$ 375</p>
+            <ul>
+              <li>1 página</li>
+              <li>WhatsApp + mapa</li>
+              <li>SEO básico</li>
+              <li>Entrega rápida</li>
+            </ul>
+            <a class="button primary" href="#contato">Pedir orçamento</a>
+          </div>
+
+          <div class="price featured">
+            <div class="tag">Mais pedido</div>
+            <h3>Site 5 páginas</h3>
+            <p class="value">R$ 1.990</p>
+            <p class="muted">até 5 páginas</p>
+            <ul>
+              <li>Home + Serviços + Sobre + Contato</li>
+              <li>Privacidade/LGPD</li>
+              <li>SEO básico</li>
+              <li>Formulário/WhatsApp</li>
+            </ul>
+            <a class="button primary" href="#contato">Pedir orçamento</a>
+          </div>
+
+          <div class="price">
+            <h3>Manutenção</h3>
+            <p class="value">R$ 197/mês</p>
+            <p class="muted">2 alterações/mês</p>
+            <ul>
+              <li>Ajustes em conteúdo</li>
+              <li>Atualizações de oferta</li>
+              <li>Suporte por WhatsApp</li>
+            </ul>
+            <a class="button" href="#contato">Falar com a gente</a>
+          </div>
+        </div>
+
+        <p class="note">Hospedagem e domínio: normalmente ficam no nome do cliente (ou repasse mensal).</p>
+      </div>
+    </section>
+
+    <section id="portfolio" class="section" aria-label="Exemplos">
+      <div class="container">
+        <h2>Exemplos</h2>
+        <p class="sub">Modelos para você visualizar o estilo (vamos personalizar com os dados reais do seu negócio).</p>
+        <div class="cards">
+          <article class="card">
+            <h3>Landing Express — Exemplo (Restaurante)</h3>
+            <p>Página de conversão com WhatsApp, cardápio, prova social e localização. Ideal pra negócios locais.</p>
+            <a class="button" href="../landing-express-demo/" target="_blank" rel="noopener">Abrir exemplo</a>
+          </article>
+          <article class="card">
+            <h3>Site institucional — Exemplo</h3>
+            <p>Estrutura completa (Serviços, Sobre, Contato, FAQ) com visual moderno e leve.</p>
+            <a class="button" href="#top">Ver este site</a>
+          </article>
+          <article class="card">
+            <h3>Próximos modelos</h3>
+            <p>Podemos criar exemplos também para saúde/estética, serviços e infoprodutor.</p>
+            <a class="button" href="#contato">Pedir um rascunho</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="processo" class="section">
+      <div class="container">
+        <h2>Como funciona</h2>
+        <ol class="steps">
+          <li><strong>Brief rápido (15 min):</strong> pegamos infos do seu negócio (serviços, fotos, WhatsApp, localização).</li>
+          <li><strong>Rascunho:</strong> enviamos a prévia para aprovar texto/estrutura.</li>
+          <li><strong>Publicação:</strong> colocamos no ar e testamos no celular.</li>
+          <li><strong>Ajustes:</strong> pequenos refinamentos e orientação do que postar/como usar.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="faq" class="section alt">
+      <div class="container">
+        <h2>FAQ</h2>
+        <details>
+          <summary>Preciso ter fotos profissionais?</summary>
+          <p>Ajuda muito, mas não é obrigatório. Dá pra começar com fotos do celular e melhorar depois.</p>
+        </details>
+        <details>
+          <summary>Vocês fazem domínio e hospedagem?</summary>
+          <p>Sim. Recomendamos deixar no nome do cliente, mas podemos administrar e repassar mensalmente.</p>
+        </details>
+        <details>
+          <summary>Em quanto tempo fica pronto?</summary>
+          <p>Landing Express: em até 48h úteis após receber as informações. Site completo varia conforme escopo.</p>
+        </details>
+      </div>
+    </section>
+
+    <section id="contato" class="section">
+      <div class="container">
+        <h2>Contato</h2>
+        <p class="sub">Resposta rápida por WhatsApp. Se preferir, manda um e-mail com as informações básicas.</p>
+
+        <div class="contact">
+          <div class="contactCard">
+            <h3>Pedir orçamento</h3>
+            <p>Responda 3 perguntas e a gente te manda uma proposta rápida:</p>
+            <ul>
+              <li>Qual é o seu negócio e cidade?</li>
+              <li>Qual serviço/produto principal?</li>
+              <li>Qual WhatsApp e Instagram?</li>
+            </ul>
+            <a class="button primary" href="mailto:oprodutormusic@gmail.com?subject=Or%C3%A7amento%20-%20PonteWeb&body=Oi%20PonteWeb!%0A%0ANome%20do%20neg%C3%B3cio%3A%0ACidade%3A%0AServi%C3%A7o%2Fproduto%20principal%3A%0AWhatsApp%3A%0AInstagram%3A%0A%0AObjetivo%3A%20(mais%20pedidos%2Freservas%2Fagendamentos)%0A">Enviar e-mail</a>
+            <a class="button" href="https://wa.me/5532988400135?text=Oi!%20Vi%20a%20PonteWeb%20e%20quero%20um%20or%C3%A7amento%20de%20site%2Flanding%20pra%20meu%20neg%C3%B3cio.%20%F0%9F%99%82" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+          </div>
+
+          <div class="contactCard">
+            <h3>Área de atuação</h3>
+            <p>São João del Rei, Tiradentes e região (Campo das Vertentes).</p>
+            <p class="muted">Atendemos remoto também.</p>
+
+            <div class="mini">
+              <div><span class="k">E-mail</span><span class="v">oprodutormusic@gmail.com</span></div>
+              <div><span class="k">Entrega</span><span class="v">48h (Landing Express)</span></div>
+              <div><span class="k">WhatsApp</span><span class="v"><a href="https://wa.me/5532988400135" target="_blank" rel="noopener">(32) 98840-0135</a></span></div>
+              <div><span class="k">Pagamento</span><span class="v">Pix / Cartão / Parcelado</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© <span id="year"></span> PonteWeb (Vertentes). <span class="footnote">Sites e landing pages para negócios locais.</span></p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
