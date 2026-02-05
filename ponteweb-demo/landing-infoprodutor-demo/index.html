@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Landing Express — Exemplo (Infoprodutor)</title>
+  <meta name="description" content="Exemplo de Landing Express para infoprodutor: oferta, provas, módulos e CTA no WhatsApp." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="top">
+    <div class="container">
+      <div class="brand">
+        <div class="mark">EXEMPLO</div>
+        <div>
+          <strong>Landing Express — Exemplo (Infoprodutor)</strong>
+          <div class="muted">Modelo • dados e imagens ilustrativos</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#oferta">Oferta</a>
+        <a href="#conteudo">Conteúdo</a>
+        <details class="viewMenu">
+          <summary class="pill" aria-label="Modo de visualização">Modo ▾</summary>
+          <div class="viewModes" aria-label="Modo de visualização (simulação)">
+            <button type="button" class="pill" onclick="setView('auto')">Auto</button>
+            <button type="button" class="pill" onclick="setView('mobile')">Celular</button>
+            <button type="button" class="pill" onclick="setView('desktop')">PC</button>
+            <button type="button" class="pill" onclick="setView('tv')">TV</button>
+          </div>
+        </details>
+        <button class="iconBtn" type="button" onclick="toggleTheme()" aria-label="Alternar tema" title="Alternar tema">🌓</button>
+        <a class="cta" href="https://wa.me/5532988400135?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20curso." target="_blank" rel="noopener">Quero detalhes</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero">
+      <div class="container grid">
+        <div>
+          <h1>Transforme seguidores em alunos com uma página simples e objetiva.</h1>
+          <p class="lead">Modelo de Landing Express para curso/mentoria: promessa clara, módulos, bônus, prova social e CTA forte (WhatsApp).</p>
+          <div class="actions">
+            <a class="btn primary" href="https://wa.me/5532988400135?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20curso." target="_blank" rel="noopener">Quero me inscrever</a>
+            <a class="btn secondary" href="#oferta">Ver oferta</a>
+          </div>
+          <div class="chips">
+            <span>⏱️ 48h</span>
+            <span>📱 Mobile</span>
+            <span>🟢 WhatsApp</span>
+            <span>🧾 Copy + estrutura</span>
+          </div>
+        </div>
+
+        <div class="heroImg" aria-label="Carrossel de imagens (exemplo)">
+          <div class="carousel" aria-roledescription="carrossel" tabindex="0">
+            <div class="carouselTrack" id="carouselTrack">
+              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=70" alt="Aula (exemplo)" />
+              <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1600&q=70" alt="Conteúdo (exemplo)" loading="lazy" />
+              <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1600&q=70" alt="Estratégia (exemplo)" loading="lazy" />
+            </div>
+            <button class="carBtn prev" type="button" onclick="carouselPrev()" aria-label="Imagem anterior">‹</button>
+            <button class="carBtn next" type="button" onclick="carouselNext()" aria-label="Próxima imagem">›</button>
+            <div class="dots" id="carouselDots" aria-label="Indicadores"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="oferta" class="section">
+      <div class="container split">
+        <div>
+          <h2>O que você recebe (exemplo)</h2>
+          <ul class="bullets">
+            <li>Aulas gravadas + atualizações</li>
+            <li>Checklists e templates</li>
+            <li>Grupo de suporte (WhatsApp/Telegram)</li>
+            <li>Certificado (opcional)</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Oferta</h3>
+          <p class="price">12x <strong>R$ 39</strong> ou <strong>R$ 397</strong> à vista</p>
+          <p class="muted">*Exemplo. Definimos a melhor oferta com o cliente.</p>
+          <a class="btn primary" href="https://wa.me/5532988400135?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20curso." target="_blank" rel="noopener">Quero detalhes</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" aria-label="Prova social">
+      <div class="container">
+        <h2>Resultados (exemplo)</h2>
+        <div class="reviews">
+          <div class="review"><div class="stars">★★★★★</div><p>"Apliquei e já melhorei minhas conversões."</p><span class="muted">— Aluno (exemplo)</span></div>
+          <div class="review"><div class="stars">★★★★★</div><p>"A página ficou linda e o WhatsApp começou a tocar."</p><span class="muted">— Cliente (exemplo)</span></div>
+          <div class="review"><div class="stars">★★★★☆</div><p>"Conteúdo direto ao ponto e com bons templates."</p><span class="muted">— Aluno (exemplo)</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Conteúdo (exemplo)</h2>
+        <div class="menuGrid">
+          <article class="menuCard"><img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=1200&q=70" alt="Módulo 1" loading="lazy" /><div class="menuMeta"><strong>Módulo 1</strong><span>Fundamentos</span></div></article>
+          <article class="menuCard"><img src="https://images.unsplash.com/photo-1526378722484-bd91ca387e72?auto=format&fit=crop&w=1200&q=70" alt="Módulo 2" loading="lazy" /><div class="menuMeta"><strong>Módulo 2</strong><span>Oferta & copy</span></div></article>
+          <article class="menuCard"><img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=1200&q=70" alt="Módulo 3" loading="lazy" /><div class="menuMeta"><strong>Módulo 3</strong><span>Tráfego & ajuste</span></div></article>
+          <article class="menuCard"><img src="https://images.unsplash.com/photo-1556742031-c6961e8560b0?auto=format&fit=crop&w=1200&q=70" alt="Bônus" loading="lazy" /><div class="menuMeta"><strong>Bônus</strong><span>Templates</span></div></article>
+        </div>
+        <p class="muted">*Modelo: trocamos por módulos reais do cliente.</p>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <h2>Contato</h2>
+        <div class="contact">
+          <a class="btn primary" href="https://wa.me/5532988400135?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20curso." target="_blank" rel="noopener">Chamar no WhatsApp</a>
+          <a class="btn" href="mailto:oprodutormusic@gmail.com?subject=Curso%20-%20Exemplo%20Landing">Enviar e-mail</a>
+        </div>
+        <p class="muted"><strong>Exemplo:</strong> página-modelo feita pela PonteWeb (Vertentes). Na versão final, tudo vai com dados reais do cliente.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="container">© <span id="year"></span> Exemplo Landing Express</div></footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear()</script>
+  <script src="script.js"></script>
+</body>
+</html>
