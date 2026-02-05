@@ -9,10 +9,12 @@ a{color:inherit;text-decoration:none}
 .brand{display:flex;align-items:center;gap:12px}
 .logo{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#06101f;font-weight:900}
 .logoImg{width:44px;height:44px;border-radius:12px}
-.iconBtn{border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--text);border-radius:12px;padding:8px 10px;cursor:pointer}
-.iconBtn:hover{background:rgba(255,255,255,.06)}
-.pill{font-size:13px;color:var(--text);border:1px solid var(--line);padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.03);cursor:pointer;font-weight:700}
-.pill:hover{background:rgba(255,255,255,.06)}
+.iconBtn{border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--text);border-radius:12px;padding:8px 10px;cursor:pointer;transition:transform .12s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease}
+.iconBtn:hover{background:rgba(255,255,255,.06);transform:translateY(-1px);box-shadow:0 12px 26px rgba(0,0,0,.18)}
+.iconBtn:active{transform:translateY(0) scale(0.99);box-shadow:0 8px 18px rgba(0,0,0,.16)}
+.pill{font-size:13px;color:var(--text);border:1px solid var(--line);padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.03);cursor:pointer;font-weight:700;transition:transform .12s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease}
+.pill:hover{background:rgba(255,255,255,.06);transform:translateY(-1px);box-shadow:0 10px 22px rgba(0,0,0,.16)}
+.pill:active{transform:translateY(0) scale(0.99);box-shadow:0 7px 16px rgba(0,0,0,.14)}
 .viewMenu{position:relative}
 .viewMenu summary{list-style:none}
 .viewMenu summary::-webkit-details-marker{display:none}
