@@ -19,6 +19,21 @@ We will create a Google Cloud project + enable APIs:
 
 Then create OAuth client credentials and do a one-time consent flow.
 
+### Google (Gmail send)
+To enable sending emails via Gmail API, we need the OAuth scope `https://www.googleapis.com/auth/gmail.send`.
+
+Test (dry-run):
+```bash
+node tools/integrations/gmail-send.js --from oprodutormusic@gmail.com --to SEU_EMAIL --subject "teste" --text "teste" --dry-run
+```
+
+Send (real):
+```bash
+node tools/integrations/gmail-send.js --from oprodutormusic@gmail.com --to SEU_EMAIL --subject "teste" --text "teste"
+```
+
+Note: `google-auth.js` will force re-consent if the existing token is missing required scopes.
+
 ### Notion
 - Create a Notion integration
 - Share the target workspace/page with the integration

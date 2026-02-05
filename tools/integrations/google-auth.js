@@ -34,8 +34,18 @@ async function authorize(scopes) {
 
   const token = loadToken();
   if (token) {
-    oAuth2Client.setCredentials(token);
-    return oAuth2Client;
+    // If token exists but does not include required scopes, force re-consent.
+    const granted = new Set(String(token.scope || '').split(/\s+/).filter(Boolean));
+    const required = new Set((scopes || []).filter(Boolean));
+    const missing = Array.from(required).filter((s) => !granted.has(s));
+
+    if (missing.length === 0) {
+      oAuth2Client.setCredentials(token);
+      return oAuth2Client;
+    }
+
+    console.log('Existing Google token is missing required scopes; re-authorizing. Missing scopes:');
+    for (const s of missing) console.log(' - ' + s);
   }
 
   const authUrl = oAuth2Client.generateAuthUrl({
