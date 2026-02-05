@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Landing Express — Exemplo (Serviços Locais)</title>
+  <meta name="description" content="Exemplo de Landing Express para serviços locais: WhatsApp, serviços, prova social, localização e CTA." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="top">
+    <div class="container">
+      <div class="brand">
+        <div class="mark">EXEMPLO</div>
+        <div>
+          <strong>Landing Express — Exemplo (Serviços Locais)</strong>
+          <div class="muted">Modelo • dados e imagens ilustrativos</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#servicos">Serviços</a>
+        <a href="#como-chegar">Área</a>
+        <details class="viewMenu">
+          <summary class="pill" aria-label="Modo de visualização">Modo ▾</summary>
+          <div class="viewModes" aria-label="Modo de visualização (simulação)">
+            <button type="button" class="pill" onclick="setView('auto')">Auto</button>
+            <button type="button" class="pill" onclick="setView('mobile')">Celular</button>
+            <button type="button" class="pill" onclick="setView('desktop')">PC</button>
+            <button type="button" class="pill" onclick="setView('tv')">TV</button>
+          </div>
+        </details>
+        <button class="iconBtn" type="button" onclick="toggleTheme()" aria-label="Alternar tema" title="Alternar tema">🌓</button>
+        <a class="cta" href="https://wa.me/5532988400135?text=Oi!%20Quero%20um%20or%C3%A7amento%20de%20servi%C3%A7o." target="_blank" rel="noopener">Pedir orçamento</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero">
+      <div class="container grid">
+        <div>
+          <h1>Serviço rápido. Orçamento fácil. Conversa no WhatsApp.</h1>
+          <p class="lead">Modelo de página para profissionais locais (manutenção, instalação, reforma): CTA, serviços, prova social e área atendida.</p>
+          <div class="actions">
+            <a class="btn primary" href="https://wa.me/5532988400135?text=Oi!%20Quero%20um%20or%C3%A7amento%20de%20servi%C3%A7o." target="_blank" rel="noopener">Pedir orçamento</a>
+            <a class="btn secondary" href="#servicos">Ver serviços</a>
+          </div>
+          <div class="chips">
+            <span>⏱️ 48h</span>
+            <span>📱 Mobile</span>
+            <span>🟢 WhatsApp</span>
+            <span>📍 Região</span>
+          </div>
+        </div>
+
+        <div class="heroImg" aria-label="Carrossel de imagens (exemplo)">
+          <div class="carousel" aria-roledescription="carrossel" tabindex="0">
+            <div class="carouselTrack" id="carouselTrack">
+              <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1600&q=70" alt="Serviço local (exemplo)" />
+              <img src="https://images.unsplash.com/photo-1581092160607-ee67c07f85d5?auto=format&fit=crop&w=1600&q=70" alt="Ferramentas (exemplo)" loading="lazy" />
+              <img src="https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1600&q=70" alt="Atendimento (exemplo)" loading="lazy" />
+            </div>
+            <button class="carBtn prev" type="button" onclick="carouselPrev()" aria-label="Imagem anterior">‹</button>
+            <button class="carBtn next" type="button" onclick="carouselNext()" aria-label="Próxima imagem">›</button>
+            <div class="dots" id="carouselDots" aria-label="Indicadores"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicos" class="section">
+      <div class="container">
+        <h2>Serviços (exemplo)</h2>
+        <div class="menuGrid">
+          <article class="menuCard"><img src="https://images.unsplash.com/photo-1581244277943-fe4a9c777189?auto=format&fit=crop&w=1200&q=70" alt="Instalação" loading="lazy" /><div class="menuMeta"><strong>Instalação</strong><span>sob consulta</span></div></article>
+          <article class="menuCard"><img src="https://images.unsplash.com/photo-1525909002-1b05e0c869d8?auto=format&fit=crop&w=1200&q=70" alt="Manutenção" loading="lazy" /><div class="menuMeta"><strong>Manutenção</strong><span>sob consulta</span></div></article>
+          <article class="menuCard"><img src="https://images.unsplash.com/photo-1607400201515-c2c41c9b8d86?auto=format&fit=crop&w=1200&q=70" alt="Reparos" loading="lazy" /><div class="menuMeta"><strong>Reparos</strong><span>sob consulta</span></div></article>
+          <article class="menuCard"><img src="https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1200&q=70" alt="Orçamento" loading="lazy" /><div class="menuMeta"><strong>Orçamento</strong><span>rápido</span></div></article>
+        </div>
+        <p class="muted">*Modelo: na entrega real, trocamos por serviços reais e fotos do cliente.</p>
+      </div>
+    </section>
+
+    <section class="section alt" aria-label="Prova social">
+      <div class="container">
+        <h2>Avaliações (exemplo)</h2>
+        <div class="reviews">
+          <div class="review"><div class="stars">★★★★★</div><p>"Chegou no horário e resolveu rápido."</p><span class="muted">— Cliente (exemplo)</span></div>
+          <div class="review"><div class="stars">★★★★★</div><p>"Orçamento claro e atendimento ótimo."</p><span class="muted">— Cliente (exemplo)</span></div>
+          <div class="review"><div class="stars">★★★★☆</div><p>"Trabalho bem feito. Recomendo."</p><span class="muted">— Cliente (exemplo)</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="como-chegar" class="section">
+      <div class="container">
+        <h2>Área atendida</h2>
+        <div class="map">
+          <div class="mapInner">
+            <div class="muted">Exemplo: São João del Rei • Tiradentes • Barbacena (definimos com o cliente).</div>
+            <div class="addr"><strong>Atendimento:</strong> Seg–Sáb • 08:00–18:00</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <h2>Contato</h2>
+        <div class="contact">
+          <a class="btn primary" href="https://wa.me/5532988400135?text=Oi!%20Quero%20um%20or%C3%A7amento%20de%20servi%C3%A7o." target="_blank" rel="noopener">Chamar no WhatsApp</a>
+          <a class="btn" href="tel:+5532988400135">Ligar</a>
+        </div>
+        <p class="muted"><strong>Exemplo:</strong> página-modelo feita pela PonteWeb (Vertentes). Na versão final, tudo vai com dados reais do cliente.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="container">© <span id="year"></span> Exemplo Landing Express</div></footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear()</script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Landing Express — Exemplo (Saúde/Estética)</title>
+  <meta name="description" content="Exemplo de Landing Express para saúde/estética: WhatsApp, serviços, prova social, localização e CTA." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="top">
+    <div class="container">
+      <div class="brand">
+        <div class="mark">EXEMPLO</div>
+        <div>
+          <strong>Landing Express — Exemplo (Saúde/Estética)</strong>
+          <div class="muted">Modelo • dados e imagens ilustrativos</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#servicos">Serviços</a>
+        <a href="#como-chegar">Localização</a>
+        <details class="viewMenu">
+          <summary class="pill" aria-label="Modo de visualização">Modo ▾</summary>
+          <div class="viewModes" aria-label="Modo de visualização (simulação)">
+            <button type="button" class="pill" onclick="setView('auto')">Auto</button>
+            <button type="button" class="pill" onclick="setView('mobile')">Celular</button>
+            <button type="button" class="pill" onclick="setView('desktop')">PC</button>
+            <button type="button" class="pill" onclick="setView('tv')">TV</button>
+          </div>
+        </details>
+        <button class="iconBtn" type="button" onclick="toggleTheme()" aria-label="Alternar tema" title="Alternar tema">🌓</button>
+        <a class="cta" href="https://wa.me/5532988400135?text=Oi!%20Quero%20agendar%20um%20hor%C3%A1rio." target="_blank" rel="noopener">Agendar no WhatsApp</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero">
+      <div class="container grid">
+        <div>
+          <h1>Agendamento simples. Informações claras. Mais mensagens no WhatsApp.</h1>
+          <p class="lead">Modelo de página para clínicas, estética e profissionais de saúde: CTA forte, serviços, prova social e localização — mobile-first.</p>
+          <div class="actions">
+            <a class="btn primary" href="https://wa.me/5532988400135?text=Oi!%20Quero%20agendar%20um%20hor%C3%A1rio." target="_blank" rel="noopener">Agendar agora</a>
+            <a class="btn secondary" href="#servicos">Ver serviços</a>
+          </div>
+          <div class="chips">
+            <span>⏱️ 48h</span>
+            <span>📱 Mobile</span>
+            <span>🟢 WhatsApp</span>
+            <span>📍 Google Maps</span>
+          </div>
+        </div>
+
+        <div class="heroImg" aria-label="Carrossel de imagens (exemplo)">
+          <div class="carousel" aria-roledescription="carrossel" tabindex="0">
+            <div class="carouselTrack" id="carouselTrack">
+              <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f5a5?auto=format&fit=crop&w=1600&q=70" alt="Recepção (exemplo)" />
+              <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?auto=format&fit=crop&w=1600&q=70" alt="Estética (exemplo)" loading="lazy" />
+              <img src="https://images.unsplash.com/photo-1556228724-4b79b5d0f4d0?auto=format&fit=crop&w=1600&q=70" alt="Ambiente (exemplo)" loading="lazy" />
+            </div>
+            <button class="carBtn prev" type="button" onclick="carouselPrev()" aria-label="Imagem anterior">‹</button>
+            <button class="carBtn next" type="button" onclick="carouselNext()" aria-label="Próxima imagem">›</button>
+            <div class="dots" id="carouselDots" aria-label="Indicadores"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicos" class="section">
+      <div class="container">
+        <h2>Serviços (exemplo)</h2>
+        <div class="menuGrid">
+          <article class="menuCard">
+            <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=1200&q=70" alt="Avaliação" loading="lazy" />
+            <div class="menuMeta"><strong>Avaliação</strong><span>R$ 120</span></div>
+          </article>
+          <article class="menuCard">
+            <img src="https://images.unsplash.com/photo-1511174511562-5f7f18b874f8?auto=format&fit=crop&w=1200&q=70" alt="Procedimento" loading="lazy" />
+            <div class="menuMeta"><strong>Procedimento</strong><span>sob consulta</span></div>
+          </article>
+          <article class="menuCard">
+            <img src="https://images.unsplash.com/photo-1584466977773-e625c37cdd50?auto=format&fit=crop&w=1200&q=70" alt="Retorno" loading="lazy" />
+            <div class="menuMeta"><strong>Retorno</strong><span>R$ 80</span></div>
+          </article>
+          <article class="menuCard">
+            <img src="https://images.unsplash.com/photo-1580281658629-48a98d1f6d6d?auto=format&fit=crop&w=1200&q=70" alt="Convênios" loading="lazy" />
+            <div class="menuMeta"><strong>Convênios</strong><span>consulte</span></div>
+          </article>
+        </div>
+        <p class="muted">*Modelo: na entrega real, usamos fotos reais do cliente e serviços reais.</p>
+      </div>
+    </section>
+
+    <section class="section alt" aria-label="Prova social">
+      <div class="container">
+        <h2>Avaliações (exemplo)</h2>
+        <div class="reviews">
+          <div class="review"><div class="stars">★★★★★</div><p>"Atendimento excelente e muito acolhedor."</p><span class="muted">— Cliente (exemplo)</span></div>
+          <div class="review"><div class="stars">★★★★★</div><p>"Agendamento pelo WhatsApp foi rápido."</p><span class="muted">— Cliente (exemplo)</span></div>
+          <div class="review"><div class="stars">★★★★☆</div><p>"Ambiente muito confortável."</p><span class="muted">— Cliente (exemplo)</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="como-chegar" class="section">
+      <div class="container">
+        <h2>Como chegar</h2>
+        <div class="map">
+          <div class="mapInner">
+            <div class="muted">Aqui entra o mapa do Google (embed) + endereço do cliente.</div>
+            <div class="addr"><strong>Endereço:</strong> Rua Exemplo, 123 — Centro, São João del Rei — MG</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <h2>Contato</h2>
+        <div class="contact">
+          <a class="btn primary" href="https://wa.me/5532988400135?text=Oi!%20Quero%20agendar%20um%20hor%C3%A1rio." target="_blank" rel="noopener">Chamar no WhatsApp</a>
+          <a class="btn" href="tel:+5532988400135">Ligar</a>
+        </div>
+        <p class="muted"><strong>Exemplo:</strong> página-modelo feita pela PonteWeb (Vertentes). Na versão final, tudo vai com dados reais do cliente.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="container">© <span id="year"></span> Exemplo Landing Express</div></footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear()</script>
+  <script src="script.js"></script>
+</body>
+</html>
