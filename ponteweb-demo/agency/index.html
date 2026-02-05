@@ -21,8 +21,19 @@
       <nav class="nav">
         <a href="#servicos">Serviços</a>
         <a href="#precos">Preços</a>
+        <a href="#portfolio">Exemplos</a>
         <a href="#processo">Como funciona</a>
         <a href="#faq">FAQ</a>
+        <button class="iconBtn" type="button" onclick="toggleTheme()" aria-label="Alternar tema" title="Alternar tema">🌓</button>
+        <details class="viewMenu">
+          <summary class="pill" aria-label="Modo de visualização">Modo ▾</summary>
+          <div class="viewModes" aria-label="Modo de visualização (simulação)">
+            <button type="button" class="pill" onclick="setView('auto')">Auto</button>
+            <button type="button" class="pill" onclick="setView('mobile')">Celular</button>
+            <button type="button" class="pill" onclick="setView('desktop')">PC</button>
+            <button type="button" class="pill" onclick="setView('tv')">TV</button>
+          </div>
+        </details>
         <a class="cta" href="#contato">Pedir orçamento</a>
       </nav>
 
@@ -40,6 +51,7 @@
           <div class="heroActions">
             <a class="button primary" href="#contato">Quero um orçamento</a>
             <a class="button ghost" href="#portfolio">Ver exemplos</a>
+            <a class="button ghost" href="#" onclick="setView('mobile'); return false;">Ver no celular</a>
           </div>
 
           <div class="badges">
@@ -54,7 +66,7 @@
 
         <div class="heroCard" aria-label="Prévia">
           <div class="preview">
-            <img src="assets/cover.jpg" alt="Exemplo de imagem (ilustrativa)" loading="lazy" />
+            <img src="assets/cover-abstract.svg" alt="Capa PonteWeb (ilustrativa)" loading="lazy" />
             <div class="previewText">
               <strong>Visual moderno + leve</strong>
               <span>Modelos para negócios locais (exemplos)</span>
@@ -95,20 +107,29 @@
               <li>Checklist mensal</li>
             </ul>
           </article>
+          <article class="card">
+            <h3>Instagram (pacote mensal)</h3>
+            <p>Arrumamos o perfil e aceleramos o conteúdo: identidade, posts, destaques e rotina simples de publicação.</p>
+            <ul>
+              <li>Bio + links + destaques</li>
+              <li>6 posts/mês (feed)</li>
+              <li>12 stories/mês (templates)</li>
+            </ul>
+          </article>
         </div>
       </div>
     </section>
 
     <section id="precos" class="section alt">
       <div class="container">
-        <h2>Pacotes (exemplo)</h2>
-        <p class="sub">Ajustamos valores conforme escopo, fotos, quantidade de seções e integrações.</p>
+        <h2>Pacotes (base)</h2>
+        <p class="sub">Valores competitivos para SJDR e região. Ajustamos conforme escopo, fotos e integrações — sem empurrar coisa desnecessária.</p>
 
         <div class="pricing">
           <div class="price">
             <h3>Landing Express</h3>
-            <p class="value">R$ 690</p>
-            <p class="muted">ou 2x R$ 375</p>
+            <p class="value">R$ 650</p>
+            <p class="muted">ou 2x R$ 349</p>
             <ul>
               <li>1 página</li>
               <li>WhatsApp + mapa</li>
@@ -121,7 +142,7 @@
           <div class="price featured">
             <div class="tag">Mais pedido</div>
             <h3>Site 5 páginas</h3>
-            <p class="value">R$ 1.990</p>
+            <p class="value">R$ 1.790</p>
             <p class="muted">até 5 páginas</p>
             <ul>
               <li>Home + Serviços + Sobre + Contato</li>
@@ -134,7 +155,7 @@
 
           <div class="price">
             <h3>Manutenção</h3>
-            <p class="value">R$ 197/mês</p>
+            <p class="value">R$ 179/mês</p>
             <p class="muted">2 alterações/mês</p>
             <ul>
               <li>Ajustes em conteúdo</li>
@@ -143,9 +164,20 @@
             </ul>
             <a class="button" href="#contato">Falar com a gente</a>
           </div>
+          <div class="price">
+            <h3>Instagram mensal</h3>
+            <p class="value">R$ 490/mês</p>
+            <p class="muted">conteúdo + perfil</p>
+            <ul>
+              <li>6 posts (feed)</li>
+              <li>12 stories (templates)</li>
+              <li>1 revisão de bio + destaques</li>
+            </ul>
+            <a class="button" href="#contato">Quero esse pacote</a>
+          </div>
         </div>
 
-        <p class="note">Hospedagem e domínio: normalmente ficam no nome do cliente (ou repasse mensal).</p>
+        <p class="note">Hospedagem e domínio: normalmente ficam no nome do cliente (ou repasse mensal). Tudo transparente.</p>
       </div>
     </section>
 
@@ -194,7 +226,8 @@
         </details>
         <details>
           <summary>Vocês fazem domínio e hospedagem?</summary>
-          <p>Sim. Recomendamos deixar no nome do cliente, mas podemos administrar e repassar mensalmente.</p>
+          <p>Sim. Recomendamos deixar <strong>no nome do cliente</strong> (mais seguro). A gente configura e entrega. Se preferir, podemos administrar e repassar mensalmente.</p>
+          <p class="muted">Opções comuns: Hostinger, Vercel/Pages (grátis) ou Cloudflare Pages (grátis), dependendo do tipo de site.</p>
         </details>
         <details>
           <summary>Em quanto tempo fica pronto?</summary>
