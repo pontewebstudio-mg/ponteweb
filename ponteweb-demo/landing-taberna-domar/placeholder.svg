@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#22c55e" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#0b1220" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g)"/>
+  <g fill="#e5e7eb" fill-opacity="0.9" font-family="Arial, sans-serif">
+    <text x="70" y="120" font-size="44" font-weight="700">Imagem demo</text>
+    <text x="70" y="170" font-size="22" opacity="0.8">Substituir por fotos reais do cliente</text>
+  </g>
+  <g fill="none" stroke="#e5e7eb" stroke-opacity="0.25">
+    <rect x="70" y="230" width="1060" height="500" rx="26"/>
+    <path d="M70 640 L350 420 L520 560 L740 330 L1130 730"/>
+    <circle cx="260" cy="360" r="46"/>
+  </g>
+</svg>

@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Taberna d’Omar — Cardápio, Horários e Reservas</title>
+  <meta name="description" content="Taberna d’Omar: cardápio online, horários de atendimento e reservas/pedidos pelo WhatsApp." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+  <header class="top">
+    <div class="container">
+      <div class="brand">
+        <div class="mark">TABERNA</div>
+        <div>
+          <strong>Taberna d’Omar</strong>
+          <div class="muted">Cardápio, horários e reservas pelo WhatsApp</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#sao-joao">São João del Rei</a>
+        <a href="#tiradentes">Tiradentes</a>
+        <a href="#cardapio">Cardápio</a>
+        <details class="viewMenu">
+          <summary class="pill" aria-label="Modo de visualização">Modo ▾</summary>
+          <div class="viewModes" aria-label="Modo de visualização (simulação)">
+            <button type="button" class="pill" onclick="setView('auto')">Auto</button>
+            <button type="button" class="pill" onclick="setView('mobile')">Celular</button>
+            <button type="button" class="pill" onclick="setView('desktop')">PC</button>
+            <button type="button" class="pill" onclick="setView('tv')">TV</button>
+          </div>
+        </details>
+        <a class="pillLink" href="https://www.instagram.com/tabernad.omar/" target="_blank" rel="noopener">Instagram</a>
+        <button class="iconBtn" type="button" onclick="toggleTheme()" aria-label="Alternar tema" title="Alternar tema">🌓</button>
+        <a class="cta" href="https://wa.me/553288822014?text=Oi!%20Vim%20pelo%20Google%20e%20quero%20fazer%20uma%20reserva%20na%20unidade%20de%20S%C3%A3o%20Jo%C3%A3o%20del%20Rei." target="_blank" rel="noopener">Reservar — São João</a>
+        <a class="cta ctaAlt" href="https://wa.me/5532991173382?text=Oi!%20Vim%20pelo%20Google%20e%20quero%20fazer%20uma%20reserva%20na%20unidade%20de%20Tiradentes." target="_blank" rel="noopener">Reservar — Tiradentes</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero">
+      <div class="container grid">
+        <div>
+          <h1>Taberna d’Omar</h1>
+          <p class="lead">Duas unidades: São João del Rei e Tiradentes. Cardápio online, horários e contato direto.</p>
+          <div class="actions">
+            <a class="btn primary" href="#sao-joao">Ver unidade São João</a>
+            <a class="btn secondary" href="#tiradentes">Ver unidade Tiradentes</a>
+          </div>
+
+          <!-- modos de visualização movidos para o cabeçalho -->
+
+          <div class="chips">
+            <span>📍 São João del Rei — MG</span>
+            <span>📍 Tiradentes — MG</span>
+            <span>📋 Cardápio online</span>
+          </div>
+        </div>
+        <div class="heroImg" aria-label="Carrossel de imagens (exemplo)">
+          <div class="carousel" aria-roledescription="carrossel">
+            <div class="carouselTrack" id="carouselTrack">
+              <img src="assets/sao-joao/03.jpg" alt="Taberna d’Omar — São João del Rei (interior)" />
+              <img src="assets/sao-joao/01.jpg" alt="Taberna d’Omar — São João del Rei (sanduíche)" loading="lazy" />
+              <img src="assets/sao-joao/04.jpg" alt="Taberna d’Omar — São João del Rei (hambúrguer)" loading="lazy" />
+              <img src="assets/tiradentes/06.jpg" alt="Taberna d’Omar — Tiradentes (fachada/placa)" loading="lazy" />
+              <img src="assets/tiradentes/03.jpg" alt="Taberna d’Omar — Tiradentes (hambúrgueres)" loading="lazy" />
+              <img src="assets/tiradentes/02.jpg" alt="Taberna d’Omar — Tiradentes (tábua/pães)" loading="lazy" />
+            </div>
+            <button class="carBtn prev" type="button" onclick="carouselPrev()" aria-label="Imagem anterior">‹</button>
+            <button class="carBtn next" type="button" onclick="carouselNext()" aria-label="Próxima imagem">›</button>
+            <div class="dots" id="carouselDots" aria-label="Indicadores"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Unidades">
+      <div class="container">
+        <h2>Unidades</h2>
+        <p class="muted">Escolha a unidade para ver horário, mapa e contato.</p>
+
+        <div class="locations">
+          <article id="sao-joao" class="locCard">
+            <header class="locHead">
+              <h3>São João del Rei</h3>
+              <a class="pillLink" href="https://wa.me/553288822014?text=Oi!%20Vim%20pelo%20Google%20e%20quero%20fazer%20uma%20reserva." target="_blank" rel="noopener">WhatsApp</a>
+            </header>
+            <div class="locBody">
+              <div class="locInfo">
+                <div><strong>Endereço</strong><br>R. Getúlio Vargas, 238 - Centro, São João del Rei - MG, 36300-086</div>
+                <div style="margin-top:10px"><strong>Horário</strong>
+                  <ul class="hours">
+                    <li><span>Seg</span><span>Fechado</span></li>
+                    <li><span>Ter</span><span>10:00–20:00</span></li>
+                    <li><span>Qua</span><span>10:00–23:00</span></li>
+                    <li><span>Qui</span><span>10:00–23:00</span></li>
+                    <li><span>Sex</span><span>10:00–23:00</span></li>
+                    <li><span>Sáb</span><span>09:00–23:00</span></li>
+                    <li><span>Dom</span><span>09:00–19:00</span></li>
+                  </ul>
+                </div>
+                <div class="locActions">
+                  <a class="btn primary" href="https://wa.me/553288822014?text=Oi!%20Quero%20ver%20o%20card%C3%A1pio%20e%20fazer%20uma%20reserva." target="_blank" rel="noopener">Reservar/Pedir</a>
+                  <a class="btn" href="https://www.google.com/maps?q=R.%20Get%C3%BAlio%20Vargas%2C%20238%20-%20Centro%2C%20S%C3%A3o%20Jo%C3%A3o%20del%20Rei%20-%20MG%2C%2036300-086" target="_blank" rel="noopener">Abrir no Maps</a>
+                  <a class="btn" href="tel:+553288822014">Ligar</a>
+                </div>
+              </div>
+              <div class="locMap">
+                <iframe title="Mapa — Taberna d’Omar (São João del Rei)" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                  src="https://www.google.com/maps?q=R.%20Get%C3%BAlio%20Vargas%2C%20238%20-%20Centro%2C%20S%C3%A3o%20Jo%C3%A3o%20del%20Rei%20-%20MG%2C%2036300-086&output=embed"></iframe>
+              </div>
+            </div>
+            <div class="gallery" aria-label="Fotos — São João del Rei">
+              <div class="muted">Fotos (São João) — vou inserir as imagens que você mandar na pasta <code>assets/sao-joao/</code>.</div>
+              <div class="photoGrid" id="photos-sao-joao" aria-label="Galeria de fotos (São João)"></div>
+            </div>
+          </article>
+
+          <article id="tiradentes" class="locCard">
+            <header class="locHead">
+              <h3>Tiradentes</h3>
+              <a class="pillLink" href="https://wa.me/5532991173382?text=Oi!%20Vim%20pelo%20Google%20e%20quero%20informa%C3%A7%C3%B5es." target="_blank" rel="noopener">WhatsApp</a>
+            </header>
+            <div class="locBody">
+              <div class="locInfo">
+                <div><strong>Endereço</strong><br>R. Direita, 187 - Centro, Tiradentes - MG, 36325-000</div>
+                <div style="margin-top:10px"><strong>Horário</strong>
+                  <ul class="hours">
+                    <li><span>Seg</span><span>09:00–20:00</span></li>
+                    <li><span>Ter</span><span>Fechado</span></li>
+                    <li><span>Qua</span><span>Fechado</span></li>
+                    <li><span>Qui</span><span>09:00–20:00</span></li>
+                    <li><span>Sex</span><span>09:00–22:00</span></li>
+                    <li><span>Sáb</span><span>09:00–22:00</span></li>
+                    <li><span>Dom</span><span>09:00–20:00</span></li>
+                  </ul>
+                </div>
+                <div class="locActions">
+                  <a class="btn primary" href="https://wa.me/5532991173382?text=Oi!%20Quero%20ver%20o%20card%C3%A1pio%20e%20fazer%20uma%20reserva." target="_blank" rel="noopener">Reservar/Pedir</a>
+                  <a class="btn" href="https://www.google.com/maps?q=R.%20Direita%2C%20187%20-%20Centro%2C%20Tiradentes%20-%20MG%2C%2036325-000" target="_blank" rel="noopener">Abrir no Maps</a>
+                  <a class="btn" href="tel:+5532991173382">Ligar</a>
+                </div>
+              </div>
+              <div class="locMap">
+                <iframe title="Mapa — Taberna d’Omar (Tiradentes)" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                  src="https://www.google.com/maps?q=R.%20Direita%2C%20187%20-%20Centro%2C%20Tiradentes%20-%20MG%2C%2036325-000&output=embed"></iframe>
+              </div>
+            </div>
+            <div class="gallery" aria-label="Fotos — Tiradentes">
+              <div class="muted">Fotos (Tiradentes) — vou inserir as imagens que você mandar na pasta <code>assets/tiradentes/</code>.</div>
+              <div class="photoGrid" id="photos-tiradentes" aria-label="Galeria de fotos (Tiradentes)"></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="cardapio" class="section">
+      <div class="container">
+        <h2>Cardápio</h2>
+        <p>Confira o cardápio e mais informações aqui:</p>
+        <div class="contact" style="margin-top: 14px;">
+          <a class="btn primary" href="https://linktr.ee/tabernadomar" target="_blank" rel="noopener">Abrir cardápio online</a>
+          <a class="btn" href="https://www.instagram.com/tabernad.omar/" target="_blank" rel="noopener">Ver Instagram</a>
+          <a class="btn" href="https://wa.me/553288822014?text=Oi!%20Vim%20pela%20p%C3%A1gina%20da%20Taberna%20d%E2%80%99Omar%20e%20quero%20ver%20o%20card%C3%A1pio." target="_blank" rel="noopener">Pedir no WhatsApp</a>
+        </div>
+        <p class="muted" style="margin-top: 10px;">Se vocês tiverem o cardápio em PDF, dá pra colocar um botão direto aqui também.</p>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container split">
+        <div>
+          <h2>Cardápio</h2>
+          <p class="muted">Atalho direto para o cardápio online.</p>
+        </div>
+        <div class="box">
+          <h3>Cardápio online</h3>
+          <p>Abra o Linktree e escolha a unidade.</p>
+          <a class="btn primary" href="https://linktr.ee/tabernadomar" target="_blank" rel="noopener">Abrir cardápio</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Avaliações">
+      <div class="container">
+        <h2>Avaliações</h2>
+        <p class="muted">Destaques mais citados pelos clientes (Google). Nota geral: <strong>4,7</strong>.</p>
+        <div class="reviewCarousel" aria-roledescription="carrossel">
+          <div class="reviewTrack" id="reviewTrack">
+            <div class="reviewSlide">
+              <div class="review">
+                <div class="stars">★★★★★</div>
+                <p><strong>Atmosfera acolhedora</strong> e decoração bonita.</p>
+                <span class="muted">— destaque recorrente</span>
+              </div>
+            </div>
+            <div class="reviewSlide">
+              <div class="review">
+                <div class="stars">★★★★★</div>
+                <p><strong>Atendimento</strong> elogiado (serviço espetacular).</p>
+                <span class="muted">— destaque recorrente</span>
+              </div>
+            </div>
+            <div class="reviewSlide">
+              <div class="review">
+                <div class="stars">★★★★★</div>
+                <p><strong>Sanduíches e cafés</strong> são os itens mais recomendados.</p>
+                <span class="muted">— destaque recorrente</span>
+              </div>
+            </div>
+          </div>
+          <button class="carBtn prev" type="button" onclick="reviewPrev()" aria-label="Avaliação anterior">‹</button>
+          <button class="carBtn next" type="button" onclick="reviewNext()" aria-label="Próxima avaliação">›</button>
+          <div class="dots" id="reviewDots" aria-label="Indicadores"></div>
+        </div>
+        <div style="margin-top:12px" class="contact">
+          <a class="btn" href="https://www.google.com/search?q=taberna+do+omar+avaliacoes" target="_blank" rel="noopener">Ver avaliações no Google</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Ambiente">
+      <div class="container">
+        <h2>Fotos do ambiente</h2>
+        <p class="muted">Alguns registros das duas unidades.</p>
+        <div class="photoGrid" aria-label="Fotos do ambiente (seleção)">
+          <a href="assets/sao-joao/03.jpg" target="_blank" rel="noopener"><img src="assets/sao-joao/03.jpg" alt="Ambiente — São João del Rei" loading="lazy" /></a>
+          <a href="assets/sao-joao/02.jpg" target="_blank" rel="noopener"><img src="assets/sao-joao/02.jpg" alt="Vitrine — São João del Rei" loading="lazy" /></a>
+          <a href="assets/tiradentes/06.jpg" target="_blank" rel="noopener"><img src="assets/tiradentes/06.jpg" alt="Fachada — Tiradentes" loading="lazy" /></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <h2>Contato</h2>
+        <div class="contact">
+          <a class="btn primary" href="https://wa.me/553288822014?text=Oi!%20Vim%20pela%20p%C3%A1gina%20da%20Taberna%20d%E2%80%99Omar%20e%20quero%20fazer%20uma%20reserva%2Fpedido." target="_blank" rel="noopener">Chamar no WhatsApp</a>
+          <a class="btn" href="https://www.instagram.com/tabernad.omar/" target="_blank" rel="noopener">Instagram</a>
+          <a class="btn" href="tel:+553288822014">Ligar</a>
+        </div>
+        <p class="muted">Informações e links atualizados: WhatsApp, mapas, horários, cardápio e Instagram.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© <span id="year"></span> Taberna d’Omar</div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear()</script>
+  <script src="script.js"></script>
+</body>
+</html>
