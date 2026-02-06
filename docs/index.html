@@ -375,7 +375,7 @@
           </div>
         </div>
 
-        <form class="contactForm" action="https://formspree.io/f/xqedznak" method="POST">
+        <form class="contactForm" action="https://formspree.io/f/xqedznak?redirect=https%3A%2F%2Fpontewebstudio.com.br%2Fthanks%2F" method="POST">
           <div class="row">
             <label>
               <span>Nome</span>
@@ -414,6 +414,8 @@
           </label>
 
           <input type="hidden" name="_subject" value="Novo lead — PonteWeb Studio" />
+          <!-- Redirects: Formspree sometimes uses _next (legacy) or _redirect (new). Keep both. -->
+          <input type="hidden" name="_next" value="https://pontewebstudio.com.br/thanks/" />
           <input type="hidden" name="_redirect" value="https://pontewebstudio.com.br/thanks/" />
           <button class="btn primary full" type="submit">Solicitar orçamento</button>
           <p class="fine">Resposta em até 24 horas úteis.</p>
