@@ -33,6 +33,21 @@ function $(id) {
 const form = $("orderForm");
 const statusEl = $("status");
 
+// Preselect plan from URL (?plan=Starter|Pro|Prime)
+try {
+  const params = new URLSearchParams(window.location.search);
+  const planParam = (params.get("plan") || "").trim();
+  if (planParam) {
+    const planSelect = form.querySelector('select[name="plan"]');
+    const allowed = ["Starter", "Pro", "Prime"]; 
+    if (planSelect && allowed.includes(planParam)) {
+      planSelect.value = planParam;
+    }
+  }
+} catch (e) {
+  // ignore
+}
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   statusEl.textContent = "";
