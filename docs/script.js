@@ -51,13 +51,13 @@ function closeMenu(){
 // Footer year
 $('#year').textContent = new Date().getFullYear();
 
-// Portfolio pager (always show 6 cards; move window by 3)
-(function initPortfolioPager(){
+// Portfolio horizontal carousel: always show 6 (desktop) and scroll by 1 card on click
+(function initPortfolioCarousel(){
   const grid = document.querySelector('.demoGrid');
   const prev = document.querySelector('#demoPrev');
   const next = document.querySelector('#demoNext');
   const range = document.querySelector('#demoPagerRange');
-  if (!grid || !prev || !next || !range) return;
+  if (!grid || !prev || !next) return;
 
   const cards = Array.from(grid.querySelectorAll('.demoCard'));
   if (cards.length <= 6) {
@@ -65,34 +65,42 @@ $('#year').textContent = new Date().getFullYear();
     return;
   }
 
-  const pageSize = 6;
-  const step = 1; // carousel style: move 1 card per click
-  let start = 0;
-
-  const render = () => {
-    cards.forEach((c) => c.classList.add('isHidden'));
-
-    for (let i = 0; i < pageSize; i++) {
-      const idx = (start + i) % cards.length;
-      cards[idx].classList.remove('isHidden');
+  const getStep = () => {
+    // one card width + gap
+    const first = cards[0];
+    const second = cards[1];
+    if (!first) return 320;
+    const r1 = first.getBoundingClientRect();
+    if (second) {
+      const r2 = second.getBoundingClientRect();
+      return Math.max(40, Math.round(r2.left - r1.left));
     }
+    return Math.round(r1.width + 16);
+  };
 
-    const end = Math.min(start + pageSize, cards.length);
+  const updateRange = () => {
+    if (!range) return;
+    // Estimate which card is the first visible
+    const step = getStep();
+    const start = Math.round(grid.scrollLeft / step);
+    const visible = Math.min(6, cards.length);
+    const end = Math.min(start + visible, cards.length);
     range.textContent = `${start + 1}–${end} de ${cards.length}`;
   };
 
   prev.addEventListener('click', () => {
-    start = (start - step) % cards.length;
-    if (start < 0) start += cards.length;
-    render();
+    grid.scrollBy({ left: -getStep(), behavior: 'smooth' });
   });
 
   next.addEventListener('click', () => {
-    start = (start + step) % cards.length;
-    render();
+    grid.scrollBy({ left: getStep(), behavior: 'smooth' });
   });
 
-  render();
+  grid.addEventListener('scroll', () => {
+    window.requestAnimationFrame(updateRange);
+  }, { passive: true });
+
+  updateRange();
 })();
 
 // Form submit: send via AJAX to Formspree and redirect to our own thank-you page.
