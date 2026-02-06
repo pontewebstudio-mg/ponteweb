@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PonteWeb Studio — Sites e Landing Pages</title>
+  <meta name="description" content="PonteWeb Studio: criação de landing pages e sites institucionais premium para São João del Rei e região (e remoto). Mobile-first, SEO básico, WhatsApp e suporte." />
+  <meta name="google-site-verification" content="EheB6xHLhgPPr3_g38DC-KqW-aFuz7kboykTsBTuQEQ" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="assets/logo-ponteweb.svg" type="image/svg+xml" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:title" content="PonteWeb Studio — Sites e Landing Pages" />
+  <meta property="og:description" content="Agência boutique: landing pages e sites institucionais com estética premium, performance e SEO básico. São João del Rei + região e remoto." />
+  <meta property="og:url" content="https://pontewebstudio.com.br/" />
+  <meta property="og:image" content="https://pontewebstudio.com.br/assets/cover.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PonteWeb Studio — Sites e Landing Pages" />
+  <meta name="twitter:description" content="Landing pages e sites institucionais premium, leves e com SEO básico." />
+  <meta name="twitter:image" content="https://pontewebstudio.com.br/assets/cover.jpg" />
+
+  <link rel="canonical" href="https://pontewebstudio.com.br/" />
+</head>
+<body>
+  <!-- Floating WhatsApp -->
+  <a class="waFloat" href="https://wa.me/5532984042502?text=Oi!%20Quero%20um%20or%C3%A7amento%20de%20site%2Flanding%20(PonteWeb%20Studio)." target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">
+    <span class="waIcon" aria-hidden="true">✆</span>
+  </a>
+
+  <!-- Background blobs -->
+  <div class="bg" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+  </div>
+
+  <!-- NAV -->
+  <header class="nav" id="nav">
+    <div class="container navInner">
+      <a class="brand" href="#inicio" aria-label="PonteWeb Studio">
+        <img class="logo" src="assets/logo-ponteweb.svg" alt="PonteWeb Studio" />
+        <span class="brandText">Ponte<span>Web</span> Studio</span>
+      </a>
+
+      <nav class="menu" aria-label="Menu principal">
+        <a href="#inicio">Início</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#planos">Planos</a>
+        <a href="#processo">Processo</a>
+        <a href="#portfolio">Portfólio</a>
+        <a href="#contato" class="pill">Fazer orçamento</a>
+      </nav>
+
+      <button class="menuBtn" type="button" onclick="toggleMenu()" aria-label="Abrir menu">
+        <span id="menuIcon">☰</span>
+      </button>
+    </div>
+
+    <div class="menuMobile" id="menuMobile" hidden>
+      <div class="container">
+        <a href="#inicio" onclick="closeMenu()">Início</a>
+        <a href="#servicos" onclick="closeMenu()">Serviços</a>
+        <a href="#planos" onclick="closeMenu()">Planos</a>
+        <a href="#processo" onclick="closeMenu()">Processo</a>
+        <a href="#portfolio" onclick="closeMenu()">Portfólio</a>
+        <a href="#contato" onclick="closeMenu()" class="cta">Fazer orçamento</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main id="inicio" class="hero">
+    <div class="container heroGrid">
+      <div class="heroCopy">
+        <div class="badge">
+          <span class="dot"></span>
+          Agência digital especializada
+        </div>
+
+        <h1>
+          A ponte entre seu negócio e o
+          <span class="grad">futuro digital</span>
+        </h1>
+
+        <p class="lead">
+          Somos uma agência boutique: <strong>landing pages</strong> e <strong>sites institucionais</strong> com estética premium,
+          performance e SEO básico — feitos pra posicionar sua marca e transformar visitas em conversas.
+          Atendemos <strong>São João del Rei + região</strong> e também <strong>remoto</strong>.
+        </p>
+
+        <div class="heroActions">
+          <a class="btn primary" href="#contato">Iniciar projeto</a>
+          <a class="btn ghost" href="#servicos">Ver soluções</a>
+        </div>
+
+        <div class="ticks">
+          <span>✓ Entrega rápida</span>
+          <span>✓ Suporte premium</span>
+          <span>✓ Performance (site leve)</span>
+        </div>
+      </div>
+
+      <div class="heroVisual" aria-label="Prévia">
+        <div class="glow"></div>
+        <div class="frame">
+          <div class="browserTop">
+            <span class="c red"></span><span class="c yellow"></span><span class="c green"></span>
+            <div class="addr">pontewebstudio.com.br</div>
+          </div>
+
+          <div class="mock">
+            <div class="mockHero"></div>
+            <div class="mockGrid">
+              <div></div><div></div><div></div>
+            </div>
+            <div class="mockScore">
+              <div class="scoreDot"></div>
+              <div>
+                <div class="scoreLabel">Performance score</div>
+                <div class="scoreValue">99/100</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="floatBadge" aria-hidden="true">
+            <div class="floatIcon">↗</div>
+            <div>
+              <div class="floatLabel">Conversão</div>
+              <div class="floatValue">+240%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- SERVICES -->
+  <section id="servicos" class="section sectionAlt">
+    <div class="container">
+      <div class="sectionHead">
+        <h2>Nossas soluções</h2>
+        <p>Sites e páginas que parecem premium, carregam rápido e deixam o cliente com vontade de chamar no WhatsApp.</p>
+      </div>
+
+      <div class="serviceGrid">
+        <article class="serviceCard" data-accent="cyan">
+          <div class="serviceIcon">🌐</div>
+          <h3>Landing pages</h3>
+          <p>Página única focada em conversão: WhatsApp, mapa, horários, cardápio/serviços e prova social.</p>
+          <a class="link" href="#contato">Saiba mais →</a>
+        </article>
+
+        <article class="serviceCard" data-accent="purple">
+          <div class="serviceIcon">🏢</div>
+          <h3>Site institucional</h3>
+          <p>Para posicionamento e credibilidade: Home, Serviços, Sobre, Contato e páginas essenciais.</p>
+          <a class="link" href="#contato">Saiba mais →</a>
+        </article>
+
+        <article class="serviceCard" data-accent="teal">
+          <div class="serviceIcon">🔎</div>
+          <h3>Otimização / SEO básico</h3>
+          <p>Metatags, headings, performance e boas práticas pra ser encontrado e passar confiança.</p>
+          <a class="link" href="#contato">Saiba mais →</a>
+        </article>
+
+        <article class="serviceCard" data-accent="amber">
+          <div class="serviceIcon">🛠</div>
+          <h3>Manutenção / suporte</h3>
+          <p>Atualizações e ajustes contínuos: banners, promoções, trocas de fotos/textos e melhorias leves.</p>
+          <a class="link" href="#contato">Saiba mais →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY + CHART -->
+  <section id="sobre" class="section">
+    <div class="container">
+      <div class="why">
+        <div class="whyCopy">
+          <h2>Por que escolher a <span class="accent">PonteWeb Studio</span>?</h2>
+          <div class="timeline">
+            <div class="tlItem">
+              <span class="tlDot" data-dot="cyan"></span>
+              <div>
+                <h4>Foco em conversão</h4>
+                <p>Copy enxuta, CTA claro e estrutura pensada pra gerar mensagem, reserva e orçamento.</p>
+              </div>
+            </div>
+            <div class="tlItem">
+              <span class="tlDot" data-dot="purple"></span>
+              <div>
+                <h4>Código leve</h4>
+                <p>Sem construtores pesados: site rápido no celular e com manutenção simples.</p>
+              </div>
+            </div>
+            <div class="tlItem">
+              <span class="tlDot" data-dot="teal"></span>
+              <div>
+                <h4>Suporte real</h4>
+                <p>Você não fica no escuro. Ajustes e orientação pós-publicação (quando contratado).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chartCard" id="chart">
+          <div class="chartTop">
+            <div>
+              <div class="chartLabel">Crescimento (exemplo)</div>
+              <div class="chartValue"><span>+145%</span></div>
+            </div>
+            <div class="live">
+              <span class="liveDot"></span>
+              <span>Live data</span>
+            </div>
+          </div>
+
+          <div class="bars" aria-label="Gráfico animado">
+            <div class="bar" style="--h:35"><span>JAN</span></div>
+            <div class="bar" style="--h:55"><span>FEV</span></div>
+            <div class="bar" style="--h:45"><span>MAR</span></div>
+            <div class="bar" style="--h:70"><span>ABR</span></div>
+            <div class="bar" style="--h:60"><span>MAI</span></div>
+            <div class="bar" style="--h:85"><span>JUN</span></div>
+            <div class="bar" style="--h:95"><span>JUL</span></div>
+            <div class="bar" style="--h:75"><span>AGO</span></div>
+            <div class="bar" style="--h:100"><span>SET</span></div>
+          </div>
+
+          <p class="chartNote">*Valores ilustrativos — a melhoria real depende do seu segmento, oferta e consistência.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="planos" class="section">
+    <div class="container">
+      <div class="sectionHead center">
+        <h2>Planos</h2>
+        <p>Escolha um pacote base ou peça uma proposta sob medida.</p>
+      </div>
+
+      <div class="plans">
+        <article class="plan">
+          <div class="planTop">
+            <h3>Publicar no seu domínio</h3>
+            <div class="price">R$ 500</div>
+          </div>
+          <p class="muted">Para colocar a landing no ar no seu domínio com ajustes finais.</p>
+          <ul>
+            <li>Publicação + configuração do DNS (quando necessário)</li>
+            <li>Ajustes finais de texto/fotos/botões</li>
+            <li>WhatsApp + Maps + SEO básico</li>
+          </ul>
+          <a class="btn" href="#contato">Quero esse</a>
+        </article>
+
+        <article class="plan featured">
+          <div class="tag">Recomendado</div>
+          <div class="planTop">
+            <h3>+ Analytics & Search Console</h3>
+            <div class="price">R$ 700</div>
+          </div>
+          <p class="muted">Para acompanhar resultados e ter suporte após publicar.</p>
+          <ul>
+            <li>Tudo do plano de R$ 500</li>
+            <li>Google Analytics + Search Console</li>
+            <li>30 dias de suporte (pequenos ajustes)</li>
+          </ul>
+          <a class="btn primary" href="#contato">Quero esse</a>
+        </article>
+
+        <article class="plan">
+          <div class="planTop">
+            <h3>Sob medida</h3>
+            <div class="price">A combinar</div>
+          </div>
+          <p class="muted">Site institucional completo, múltiplas páginas, SEO mais forte, integrações, etc.</p>
+          <ul>
+            <li>Brief + proposta com prazo</li>
+            <li>Estrutura de páginas e conteúdo</li>
+            <li>Manutenção opcional</li>
+          </ul>
+          <a class="btn" href="#contato">Pedir proposta</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="processo" class="section sectionAlt">
+    <div class="container">
+      <div class="sectionHead center">
+        <h2>Como trabalhamos</h2>
+        <p>Processo claro pra você aprovar e o site sair do jeito certo, sem enrolação.</p>
+      </div>
+
+      <div class="steps">
+        <article class="step">
+          <div class="stepNo">01</div>
+          <h3>Imersão & estratégia</h3>
+          <p>Entendemos seu público, oferta e objetivo (mensagem, reserva, orçamento).</p>
+        </article>
+        <article class="step">
+          <div class="stepNo">02</div>
+          <h3>Design & UX</h3>
+          <p>Layout premium e mobile-first, com hierarquia visual e CTA claro.</p>
+        </article>
+        <article class="step">
+          <div class="stepNo">03</div>
+          <h3>Desenvolvimento</h3>
+          <p>Código leve, rápido e com SEO básico aplicado desde o início.</p>
+        </article>
+        <article class="step">
+          <div class="stepNo">04</div>
+          <h3>Publicação</h3>
+          <p>Colocamos no ar no seu domínio e validamos tudo no celular.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio" class="section">
+    <div class="container">
+      <div class="sectionHead">
+        <h2>Portfólio (prévia ao vivo)</h2>
+        <p>Dois exemplos publicados. O seu vai no seu domínio.</p>
+      </div>
+
+      <div class="portfolio">
+        <article class="portCard">
+          <h3>Taberna d’Omar — Landing (premium)</h3>
+          <p>Unidades, mapas, horários completos, CTAs por cidade, fotos e avaliações.</p>
+          <a class="btn" href="/demos/restaurante-premium/" target="_blank" rel="noopener">Abrir</a>
+        </article>
+        <article class="portCard">
+          <h3>Via Japa — Landing (premium)</h3>
+          <p>Tema japonês, carrossel no hero, galeria, avaliações, CTAs de reserva e delivery.</p>
+          <a class="btn" href="/demos/japones-premium/" target="_blank" rel="noopener">Abrir</a>
+        </article>
+        <article class="portCard cta">
+          <h3>Quer uma prévia do seu?</h3>
+          <p>Me diga o segmento e o objetivo. Eu monto uma V1 e você aprova.</p>
+          <a class="btn primary" href="#contato">Pedir orçamento</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contato" class="section sectionAlt">
+    <div class="container">
+      <div class="sectionHead center">
+        <h2>Vamos construir algo incrível?</h2>
+        <p>Preencha o formulário abaixo e entraremos em contato em até 24 horas.</p>
+      </div>
+
+      <div class="contact">
+        <div class="contactInfo">
+          <h3>PonteWeb Studio</h3>
+          <p class="muted">Sites e landing pages premium. São João del Rei + região, e remoto.</p>
+
+          <div class="infoList">
+            <div><span class="k">WhatsApp</span><span class="v"><a target="_blank" rel="noopener" href="https://wa.me/5532984042502">(32) 98404-2502</a></span></div>
+            <div><span class="k">Atendimento</span><span class="v">SJDR + região • Remoto</span></div>
+            <div><span class="k">Serviços</span><span class="v">Landing • Site • SEO • Suporte</span></div>
+          </div>
+
+          <div class="noteBox">
+            <strong>Dica:</strong> se você já tem domínio, eu configuro o DNS e publico no seu endereço.
+          </div>
+        </div>
+
+        <form class="contactForm" action="https://formspree.io/f/xqedznak" method="POST">
+          <div class="row">
+            <label>
+              <span>Nome</span>
+              <input required name="name" type="text" placeholder="Seu nome" autocomplete="name" />
+            </label>
+            <label>
+              <span>WhatsApp</span>
+              <input required name="phone" type="tel" placeholder="(32) 9xxxx-xxxx" autocomplete="tel" />
+            </label>
+          </div>
+
+          <label>
+            <span>Email</span>
+            <input required name="email" type="email" placeholder="seu@email.com" autocomplete="email" />
+          </label>
+
+          <label>
+            <span>Cidade</span>
+            <input name="city" type="text" placeholder="São João del Rei" autocomplete="address-level2" />
+          </label>
+
+          <label>
+            <span>O que você precisa?</span>
+            <select name="need">
+              <option value="Landing page">Landing page</option>
+              <option value="Site institucional">Site institucional</option>
+              <option value="Landing + site">Landing + site</option>
+              <option value="SEO básico">SEO básico</option>
+              <option value="Manutenção/suporte">Manutenção/suporte</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Detalhes</span>
+            <textarea name="details" rows="4" placeholder="Conte um pouco do seu negócio e objetivo (mensagens, reservas, orçamento)..."></textarea>
+          </label>
+
+          <input type="hidden" name="_subject" value="Novo lead — PonteWeb Studio" />
+          <input type="hidden" name="_redirect" value="https://pontewebstudio.com.br/thanks/" />
+          <button class="btn primary full" type="submit">Solicitar orçamento</button>
+          <p class="fine">Resposta em até 24 horas úteis.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footInner">
+      <p>© <span id="year"></span> PonteWeb Studio. Todos os direitos reservados.</p>
+      <div class="footLinks">
+        <a href="#inicio">Topo</a>
+        <a href="#contato">Contato</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <!-- TODO: Replace Formspree endpoint: https://formspree.io/f/REPLACE_ME -->
+</body>
+</html>
