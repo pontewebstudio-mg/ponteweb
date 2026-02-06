@@ -113,7 +113,13 @@ async function main() {
   const from = get('from');
   const to = get('to');
   const subject = get('subject') || '(sem assunto)';
-  const text = get('text') || '';
+  let text = get('text') || '';
+
+  // Allow passing newlines through CLI as literal "\\n" sequences (Windows/cmd-friendly).
+  // This keeps dispatcher output unchanged (it already contains real newlines).
+  if (text.includes('\\n')) {
+    text = text.replace(/\\r\\n/g, '\n').replace(/\\n/g, '\n');
+  }
   const attach = get('attach');
   const attachName = get('attach-name');
   const attachType = get('attach-type');
