@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dr. Ricardo Alencar — Medicina Integrativa (Demo)</title>
+  <meta name="description" content="Demo de landing page premium para clínica médica: hero forte, especialidades, depoimentos e CTA de agendamento." />
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'Segoe UI', 'Roboto', 'Arial'],
+            serif: ['Playfair Display', 'ui-serif', 'Georgia'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* Back button (same pattern used in other demos) */
+    .pwBackToSite{
+      position:fixed;left:16px;top:16px;z-index:99999;
+      display:inline-flex;align-items:center;gap:10px;
+      padding:10px 12px;border-radius:999px;
+      background:rgba(10,12,20,.72);color:#fff;text-decoration:none;
+      border:1px solid rgba(255,255,255,.16);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 10px 26px rgba(0,0,0,.35);
+      font: 600 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .pwBackToSite:hover{ transform: translateY(-1px); }
+    .pwBackToSite:focus{ outline:2px solid rgba(245,158,11,.55); outline-offset:2px; }
+
+    .glass{ background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+  </style>
+</head>
+<body class="font-sans text-slate-700 bg-slate-50 antialiased">
+  <a class="pwBackToSite" href="/#portfolio" aria-label="Voltar para o site">← Voltar para o site</a>
+
+  <header id="top" class="fixed inset-x-0 top-0 z-50 transition-all duration-300">
+    <div id="nav" class="mx-auto max-w-6xl px-6 py-5">
+      <div class="flex items-center justify-between rounded-2xl px-4 py-3 glass">
+        <a href="#home" class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-slate-900 text-amber-400 rounded-tr-xl rounded-bl-xl flex items-center justify-center font-extrabold">DR</div>
+          <div class="leading-tight">
+            <div class="font-serif font-bold text-white text-lg">Dr. Ricardo Alencar</div>
+            <div class="text-xs uppercase tracking-[0.22em] text-white/70">Medicina Integrativa</div>
+          </div>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-white/85">
+          <a href="#sobre" class="hover:text-amber-300 transition-colors">Sobre</a>
+          <a href="#servicos" class="hover:text-amber-300 transition-colors">Especialidades</a>
+          <a href="#depoimentos" class="hover:text-amber-300 transition-colors">Depoimentos</a>
+          <a href="#contato" class="hover:text-amber-300 transition-colors">Contato</a>
+          <a href="#contato" class="inline-flex items-center justify-center px-5 py-2 rounded-full bg-amber-500 text-slate-900 hover:bg-amber-400 transition-colors">Agendar consulta</a>
+        </nav>
+
+        <button id="menuBtn" class="md:hidden text-white px-3 py-2 rounded-xl border border-white/15" type="button" aria-label="Abrir menu">
+          ☰
+        </button>
+      </div>
+
+      <div id="mobileMenu" class="md:hidden mt-3 rounded-2xl glass px-4 py-3 text-white/90 hidden">
+        <div class="grid gap-2 text-sm font-semibold">
+          <a href="#sobre" class="py-2 border-b border-white/10">Sobre</a>
+          <a href="#servicos" class="py-2 border-b border-white/10">Especialidades</a>
+          <a href="#depoimentos" class="py-2 border-b border-white/10">Depoimentos</a>
+          <a href="#contato" class="py-2">Contato</a>
+          <a href="#contato" class="mt-2 inline-flex items-center justify-center px-5 py-3 rounded-full bg-amber-500 text-slate-900">Agendar consulta</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="home" class="relative min-h-[720px] md:min-h-[780px] flex items-center">
+    <div class="absolute inset-0">
+      <img
+        src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=2400&auto=format&fit=crop"
+        alt="Clínica médica"
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/10"></div>
+    </div>
+
+    <div class="relative z-10 mx-auto max-w-6xl px-6 pt-28 pb-16 grid md:grid-cols-2 gap-12 items-center">
+      <div class="text-white space-y-6">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-amber-300 text-sm font-semibold">
+          <span class="inline-block w-2 h-2 rounded-full bg-amber-400"></span>
+          Eleito Médico do Ano — 2024
+        </div>
+
+        <h1 class="font-serif font-bold text-4xl md:text-6xl leading-tight">
+          Sua saúde merece<br />
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500">excelência absoluta</span>
+        </h1>
+
+        <p class="text-lg text-slate-200 leading-relaxed max-w-xl">
+          Ciência de ponta + atendimento humano para construir longevidade, performance e qualidade de vida.
+          (Demo demonstrativa — ideal para clínicas e consultórios premium.)
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 pt-2">
+          <a href="#contato" class="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 transition-colors">
+            Agendar avaliação <span aria-hidden="true">→</span>
+          </a>
+          <a href="#sobre" class="inline-flex items-center justify-center px-7 py-3 rounded-full border border-white/25 text-white font-semibold hover:bg-white/10 transition-colors">
+            Conheça a clínica
+          </a>
+        </div>
+
+        <div class="pt-6 grid grid-cols-3 gap-6 border-t border-white/10">
+          <div>
+            <div class="text-3xl font-extrabold">15+</div>
+            <div class="text-xs uppercase tracking-widest text-white/70">anos de exp.</div>
+          </div>
+          <div>
+            <div class="text-3xl font-extrabold">5k+</div>
+            <div class="text-xs uppercase tracking-widest text-white/70">pacientes</div>
+          </div>
+          <div>
+            <div class="text-3xl font-extrabold">100%</div>
+            <div class="text-xs uppercase tracking-widest text-white/70">satisfação</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hidden md:block relative">
+        <div class="absolute -inset-6 bg-amber-500/20 blur-3xl rounded-full"></div>
+        <img
+          src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=1600&auto=format&fit=crop"
+          alt="Médico"
+          class="relative w-full max-w-md mx-auto h-[560px] object-cover rounded-2xl border border-white/10 shadow-2xl"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre" class="py-24 bg-white">
+    <div class="mx-auto max-w-6xl px-6 grid md:grid-cols-2 gap-14 items-center">
+      <div class="relative">
+        <div class="absolute -top-8 -left-8 w-28 h-28 bg-amber-100 rounded-full"></div>
+        <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-slate-50 rounded-full"></div>
+        <img
+          src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=1600&auto=format&fit=crop"
+          alt="Consultório"
+          class="relative rounded-2xl shadow-xl w-full h-[480px] object-cover"
+        />
+        <div class="absolute -bottom-6 -right-6 bg-white p-5 rounded-xl shadow-lg border-l-4 border-amber-500 max-w-xs">
+          <p class="font-serif font-bold text-slate-900">“A medicina é a arte de cuidar do próximo com ciência e alma.”</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-amber-600 font-extrabold tracking-wider uppercase text-sm">Sobre o Doutor</div>
+        <h2 class="font-serif font-bold text-3xl md:text-4xl text-slate-900 mt-2">Dr. Ricardo Alencar</h2>
+        <div class="h-1 w-20 bg-amber-500 mt-4"></div>
+
+        <p class="mt-6 text-lg text-slate-700">
+          Formado pela USP, com especialização em Cardiologia e foco em Medicina do Estilo de Vida.
+          Uma abordagem integrativa para prevenção, performance e longevidade.
+        </p>
+        <p class="mt-4 text-slate-600 leading-relaxed">
+          Cada paciente é único. O método combina escuta ativa, tecnologia diagnóstica e um plano de ação claro —
+          para você sair da consulta sabendo exatamente os próximos passos.
+        </p>
+
+        <div class="mt-8 grid sm:grid-cols-2 gap-3 text-sm font-semibold">
+          <div class="flex items-center gap-2"><span class="text-amber-500">✓</span> Membro da SBC</div>
+          <div class="flex items-center gap-2"><span class="text-amber-500">✓</span> Foco em longevidade</div>
+          <div class="flex items-center gap-2"><span class="text-amber-500">✓</span> Check-up executivo</div>
+          <div class="flex items-center gap-2"><span class="text-amber-500">✓</span> Atendimento humanizado</div>
+        </div>
+
+        <a href="#contato" class="mt-10 inline-flex items-center justify-center px-7 py-3 rounded-full border-2 border-slate-900 text-slate-900 font-bold hover:bg-slate-50 transition-colors">
+          Ver currículo completo
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section id="servicos" class="py-24 bg-slate-50">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="text-center">
+        <div class="text-amber-600 font-extrabold tracking-wider uppercase text-sm">Áreas de atuação</div>
+        <h2 class="font-serif font-bold text-3xl md:text-4xl text-slate-900 mt-2">Excelência em cada detalhe</h2>
+        <div class="h-1 w-20 bg-amber-500 mt-4 mx-auto"></div>
+      </div>
+
+      <div class="mt-12 grid md:grid-cols-3 gap-7">
+        <article class="group bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-amber-200 transition-all">
+          <div class="w-14 h-14 rounded-full bg-amber-50 flex items-center justify-center text-amber-600 text-2xl">❤</div>
+          <h3 class="mt-5 font-serif font-bold text-xl text-slate-900 group-hover:text-amber-700 transition-colors">Cardiologia Preventiva</h3>
+          <p class="mt-3 text-slate-600 leading-relaxed">Check-ups avançados e acompanhamento para reduzir riscos e manter constância.</p>
+        </article>
+
+        <article class="group bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-amber-200 transition-all">
+          <div class="w-14 h-14 rounded-full bg-amber-50 flex items-center justify-center text-amber-600 text-2xl">⚡</div>
+          <h3 class="mt-5 font-serif font-bold text-xl text-slate-900 group-hover:text-amber-700 transition-colors">Medicina do Estilo de Vida</h3>
+          <p class="mt-3 text-slate-600 leading-relaxed">Nutrição, sono e estresse com estratégia prática — sem papo furado.</p>
+        </article>
+
+        <article class="group bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-amber-200 transition-all">
+          <div class="w-14 h-14 rounded-full bg-amber-50 flex items-center justify-center text-amber-600 text-2xl">✓</div>
+          <h3 class="mt-5 font-serif font-bold text-xl text-slate-900 group-hover:text-amber-700 transition-colors">Check-up Executivo</h3>
+          <p class="mt-3 text-slate-600 leading-relaxed">Bateria completa em um único dia — perfeito para agenda corrida.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS -->
+  <section id="depoimentos" class="py-24 bg-slate-950 text-white relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-12 left-12 w-64 h-64 bg-amber-500 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-12 right-12 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="relative z-10 mx-auto max-w-6xl px-6">
+      <div class="grid md:grid-cols-3 gap-10 items-start">
+        <div class="md:col-span-1">
+          <div class="text-amber-400 font-extrabold tracking-wider uppercase text-sm">Depoimentos</div>
+          <h2 class="font-serif font-bold text-3xl md:text-4xl mt-2">Histórias reais de transformação</h2>
+          <p class="text-slate-300 mt-5 leading-relaxed">A satisfação é o maior selo de qualidade. Veja o que dizem.</p>
+        </div>
+
+        <div class="md:col-span-2 grid md:grid-cols-2 gap-6">
+          <figure class="bg-white/10 border border-white/10 rounded-2xl p-7">
+            <div class="text-amber-300">★★★★★</div>
+            <blockquote class="mt-4 text-slate-100 italic">“A atenção aos detalhes é impressionante. Saí com um plano de ação claro.”</blockquote>
+            <figcaption class="mt-5 text-sm text-slate-300"><strong>Mariana Costa</strong> — Empresária</figcaption>
+          </figure>
+          <figure class="bg-white/10 border border-white/10 rounded-2xl p-7">
+            <div class="text-amber-300">★★★★★</div>
+            <blockquote class="mt-4 text-slate-100 italic">“Estrutura excelente e atendimento humano. Recomendo sem medo.”</blockquote>
+            <figcaption class="mt-5 text-sm text-slate-300"><strong>Roberto Almeida</strong> — Advogado</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato" class="py-24 bg-white">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="rounded-3xl overflow-hidden shadow-2xl border border-slate-100 grid md:grid-cols-5">
+        <div class="md:col-span-2 bg-slate-950 text-white p-10">
+          <h3 class="font-serif font-bold text-2xl">Informações de contato</h3>
+          <p class="mt-3 text-slate-300">Prontos pra te atender com exclusividade. (Demo)</p>
+
+          <div class="mt-8 space-y-5 text-sm">
+            <div class="flex items-start gap-3">
+              <div class="text-amber-400">☎</div>
+              <div>
+                <div class="text-slate-400">Telefone / WhatsApp</div>
+                <div class="font-semibold">+55 (32) 98507-2741</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="text-amber-400">📍</div>
+              <div>
+                <div class="text-slate-400">Localização</div>
+                <div class="font-semibold">Av. Paulista, 1000 — São Paulo/SP</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="text-amber-400">⏰</div>
+              <div>
+                <div class="text-slate-400">Horário</div>
+                <div class="font-semibold">Seg–Sex: 08h às 19h</div>
+              </div>
+            </div>
+          </div>
+
+          <a
+            class="mt-10 inline-flex items-center justify-center w-full px-6 py-3 rounded-full bg-green-500 text-slate-950 font-extrabold hover:bg-green-400 transition-colors"
+            href="https://wa.me/5532985072741?text=Oi!%20Quero%20agendar%20uma%20consulta%20(Demo%20PonteWeb)."
+            target="_blank" rel="noopener"
+          >
+            Chamar no WhatsApp
+          </a>
+
+          <p class="mt-6 text-xs text-white/60">Conteúdo demonstrativo para portfólio.</p>
+        </div>
+
+        <div class="md:col-span-3 p-10 bg-slate-50">
+          <h3 class="font-serif font-bold text-2xl text-slate-900">Agende sua visita</h3>
+          <p class="mt-2 text-slate-600">Preencha os dados e retornaremos (demo).</p>
+
+          <form class="mt-8 grid gap-5" onsubmit="event.preventDefault(); alert('Demo: formulário não envia. Use o WhatsApp.');">
+            <div class="grid sm:grid-cols-2 gap-5">
+              <label class="grid gap-2">
+                <span class="text-sm font-semibold text-slate-700">Nome completo</span>
+                <input class="px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-300" placeholder="Seu nome" />
+              </label>
+              <label class="grid gap-2">
+                <span class="text-sm font-semibold text-slate-700">Telefone</span>
+                <input class="px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-300" placeholder="(00) 00000-0000" />
+              </label>
+            </div>
+            <label class="grid gap-2">
+              <span class="text-sm font-semibold text-slate-700">E-mail</span>
+              <input class="px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-300" placeholder="seu@email.com" />
+            </label>
+            <label class="grid gap-2">
+              <span class="text-sm font-semibold text-slate-700">Mensagem (opcional)</span>
+              <textarea rows="4" class="px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-300" placeholder="Como podemos ajudar?"></textarea>
+            </label>
+
+            <button class="mt-2 inline-flex items-center justify-center px-7 py-3 rounded-full bg-slate-950 text-white font-extrabold hover:bg-slate-900 transition-colors">
+              Solicitar agendamento
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-slate-950 text-slate-400 border-t border-white/10 py-10">
+    <div class="mx-auto max-w-6xl px-6 text-sm flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>© <span id="year"></span> Dr. Ricardo Alencar — Demo. Todos os direitos reservados.</div>
+      <div class="text-white/60">Desenvolvido com excelência.</div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp floating -->
+  <a
+    href="https://wa.me/5532985072741?text=Oi!%20Quero%20agendar%20uma%20consulta%20(Demo%20PonteWeb)."
+    target="_blank" rel="noopener"
+    class="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-400 text-slate-950 font-extrabold px-5 py-4 rounded-full shadow-2xl transition-all"
+    aria-label="Falar no WhatsApp"
+  >
+    WhatsApp
+  </a>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const btn = document.getElementById('menuBtn');
+    const menu = document.getElementById('mobileMenu');
+    btn?.addEventListener('click', () => {
+      menu?.classList.toggle('hidden');
+      btn.textContent = menu?.classList.contains('hidden') ? '☰' : '✕';
+    });
+
+    // close mobile menu when clicking a link
+    menu?.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', () => {
+        menu.classList.add('hidden');
+        btn.textContent = '☰';
+      });
+    });
+  </script>
+</body>
+</html>
