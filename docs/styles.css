@@ -196,6 +196,17 @@ strong{font-weight:800}
 .portCard h3{margin:0 0 8px}
 .portCard p{margin:0 0 14px;color:var(--muted);line-height:1.6;font-size:13.5px}
 
+/* Demo grid (click to open full landing) */
+.demoGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+.demoCard{position:relative;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);border-radius:22px;overflow:hidden;transition:transform .2s ease, border-color .2s ease, background .2s ease}
+.demoCard:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.03)}
+.demoThumb{height:170px;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.06);overflow:hidden}
+.demoThumb img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.05) contrast(1.02)}
+.demoBody{padding:18px}
+.demoTitle{margin:0 0 6px;font-size:16px;letter-spacing:-.01em}
+.demoMeta{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+.demoPill{position:absolute;top:12px;left:12px;padding:7px 10px;border-radius:999px;background:rgba(2,6,23,.75);border:1px solid rgba(255,255,255,.14);font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:rgba(229,231,235,.95)}
+
 /* FAQ */
 .faq{display:grid;gap:12px;margin-top:16px}
 .faqItem{border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);border-radius:18px;padding:0;overflow:hidden}
@@ -239,6 +250,7 @@ textarea{resize:vertical;min-height:110px}
   .why{grid-template-columns:1fr}
   .steps{grid-template-columns:repeat(2,1fr)}
   .portfolio{grid-template-columns:1fr}
+  .demoGrid{grid-template-columns:1fr}
   .contact{grid-template-columns:1fr}
   .floatBadge{display:none}
 }

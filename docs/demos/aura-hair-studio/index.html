@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aura Hair Studio | Transforme sua Beleza</title>
+  <meta name="description" content="O melhor salão de beleza da cidade. Cortes modernos, coloração premium e tratamentos exclusivos." />
+
+  <!-- Tailwind CSS (Estilização Moderna) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- FontAwesome (Ícones) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand-dark': '#1a1a1a',
+            'brand-gold': '#d4af37',
+            'brand-rose': '#eebbc3',
+            'brand-gray': '#f4f4f4',
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['"Montserrat"', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
+    /* Demo navigation (PonteWeb) */
+    .pwBack {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 9999;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.55);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      font-weight: 700;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+    .pwBack:hover {
+      transform: translateY(-1px);
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    /* Estilos personalizados para animações e detalhes */
+    .hero-bg {
+      background-image: url('https://images.unsplash.com/photo-1560066984-138dadb4c035?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed; /* Efeito Parallax */
+    }
+
+    .glass-nav {
+      background: rgba(26, 26, 26, 0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    /* Animação de entrada */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hover nas imagens da galeria */
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-item img {
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Slow bounce for floating WhatsApp */
+    @keyframes pwBounceSlow {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .animate-bounce-slow { animation: pwBounceSlow 2.4s ease-in-out infinite; }
+  </style>
+</head>
+<body class="font-sans text-gray-800 bg-white antialiased">
+  <!-- Back to PonteWeb -->
+  <a class="pwBack" href="/" aria-label="Voltar para PonteWeb Studio">
+    <span aria-hidden="true">←</span>
+    Voltar para o site
+  </a>
+
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 bg-transparent text-white">
+    <div class="container mx-auto px-6 flex justify-between items-center">
+      <a href="#" class="font-serif text-2xl md:text-3xl font-bold tracking-wider text-brand-gold">
+        AURA <span class="text-white text-base font-sans font-light tracking-widest block md:inline md:ml-2">HAIR STUDIO</span>
+      </a>
+
+      <!-- Menu Desktop -->
+      <div class="hidden md:flex space-x-8 items-center">
+        <a href="#home" class="hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Início</a>
+        <a href="#about" class="hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Sobre</a>
+        <a href="#services" class="hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Serviços</a>
+        <a href="#gallery" class="hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Portfólio</a>
+
+        <!-- Botão Instagram Header -->
+        <a href="https://instagram.com" target="_blank" rel="noopener" class="text-white hover:text-brand-gold transition-colors text-xl" title="Siga-nos no Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+
+        <a href="#contact" class="bg-brand-gold text-brand-dark px-6 py-2 rounded-full font-semibold hover:bg-white transition-all transform hover:scale-105">Agendar</a>
+      </div>
+
+      <!-- Botão Mobile -->
+      <button id="mobile-menu-btn" class="md:hidden text-2xl focus:outline-none text-brand-gold">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Menu Mobile (Escondido) -->
+    <div id="mobile-menu" class="hidden md:hidden bg-brand-dark absolute w-full top-full left-0 border-t border-gray-800">
+      <div class="flex flex-col p-6 space-y-4 text-center">
+        <a href="#home" class="text-white hover:text-brand-gold py-2">Início</a>
+        <a href="#about" class="text-white hover:text-brand-gold py-2">Sobre</a>
+        <a href="#services" class="text-white hover:text-brand-gold py-2">Serviços</a>
+        <a href="#gallery" class="text-white hover:text-brand-gold py-2">Portfólio</a>
+        <a href="https://instagram.com" target="_blank" rel="noopener" class="text-white hover:text-brand-gold py-2"><i class="fab fa-instagram mr-2"></i>Instagram</a>
+        <a href="#contact" class="text-brand-gold font-bold py-2">Agendar Agora</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero-bg h-screen flex items-center justify-center relative">
+    <!-- Overlay Escuro -->
+    <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+
+    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto mt-16">
+      <span class="block text-brand-gold text-sm md:text-lg uppercase tracking-[0.3em] mb-4 reveal">Beleza &amp; Sofisticação</span>
+      <h1 class="font-serif text-5xl md:text-7xl text-white font-bold mb-6 leading-tight reveal delay-100">
+        Revele a Sua <br /><span class="italic text-brand-gold">Melhor Versão</span>
+      </h1>
+      <p class="text-gray-200 text-lg md:text-xl mb-10 max-w-2xl mx-auto font-light reveal delay-200">
+        Especialistas em cortes modernos, colorimetria avançada e tratamentos de luxo para transformar seu visual.
+      </p>
+      <div class="flex flex-col md:flex-row gap-4 justify-center reveal delay-300">
+        <a href="#contact" class="bg-brand-gold text-brand-dark px-8 py-4 rounded-full font-bold uppercase tracking-wider hover:bg-white transition-all shadow-lg hover:shadow-brand-gold/50">
+          Agendar Horário
+        </a>
+        <a href="#gallery" class="border border-white text-white px-8 py-4 rounded-full font-bold uppercase tracking-wider hover:bg-white hover:text-brand-dark transition-all">
+          Ver Portfólio
+        </a>
+      </div>
+    </div>
+
+    <!-- Seta Scroll Down -->
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-white/50">
+      <i class="fas fa-chevron-down text-2xl"></i>
+    </div>
+  </section>
+
+  <!-- Sobre Nós -->
+  <section id="about" class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col md:flex-row items-center gap-12">
+        <div class="md:w-1/2 reveal">
+          <div class="relative">
+            <!-- Imagem principal -->
+            <img src="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Interior do Salão" class="rounded-lg shadow-2xl w-full object-cover h-[500px]" />
+            <!-- Quadrado decorativo -->
+            <div class="absolute -bottom-6 -right-6 w-48 h-48 bg-brand-gold/20 -z-10 rounded-lg hidden md:block"></div>
+            <div class="absolute -top-6 -left-6 w-24 h-24 border-2 border-brand-gold -z-10 rounded-lg hidden md:block"></div>
+          </div>
+        </div>
+
+        <div class="md:w-1/2 reveal delay-200">
+          <h3 class="text-brand-gold uppercase tracking-widest font-bold text-sm mb-2">Sobre o Studio</h3>
+          <h2 class="font-serif text-4xl text-brand-dark font-bold mb-6">Mais que um corte, uma <span class="italic text-brand-gold">experiência.</span></h2>
+          <p class="text-gray-600 mb-6 leading-relaxed">
+            No Aura Hair Studio, acreditamos que o cabelo é a moldura do rosto e o reflexo da alma. Nossa equipe de profissionais premiados combina técnicas internacionais com produtos de altíssima qualidade para entregar resultados que superam expectativas.
+          </p>
+          <p class="text-gray-600 mb-8 leading-relaxed">
+            Ambiente acolhedor, café gourmet e uma consultoria de visagismo personalizada esperam por você.
+          </p>
+
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center text-gray-700"><i class="fas fa-check text-brand-gold mr-3"></i> Profissionais certificados internacionalmente</li>
+            <li class="flex items-center text-gray-700"><i class="fas fa-check text-brand-gold mr-3"></i> Produtos orgânicos e cruelty-free</li>
+            <li class="flex items-center text-gray-700"><i class="fas fa-check text-brand-gold mr-3"></i> Ambiente climatizado e exclusivo</li>
+          </ul>
+
+          <div class="flex items-center gap-4">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="CEO" class="w-16 h-16 rounded-full border-2 border-brand-gold" />
+            <div>
+              <p class="font-serif font-bold text-lg">Ana Sophia</p>
+              <p class="text-sm text-gray-500">Fundadora &amp; Master Stylist</p>
+            </div>
+            <span class="font-serif italic text-3xl text-gray-300 ml-auto pr-4">AnaS.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Serviços -->
+  <section id="services" class="py-20 bg-brand-gray">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-16 reveal">
+        <span class="text-brand-gold uppercase tracking-widest font-bold text-sm">O que fazemos</span>
+        <h2 class="font-serif text-4xl text-brand-dark font-bold mt-2">Nossos Serviços Exclusivos</h2>
+        <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all hover:-translate-y-2 group reveal delay-100">
+          <div class="w-16 h-16 bg-brand-dark rounded-full flex items-center justify-center text-brand-gold text-2xl mb-6 group-hover:bg-brand-gold group-hover:text-white transition-colors"><i class="fas fa-cut"></i></div>
+          <h3 class="font-serif text-xl font-bold mb-3">Cortes Visagistas</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Estudo das proporções do rosto para criar um corte que valoriza sua beleza natural.</p>
+        </div>
+
+        <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all hover:-translate-y-2 group reveal delay-200">
+          <div class="w-16 h-16 bg-brand-dark rounded-full flex items-center justify-center text-brand-gold text-2xl mb-6 group-hover:bg-brand-gold group-hover:text-white transition-colors"><i class="fas fa-palette"></i></div>
+          <h3 class="font-serif text-xl font-bold mb-3">Coloração &amp; Mechas</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Técnicas de Morena Iluminada, Loiros Perolados e correção de cor com proteção dos fios.</p>
+        </div>
+
+        <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all hover:-translate-y-2 group reveal delay-300">
+          <div class="w-16 h-16 bg-brand-dark rounded-full flex items-center justify-center text-brand-gold text-2xl mb-6 group-hover:bg-brand-gold group-hover:text-white transition-colors"><i class="fas fa-spa"></i></div>
+          <h3 class="font-serif text-xl font-bold mb-3">Tratamentos SPA</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Cronograma capilar, detox do couro cabeludo e hidratações profundas de luxo.</p>
+        </div>
+
+        <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all hover:-translate-y-2 group reveal delay-400">
+          <div class="w-16 h-16 bg-brand-dark rounded-full flex items-center justify-center text-brand-gold text-2xl mb-6 group-hover:bg-brand-gold group-hover:text-white transition-colors"><i class="fas fa-crown"></i></div>
+          <h3 class="font-serif text-xl font-bold mb-3">Dia da Noiva</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Penteados e maquiagem exclusivos para o dia mais importante da sua vida.</p>
+        </div>
+      </div>
+
+      <div class="text-center mt-12 reveal">
+        <a href="#contact" class="inline-block border-b-2 border-brand-gold text-brand-dark pb-1 font-semibold hover:text-brand-gold transition-colors">Ver menu completo de preços</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeria / Portfólio -->
+  <section id="gallery" class="py-20 bg-brand-dark text-white overflow-hidden">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-12 reveal">
+        <div>
+          <span class="text-brand-gold uppercase tracking-widest font-bold text-sm">Portfólio</span>
+          <h2 class="font-serif text-4xl font-bold mt-2">Nossas Obras de Arte</h2>
+        </div>
+        <div class="mt-4 md:mt-0">
+          <a href="https://instagram.com" target="_blank" rel="noopener" class="flex items-center gap-2 text-gray-400 hover:text-brand-gold transition-colors">
+            <i class="fab fa-instagram"></i> Siga-nos no Instagram
+          </a>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px] md:auto-rows-[300px]">
+        <div class="gallery-item relative rounded-lg overflow-hidden group row-span-2 reveal delay-100 cursor-pointer">
+          <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cabelo Loiro" class="w-full h-full object-cover" />
+          <div class="gallery-overlay absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 flex items-center justify-center flex-col">
+            <h4 class="font-serif text-xl text-brand-gold">Loiro Perolado</h4>
+            <p class="text-sm text-gray-300">Coloração &amp; Corte</p>
+          </div>
+        </div>
+
+        <div class="gallery-item relative rounded-lg overflow-hidden group reveal delay-200 cursor-pointer">
+          <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Corte Curto" class="w-full h-full object-cover" />
+          <div class="gallery-overlay absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 flex items-center justify-center flex-col">
+            <h4 class="font-serif text-xl text-brand-gold">Pixie Cut</h4>
+            <p class="text-sm text-gray-300">Corte Moderno</p>
+          </div>
+        </div>
+
+        <div class="gallery-item relative rounded-lg overflow-hidden group reveal delay-300 cursor-pointer">
+          <img src="https://images.unsplash.com/photo-1560869713-7d0a29430803?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Penteado" class="w-full h-full object-cover" />
+          <div class="gallery-overlay absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 flex items-center justify-center flex-col">
+            <h4 class="font-serif text-xl text-brand-gold">Waves</h4>
+            <p class="text-sm text-gray-300">Finalização</p>
+          </div>
+        </div>
+
+        <div class="gallery-item relative rounded-lg overflow-hidden group row-span-2 reveal delay-400 cursor-pointer">
+          <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Morena Iluminada" class="w-full h-full object-cover" />
+          <div class="gallery-overlay absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 flex items-center justify-center flex-col">
+            <h4 class="font-serif text-xl text-brand-gold">Morena Iluminada</h4>
+            <p class="text-sm text-gray-300">Técnica Freehand</p>
+          </div>
+        </div>
+
+        <div class="gallery-item relative rounded-lg overflow-hidden group reveal delay-200 cursor-pointer">
+          <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Hidratação" class="w-full h-full object-cover" />
+          <div class="gallery-overlay absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 flex items-center justify-center flex-col">
+            <h4 class="font-serif text-xl text-brand-gold">Tratamento</h4>
+            <p class="text-sm text-gray-300">Brilho Intenso</p>
+          </div>
+        </div>
+
+        <div class="gallery-item relative rounded-lg overflow-hidden group reveal delay-300 cursor-pointer">
+          <img src="https://images.unsplash.com/photo-1492106087820-71f171ce71d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Maquiagem" class="w-full h-full object-cover" />
+          <div class="gallery-overlay absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 flex items-center justify-center flex-col">
+            <h4 class="font-serif text-xl text-brand-gold">Make-up</h4>
+            <p class="text-sm text-gray-300">Produção Completa</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Depoimentos -->
+  <section class="py-20 bg-brand-rose/20">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="font-serif text-4xl text-brand-dark font-bold mb-12 reveal">O que dizem nossas clientes</h2>
+
+      <div class="flex flex-col md:flex-row gap-8 justify-center">
+        <div class="bg-white p-8 rounded-xl shadow-sm md:w-1/3 reveal delay-100">
+          <div class="text-brand-gold text-2xl mb-4"><i class="fas fa-quote-left"></i></div>
+          <p class="text-gray-600 italic mb-6">"Simplesmente a melhor experiência que já tive em um salão. A Ana entendeu exatamente o que eu queria e o loiro ficou impecável, sem danificar nada!"</p>
+          <div class="flex items-center justify-center gap-3">
+            <img src="https://randomuser.me/api/portraits/women/65.jpg" class="w-10 h-10 rounded-full" alt="Cliente" />
+            <span class="font-bold text-brand-dark">Júlia Mendes</span>
+          </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-xl shadow-sm md:w-1/3 reveal delay-200">
+          <div class="text-brand-gold text-2xl mb-4"><i class="fas fa-quote-left"></i></div>
+          <p class="text-gray-600 italic mb-6">"O ambiente é super sofisticado e o atendimento nota 1000. Fiz meu dia da noiva lá e me senti uma princesa. Recomendo de olhos fechados."</p>
+          <div class="flex items-center justify-center gap-3">
+            <img src="https://randomuser.me/api/portraits/women/90.jpg" class="w-10 h-10 rounded-full" alt="Cliente" />
+            <span class="font-bold text-brand-dark">Carla Souza</span>
+          </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-xl shadow-sm md:w-1/3 reveal delay-300">
+          <div class="text-brand-gold text-2xl mb-4"><i class="fas fa-quote-left"></i></div>
+          <p class="text-gray-600 italic mb-6">"Cortei com o Pedro e ele é um artista! Visagismo puro. Mudou meu visual completamente e elevou minha autoestima."</p>
+          <div class="flex items-center justify-center gap-3">
+            <img src="https://randomuser.me/api/portraits/women/22.jpg" class="w-10 h-10 rounded-full" alt="Cliente" />
+            <span class="font-bold text-brand-dark">Fernanda Lima</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contato -->
+  <section id="contact" class="bg-white py-20">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col lg:flex-row bg-brand-dark rounded-2xl overflow-hidden shadow-2xl reveal">
+        <div class="lg:w-5/12 p-10 md:p-14 bg-brand-dark text-white relative">
+          <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+
+          <div class="relative z-10">
+            <h2 class="font-serif text-3xl font-bold mb-6 text-brand-gold">Venha nos visitar</h2>
+            <p class="text-gray-400 mb-8">Agende seu horário e permita-se viver essa transformação. Estamos esperando por você com um cappuccino especial.</p>
+
+            <div class="space-y-6">
+              <div class="flex items-start">
+                <i class="fas fa-map-marker-alt text-brand-gold mt-1 mr-4 text-xl"></i>
+                <div>
+                  <h4 class="font-bold">Endereço</h4>
+                  <p class="text-gray-400 text-sm">Av. Paulista, 1578 - Jardins<br />São Paulo - SP</p>
+                </div>
+              </div>
+
+              <div class="flex items-start">
+                <i class="fas fa-clock text-brand-gold mt-1 mr-4 text-xl"></i>
+                <div>
+                  <h4 class="font-bold">Horário</h4>
+                  <p class="text-gray-400 text-sm">Ter - Sáb: 09h às 20h<br />Dom - Seg: Fechado</p>
+                </div>
+              </div>
+
+              <div class="flex items-start">
+                <i class="fas fa-phone-alt text-brand-gold mt-1 mr-4 text-xl"></i>
+                <div>
+                  <h4 class="font-bold">Contato</h4>
+                  <p class="text-gray-400 text-sm">(11) 99999-8888<br />contato@aurahair.com</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botão WhatsApp CTA (demo) -->
+            <a href="https://wa.me/5532985072741?text=Oi!%20Quero%20um%20or%C3%A7amento%20de%20site%2Flanding%20(PonteWeb%20Studio)." target="_blank" rel="noopener" class="mt-10 inline-flex items-center justify-center w-full bg-[#25D366] text-white py-3 rounded-lg font-bold hover:bg-[#20ba5a] transition-colors">
+              <i class="fab fa-whatsapp text-2xl mr-2"></i> Agendar pelo WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:w-7/12 p-10 md:p-14 bg-white">
+          <h2 class="font-serif text-3xl font-bold mb-2 text-brand-dark">Envie uma mensagem</h2>
+          <p class="text-gray-500 mb-8 text-sm">Preencha o formulário abaixo para dúvidas ou pré-agendamento.</p>
+
+          <form onsubmit="event.preventDefault(); alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');" class="space-y-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-sm font-bold text-gray-700 mb-1">Nome</label>
+                <input type="text" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all" placeholder="Seu nome" />
+              </div>
+              <div>
+                <label class="block text-sm font-bold text-gray-700 mb-1">Telefone</label>
+                <input type="tel" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all" placeholder="(00) 00000-0000" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">Serviço de Interesse</label>
+              <select class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all">
+                <option>Corte de Cabelo</option>
+                <option>Coloração</option>
+                <option>Tratamento Capilar</option>
+                <option>Maquiagem / Penteado</option>
+                <option>Outros</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">Mensagem</label>
+              <textarea rows="4" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all" placeholder="Gostaria de agendar para..."></textarea>
+            </div>
+
+            <button type="submit" class="w-full bg-brand-dark text-white font-bold py-4 rounded-lg hover:bg-gray-800 transition-all shadow-lg">Enviar Solicitação</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-black text-white py-8 border-t border-gray-900">
+    <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+      <div class="mb-4 md:mb-0">
+        <span class="font-serif font-bold text-xl text-brand-gold">AURA</span> HAIR STUDIO
+        <p class="text-gray-500 text-xs mt-1">&copy; 2023 Todos os direitos reservados.</p>
+      </div>
+      <div class="flex space-x-6">
+        <a href="https://instagram.com" target="_blank" rel="noopener" class="text-gray-400 hover:text-brand-gold transition-colors transform hover:scale-110"><i class="fab fa-instagram text-2xl"></i></a>
+        <a href="#" class="text-gray-400 hover:text-brand-gold transition-colors transform hover:scale-110"><i class="fab fa-facebook text-2xl"></i></a>
+        <a href="#" class="text-gray-400 hover:text-brand-gold transition-colors transform hover:scale-110"><i class="fab fa-tiktok text-2xl"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Botão Flutuante WhatsApp (demo) -->
+  <a href="https://wa.me/5532985072741?text=Oi!%20Quero%20um%20or%C3%A7amento%20de%20site%2Flanding%20(PonteWeb%20Studio)." target="_blank" rel="noopener" class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:bg-[#20ba5a] transition-transform hover:scale-110 animate-bounce-slow" aria-label="Chamar no WhatsApp">
+    <i class="fab fa-whatsapp text-3xl"></i>
+  </a>
+
+  <script>
+    // Menu Mobile Toggle
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    const navbar = document.getElementById('navbar');
+
+    btn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+
+    // Fechar menu ao clicar em um link
+    menu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        menu.classList.add('hidden');
+      });
+    });
+
+    // Mudar cor do Navbar ao rolar
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('glass-nav');
+        navbar.classList.remove('bg-transparent', 'py-4');
+        navbar.classList.add('py-2');
+      } else {
+        navbar.classList.remove('glass-nav');
+        navbar.classList.add('bg-transparent', 'py-4');
+        navbar.classList.remove('py-2');
+      }
+    });
+
+    // Scroll Reveal
+    function reveal() {
+      const reveals = document.querySelectorAll('.reveal');
+      for (let i = 0; i < reveals.length; i++) {
+        const windowHeight = window.innerHeight;
+        const elementTop = reveals[i].getBoundingClientRect().top;
+        const elementVisible = 150;
+        if (elementTop < windowHeight - elementVisible) {
+          reveals[i].classList.add('active');
+        }
+      }
+    }
+
+    window.addEventListener('scroll', reveal);
+    reveal();
+  </script>
+</body>
+</html>
