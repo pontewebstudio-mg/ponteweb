@@ -145,7 +145,9 @@ form.addEventListener("submit", async (e) => {
       );
       return;
     }
-    window.location.href = url;
+    window.open(url, "_blank", "noopener,noreferrer");
+    // keep the checkout page open; user can come back after payment
+    statusEl.textContent = "Abrimos o pagamento em uma nova aba. Se preferir, volte aqui depois para qualquer ajuste.";
     return;
   }
 
