@@ -134,10 +134,13 @@ async function main() {
       const subject = `Contrato PonteWeb Studio - ${order.plan} - Pedido ${String(order.id).slice(0, 8)}`;
       const text =
         `Olá, ${order.name}!\n\n` +
-        `Segue em anexo o contrato referente ao seu pedido (${order.plan}).\n` +
+        `Conforme combinado, segue em anexo o contrato referente ao seu pedido (${order.plan}).\n` +
         `Valor do plano: R$ ${String(plan.price_total || '—')}\n\n` +
-        `Qualquer dúvida, responda este e-mail.\n\n` +
-        `PonteWeb Studio\n`;
+        `Para dar andamento, basta confirmar por resposta neste e-mail (ou no WhatsApp) e enviar o material mínimo do projeto.\n\n` +
+        `Fico à disposição para qualquer dúvida.\n\n` +
+        `Atenciosamente,\n` +
+        `PonteWeb Studio\n` +
+        `${providerEmail} | ${providerPhone}\n`;
 
       // Send to client
       execFileSync(
@@ -179,6 +182,7 @@ async function main() {
             `Plano: ${order.plan}\n` +
             `Valor: R$ ${String(plan.price_total || '—')}\n` +
             `Pagamento: ${job.payment_provider} (${job.payment_id || '—'})\n`,
+
           '--attach',
           outPath,
           '--attach-name',
