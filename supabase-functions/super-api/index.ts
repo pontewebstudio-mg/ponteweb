@@ -10,6 +10,7 @@
 // - SB_SERVICE_ROLE_KEY
 // Optional:
 // - MP_WEBHOOK_SECRET (future use)
+// - PW_ADMIN_SECRET (required for /mark-paid)
 //
 // Notes:
 // - We keep Verify JWT OFF in Supabase for this function because Mercado Pago webhooks won't send Supabase auth headers.
@@ -39,6 +40,10 @@ function getEnv(name: string) {
   const v = Deno.env.get(name)
   if (!v) throw new Error('Missing env: ' + name)
   return v
+}
+
+function getEnvOptional(name: string) {
+  return Deno.env.get(name) ?? null
 }
 
 function isUuid(s: string) {
@@ -93,14 +98,74 @@ Deno.serve(async (req) => {
     // Supabase function base path: /functions/v1/super-api
     // Anything after that is preserved in pathname.
     const isCreateCheckout = pathname.endsWith('/create-checkout')
+    const isMarkPaid = pathname.endsWith('/mark-paid')
 
     const accessToken = getEnv('MP_ACCESS_TOKEN')
     const supabaseUrl = getEnv('SUPABASE_URL')
     const serviceKey = getEnv('SB_SERVICE_ROLE_KEY')
+    const adminSecret = getEnvOptional('PW_ADMIN_SECRET')
 
     const supabase = createClient(supabaseUrl, serviceKey, {
       auth: { persistSession: false },
     })
+
+    if (isMarkPaid) {
+      if (req.method !== 'POST') return json({ ok: false, error: 'method not allowed' }, 405, cors)
+
+      if (!adminSecret) return json({ ok: false, error: 'PW_ADMIN_SECRET is not set' }, 500, cors)
+
+      const given = req.headers.get('x-admin-secret')
+      if (!given || given !== adminSecret) return json({ ok: false, error: 'unauthorized' }, 401, cors)
+
+      const bodyText = await req.text()
+      let payload: any = {}
+      try {
+        payload = bodyText ? JSON.parse(bodyText) : {}
+      } catch {
+        // ignore
+      }
+
+      const orderId = String(payload?.order_id ?? '')
+      const provider = String(payload?.provider ?? '')
+      const providerPaymentId = payload?.provider_payment_id ? String(payload.provider_payment_id) : null
+      const note = payload?.note ? String(payload.note) : null
+
+      if (!orderId || !isUuid(orderId)) return json({ ok: false, error: 'invalid order_id' }, 400, cors)
+      if (!provider) return json({ ok: false, error: 'missing provider' }, 400, cors)
+
+      // Ensure order exists
+      const { data: orderRow, error: orderErr } = await supabase
+        .from('pw_orders')
+        .select('id')
+        .eq('id', orderId)
+        .maybeSingle()
+
+      if (orderErr) return json({ ok: false, error: 'order lookup failed', details: orderErr.message }, 500, cors)
+      if (!orderRow) return json({ ok: false, error: 'order not found' }, 404, cors)
+
+      // Record payment + queue contract job
+      await supabase.from('pw_payments').insert({
+        order_id: orderId,
+        provider,
+        provider_payment_id: providerPaymentId,
+        status: 'approved',
+        raw: { note },
+      })
+
+      const { error: jobErr } = await supabase.from('pw_contract_jobs').insert({
+        order_id: orderId,
+        payment_provider: provider,
+        payment_id: providerPaymentId,
+        status: 'pending',
+      })
+
+      // ignore duplicates
+      if (jobErr && !String(jobErr.message || '').toLowerCase().includes('duplicate')) {
+        return json({ ok: true, note: 'job insert error', err: jobErr.message }, 200, cors)
+      }
+
+      return json({ ok: true, order_id: orderId }, 200, cors)
+    }
 
     if (isCreateCheckout) {
       if (req.method !== 'POST') return json({ ok: false, error: 'method not allowed' }, 405, cors)

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin — PonteWeb Studio</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .adminWrap { padding-top: 110px; }
+    .adminCard { max-width: 760px; margin: 0 auto; }
+    .adminCard input, .adminCard textarea, .adminCard select { width: 100%; }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 720px) { .row2 { grid-template-columns: 1fr; } }
+    .mutedSmall { color: rgba(255,255,255,.72); font-size: 12px; }
+    code { user-select: all; }
+  </style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+  </div>
+
+  <main class="adminWrap">
+    <div class="container adminCard">
+      <div class="frame" style="padding: 22px">
+        <h1 style="margin:0 0 8px">Admin — aprovar pagamento manual</h1>
+        <p class="lead" style="margin:0 0 16px">
+          Use isso para Pix/Cripto/Transferência. Isso cria um registro em <code>pw_payments</code> e enfileira <code>pw_contract_jobs</code>.
+        </p>
+
+        <div class="row2">
+          <label>
+            <span>Admin secret</span>
+            <input id="adminSecret" type="password" placeholder="Cole o PW_ADMIN_SECRET" />
+            <div class="mutedSmall">Fica salvo só neste navegador (localStorage).</div>
+          </label>
+
+          <label>
+            <span>Provider</span>
+            <select id="provider">
+              <option value="pix">pix</option>
+              <option value="cripto">cripto</option>
+              <option value="transferencia">transferencia</option>
+              <option value="manual">manual</option>
+            </select>
+          </label>
+        </div>
+
+        <label style="margin-top: 12px">
+          <span>Order ID (UUID)</span>
+          <input id="orderId" type="text" placeholder="ex: 550e8400-e29b-41d4-a716-446655440000" />
+        </label>
+
+        <div class="row2" style="margin-top: 12px">
+          <label>
+            <span>provider_payment_id (opcional)</span>
+            <input id="providerPaymentId" type="text" placeholder="txid / hash / id interno" />
+          </label>
+          <label>
+            <span>Nota (opcional)</span>
+            <input id="note" type="text" placeholder="ex: comprovante recebido no WhatsApp" />
+          </label>
+        </div>
+
+        <div class="heroActions" style="margin-top: 16px">
+          <button class="btn primary" id="approveBtn" type="button">Marcar como pago + enfileirar contrato</button>
+          <a class="btn ghost" href="/" rel="noopener">Voltar</a>
+        </div>
+
+        <p class="fine" id="status" style="margin-top: 12px"></p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const SUPABASE_URL = 'https://sirflbkdqulxxnrfxmqy.supabase.co';
+
+    const $ = (id) => document.getElementById(id);
+    const adminSecretEl = $('adminSecret');
+    const providerEl = $('provider');
+    const orderIdEl = $('orderId');
+    const providerPaymentIdEl = $('providerPaymentId');
+    const noteEl = $('note');
+    const statusEl = $('status');
+    const approveBtn = $('approveBtn');
+
+    // preload from storage
+    try {
+      const saved = localStorage.getItem('pw_admin_secret');
+      if (saved) adminSecretEl.value = saved;
+    } catch {}
+
+    // preload order_id from querystring
+    try {
+      const params = new URLSearchParams(location.search);
+      const oid = (params.get('order_id') || '').trim();
+      if (oid) orderIdEl.value = oid;
+    } catch {}
+
+    adminSecretEl.addEventListener('change', () => {
+      try { localStorage.setItem('pw_admin_secret', adminSecretEl.value); } catch {}
+    });
+
+    approveBtn.addEventListener('click', async () => {
+      statusEl.textContent = '';
+
+      const adminSecret = adminSecretEl.value.trim();
+      const order_id = orderIdEl.value.trim();
+      const provider = providerEl.value;
+      const provider_payment_id = providerPaymentIdEl.value.trim() || null;
+      const note = noteEl.value.trim() || null;
+
+      if (!adminSecret) { statusEl.textContent = 'Falta admin secret.'; return; }
+      if (!order_id) { statusEl.textContent = 'Falta order_id.'; return; }
+
+      approveBtn.disabled = true;
+      approveBtn.textContent = 'Enviando...';
+
+      try {
+        const res = await fetch(`${SUPABASE_URL}/functions/v1/super-api/mark-paid`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-admin-secret': adminSecret,
+          },
+          body: JSON.stringify({ order_id, provider, provider_payment_id, note }),
+        });
+
+        const out = await res.json().catch(() => ({}));
+        if (!res.ok || !out.ok) {
+          throw new Error(out.error || `HTTP ${res.status}`);
+        }
+
+        statusEl.textContent = 'OK: pagamento marcado e contrato enfileirado.';
+      } catch (e) {
+        statusEl.textContent = 'ERRO: ' + String(e.message || e);
+      } finally {
+        approveBtn.disabled = false;
+        approveBtn.textContent = 'Marcar como pago + enfileirar contrato';
+      }
+    });
+  </script>
+</body>
+</html>
