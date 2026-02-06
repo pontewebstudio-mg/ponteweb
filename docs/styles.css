@@ -206,6 +206,7 @@ strong{font-weight:800}
   padding-bottom:8px;
   scroll-snap-type:x mandatory;
   -webkit-overflow-scrolling:touch;
+  flex-wrap: nowrap;
 }
 .demoGrid::-webkit-scrollbar{height:0}
 .demoGrid{scrollbar-width:none}

@@ -83,7 +83,8 @@ $('#year').textContent = new Date().getFullYear();
     // Estimate which card is the first visible
     const step = getStep();
     const start = Math.round(grid.scrollLeft / step);
-    const visible = Math.min(6, cards.length);
+    // Estimate visible cards based on container width
+    const visible = Math.max(1, Math.min(cards.length, Math.round(grid.clientWidth / step)));
     const end = Math.min(start + visible, cards.length);
     range.textContent = `${start + 1}–${end} de ${cards.length}`;
   };
