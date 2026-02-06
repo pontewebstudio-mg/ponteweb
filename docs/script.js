@@ -51,6 +51,35 @@ function closeMenu(){
 // Footer year
 $('#year').textContent = new Date().getFullYear();
 
+// Portfolio expand/collapse (show 6 cards, expand to show the rest)
+(function initPortfolioExpand(){
+  const grid = document.querySelector('.demoGrid');
+  const btn = document.querySelector('#demoExpandBtn');
+  if (!grid || !btn) return;
+
+  const extras = grid.querySelectorAll('.demoCard.extra');
+  if (!extras.length) {
+    btn.closest('.demoExpandWrap')?.setAttribute('hidden','');
+    return;
+  }
+
+  const text = btn.querySelector('.demoExpandText');
+  const setExpanded = (expanded) => {
+    if (expanded) grid.classList.add('expanded');
+    else grid.classList.remove('expanded');
+
+    btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    if (text) text.textContent = expanded ? 'Recolher' : 'Expandir portfólio';
+  };
+
+  setExpanded(false);
+
+  btn.addEventListener('click', () => {
+    const expanded = grid.classList.contains('expanded');
+    setExpanded(!expanded);
+  });
+})();
+
 // Form submit: send via AJAX to Formspree and redirect to our own thank-you page.
 // This avoids Formspree's default hosted thank-you page.
 (function initLeadForm(){
