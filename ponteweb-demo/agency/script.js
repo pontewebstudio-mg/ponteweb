@@ -51,8 +51,9 @@ function closeMenu(){
 // Footer year
 $('#year').textContent = new Date().getFullYear();
 
-// Contact form: opens WhatsApp with prefilled message
-function submitWhatsApp(ev){
+// Contact form: opens the user's email client with a prefilled email (static site)
+// NOTE: truly "sending" requires a backend (Formspree/Netlify/Worker). This mailto is the safest no-backend option.
+function submitEmail(ev){
   ev.preventDefault();
   const f = ev.target;
   const name = (f.name.value || '').trim();
@@ -61,23 +62,26 @@ function submitWhatsApp(ev){
   const need = (f.need.value || '').trim();
   const details = (f.details.value || '').trim();
 
+  const subject = `Orçamento — PonteWeb Studio (${need || 'Site'})`;
   const lines = [
-    'Oi! Quero um orçamento (PonteWeb Studio).',
+    'Olá! Quero um orçamento com a PonteWeb Studio.',
     '',
     `Nome: ${name}`,
     `WhatsApp: ${phone}`,
     city ? `Cidade: ${city}` : null,
-    `Preciso: ${need}`,
+    need ? `Preciso: ${need}` : null,
     details ? `Detalhes: ${details}` : null,
   ].filter(Boolean);
 
-  const msg = encodeURIComponent(lines.join('\n'));
-  const url = `https://wa.me/5532984042502?text=${msg}`;
-  window.open(url, '_blank', 'noopener');
+  const body = lines.join('\n');
+  const to = 'oprodutormusic@gmail.com';
+  const url = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  window.location.href = url;
 
   const btn = f.querySelector('button[type="submit"]');
   const original = btn.textContent;
-  btn.textContent = 'Abrindo WhatsApp…';
+  btn.textContent = 'Abrindo e-mail…';
   btn.disabled = true;
   setTimeout(()=>{ btn.textContent = original; btn.disabled = false; }, 1500);
 

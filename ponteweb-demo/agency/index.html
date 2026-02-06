@@ -31,6 +31,7 @@
       <nav class="menu" aria-label="Menu principal">
         <a href="#inicio">Início</a>
         <a href="#servicos">Serviços</a>
+        <a href="#planos">Planos</a>
         <a href="#processo">Processo</a>
         <a href="#portfolio">Portfólio</a>
         <a href="#contato" class="pill">Fazer orçamento</a>
@@ -45,6 +46,7 @@
       <div class="container">
         <a href="#inicio" onclick="closeMenu()">Início</a>
         <a href="#servicos" onclick="closeMenu()">Serviços</a>
+        <a href="#planos" onclick="closeMenu()">Planos</a>
         <a href="#processo" onclick="closeMenu()">Processo</a>
         <a href="#portfolio" onclick="closeMenu()">Portfólio</a>
         <a href="#contato" onclick="closeMenu()" class="cta">Fazer orçamento</a>
@@ -67,8 +69,9 @@
         </h1>
 
         <p class="lead">
-          Criamos <strong>landing pages</strong> e <strong>sites institucionais</strong> com visual premium e foco em conversão.
-          Mobile-first, SEO básico e CTA no WhatsApp. Atendimento em <strong>São João del Rei + região</strong> e também <strong>remoto</strong>.
+          Somos uma agência boutique: <strong>landing pages</strong> e <strong>sites institucionais</strong> com estética premium,
+          performance e SEO básico — feitos pra posicionar sua marca e transformar visitas em conversas.
+          Atendemos <strong>São João del Rei + região</strong> e também <strong>remoto</strong>.
         </p>
 
         <div class="heroActions">
@@ -219,6 +222,60 @@
   </section>
 
   <!-- PROCESS -->
+  <section id="planos" class="section">
+    <div class="container">
+      <div class="sectionHead center">
+        <h2>Planos</h2>
+        <p>Escolha um pacote base ou peça uma proposta sob medida.</p>
+      </div>
+
+      <div class="plans">
+        <article class="plan">
+          <div class="planTop">
+            <h3>Publicar no seu domínio</h3>
+            <div class="price">R$ 500</div>
+          </div>
+          <p class="muted">Para colocar a landing no ar no seu domínio com ajustes finais.</p>
+          <ul>
+            <li>Publicação + configuração do DNS (quando necessário)</li>
+            <li>Ajustes finais de texto/fotos/botões</li>
+            <li>WhatsApp + Maps + SEO básico</li>
+          </ul>
+          <a class="btn" href="#contato">Quero esse</a>
+        </article>
+
+        <article class="plan featured">
+          <div class="tag">Recomendado</div>
+          <div class="planTop">
+            <h3>+ Analytics & Search Console</h3>
+            <div class="price">R$ 700</div>
+          </div>
+          <p class="muted">Para acompanhar resultados e ter suporte após publicar.</p>
+          <ul>
+            <li>Tudo do plano de R$ 500</li>
+            <li>Google Analytics + Search Console</li>
+            <li>30 dias de suporte (pequenos ajustes)</li>
+          </ul>
+          <a class="btn primary" href="#contato">Quero esse</a>
+        </article>
+
+        <article class="plan">
+          <div class="planTop">
+            <h3>Sob medida</h3>
+            <div class="price">A combinar</div>
+          </div>
+          <p class="muted">Site institucional completo, múltiplas páginas, SEO mais forte, integrações, etc.</p>
+          <ul>
+            <li>Brief + proposta com prazo</li>
+            <li>Estrutura de páginas e conteúdo</li>
+            <li>Manutenção opcional</li>
+          </ul>
+          <a class="btn" href="#contato">Pedir proposta</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <section id="processo" class="section sectionAlt">
     <div class="container">
       <div class="sectionHead center">
@@ -284,7 +341,7 @@
     <div class="container">
       <div class="sectionHead center">
         <h2>Vamos construir algo incrível?</h2>
-        <p>Preencha rápido e eu já abro o WhatsApp com a mensagem pronta.</p>
+        <p>Preencha o formulário abaixo e entraremos em contato em até 24 horas.</p>
       </div>
 
       <div class="contact">
@@ -303,7 +360,7 @@
           </div>
         </div>
 
-        <form class="contactForm" onsubmit="return submitWhatsApp(event)">
+        <form class="contactForm" onsubmit="return submitEmail(event)">
           <div class="row">
             <label>
               <span>Nome</span>
