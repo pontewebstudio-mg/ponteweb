@@ -64,7 +64,7 @@ async function main() {
 
   const providerName = process.env.PROVIDER_NAME || 'PonteWeb Studio';
   const providerEmail = process.env.PROVIDER_EMAIL || 'oprodutormusic@gmail.com';
-  const providerPhone = process.env.PROVIDER_PHONE || '32985072741';
+  const providerPhone = process.env.PROVIDER_PHONE || '(32) 98507-2741';
   const gmailFrom = process.env.GMAIL_FROM || providerEmail;
 
   const supabase = createClient(supabaseUrl, serviceKey, {
