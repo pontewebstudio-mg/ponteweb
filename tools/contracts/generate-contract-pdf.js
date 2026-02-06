@@ -147,7 +147,8 @@ async function main() {
     ['5. CANCELAMENTO / DESISTÊNCIA / REEMBOLSO',
       '5.1. O CONTRATANTE pode solicitar cancelamento por escrito (e-mail/WhatsApp).\n' +
       '5.2. Condição comercial: 50% do valor no início (para reservar agenda e iniciar a execução) e 50% na entrega (ou antes da publicação, quando aplicável).\n' +
-      '5.3. Para fins desta cláusula, considera-se “início da execução” qualquer um dos eventos: (i) reunião de kickoff realizada, (ii) recebimento do material mínimo do projeto (textos/imagens/informações), ou (iii) início do design e/ou desenvolvimento, o que ocorrer primeiro.\n' +
+      '5.3. Para fins desta cláusula, considera-se “início da execução” qualquer um dos eventos: (i) reunião de kickoff realizada, (ii) recebimento do material mínimo do projeto, ou (iii) início do design e/ou desenvolvimento, o que ocorrer primeiro.\n' +
+      '5.3.1. Entende-se como “material mínimo” (quando aplicável): logo/identidade (ou referência), paleta/estilo desejado, textos das seções principais (ou briefing autorizando criação), imagens/fotos com direito de uso, links e dados de contato (WhatsApp, Instagram, e-mail), endereço/horário (se houver), e exemplos de sites de referência.\n' +
       '5.4. Em caso de rescisão/cancelamento após o início da execução, incide multa rescisória de 10% sobre o valor total do contrato, além da cobrança proporcional às etapas já realizadas.\n' +
       '5.5. Se o cancelamento ocorrer antes do início da execução, a CONTRATADA poderá realizar reembolso integral, descontadas eventuais taxas do meio de pagamento.\n' +
       '5.6. Após a entrega da primeira versão (V1) ou publicação, não há reembolso do valor pago, pois o serviço é considerado entregue em sua etapa principal.'
