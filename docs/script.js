@@ -51,33 +51,48 @@ function closeMenu(){
 // Footer year
 $('#year').textContent = new Date().getFullYear();
 
-// Portfolio expand/collapse (show 6 cards, expand to show the rest)
-(function initPortfolioExpand(){
+// Portfolio pager (always show 6 cards; move window by 3)
+(function initPortfolioPager(){
   const grid = document.querySelector('.demoGrid');
-  const btn = document.querySelector('#demoExpandBtn');
-  if (!grid || !btn) return;
+  const prev = document.querySelector('#demoPrev');
+  const next = document.querySelector('#demoNext');
+  const range = document.querySelector('#demoPagerRange');
+  if (!grid || !prev || !next || !range) return;
 
-  const extras = grid.querySelectorAll('.demoCard.extra');
-  if (!extras.length) {
-    btn.closest('.demoExpandWrap')?.setAttribute('hidden','');
+  const cards = Array.from(grid.querySelectorAll('.demoCard'));
+  if (cards.length <= 6) {
+    document.querySelector('.demoPager')?.setAttribute('hidden','');
     return;
   }
 
-  const text = btn.querySelector('.demoExpandText');
-  const setExpanded = (expanded) => {
-    if (expanded) grid.classList.add('expanded');
-    else grid.classList.remove('expanded');
+  const pageSize = 6;
+  const step = 3;
+  let start = 0;
 
-    btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-    if (text) text.textContent = expanded ? 'Recolher' : 'Expandir portfólio';
+  const render = () => {
+    cards.forEach((c) => c.classList.add('isHidden'));
+
+    for (let i = 0; i < pageSize; i++) {
+      const idx = (start + i) % cards.length;
+      cards[idx].classList.remove('isHidden');
+    }
+
+    const end = Math.min(start + pageSize, cards.length);
+    range.textContent = `${start + 1}–${end} de ${cards.length}`;
   };
 
-  setExpanded(false);
-
-  btn.addEventListener('click', () => {
-    const expanded = grid.classList.contains('expanded');
-    setExpanded(!expanded);
+  prev.addEventListener('click', () => {
+    start = (start - step) % cards.length;
+    if (start < 0) start += cards.length;
+    render();
   });
+
+  next.addEventListener('click', () => {
+    start = (start + step) % cards.length;
+    render();
+  });
+
+  render();
 })();
 
 // Form submit: send via AJAX to Formspree and redirect to our own thank-you page.

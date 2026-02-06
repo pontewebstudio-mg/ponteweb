@@ -505,11 +505,13 @@
         </a>
       </div>
 
-      <div class="demoExpandWrap">
-        <button id="demoExpandBtn" class="demoExpandBtn" type="button" aria-expanded="false" aria-controls="portfolio">
-          <span class="demoExpandIcon" aria-hidden="true">⌄</span>
-          <span class="demoExpandText">Expandir portfólio</span>
-        </button>
+      <div class="demoPager" aria-label="Navegação do portfólio">
+        <button id="demoPrev" class="demoPagerBtn" type="button" aria-label="Ver demos anteriores">←</button>
+        <div class="demoPagerInfo">
+          <span class="demoPagerLabel">Mostrando</span>
+          <span id="demoPagerRange" class="demoPagerRange">—</span>
+        </div>
+        <button id="demoNext" class="demoPagerBtn" type="button" aria-label="Ver próximas demos">→</button>
       </div>
 
       <div class="portfolio" style="margin-top:16px">
