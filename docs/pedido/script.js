@@ -11,6 +11,11 @@ const ORDER_CONFIG = {
   supabaseUrl: "https://sirflbkdqulxxnrfxmqy.supabase.co",
   supabaseAnonKey: "sb_publishable_Fli6YW2y1vcWoTR_eXYIJw_c6asiVVd",
 
+  // Email notifications (best-effort)
+  // Using Formspree to email you the order details.
+  // Note: this will go to the same inbox as the contact form unless you create a separate Formspree form.
+  formspreeEndpoint: "https://formspree.io/f/xqedznak",
+
   mercadoPagoLinks: {
     // Links Mercado Pago (enviados pelo Rômulo)
     Starter: "https://mpago.la/2Yg94M2", // R$ 500
@@ -64,20 +69,19 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
+  const payload = {
+    name: String(data.name || "").trim(),
+    phone: String(data.phone || "").trim(),
+    email: String(data.email || "").trim(),
+    plan,
+    payment,
+    notes: String(data.notes || "").trim() || null,
+    user_agent: navigator.userAgent,
+    referer: document.referrer || null,
+  };
+
   // Save lead + order to Supabase (best-effort)
   try {
-    const payload = {
-      name: String(data.name || "").trim(),
-      phone: String(data.phone || "").trim(),
-      email: String(data.email || "").trim(),
-      plan,
-      payment,
-      notes: String(data.notes || "").trim() || null,
-      user_agent: navigator.userAgent,
-      referer: document.referrer || null,
-    };
-
-    // Minimal required checks
     if (payload.name && payload.phone && payload.email) {
       await fetch(`${ORDER_CONFIG.supabaseUrl}/rest/v1/pw_orders`, {
         method: "POST",
@@ -94,6 +98,34 @@ form.addEventListener("submit", async (e) => {
     // Don't block checkout on logging failure.
     // eslint-disable-next-line no-console
     console.warn("order save failed", err);
+  }
+
+  // Email you the order details via Formspree (best-effort)
+  try {
+    const subject = `Novo pedido — ${plan} (${payment})`;
+    await fetch(ORDER_CONFIG.formspreeEndpoint, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        _subject: subject,
+        kind: "pedido",
+        name: payload.name,
+        phone: payload.phone,
+        email: payload.email,
+        plan: payload.plan,
+        payment: payload.payment,
+        notes: payload.notes,
+        referer: payload.referer,
+        user_agent: payload.user_agent,
+        page: window.location.href,
+      }),
+    });
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.warn("order email failed", err);
   }
 
   if (payment === "link_mercadopago") {
