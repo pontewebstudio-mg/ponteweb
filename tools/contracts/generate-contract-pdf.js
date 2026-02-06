@@ -67,6 +67,7 @@ async function main() {
 
   const city = getArg(args, 'city') || 'Brasil (remoto)';
   const date = getArg(args, 'date') || new Date().toISOString().slice(0, 10);
+
   const foroCity = getArg(args, 'foro-city') || 'São João del Rei';
   const foroState = getArg(args, 'foro-state') || 'MG';
 
@@ -78,7 +79,7 @@ async function main() {
     process.exit(2);
   }
 
-  const title = 'CONTRATO DE PRESTACAO DE SERVICOS DIGITAIS';
+  const title = 'CONTRATO DE PRESTAÇÃO DE SERVIÇOS DIGITAIS';
 
   const pdfDoc = await PDFDocument.create();
   const page = pdfDoc.addPage([595.28, 841.89]); // A4
@@ -104,7 +105,7 @@ async function main() {
     const logoH = 56;
     page.drawImage(logo, { x: margin, y: y - logoH, width: logoW, height: logoH });
     page.drawText('PonteWeb Studio', { x: margin + 70, y: y - 20, size: 18, font: fontBold, color: rgb(0.05, 0.12, 0.2) });
-    page.drawText('Criacao de Sites e Landing Pages', { x: margin + 70, y: y - 40, size: 10, font, color: rgb(0.2, 0.25, 0.3) });
+    page.drawText('Criação de Sites e Landing Pages', { x: margin + 70, y: y - 40, size: 10, font, color: rgb(0.2, 0.25, 0.3) });
   } else {
     page.drawText('PonteWeb Studio', { x: margin, y: y - 20, size: 18, font: fontBold, color: rgb(0.05, 0.12, 0.2) });
   }
@@ -118,7 +119,7 @@ async function main() {
   const blocks = [
     { label: 'CONTRATADA', value: `PonteWeb Studio, representada por ${providerName}. Email: ${providerEmail}. WhatsApp: ${providerPhone}.` },
     { label: 'CONTRATANTE', value: `${clientName}. CPF/CNPJ: ${clientDoc}. Email: ${clientEmail}. WhatsApp: ${clientPhone}.` },
-    { label: 'PLANO / SERVICO', value: plan.plan_name },
+    { label: 'PLANO / SERVIÇO', value: plan.plan_name },
     { label: 'PROJETO', value: project },
     { label: 'PAGAMENTO', value: `R$ ${plan.price_total} — ${paymentMethod} — ${paymentDate}` },
   ];
@@ -139,12 +140,18 @@ async function main() {
   }
 
   const clauses = [
-    ['1. OBJETO', `Prestacao de servicos de desenvolvimento de ${plan.deliverable_type} (site/landing), incluindo design responsivo (mobile-first), implementacao de CTAs (ex.: WhatsApp) e SEO basico.`],
-    ['2. PRAZO E ENTREGAS', `Entrega da primeira versao (V1) em ate ${plan.delivery_days} dias uteis apos confirmacao do pagamento e recebimento do material minimo.`],
+    ['1. OBJETO', `Prestação de serviços de desenvolvimento de ${plan.deliverable_type} (site/landing), incluindo design responsivo (mobile-first), implementação de CTAs (ex.: WhatsApp) e SEO básico.`],
+    ['2. PRAZO E ENTREGAS', `Entrega da primeira versão (V1) em até ${plan.delivery_days} dias úteis após confirmação do pagamento e recebimento do material mínimo.`],
     ['3. AJUSTES', `Inclusas ${plan.revision_rounds} rodada(s) de ajustes dentro do escopo contratado.`],
-    ['4. PUBLICACAO / DOMINIO', 'Custos de dominio/hospedagem sao do CONTRATANTE, salvo contratacao expressa.'],
-    ['5. AUTORIZACAO DE PORTFOLIO', 'O CONTRATANTE autoriza a CONTRATADA a exibir o site/landing (prints e link) em portfolio, redes sociais e apresentacoes comerciais.'],
-    ['6. FORO', `Fica eleito o foro de ${foroCity}/${foroState}.`],
+    ['4. PUBLICAÇÃO / DOMÍNIO', 'Custos de domínio/hospedagem são do CONTRATANTE, salvo contratação expressa.'],
+    ['5. CANCELAMENTO / DESISTÊNCIA / REEMBOLSO',
+      '5.1. O CONTRATANTE pode solicitar cancelamento por escrito (e-mail/WhatsApp).\n' +
+      '5.2. Se o cancelamento ocorrer antes do início da execução (antes do kickoff/material mínimo), a CONTRATADA poderá realizar reembolso integral, descontadas eventuais taxas do meio de pagamento.\n' +
+      '5.3. Se o cancelamento ocorrer após o início da execução, o reembolso (se aplicável) será proporcional às etapas já realizadas e ao tempo alocado, podendo incluir custos não-reembolsáveis (ex.: taxas, ferramentas e deslocamentos).\n' +
+      '5.4. Após a entrega da primeira versão (V1) ou publicação, não há reembolso do valor pago, pois o serviço é considerado entregue em sua etapa principal.'
+    ],
+    ['6. AUTORIZAÇÃO DE PORTFÓLIO', 'O CONTRATANTE autoriza a CONTRATADA a exibir o site/landing (prints e link) em portfólio, redes sociais e apresentações comerciais.'],
+    ['7. FORO', `Fica eleito o foro de ${foroCity}/${foroState}.`],
   ];
 
   for (const [head, body] of clauses) {
