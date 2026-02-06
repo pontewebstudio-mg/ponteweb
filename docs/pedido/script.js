@@ -83,16 +83,25 @@ form.addEventListener("submit", async (e) => {
   // Save lead + order to Supabase (best-effort)
   try {
     if (payload.name && payload.phone && payload.email) {
-      await fetch(`${ORDER_CONFIG.supabaseUrl}/rest/v1/pw_orders`, {
+      const res = await fetch(`${ORDER_CONFIG.supabaseUrl}/rest/v1/pw_orders`, {
         method: "POST",
         headers: {
           apikey: ORDER_CONFIG.supabaseAnonKey,
           Authorization: `Bearer ${ORDER_CONFIG.supabaseAnonKey}`,
           "Content-Type": "application/json",
-          Prefer: "return=minimal",
+          Prefer: "return=representation",
         },
         body: JSON.stringify(payload),
       });
+
+      // If the table returns the inserted row, keep the id for linking payments/contracts.
+      try {
+        const rows = await res.json();
+        const row = Array.isArray(rows) ? rows[0] : null;
+        if (row && row.id) payload.order_id = row.id;
+      } catch (e) {
+        // ignore JSON parse failures (e.g., minimal returns)
+      }
     }
   } catch (err) {
     // Don't block checkout on logging failure.
