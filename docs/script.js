@@ -51,21 +51,44 @@ function closeMenu(){
 // Footer year
 $('#year').textContent = new Date().getFullYear();
 
-// Formspree handles submission via HTML form action.
-// Optional: small UX for submit button.
-(function initFormUX(){
-  const form = document.querySelector('.contactForm');
+// Form submit: send via AJAX to Formspree and redirect to our own thank-you page.
+// This avoids Formspree's default hosted thank-you page.
+(function initLeadForm(){
+  const form = document.querySelector('#leadForm') || document.querySelector('.contactForm');
   if (!form) return;
-  form.addEventListener('submit', () => {
+
+  form.addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+
     const btn = form.querySelector('button[type="submit"]');
-    if (!btn) return;
-    btn.dataset.originalText = btn.textContent;
-    btn.textContent = 'Enviando…';
-    btn.disabled = true;
-    setTimeout(()=>{
-      // Formspree will redirect/replace page depending on config; this is just a fallback.
-      btn.textContent = btn.dataset.originalText || 'Solicitar orçamento';
-      btn.disabled = false;
-    }, 3500);
+    const original = btn?.textContent;
+    if (btn) {
+      btn.textContent = 'Enviando…';
+      btn.disabled = true;
+    }
+
+    try {
+      const fd = new FormData(form);
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: fd,
+        headers: {
+          'Accept': 'application/json'
+        },
+      });
+
+      if (!res.ok) {
+        // If something went wrong, let user try WhatsApp.
+        throw new Error('formspree_not_ok');
+      }
+
+      window.location.assign('/thanks/');
+    } catch (err) {
+      if (btn) {
+        btn.textContent = original || 'Solicitar orçamento';
+        btn.disabled = false;
+      }
+      alert('Não foi possível enviar agora. Tente novamente ou chame no WhatsApp.');
+    }
   });
 })();
