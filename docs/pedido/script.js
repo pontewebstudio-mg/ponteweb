@@ -8,9 +8,10 @@
 const ORDER_CONFIG = {
   // TODO (Romulo): paste your Mercado Pago links per plan.
   mercadoPagoLinks: {
-    Starter: "",
-    Pro: "",
-    Prime: "",
+    // Links Mercado Pago (enviados pelo Rômulo)
+    Starter: "https://mpago.la/2Yg94M2", // R$ 500
+    Pro: "https://mpago.la/29GDvpS",      // R$ 700
+    Prime: "",                            // TODO: enviar link do Prime
   },
   // TODO (Romulo): set your WhatsApp number for Pix direct / transfer / crypto.
   whatsappNumberE164: "5532984042502",
