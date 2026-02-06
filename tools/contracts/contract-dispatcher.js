@@ -133,14 +133,18 @@ async function main() {
       // Avoid fancy unicode in Subject to prevent mojibake on some clients.
       const subject = `Contrato PonteWeb Studio - ${order.plan} - Pedido ${String(order.id).slice(0, 8)}`;
       const text =
-        `Olá, ${order.name}!\n\n` +
+        `Olá, ${order.name}!\n` +
+        `\n` +
         `Conforme combinado, segue em anexo o contrato referente ao seu pedido (${order.plan}).\n` +
-        `Valor do plano: R$ ${String(plan.price_total || '—')}\n\n` +
-        `Para dar andamento, basta confirmar por resposta neste e-mail (ou no WhatsApp) e enviar o material mínimo do projeto.\n\n` +
-        `Fico à disposição para qualquer dúvida.\n\n` +
+        `Valor do plano: R$ ${String(plan.price_total || '—')}\n` +
+        `\n` +
+        `Para dar andamento, basta confirmar por resposta neste e-mail (ou no WhatsApp) e enviar o material mínimo do projeto.\n` +
+        `\n` +
+        `Fico à disposição para qualquer dúvida.\n` +
+        `\n` +
         `Atenciosamente,\n` +
         `PonteWeb Studio\n` +
-        `${providerEmail} | ${providerPhone}\n`;
+        `${providerEmail} | ${providerPhone}`;
 
       // Send to client
       execFileSync(
@@ -181,7 +185,7 @@ async function main() {
             `Pedido: ${order.id}\n` +
             `Plano: ${order.plan}\n` +
             `Valor: R$ ${String(plan.price_total || '—')}\n` +
-            `Pagamento: ${job.payment_provider} (${job.payment_id || '—'})\n`,
+            `Pagamento: ${job.payment_provider} (${job.payment_id || '—'})`,
 
           '--attach',
           outPath,
