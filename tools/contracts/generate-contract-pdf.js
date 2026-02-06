@@ -82,7 +82,7 @@ async function main() {
   const title = 'CONTRATO DE PRESTAÇÃO DE SERVIÇOS DIGITAIS';
 
   const pdfDoc = await PDFDocument.create();
-  const page = pdfDoc.addPage([595.28, 841.89]); // A4
+  let page = pdfDoc.addPage([595.28, 841.89]); // A4
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
   const fontBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
 
@@ -98,6 +98,16 @@ async function main() {
   const w = page.getWidth();
   const h = page.getHeight();
   let y = h - margin;
+
+  function newPage() {
+    page = pdfDoc.addPage([595.28, 841.89]);
+    y = h - margin;
+  }
+
+  function ensureSpace(minY) {
+    // If we're too close to the bottom, create a new page.
+    if (y < minY) newPage();
+  }
 
   // Header
   if (logo) {
@@ -129,14 +139,16 @@ async function main() {
   const maxWidth = w - margin * 2;
 
   for (const b of blocks) {
+    ensureSpace(120);
     page.drawText(`${b.label}:`, { x: margin, y, size: labelSize, font: fontBold, color: rgb(0, 0, 0) });
     y -= 14;
     const lines = wrapText(b.value, maxWidth, font, textSize);
     for (const line of lines) {
+      ensureSpace(80);
       page.drawText(line, { x: margin, y, size: textSize, font, color: rgb(0, 0, 0) });
       y -= 13;
     }
-    y -= 8;
+    y -= 10;
   }
 
   const clauses = [
@@ -158,32 +170,36 @@ async function main() {
   ];
 
   for (const [head, body] of clauses) {
-    if (y < 120) {
-      // new page
-      y = h - margin;
-      const p2 = pdfDoc.addPage([595.28, 841.89]);
-      // NOTE: keep writing on latest page
-      // eslint-disable-next-line no-unused-vars
-      break;
-    }
+    ensureSpace(140);
     page.drawText(head, { x: margin, y, size: 11, font: fontBold, color: rgb(0, 0, 0) });
     y -= 14;
+
     const lines = wrapText(body, maxWidth, font, textSize);
     for (const line of lines) {
+      ensureSpace(90);
       page.drawText(line, { x: margin, y, size: textSize, font, color: rgb(0, 0, 0) });
       y -= 13;
     }
-    y -= 8;
+
+    y -= 12;
   }
 
-  y -= 10;
+  // Signatures (ensure they are always present on the last page)
+  ensureSpace(180);
+  y -= 6;
   page.drawText(`Local e data: ${city}, ${date}`, { x: margin, y, size: 10, font, color: rgb(0, 0, 0) });
-  y -= 30;
-  page.drawText('CONTRATANTE: _______________________________', { x: margin, y, size: 10, font, color: rgb(0, 0, 0) });
+  y -= 34;
+
+  page.drawText('CONTRATANTE:', { x: margin, y, size: 10, font: fontBold, color: rgb(0, 0, 0) });
+  y -= 16;
+  page.drawText('Assinatura: ________________________________________________', { x: margin, y, size: 10, font, color: rgb(0, 0, 0) });
   y -= 14;
   page.drawText(`${clientName} — ${clientDoc}`, { x: margin, y, size: 10, font, color: rgb(0, 0, 0) });
-  y -= 24;
-  page.drawText('CONTRATADA: _______________________________', { x: margin, y, size: 10, font, color: rgb(0, 0, 0) });
+  y -= 26;
+
+  page.drawText('CONTRATADA:', { x: margin, y, size: 10, font: fontBold, color: rgb(0, 0, 0) });
+  y -= 16;
+  page.drawText('Assinatura: ________________________________________________', { x: margin, y, size: 10, font, color: rgb(0, 0, 0) });
   y -= 14;
   page.drawText(`${providerName} — PonteWeb Studio`, { x: margin, y, size: 10, font, color: rgb(0, 0, 0) });
 
