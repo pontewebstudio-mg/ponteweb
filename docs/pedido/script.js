@@ -23,7 +23,7 @@ const ORDER_CONFIG = {
     Prime: "",                            // negociado no WhatsApp
   },
 
-  whatsappNumberE164: "5532984042502",
+  whatsappNumberE164: "5532985072741",
 };
 
 function waLink(text) {
