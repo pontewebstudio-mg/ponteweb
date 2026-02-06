@@ -60,7 +60,7 @@ body[data-view="tv"] .hero h1{font-size:54px}
 .section.alt{background:rgba(255,255,255,.02);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .section h2{margin:0 0 14px;font-size:28px}
 .sub{margin:-6px 0 18px;color:var(--muted)}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
 .card{border:1px solid var(--line);border-radius:16px;padding:16px;background:rgba(255,255,255,.03)}
 .card h3{margin:0 0 8px}
 .card p{margin:0 0 10px;color:var(--muted);line-height:1.5}
