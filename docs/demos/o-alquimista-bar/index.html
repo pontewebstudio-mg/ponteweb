@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Alquimista | Mixologia & Lounge</title>
+    
+    <!-- Google Fonts: Playfair Display (Luxo) e Lato (Leitura) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (Framework de Estilo) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuração de Cores Personalizadas do Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#D4AF37',
+                        dark: '#0a0a0a',
+                        charcoal: '#121212',
+                        glass: 'rgba(255, 255, 255, 0.05)'
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Icons (Phosphor Icons) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* Estilos personalizados extras */
+        body {
+            background-color: #050505;
+            color: #f3f3f3;
+            overflow-x: hidden;
+        }
+        
+        /* Efeito de Parallax suave no Hero */
+        .hero-bg {
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(5,5,5,1)), url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+        }
+
+        /* Scrollbar customizada */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37; 
+        }
+
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        /* Animação suave para o botão do WhatsApp */
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        .whatsapp-pulse {
+            animation: pulse-glow 2s infinite;
+        }
+    </style>
+
+<style>
+  .pwBackToSite{
+    position:fixed;
+    left:16px;
+    top:16px;
+    z-index:99999;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 12px;
+    border-radius:999px;
+    background:rgba(10,12,20,.72);
+    color:#fff;
+    text-decoration:none;
+    border:1px solid rgba(255,255,255,.16);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 26px rgba(0,0,0,.35);
+    font: 600 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  }
+  .pwBackToSite:hover{
+    transform: translateY(-1px);
+  }
+  .pwBackToSite:focus{
+    outline:2px solid rgba(124, 58, 237, .55);
+    outline-offset:2px;
+  }
+  @media (max-width: 520px){
+    .pwBackToSite{left:12px;top:12px;padding:9px 11px;font-size:13px}
+  }
+</style>
+</head>
+<body class="font-sans antialiased">
+<a class="pwBackToSite" href="/#portfolio" aria-label="Voltar para o site">← Voltar para o site</a>
+
+
+    <!-- Navbar Flutuante -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6 px-6 lg:px-12 border-b border-transparent">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="text-2xl lg:text-3xl font-serif font-bold tracking-widest text-white uppercase group">
+                O <span class="text-gold group-hover:text-white transition-colors">Alquimista</span>
+            </a>
+
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#sobre" class="text-sm uppercase tracking-widest hover:text-gold transition-colors">Sobre</a>
+                <a href="#menu" class="text-sm uppercase tracking-widest hover:text-gold transition-colors">Drinks</a>
+                <a href="#ambiente" class="text-sm uppercase tracking-widest hover:text-gold transition-colors">Ambiente</a>
+                
+                <!-- Instagram Icon no Header -->
+                <a href="https://instagram.com" target="_blank" class="text-white hover:text-gold transition-colors" aria-label="Instagram">
+                    <i class="ph ph-instagram-logo text-2xl"></i>
+                </a>
+
+                <a href="#reserva" class="px-6 py-2 border border-gold text-gold hover:bg-gold hover:text-dark transition-all duration-300 text-sm uppercase tracking-widest font-bold">Reservar</a>
+            </div>
+
+            <!-- Menu Mobile Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl text-white">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+
+        <!-- Menu Mobile Overlay -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-charcoal border-b border-gray-800 p-6 flex flex-col space-y-4 shadow-2xl">
+            <a href="#sobre" class="block text-center text-gray-300 hover:text-gold">Sobre</a>
+            <a href="#menu" class="block text-center text-gray-300 hover:text-gold">Drinks</a>
+            <a href="#ambiente" class="block text-center text-gray-300 hover:text-gold">Ambiente</a>
+            <a href="https://instagram.com" target="_blank" class="block text-center text-gray-300 hover:text-gold font-bold flex items-center justify-center gap-2">
+                <i class="ph ph-instagram-logo text-xl"></i> Instagram
+            </a>
+            <a href="#reserva" class="block text-center text-gold font-bold">Reservar Mesa</a>
+        </div>
+    </nav>
+
+    <!-- Botão Flutuante WhatsApp -->
+    <a href="https://wa.me/5532985072741" target="_blank" class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center whatsapp-pulse group" aria-label="Fale conosco no WhatsApp">
+        <i class="ph ph-whatsapp-logo text-3xl"></i>
+        <!-- Tooltip -->
+        <span class="absolute right-full mr-4 bg-white text-dark px-3 py-1 rounded text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg pointer-events-none">
+            Fale Conosco
+        </span>
+    </a>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen w-full hero-bg flex items-center justify-center text-center px-4">
+        <div class="z-10 max-w-4xl" data-aos="fade-up" data-aos-duration="1500">
+            <p class="text-gold tracking-[0.3em] uppercase text-sm md:text-base mb-4 font-bold">Desde 1924</p>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 leading-tight text-shadow">
+                A Arte da <br><span class="italic text-gold">Mixologia</span>
+            </h1>
+            <p class="text-gray-300 text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto leading-relaxed">
+                Um refúgio escondido no coração da cidade. Onde a química encontra o sabor e a noite nunca termina.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#menu" class="px-8 py-4 bg-gold text-dark font-bold uppercase tracking-widest hover:bg-white transition-all duration-300 transform hover:-translate-y-1">
+                    Ver Carta
+                </a>
+                <a href="#sobre" class="px-8 py-4 border border-white text-white font-bold uppercase tracking-widest hover:bg-white hover:text-dark transition-all duration-300">
+                    Conhecer
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-white opacity-50">
+            <i class="ph ph-caret-down text-3xl"></i>
+        </div>
+    </header>
+
+    <!-- Sobre Section -->
+    <section id="sobre" class="py-20 md:py-32 px-6 lg:px-12 bg-dark relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-gold rounded-full filter blur-[120px] opacity-10"></div>
+
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="relative" data-aos="fade-right">
+                <div class="absolute -top-4 -left-4 w-full h-full border border-gold opacity-30 z-0"></div>
+                <img src="https://images.unsplash.com/photo-1574096079513-d8259312b785?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                     alt="Bartender preparando drink" 
+                     class="relative z-10 w-full h-[500px] object-cover grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl">
+            </div>
+            
+            <div data-aos="fade-left">
+                <h3 class="text-gold uppercase tracking-widest font-bold mb-2">Nossa Filosofia</h3>
+                <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6">Mais que um bar, <br>uma experiência.</h2>
+                <p class="text-gray-400 leading-relaxed mb-6">
+                    No Alquimista, acreditamos que cada coquetel conta uma história. Nossos mixologistas utilizam técnicas moleculares, infusões caseiras e os destilados mais raros para criar sabores que desafiam o paladar.
+                </p>
+                <p class="text-gray-400 leading-relaxed mb-8">
+                    O ambiente foi desenhado para isolar você do caos urbano. Luz baixa, jazz suave e poltronas de veludo criam a atmosfera perfeita para conversas íntimas e celebrações memoráveis.
+                </p>
+                
+                <div class="grid grid-cols-2 gap-8 border-t border-gray-800 pt-8">
+                    <div>
+                        <span class="block text-4xl font-serif text-gold mb-2">150+</span>
+                        <span class="text-sm text-gray-500 uppercase tracking-widest">Rótulos Raros</span>
+                    </div>
+                    <div>
+                        <span class="block text-4xl font-serif text-gold mb-2">12</span>
+                        <span class="text-sm text-gray-500 uppercase tracking-widest">Prêmios de Design</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Highlight Section -->
+    <section id="menu" class="py-20 md:py-32 bg-charcoal relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-gold uppercase tracking-widest font-bold">Assinaturas da Casa</span>
+                <h2 class="text-4xl md:text-5xl font-serif font-bold mt-2">Alquimia Líquida</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Card 1 -->
+                <div class="group bg-dark border border-gray-800 p-6 hover:border-gold transition-all duration-500 relative overflow-hidden" data-aos="fade-up" data-aos-delay="0">
+                    <div class="h-64 mb-6 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" alt="Drink">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors"></div>
+                    </div>
+                    <div class="flex justify-between items-end mb-2">
+                        <h3 class="text-2xl font-serif font-bold group-hover:text-gold transition-colors">Nebula Gin</h3>
+                        <span class="text-gold font-bold text-xl">R$ 42</span>
+                    </div>
+                    <p class="text-gray-400 text-sm italic mb-4">Gin infusionado com lavanda, limão siciliano defumado e espuma de mirtilo.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group bg-dark border border-gray-800 p-6 hover:border-gold transition-all duration-500 relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-64 mb-6 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1597075687490-8f673c6c17f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" alt="Drink">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors"></div>
+                    </div>
+                    <div class="flex justify-between items-end mb-2">
+                        <h3 class="text-2xl font-serif font-bold group-hover:text-gold transition-colors">Gold Old Fashioned</h3>
+                        <span class="text-gold font-bold text-xl">R$ 48</span>
+                    </div>
+                    <p class="text-gray-400 text-sm italic mb-4">Bourbon 12 anos, bitter de cacau, xarope de maple e flocos de ouro 24k.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group bg-dark border border-gray-800 p-6 hover:border-gold transition-all duration-500 relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-64 mb-6 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" alt="Drink">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors"></div>
+                    </div>
+                    <div class="flex justify-between items-end mb-2">
+                        <h3 class="text-2xl font-serif font-bold group-hover:text-gold transition-colors">Velvet Spicy</h3>
+                        <span class="text-gold font-bold text-xl">R$ 39</span>
+                    </div>
+                    <p class="text-gray-400 text-sm italic mb-4">Vodka premium, maracujá, pimenta rosa e clara pasteurizada.</p>
+                </div>
+
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block border-b border-gold text-gold pb-1 hover:text-white hover:border-white transition-all uppercase tracking-widest text-sm">Ver Menu Completo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ambiente Section (Gallery) -->
+    <section id="ambiente" class="py-20 bg-dark">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+             <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div data-aos="fade-right">
+                    <span class="text-gold uppercase tracking-widest font-bold">O Espaço</span>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold mt-2">Atmosfera Noturna</h2>
+                </div>
+                <div class="hidden md:block" data-aos="fade-left">
+                    <p class="text-gray-400 max-w-sm text-right">Design premiado que mistura o clássico Art Déco com brutalismo moderno.</p>
+                </div>
+            </div>
+
+            <!-- Bento Grid Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-[600px]">
+                <div class="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-sm" data-aos="zoom-in">
+                    <img src="https://images.unsplash.com/photo-1572116469696-31de0f17cc34?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Interior">
+                    <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="text-white font-serif text-2xl">Salão Principal</span>
+                    </div>
+                </div>
+                <div class="md:col-span-2 relative group overflow-hidden rounded-sm" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1560529178-855d6eb72a88?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Detalhe">
+                </div>
+                <div class="relative group overflow-hidden rounded-sm" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Drinks">
+                </div>
+                <div class="relative group overflow-hidden rounded-sm" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Jazz">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation/Contact -->
+    <section id="reserva" class="relative py-24 flex items-center justify-center bg-charcoal">
+        <div class="absolute inset-0 z-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        
+        <div class="relative z-10 w-full max-w-4xl px-6" data-aos="fade-up">
+            <div class="bg-dark/80 backdrop-blur-md border border-gray-800 p-8 md:p-12 text-center rounded-sm shadow-2xl">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4">Garanta seu Lugar</h2>
+                <p class="text-gray-400 mb-8">Devido à exclusividade do espaço, recomendamos reservas com 24h de antecedência.</p>
+                
+                <form class="space-y-4 max-w-lg mx-auto" onsubmit="event.preventDefault(); alert('Este é um formulário de demonstração para portfólio!');">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" placeholder="Nome" class="w-full bg-transparent border-b border-gray-600 p-3 text-white focus:outline-none focus:border-gold transition-colors">
+                        <input type="tel" placeholder="Telefone" class="w-full bg-transparent border-b border-gray-600 p-3 text-white focus:outline-none focus:border-gold transition-colors">
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="date" class="w-full bg-transparent border-b border-gray-600 p-3 text-white focus:outline-none focus:border-gold transition-colors [color-scheme:dark]">
+                        <select class="w-full bg-transparent border-b border-gray-600 p-3 text-white focus:outline-none focus:border-gold transition-colors">
+                            <option class="bg-dark text-gray-400">2 Pessoas</option>
+                            <option class="bg-dark text-gray-400">4 Pessoas</option>
+                            <option class="bg-dark text-gray-400">Grupo (6+)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full mt-8 bg-gold text-dark font-bold uppercase tracking-widest py-4 hover:bg-white transition-colors">
+                        Confirmar Reserva
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12 border-t border-gray-900">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-center md:text-left">
+                <a href="#" class="text-2xl font-serif font-bold text-white uppercase">O Alquimista</a>
+                <p class="text-gray-500 text-sm mt-2">Mixologia & Jazz Lounge</p>
+            </div>
+            
+            <div class="flex space-x-6 text-2xl text-gray-400">
+                <a href="https://instagram.com" target="_blank" class="hover:text-gold transition-colors"><i class="ph ph-instagram-logo"></i></a>
+                <a href="https://facebook.com" target="_blank" class="hover:text-gold transition-colors"><i class="ph ph-facebook-logo"></i></a>
+                <a href="https://wa.me/5532985072741" target="_blank" class="hover:text-gold transition-colors"><i class="ph ph-whatsapp-logo"></i></a>
+            </div>
+
+            <div class="text-center md:text-right text-gray-600 text-sm">
+                <p>Rua Augusta, 000 - Jardins, SP</p>
+                <p class="mt-1">&copy; 2024 Portfólio Demo. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Inicializar animações AOS
+        AOS.init({
+            once: true, // anima apenas uma vez ao descer
+            offset: 100,
+        });
+
+        // Script da Navbar (Muda cor ao rolar)
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-dark/90', 'backdrop-blur-md', 'shadow-lg', 'py-4');
+                navbar.classList.remove('py-6');
+            } else {
+                navbar.classList.remove('bg-dark/90', 'backdrop-blur-md', 'shadow-lg', 'py-4');
+                navbar.classList.add('py-6');
+            }
+        });
+
+        // Menu Mobile Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

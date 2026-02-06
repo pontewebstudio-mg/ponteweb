@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden Crust | Padaria Artesanal</title>
+    
+    <!-- Tailwind CSS (Via CDN para demonstração rápida sem build step) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fontes do Google: Playfair Display (Elegante) e Lato (Leitura) -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Ícones (FontAwesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Configurações personalizadas do Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            gold: '#D4A373',
+                            brown: '#3E2723',
+                            cream: '#FAFAF5',
+                            dark: '#2C1A16'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Lato', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos personalizados para detalhes finos */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Efeito Parallax */
+        }
+
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Animação suave para as imagens */
+        .card-zoom {
+            overflow: hidden;
+        }
+        .card-zoom img {
+            transition: transform 0.5s ease;
+        }
+        .card-zoom:hover img {
+            transform: scale(1.1);
+        }
+    </style>
+
+<style>
+  .pwBackToSite{
+    position:fixed;
+    left:16px;
+    top:16px;
+    z-index:99999;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 12px;
+    border-radius:999px;
+    background:rgba(10,12,20,.72);
+    color:#fff;
+    text-decoration:none;
+    border:1px solid rgba(255,255,255,.16);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 26px rgba(0,0,0,.35);
+    font: 600 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  }
+  .pwBackToSite:hover{
+    transform: translateY(-1px);
+  }
+  .pwBackToSite:focus{
+    outline:2px solid rgba(124, 58, 237, .55);
+    outline-offset:2px;
+  }
+  @media (max-width: 520px){
+    .pwBackToSite{left:12px;top:12px;padding:9px 11px;font-size:13px}
+  }
+</style>
+</head>
+<body class="font-sans text-gray-700 bg-brand-cream antialiased">
+<a class="pwBackToSite" href="/#portfolio" aria-label="Voltar para o site">← Voltar para o site</a>
+
+
+    <!-- Navbar Fixa -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 glass-nav">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="text-2xl font-serif font-bold text-brand-brown flex items-center gap-2">
+                <i class="fa-solid fa-wheat-awn text-brand-gold"></i>
+                Golden Crust
+            </a>
+
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex space-x-8 items-center font-medium text-brand-dark">
+                <a href="#home" class="hover:text-brand-gold transition">Início</a>
+                <a href="#sobre" class="hover:text-brand-gold transition">A Padaria</a>
+                <a href="#menu" class="hover:text-brand-gold transition">Cardápio</a>
+                <a href="#depoimentos" class="hover:text-brand-gold transition">Clientes</a>
+                
+                <!-- Ícone Instagram Adicionado -->
+                <a href="https://instagram.com" target="_blank" class="text-xl hover:text-brand-gold transition" title="Siga-nos no Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+                <a href="#contato" class="bg-brand-brown text-white px-6 py-2 rounded-full hover:bg-brand-gold transition shadow-lg transform hover:-translate-y-0.5">
+                    Encomendar
+                </a>
+            </div>
+
+            <!-- Botão Menu Mobile -->
+            <button id="mobile-btn" class="md:hidden text-2xl text-brand-brown focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Menu Mobile (Oculto por padrão) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t p-4 flex flex-col space-y-4 shadow-lg absolute w-full">
+            <a href="#home" class="block text-brand-dark hover:text-brand-gold">Início</a>
+            <a href="#sobre" class="block text-brand-dark hover:text-brand-gold">A Padaria</a>
+            <a href="#menu" class="block text-brand-dark hover:text-brand-gold">Cardápio</a>
+            
+            <!-- Link Instagram Mobile Adicionado -->
+            <a href="https://instagram.com" target="_blank" class="block text-brand-dark hover:text-brand-gold">
+                <i class="fa-brands fa-instagram mr-2"></i> Instagram
+            </a>
+
+            <a href="#contato" class="block font-bold text-brand-gold">Fazer Pedido</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="hero-bg h-screen flex items-center justify-center text-center px-4">
+        <div class="max-w-4xl text-white pt-16">
+            <span class="uppercase tracking-widest text-sm md:text-base font-bold text-brand-gold mb-4 block animate-pulse">Desde 1998</span>
+            <h1 class="text-5xl md:text-7xl font-serif font-bold mb-6 leading-tight text-shadow">
+                O Verdadeiro Sabor do <br> <span class="text-brand-gold italic">Pão Artesanal</span>
+            </h1>
+            <p class="text-lg md:text-xl mb-10 opacity-90 max-w-2xl mx-auto font-light">
+                Fermentação natural lenta, ingredientes orgânicos selecionados e o carinho de quem ama o que faz.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#menu" class="bg-brand-gold text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-brand-brown transition shadow-lg transform hover:-translate-y-1">
+                    Ver Cardápio
+                </a>
+                <a href="#sobre" class="border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-brand-brown transition">
+                    Nossa História
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Seção de Diferenciais (Ícones) -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="p-6 rounded-lg hover:shadow-xl transition duration-300">
+                    <div class="w-16 h-16 bg-brand-cream rounded-full flex items-center justify-center mx-auto mb-4 text-brand-brown text-2xl">
+                        <i class="fa-solid fa-leaf"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold mb-2 text-brand-brown">100% Orgânico</h3>
+                    <p class="text-gray-600">Utilizamos apenas farinhas livres de pesticidas e aditivos químicos.</p>
+                </div>
+                <div class="p-6 rounded-lg hover:shadow-xl transition duration-300">
+                    <div class="w-16 h-16 bg-brand-cream rounded-full flex items-center justify-center mx-auto mb-4 text-brand-brown text-2xl">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold mb-2 text-brand-brown">Fermentação Lenta</h3>
+                    <p class="text-gray-600">Nossos pães descansam por 48 horas para desenvolver sabor e leveza.</p>
+                </div>
+                <div class="p-6 rounded-lg hover:shadow-xl transition duration-300">
+                    <div class="w-16 h-16 bg-brand-cream rounded-full flex items-center justify-center mx-auto mb-4 text-brand-brown text-2xl">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold mb-2 text-brand-brown">Feito à Mão</h3>
+                    <p class="text-gray-600">Cada produto é moldado manualmente pelos nossos mestres padeiros.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Sobre Nós -->
+    <section id="sobre" class="py-20 bg-brand-cream overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="w-full md:w-1/2 relative">
+                    <!-- Imagem principal com borda decorativa -->
+                    <div class="relative z-10 rounded-lg overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1555507036-ab1f40388085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Padeiro amassando pão" class="w-full h-auto object-cover">
+                    </div>
+                    <!-- Elemento decorativo atrás -->
+                    <div class="absolute -bottom-6 -right-6 w-full h-full border-4 border-brand-gold rounded-lg -z-0 hidden md:block"></div>
+                </div>
+                
+                <div class="w-full md:w-1/2">
+                    <span class="text-brand-gold font-bold uppercase tracking-wider text-sm">Nossa Essência</span>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-brand-brown mt-2 mb-6">Tradição que passa de geração em geração</h2>
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                        A Golden Crust nasceu do sonho de resgatar o sabor autêntico da panificação europeia. Em um mundo industrializado, nós escolhemos o caminho mais difícil: o caminho da paciência.
+                    </p>
+                    <p class="text-gray-600 mb-8 text-lg leading-relaxed">
+                        Nosso levain (fermento natural) é cultivado diariamente há mais de 25 anos, garantindo aquela casca crocante e o miolo aerado inconfundível.
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Chef" class="w-12 h-12 rounded-full border-2 border-brand-gold">
+                        <div>
+                            <p class="font-bold text-brand-dark">Roberto Almeida</p>
+                            <p class="text-sm text-gray-500">Mestre Padeiro & Fundador</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cardápio / Destaques -->
+    <section id="menu" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif font-bold text-brand-brown mb-4">Favoritos da Casa</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto"></div>
+                <p class="text-gray-500 mt-4 max-w-lg mx-auto">Experimente nossos best-sellers, assados frescos todas as manhãs às 06:00.</p>
+            </div>
+
+            <!-- Grid de Produtos -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Produto 1 -->
+                <div class="group bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl transition duration-300">
+                    <div class="card-zoom h-64 relative">
+                        <img src="https://images.unsplash.com/photo-1585478479636-1927429d5903?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Sourdough" class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-white text-brand-brown font-bold px-3 py-1 rounded-full text-sm shadow">
+                            R$ 22,00
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-bold text-brand-brown mb-2">Sourdough Rústico</h3>
+                        <p class="text-gray-500 text-sm mb-4">Fermentação de 48h, casca grossa e crocante.</p>
+                        <button class="w-full border border-brand-brown text-brand-brown py-2 rounded hover:bg-brand-brown hover:text-white transition font-semibold">Adicionar</button>
+                    </div>
+                </div>
+
+                <!-- Produto 2 -->
+                <div class="group bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl transition duration-300">
+                    <div class="card-zoom h-64 relative">
+                        <img src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Croissant" class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-white text-brand-brown font-bold px-3 py-1 rounded-full text-sm shadow">
+                            R$ 12,00
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-bold text-brand-brown mb-2">Croissant Francês</h3>
+                        <p class="text-gray-500 text-sm mb-4">Manteiga importada, camadas perfeitas.</p>
+                        <button class="w-full border border-brand-brown text-brand-brown py-2 rounded hover:bg-brand-brown hover:text-white transition font-semibold">Adicionar</button>
+                    </div>
+                </div>
+
+                <!-- Produto 3 -->
+                <div class="group bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl transition duration-300">
+                    <div class="card-zoom h-64 relative">
+                        <img src="https://images.unsplash.com/photo-1621303837174-89787a7d4729?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Baguette" class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-white text-brand-brown font-bold px-3 py-1 rounded-full text-sm shadow">
+                            R$ 10,00
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-bold text-brand-brown mb-2">Baguette Tradition</h3>
+                        <p class="text-gray-500 text-sm mb-4">Receita clássica de Paris, simples e perfeita.</p>
+                        <button class="w-full border border-brand-brown text-brand-brown py-2 rounded hover:bg-brand-brown hover:text-white transition font-semibold">Adicionar</button>
+                    </div>
+                </div>
+
+                <!-- Produto 4 -->
+                <div class="group bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl transition duration-300">
+                    <div class="card-zoom h-64 relative">
+                        <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Doce" class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-white text-brand-brown font-bold px-3 py-1 rounded-full text-sm shadow">
+                            R$ 18,00
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-bold text-brand-brown mb-2">Pain au Chocolat</h3>
+                        <p class="text-gray-500 text-sm mb-4">Chocolate belga 70% cacau.</p>
+                        <button class="w-full border border-brand-brown text-brand-brown py-2 rounded hover:bg-brand-brown hover:text-white transition font-semibold">Adicionar</button>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block text-brand-brown font-bold border-b-2 border-brand-gold hover:text-brand-gold transition pb-1">Ver Cardápio Completo &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action / Reserva -->
+    <section class="py-20 bg-brand-brown text-white relative">
+        <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/food.png')]"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <h2 class="text-3xl md:text-5xl font-serif font-bold mb-6">Café da Manhã Especial?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">Nós preparamos cestas personalizadas para eventos ou para aquele domingo preguiçoso. Reserve com antecedência.</p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="https://wa.me/5532985072741" class="bg-green-500 text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-green-600 transition flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp"></i> Chamar no WhatsApp
+                </a>
+                <a href="#contato" class="bg-brand-gold text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-yellow-600 transition">
+                    Ver Opções de Cestas
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Depoimentos -->
+    <section id="depoimentos" class="py-20 bg-brand-cream">
+        <div class="container mx-auto px-6">
+            <h2 class="text-center text-3xl font-serif font-bold text-brand-brown mb-12">O que dizem nossos clientes</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                
+                <div class="bg-white p-8 rounded-xl shadow-md relative">
+                    <div class="text-brand-gold text-4xl absolute top-4 left-4 opacity-30">
+                        <i class="fa-solid fa-quote-left"></i>
+                    </div>
+                    <p class="text-gray-600 italic mb-6 relative z-10">"O melhor pão de fermentação natural da cidade. O ambiente é super acolhedor e o cheiro de café fresco é irresistível."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 font-bold">M</div>
+                        <div>
+                            <p class="font-bold text-brand-brown">Mariana Souza</p>
+                            <div class="text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-md relative">
+                    <div class="text-brand-gold text-4xl absolute top-4 left-4 opacity-30">
+                        <i class="fa-solid fa-quote-left"></i>
+                    </div>
+                    <p class="text-gray-600 italic mb-6 relative z-10">"Encomendei os croissants para uma reunião na empresa e foi um sucesso absoluto. Chegaram quentinhos!"</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 font-bold">P</div>
+                        <div>
+                            <p class="font-bold text-brand-brown">Paulo Mendes</p>
+                            <div class="text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato e Footer -->
+    <footer id="contato" class="bg-brand-dark text-white pt-20 pb-10">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-gray-700 pb-12">
+                
+                <!-- Coluna 1: Marca -->
+                <div class="md:col-span-1">
+                    <a href="#" class="text-2xl font-serif font-bold text-brand-gold flex items-center gap-2 mb-4">
+                        <i class="fa-solid fa-wheat-awn"></i>
+                        Golden Crust
+                    </a>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Panificação artesanal feita com alma. Ingredientes puros, tempo e paixão em cada receita.
+                    </p>
+                </div>
+
+                <!-- Coluna 2: Links Rápidos -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Navegação</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#home" class="hover:text-brand-gold transition">Início</a></li>
+                        <li><a href="#sobre" class="hover:text-brand-gold transition">Sobre Nós</a></li>
+                        <li><a href="#menu" class="hover:text-brand-gold transition">Cardápio</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition">Trabalhe Conosco</a></li>
+                    </ul>
+                </div>
+
+                <!-- Coluna 3: Contato -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Visite-nos</h4>
+                    <ul class="space-y-3 text-gray-400 text-sm">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot mt-1 text-brand-gold"></i>
+                            <span>Rua dos Girassóis, 123<br>Jardim Botânico, SP</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-phone text-brand-gold"></i>
+                            <span>(11) 99999-9999</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-envelope text-brand-gold"></i>
+                            <span>ola@goldencrust.com.br</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Coluna 4: Horário -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Horários</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li class="flex justify-between">
+                            <span>Ter - Sex:</span>
+                            <span class="text-white">07:00 - 19:00</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Sáb - Dom:</span>
+                            <span class="text-white">08:00 - 18:00</span>
+                        </li>
+                        <li class="flex justify-between text-brand-gold">
+                            <span>Segunda:</span>
+                            <span>Fechado</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-sm">&copy; 2024 Golden Crust Padaria. Todos os direitos reservados.</p>
+                <div class="flex gap-4">
+                    <!-- Link Instagram Atualizado no Rodapé -->
+                    <a href="https://instagram.com" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-brand-gold transition text-white">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-brand-gold transition text-white">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-brand-gold transition text-white">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botão Flutuante do WhatsApp -->
+    <a href="https://wa.me/5532985072741" class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition z-50 animate-bounce cursor-pointer" title="Fale conosco no WhatsApp">
+        <i class="fa-brands fa-whatsapp text-3xl"></i>
+    </a>
+
+    <!-- JavaScript para interatividade -->
+    <script>
+        // Menu Mobile Toggle
+        const btn = document.getElementById('mobile-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Fechar menu mobile ao clicar em um link
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Mudar estilo da navbar ao rolar (opcional, já que usamos glassmorphism fixo, 
+        // mas bom para adicionar sombra extra se quiser)
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body>
+</html>

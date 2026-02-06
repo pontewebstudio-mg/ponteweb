@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iron Pulse | Academia Premium</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Configurações Personalizadas do Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            light: '#bef264', /* Lime-300 */
+                            DEFAULT: '#84cc16', /* Lime-500 */
+                            dark: '#3f6212', /* Lime-800 */
+                        },
+                        dark: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            700: '#334155'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos personalizados para detalhes finos */
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+
+        /* Efeito de vidro no menu */
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Classes para animação de entrada (Scroll Reveal) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Gradiente sobre a imagem de herói */
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(15,23,42,0.3), rgba(15,23,42,1));
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #84cc16;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #bef264;
+        }
+    </style>
+
+<style>
+  .pwBackToSite{
+    position:fixed;
+    left:16px;
+    top:16px;
+    z-index:99999;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 12px;
+    border-radius:999px;
+    background:rgba(10,12,20,.72);
+    color:#fff;
+    text-decoration:none;
+    border:1px solid rgba(255,255,255,.16);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 26px rgba(0,0,0,.35);
+    font: 600 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  }
+  .pwBackToSite:hover{
+    transform: translateY(-1px);
+  }
+  .pwBackToSite:focus{
+    outline:2px solid rgba(124, 58, 237, .55);
+    outline-offset:2px;
+  }
+  @media (max-width: 520px){
+    .pwBackToSite{left:12px;top:12px;padding:9px 11px;font-size:13px}
+  }
+</style>
+</head>
+<body class="antialiased overflow-x-hidden">
+<a class="pwBackToSite" href="/#portfolio" aria-label="Voltar para o site">← Voltar para o site</a>
+
+
+    <!-- Navegação -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="text-2xl font-black tracking-tighter text-white flex items-center gap-2">
+                <i class="fa-solid fa-dumbbell text-brand"></i> IRON<span class="text-brand">PULSE</span>
+            </a>
+            
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="text-sm font-semibold hover:text-brand transition">INÍCIO</a>
+                <a href="#modalidades" class="text-sm font-semibold hover:text-brand transition">MODALIDADES</a>
+                <a href="#planos" class="text-sm font-semibold hover:text-brand transition">PLANOS</a>
+                <a href="#unidades" class="text-sm font-semibold hover:text-brand transition">UNIDADES</a>
+                
+                <!-- Instagram no Header -->
+                <a href="#" target="_blank" class="text-white hover:text-brand text-xl transition transform hover:scale-110" title="Siga nosso Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+                <a href="#contato" class="bg-brand text-dark-900 px-6 py-2 rounded-full font-bold hover:bg-brand-light transition shadow-[0_0_15px_rgba(132,204,22,0.5)]">
+                    MATRICULE-SE
+                </a>
+            </div>
+
+            <!-- Menu Mobile Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl text-white">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Menu Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-dark-900 absolute w-full border-b border-gray-800">
+            <div class="flex flex-col px-6 py-4 space-y-4">
+                <a href="#home" class="text-white hover:text-brand">Início</a>
+                <a href="#modalidades" class="text-white hover:text-brand">Modalidades</a>
+                <a href="#planos" class="text-white hover:text-brand">Planos</a>
+                <a href="#" class="text-white hover:text-brand flex items-center gap-2"><i class="fa-brands fa-instagram"></i> Instagram</a>
+                <a href="#contato" class="text-brand font-bold">Matricule-se Agora</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Imagem de Fundo -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Gym Background" class="w-full h-full object-cover object-center">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10 text-center md:text-left pt-20">
+            <div class="md:w-2/3 lg:w-1/2">
+                <span class="text-brand font-bold tracking-widest text-sm mb-4 block reveal">ESTILO DE VIDA SAUDÁVEL</span>
+                <h1 class="text-5xl md:text-7xl font-black text-white leading-tight mb-6 reveal" style="transition-delay: 100ms;">
+                    SUPERE SEUS <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand to-brand-light">LIMITES</span>
+                </h1>
+                <p class="text-gray-300 text-lg mb-8 leading-relaxed reveal" style="transition-delay: 200ms;">
+                    Equipamentos de última geração, treinadores especialistas e um ambiente focado no seu resultado. Transforme seu corpo e sua mente hoje.
+                </p>
+                <div class="flex flex-col md:flex-row gap-4 reveal" style="transition-delay: 300ms;">
+                    <a href="#planos" class="bg-brand text-dark-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-brand-light transition transform hover:scale-105 shadow-[0_0_20px_rgba(132,204,22,0.6)] text-center">
+                        COMEÇAR AGORA
+                    </a>
+                    <a href="#modalidades" class="border border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-dark-900 transition text-center">
+                        CONHECER AULAS
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#features" class="text-white opacity-50 hover:opacity-100">
+                <i class="fa-solid fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Stats / Features Section -->
+    <section id="features" class="py-20 bg-dark-900 relative">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-gray-800">
+                <div class="p-4 reveal">
+                    <i class="fa-solid fa-clock text-4xl text-brand mb-4"></i>
+                    <h3 class="text-2xl font-bold text-white mb-2">Aberto 24 Horas</h3>
+                    <p class="text-gray-400">Treine no seu ritmo, a qualquer hora do dia ou da noite.</p>
+                </div>
+                <div class="p-4 reveal" style="transition-delay: 100ms;">
+                    <i class="fa-solid fa-dumbbell text-4xl text-brand mb-4"></i>
+                    <h3 class="text-2xl font-bold text-white mb-2">+200 Equipamentos</h3>
+                    <p class="text-gray-400">Máquinas importadas e área de peso livre completa.</p>
+                </div>
+                <div class="p-4 reveal" style="transition-delay: 200ms;">
+                    <i class="fa-solid fa-users text-4xl text-brand mb-4"></i>
+                    <h3 class="text-2xl font-bold text-white mb-2">Aulas Coletivas</h3>
+                    <p class="text-gray-400">FitDance, Spinning, Yoga e muito mais incluso no plano.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modalidades / Gallery -->
+    <section id="modalidades" class="py-20 bg-dark-800">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-black text-white mb-4">NOSSAS <span class="text-brand">MODALIDADES</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Não importa seu objetivo, temos a atividade perfeita para você.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="group relative overflow-hidden rounded-2xl h-80 cursor-pointer reveal">
+                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Musculação" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 left-0 p-6 translate-y-2 group-hover:translate-y-0 transition duration-300">
+                        <h3 class="text-2xl font-bold text-white">Musculação</h3>
+                        <p class="text-brand text-sm opacity-0 group-hover:opacity-100 transition duration-300">Hipertrofia e Força</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group relative overflow-hidden rounded-2xl h-80 cursor-pointer reveal" style="transition-delay: 100ms;">
+                    <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Cross Training" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 left-0 p-6 translate-y-2 group-hover:translate-y-0 transition duration-300">
+                        <h3 class="text-2xl font-bold text-white">Cross Training</h3>
+                        <p class="text-brand text-sm opacity-0 group-hover:opacity-100 transition duration-300">Alta Intensidade</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group relative overflow-hidden rounded-2xl h-80 cursor-pointer reveal" style="transition-delay: 200ms;">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Cardio" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 left-0 p-6 translate-y-2 group-hover:translate-y-0 transition duration-300">
+                        <h3 class="text-2xl font-bold text-white">Cardio</h3>
+                        <p class="text-brand text-sm opacity-0 group-hover:opacity-100 transition duration-300">Resistência</p>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="group relative overflow-hidden rounded-2xl h-80 cursor-pointer reveal" style="transition-delay: 300ms;">
+                    <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Funcional" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 left-0 p-6 translate-y-2 group-hover:translate-y-0 transition duration-300">
+                        <h3 class="text-2xl font-bold text-white">Funcional</h3>
+                        <p class="text-brand text-sm opacity-0 group-hover:opacity-100 transition duration-300">Mobilidade e Core</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Planos / Pricing -->
+    <section id="planos" class="py-20 bg-dark-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-black text-white mb-4">ESCOLHA SEU <span class="text-brand">PLANO</span></h2>
+                <p class="text-gray-400">Sem taxas de cancelamento. Simples e direto.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Basic -->
+                <div class="bg-dark-800 rounded-3xl p-8 border border-gray-700 hover:border-gray-500 transition reveal">
+                    <h3 class="text-xl font-bold text-white mb-2">PLANO START</h3>
+                    <p class="text-gray-400 text-sm mb-6">Para quem está começando</p>
+                    <div class="mb-6">
+                        <span class="text-4xl font-black text-white">R$ 89,90</span><span class="text-gray-500">/mês</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 text-gray-300 text-sm">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand"></i> Acesso à Musculação</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand"></i> Horário Livre</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand"></i> Sem taxa de adesão</li>
+                        <li class="flex items-center gap-2 text-gray-600"><i class="fa-solid fa-xmark"></i> Acesso a Aulas Coletivas</li>
+                    </ul>
+                    <button class="w-full py-3 rounded-xl border border-brand text-brand font-bold hover:bg-brand hover:text-dark-900 transition">Assinar Agora</button>
+                </div>
+
+                <!-- Pro (Destaque) -->
+                <div class="bg-dark-800 rounded-3xl p-8 border-2 border-brand relative transform md:-translate-y-4 shadow-[0_0_30px_rgba(132,204,22,0.15)] reveal" style="transition-delay: 100ms;">
+                    <div class="absolute top-0 right-0 bg-brand text-dark-900 text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl">MAIS POPULAR</div>
+                    <h3 class="text-xl font-bold text-white mb-2">PLANO IRON</h3>
+                    <p class="text-gray-400 text-sm mb-6">A experiência completa</p>
+                    <div class="mb-6">
+                        <span class="text-4xl font-black text-white">R$ 119,90</span><span class="text-gray-500">/mês</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 text-gray-300 text-sm">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand"></i> Acesso Total (Musculação + Cardio)</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand"></i> Aulas Coletivas Ilimitadas</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand"></i> Leve um amigo 2x/mês</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand"></i> Avaliação Física Grátis</li>
+                    </ul>
+                    <button class="w-full py-3 rounded-xl bg-brand text-dark-900 font-bold hover:bg-brand-light transition shadow-lg shadow-brand/20">Assinar Agora</button>
+                </div>
+
+                <!-- Elite -->
+                <div class="bg-dark-800 rounded-3xl p-8 border border-gray-700 hover:border-gray-500 transition reveal" style="transition-delay: 200ms;">
+                    <h3 class="text-xl font-bold text-white mb-2">PLANO FAMÍLIA</h3>
+                    <p class="text-gray-400 text-sm mb-6">Para você e mais um</p>
+                    <div class="mb-6">
+                        <span class="text-4xl font-black text-white">R$ 199,90</span><span class="text-gray-500">/mês</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 text-gray-300 text-sm">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand"></i> 2 Matrículas inclusas</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand"></i> Acesso Total para ambos</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand"></i> Armário exclusivo</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand"></i> Estacionamento VIP</li>
+                    </ul>
+                    <button class="w-full py-3 rounded-xl border border-brand text-brand font-bold hover:bg-brand hover:text-dark-900 transition">Assinar Agora</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Banner -->
+    <section class="py-16 bg-brand text-dark-900">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
+            <div class="mb-6 md:mb-0">
+                <h2 class="text-3xl font-black mb-2">PRIMEIRA AULA GRÁTIS</h2>
+                <p class="font-semibold text-dark-800">Venha sentir a energia da Iron Pulse. Agende sua aula experimental.</p>
+            </div>
+            <a href="#contato" class="bg-dark-900 text-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-dark-900 transition shadow-lg">
+                AGENDAR VISITA
+            </a>
+        </div>
+    </section>
+
+    <!-- Contato / Footer -->
+    <section id="contato" class="bg-dark-900 pt-20 pb-10 border-t border-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+                
+                <!-- Info -->
+                <div class="reveal">
+                    <div class="text-2xl font-black tracking-tighter text-white flex items-center gap-2 mb-6">
+                        <i class="fa-solid fa-dumbbell text-brand"></i> IRON<span class="text-brand">PULSE</span>
+                    </div>
+                    <p class="text-gray-400 mb-8">
+                        A maior estrutura da região focada em resultados reais. Venha fazer parte da nossa comunidade.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 text-gray-300">
+                            <div class="w-10 h-10 rounded-full bg-dark-800 flex items-center justify-center text-brand">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <span>Av. Paulista, 1000 - São Paulo, SP</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-gray-300">
+                            <div class="w-10 h-10 rounded-full bg-dark-800 flex items-center justify-center text-brand">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <span>(11) 99999-8888</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-gray-300">
+                            <div class="w-10 h-10 rounded-full bg-dark-800 flex items-center justify-center text-brand">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <span>contato@ironpulse.com.br</span>
+                        </div>
+                    </div>
+
+                    <!-- Botões Redes Sociais no Rodapé -->
+                    <div class="flex gap-4 mt-8">
+                        <a href="#" class="w-10 h-10 rounded-full bg-dark-800 flex items-center justify-center text-gray-400 hover:bg-brand hover:text-dark-900 transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-dark-800 flex items-center justify-center text-gray-400 hover:bg-brand hover:text-dark-900 transition"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-dark-800 flex items-center justify-center text-gray-400 hover:bg-brand hover:text-dark-900 transition"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="bg-dark-800 p-8 rounded-3xl reveal" style="transition-delay: 100ms;">
+                    <h3 class="text-xl font-bold text-white mb-6">Fale Conosco</h3>
+                    <form id="contactForm" onsubmit="event.preventDefault(); alert('Obrigado! Entraremos em contato em breve.');">
+                        <div class="space-y-4">
+                            <input type="text" placeholder="Seu Nome" class="w-full bg-dark-900 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand transition" required>
+                            <input type="email" placeholder="Seu E-mail" class="w-full bg-dark-900 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand transition" required>
+                            <select class="w-full bg-dark-900 border border-gray-700 rounded-xl px-4 py-3 text-gray-400 focus:outline-none focus:border-brand transition">
+                                <option>Tenho interesse no Plano Start</option>
+                                <option>Tenho interesse no Plano Iron</option>
+                                <option>Tenho interesse no Plano Família</option>
+                                <option>Outros assuntos</option>
+                            </select>
+                            <button type="submit" class="w-full bg-brand text-dark-900 font-bold py-3 rounded-xl hover:bg-brand-light transition">ENVIAR MENSAGEM</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-gray-500 text-sm">© 2024 Iron Pulse Academia. Todos os direitos reservados. Design Demonstrativo.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Botão Flutuante do WhatsApp -->
+    <a href="https://wa.me/5532985072741" target="_blank" class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-[0_0_20px_rgba(37,211,102,0.5)] hover:scale-110 hover:-translate-y-2 transition duration-300 group">
+        <i class="fa-brands fa-whatsapp"></i>
+        <!-- Tooltip -->
+        <span class="absolute right-full mr-4 bg-white text-dark-900 px-3 py-1 rounded text-xs font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none">
+            Fale Conosco
+        </span>
+    </a>
+
+    <!-- JavaScript para Interatividade -->
+    <script>
+        // Menu Mobile Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('glass-nav');
+                navbar.classList.add('py-2');
+                navbar.classList.remove('py-4');
+            } else {
+                navbar.classList.remove('glass-nav');
+                navbar.classList.remove('py-2');
+                navbar.classList.add('py-4');
+            }
+        });
+
+        // Scroll Reveal Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load
+        reveal();
+    </script>
+</body>
+</html>

@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabor & Brasa | Gastronomia Premium</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Configuração do Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            gold: '#D4AF37',
+                            dark: '#1a1a1a',
+                            black: '#0f0f0f',
+                            gray: '#2d2d2d'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos personalizados para detalhes finos */
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .menu-item-hover:hover .menu-img {
+            transform: scale(1.1);
+        }
+        
+        /* Animação de fade-in simples */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, visibility;
+        }
+        
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+    </style>
+
+<style>
+  .pwBackToSite{
+    position:fixed;
+    left:16px;
+    top:16px;
+    z-index:99999;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 12px;
+    border-radius:999px;
+    background:rgba(10,12,20,.72);
+    color:#fff;
+    text-decoration:none;
+    border:1px solid rgba(255,255,255,.16);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 26px rgba(0,0,0,.35);
+    font: 600 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  }
+  .pwBackToSite:hover{
+    transform: translateY(-1px);
+  }
+  .pwBackToSite:focus{
+    outline:2px solid rgba(124, 58, 237, .55);
+    outline-offset:2px;
+  }
+  @media (max-width: 520px){
+    .pwBackToSite{left:12px;top:12px;padding:9px 11px;font-size:13px}
+  }
+</style>
+</head>
+<body class="bg-brand-black text-gray-200 font-sans antialiased overflow-x-hidden">
+<a class="pwBackToSite" href="/#portfolio" aria-label="Voltar para o site">← Voltar para o site</a>
+
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 px-6 lg:px-12 bg-transparent">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl lg:text-3xl font-serif font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-fire text-brand-gold"></i> Sabor & Brasa
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#sobre" class="text-sm uppercase tracking-widest hover:text-brand-gold transition-colors">Sobre</a>
+                <a href="#menu" class="text-sm uppercase tracking-widest hover:text-brand-gold transition-colors">Menu</a>
+                <a href="#galeria" class="text-sm uppercase tracking-widest hover:text-brand-gold transition-colors">Galeria</a>
+                <a href="#contato" class="text-sm uppercase tracking-widest hover:text-brand-gold transition-colors">Contato</a>
+                <a href="#reservas" class="bg-brand-gold text-brand-black px-6 py-2 font-bold uppercase text-xs tracking-widest hover:bg-white transition-colors duration-300">Reservar</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-white text-2xl focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-brand-black/95 z-40 transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center gap-8 md:hidden">
+            <button id="close-menu-btn" class="absolute top-6 right-6 text-white text-3xl">
+                <i class="fa-solid fa-times"></i>
+            </button>
+            <a href="#sobre" class="mobile-link text-2xl font-serif hover:text-brand-gold">Sobre</a>
+            <a href="#menu" class="mobile-link text-2xl font-serif hover:text-brand-gold">Menu</a>
+            <a href="#galeria" class="mobile-link text-2xl font-serif hover:text-brand-gold">Galeria</a>
+            <a href="#contato" class="mobile-link text-2xl font-serif hover:text-brand-gold">Contato</a>
+            <a href="#reservas" class="mobile-link text-xl bg-brand-gold text-brand-black px-8 py-3 font-bold">Reservar Mesa</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="h-screen w-full hero-bg flex items-center justify-center text-center px-4">
+        <div class="max-w-4xl fade-in-section">
+            <p class="text-brand-gold text-sm md:text-base uppercase tracking-[0.3em] mb-4">Experiência Gastronômica</p>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 text-shadow leading-tight">
+                Sabores que <br><span class="italic text-brand-gold">Encantam</span>
+            </h1>
+            <p class="text-gray-300 text-lg md:text-xl mb-10 max-w-2xl mx-auto font-light">
+                Onde a culinária contemporânea encontra a tradição da brasa em um ambiente sofisticado e acolhedor.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#reservas" class="bg-brand-gold text-brand-black px-8 py-4 font-bold uppercase tracking-widest hover:bg-white transition-colors duration-300 border border-brand-gold hover:border-white">
+                    Fazer Reserva
+                </a>
+                <a href="#menu" class="bg-transparent text-white border border-white px-8 py-4 font-bold uppercase tracking-widest hover:bg-white hover:text-brand-black transition-colors duration-300">
+                    Ver Menu
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sobre Section -->
+    <section id="sobre" class="py-20 md:py-32 px-6 bg-brand-dark overflow-hidden">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div class="relative fade-in-section">
+                <div class="absolute -top-4 -left-4 w-24 h-24 border-t-2 border-l-2 border-brand-gold"></div>
+                <div class="absolute -bottom-4 -right-4 w-24 h-24 border-b-2 border-r-2 border-brand-gold"></div>
+                <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Interior do Restaurante" class="w-full h-auto shadow-2xl grayscale hover:grayscale-0 transition-all duration-700">
+            </div>
+            <div class="fade-in-section">
+                <h3 class="text-brand-gold text-sm uppercase tracking-widest mb-2">Nossa História</h3>
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-white mb-6">A Arte de Receber Bem</h2>
+                <p class="text-gray-400 mb-6 leading-relaxed">
+                    Fundado em 2015, o Sabor & Brasa nasceu da paixão por cortes nobres e ingredientes frescos. Nossa cozinha é um palco onde a tradição encontra a inovação.
+                </p>
+                <p class="text-gray-400 mb-8 leading-relaxed">
+                    Cada prato é cuidadosamente elaborado pelo Chef André Silva, premiado internacionalmente, para proporcionar uma experiência sensorial única. Do ambiente à música, tudo é pensado para o seu prazer.
+                </p>
+                
+                <div class="flex gap-8">
+                    <div class="text-center">
+                        <span class="block text-3xl font-serif text-brand-gold">10+</span>
+                        <span class="text-xs uppercase tracking-wider text-gray-500">Anos de Experiência</span>
+                    </div>
+                    <div class="text-center">
+                        <span class="block text-3xl font-serif text-brand-gold">15k+</span>
+                        <span class="text-xs uppercase tracking-wider text-gray-500">Clientes Felizes</span>
+                    </div>
+                    <div class="text-center">
+                        <span class="block text-3xl font-serif text-brand-gold">4.9</span>
+                        <span class="text-xs uppercase tracking-wider text-gray-500">Avaliação Média</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-20 md:py-32 px-6 bg-brand-black">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 fade-in-section">
+                <h3 class="text-brand-gold text-sm uppercase tracking-widest mb-2">Descubra Nossos Sabores</h3>
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-white">Menu Selecionado</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-6"></div>
+            </div>
+
+            <!-- Menu Tabs -->
+            <div class="flex justify-center flex-wrap gap-4 mb-12 fade-in-section">
+                <button onclick="filterMenu('entradas')" class="menu-tab active px-6 py-2 border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-brand-black transition-all uppercase text-sm tracking-widest" data-target="entradas">Entradas</button>
+                <button onclick="filterMenu('pratos')" class="menu-tab px-6 py-2 border border-gray-600 text-gray-400 hover:border-brand-gold hover:text-brand-gold transition-all uppercase text-sm tracking-widest" data-target="pratos">Pratos Principais</button>
+                <button onclick="filterMenu('sobremesas')" class="menu-tab px-6 py-2 border border-gray-600 text-gray-400 hover:border-brand-gold hover:text-brand-gold transition-all uppercase text-sm tracking-widest" data-target="sobremesas">Sobremesas</button>
+            </div>
+
+            <!-- Menu Items Grid -->
+            <div id="menu-container" class="grid md:grid-cols-2 gap-x-12 gap-y-8 fade-in-section">
+                
+                <!-- Entradas (Padrão) -->
+                <div class="menu-item entradas flex justify-between items-end border-b border-gray-800 pb-4">
+                    <div>
+                        <h4 class="text-xl font-serif text-white mb-1">Carpaccio Trufado</h4>
+                        <p class="text-sm text-gray-500 italic">Lâminas de filé mignon, azeite trufado, parmesão e alcaparras.</p>
+                    </div>
+                    <span class="text-brand-gold font-bold text-xl ml-4">R$ 59</span>
+                </div>
+                
+                <div class="menu-item entradas flex justify-between items-end border-b border-gray-800 pb-4">
+                    <div>
+                        <h4 class="text-xl font-serif text-white mb-1">Burrata ao Pesto</h4>
+                        <p class="text-sm text-gray-500 italic">Burrata fresca, tomate confit, pesto de manjericão e torradas artesanais.</p>
+                    </div>
+                    <span class="text-brand-gold font-bold text-xl ml-4">R$ 65</span>
+                </div>
+
+                <div class="menu-item entradas flex justify-between items-end border-b border-gray-800 pb-4">
+                    <div>
+                        <h4 class="text-xl font-serif text-white mb-1">Tartare de Salmão</h4>
+                        <p class="text-sm text-gray-500 italic">Salmão fresco, abacate, gergelim e molho oriental.</p>
+                    </div>
+                    <span class="text-brand-gold font-bold text-xl ml-4">R$ 54</span>
+                </div>
+                
+                <div class="menu-item entradas flex justify-between items-end border-b border-gray-800 pb-4">
+                    <div>
+                        <h4 class="text-xl font-serif text-white mb-1">Dadinhos de Tapioca</h4>
+                        <p class="text-sm text-gray-500 italic">Com queijo coalho e geleia de pimenta artesanal.</p>
+                    </div>
+                    <span class="text-brand-gold font-bold text-xl ml-4">R$ 38</span>
+                </div>
+
+                <!-- Pratos Principais (Ocultos inicialmente) -->
+                <div class="menu-item pratos hidden flex justify-between items-end border-b border-gray-800 pb-4">
+                    <div>
+                        <h4 class="text-xl font-serif text-white mb-1">Ancho Premium</h4>
+                        <p class="text-sm text-gray-500 italic">Corte nobre de 400g, acompanha risoto de funghi.</p>
+                    </div>
+                    <span class="text-brand-gold font-bold text-xl ml-4">R$ 110</span>
+                </div>
+
+                <div class="menu-item pratos hidden flex justify-between items-end border-b border-gray-800 pb-4">
+                    <div>
+                        <h4 class="text-xl font-serif text-white mb-1">Polvo à Lagareiro</h4>
+                        <p class="text-sm text-gray-500 italic">Polvo grelhado, batatas ao murro, alho e azeite extra virgem.</p>
+                    </div>
+                    <span class="text-brand-gold font-bold text-xl ml-4">R$ 145</span>
+                </div>
+
+                <div class="menu-item pratos hidden flex justify-between items-end border-b border-gray-800 pb-4">
+                    <div>
+                        <h4 class="text-xl font-serif text-white mb-1">Carré de Cordeiro</h4>
+                        <p class="text-sm text-gray-500 italic">Cordeiro em crosta de ervas com purê de mandioquinha.</p>
+                    </div>
+                    <span class="text-brand-gold font-bold text-xl ml-4">R$ 130</span>
+                </div>
+
+                <div class="menu-item pratos hidden flex justify-between items-end border-b border-gray-800 pb-4">
+                    <div>
+                        <h4 class="text-xl font-serif text-white mb-1">Risoto de Camarão</h4>
+                        <p class="text-sm text-gray-500 italic">Arroz arbóreo, camarões rosa, limão siciliano e açafrão.</p>
+                    </div>
+                    <span class="text-brand-gold font-bold text-xl ml-4">R$ 98</span>
+                </div>
+
+                <!-- Sobremesas (Ocultas inicialmente) -->
+                <div class="menu-item sobremesas hidden flex justify-between items-end border-b border-gray-800 pb-4">
+                    <div>
+                        <h4 class="text-xl font-serif text-white mb-1">Petit Gâteau de Doce de Leite</h4>
+                        <p class="text-sm text-gray-500 italic">Acompanha sorvete de queijo mascarpone.</p>
+                    </div>
+                    <span class="text-brand-gold font-bold text-xl ml-4">R$ 32</span>
+                </div>
+
+                <div class="menu-item sobremesas hidden flex justify-between items-end border-b border-gray-800 pb-4">
+                    <div>
+                        <h4 class="text-xl font-serif text-white mb-1">Cheesecake de Frutas Vermelhas</h4>
+                        <p class="text-sm text-gray-500 italic">Base crocante, creme suave e calda rústica.</p>
+                    </div>
+                    <span class="text-brand-gold font-bold text-xl ml-4">R$ 28</span>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block text-brand-gold border-b border-brand-gold pb-1 hover:text-white hover:border-white transition-colors uppercase text-xs tracking-widest">Ver Menu Completo em PDF</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destaque / Imagem Parallax -->
+    <section class="h-[50vh] bg-fixed bg-cover bg-center flex items-center justify-center relative" style="background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+        <div class="absolute inset-0 bg-black/60"></div>
+        <div class="relative z-10 text-center px-4 fade-in-section">
+            <h2 class="text-3xl md:text-5xl font-serif font-bold text-white mb-4">Ingredientes Frescos & Locais</h2>
+            <p class="text-lg text-gray-300">Apoiamos produtores locais para trazer o melhor à sua mesa.</p>
+        </div>
+    </section>
+
+    <!-- Galeria -->
+    <section id="galeria" class="py-20 bg-brand-dark">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in-section">
+                <h3 class="text-brand-gold text-sm uppercase tracking-widest mb-2">Nosso Ambiente</h3>
+                <h2 class="text-4xl font-serif font-bold text-white">Galeria</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[200px] md:auto-rows-[300px]">
+                <div class="md:col-span-1 row-span-1 relative overflow-hidden group rounded-sm menu-item-hover fade-in-section">
+                    <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Drink" class="menu-img w-full h-full object-cover transition-transform duration-700">
+                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="text-brand-gold font-serif text-xl">Drinks Autorais</span>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-2 row-span-1 relative overflow-hidden group rounded-sm menu-item-hover fade-in-section">
+                    <img src="https://images.unsplash.com/photo-1544148103-0773bf10d330?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Prato" class="menu-img w-full h-full object-cover transition-transform duration-700">
+                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="text-brand-gold font-serif text-xl">Alta Gastronomia</span>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-2 row-span-1 relative overflow-hidden group rounded-sm menu-item-hover fade-in-section">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Ambiente" class="menu-img w-full h-full object-cover transition-transform duration-700">
+                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="text-brand-gold font-serif text-xl">Ambiente Acolhedor</span>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-1 row-span-1 relative overflow-hidden group rounded-sm menu-item-hover fade-in-section">
+                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Detalhe" class="menu-img w-full h-full object-cover transition-transform duration-700">
+                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="text-brand-gold font-serif text-xl">Apresentação Impecável</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservas -->
+    <section id="reservas" class="py-20 md:py-32 bg-brand-black relative">
+        <div class="absolute top-0 right-0 w-1/3 h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        
+        <div class="max-w-5xl mx-auto px-6 relative z-10">
+            <div class="bg-brand-gray p-8 md:p-12 border border-gray-700 shadow-2xl fade-in-section">
+                <div class="text-center mb-10">
+                    <h3 class="text-brand-gold text-sm uppercase tracking-widest mb-2">Reserve Sua Mesa</h3>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-white">Garanta sua Experiência</h2>
+                </div>
+
+                <form id="reservation-form" onsubmit="handleReservation(event)" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-xs uppercase tracking-widest text-gray-400">Nome Completo</label>
+                            <input type="text" required class="w-full bg-brand-black border border-gray-700 text-white p-3 focus:border-brand-gold focus:outline-none transition-colors" placeholder="Seu nome">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs uppercase tracking-widest text-gray-400">Email</label>
+                            <input type="email" required class="w-full bg-brand-black border border-gray-700 text-white p-3 focus:border-brand-gold focus:outline-none transition-colors" placeholder="seu@email.com">
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-xs uppercase tracking-widest text-gray-400">Data</label>
+                            <input type="date" required class="w-full bg-brand-black border border-gray-700 text-white p-3 focus:border-brand-gold focus:outline-none transition-colors [color-scheme:dark]">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs uppercase tracking-widest text-gray-400">Horário</label>
+                            <select class="w-full bg-brand-black border border-gray-700 text-white p-3 focus:border-brand-gold focus:outline-none transition-colors">
+                                <option>18:00</option>
+                                <option>19:00</option>
+                                <option>20:00</option>
+                                <option>21:00</option>
+                                <option>22:00</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs uppercase tracking-widest text-gray-400">Pessoas</label>
+                            <select class="w-full bg-brand-black border border-gray-700 text-white p-3 focus:border-brand-gold focus:outline-none transition-colors">
+                                <option>2 Pessoas</option>
+                                <option>3 Pessoas</option>
+                                <option>4 Pessoas</option>
+                                <option>5 Pessoas</option>
+                                <option>6+ (Entrar em contato)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-xs uppercase tracking-widest text-gray-400">Observações Especiais</label>
+                        <textarea rows="3" class="w-full bg-brand-black border border-gray-700 text-white p-3 focus:border-brand-gold focus:outline-none transition-colors" placeholder="Aniversário, alergias, mesa preferida..."></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-brand-gold text-brand-black py-4 font-bold uppercase tracking-widest hover:bg-white transition-all duration-300 mt-4">
+                        Confirmar Reserva
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contato" class="bg-brand-black border-t border-gray-800 pt-20 pb-10 px-6">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-12 mb-12">
+            <div>
+                <a href="#" class="text-2xl font-serif font-bold text-white flex items-center gap-2 mb-6">
+                    <i class="fa-solid fa-fire text-brand-gold"></i> Sabor & Brasa
+                </a>
+                <p class="text-gray-500 mb-6">Uma experiência gastronômica inesquecível no coração da cidade.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:text-brand-gold hover:border-brand-gold transition-colors">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:text-brand-gold hover:border-brand-gold transition-colors">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:text-brand-gold hover:border-brand-gold transition-colors">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-white font-serif text-lg mb-6">Contato</h4>
+                <p class="text-gray-400 mb-2"><i class="fa-solid fa-location-dot text-brand-gold mr-2 w-5"></i> Rua da Gastronomia, 123 - Centro</p>
+                <p class="text-gray-400 mb-2"><i class="fa-solid fa-phone text-brand-gold mr-2 w-5"></i> (11) 99999-9999</p>
+                <p class="text-gray-400"><i class="fa-solid fa-envelope text-brand-gold mr-2 w-5"></i> reservas@saborebrasa.com</p>
+            </div>
+
+            <div>
+                <h4 class="text-white font-serif text-lg mb-6">Horário de Funcionamento</h4>
+                <ul class="text-gray-400 space-y-2">
+                    <li class="flex justify-between"><span>Terça - Quinta:</span> <span>18h - 23h</span></li>
+                    <li class="flex justify-between"><span>Sexta - Sábado:</span> <span>18h - 00h</span></li>
+                    <li class="flex justify-between"><span>Domingo:</span> <span>12h - 16h</span></li>
+                    <li class="flex justify-between text-brand-gold"><span>Segunda:</span> <span>Fechado</span></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="text-center pt-8 border-t border-gray-800 text-gray-600 text-sm">
+            <p>&copy; 2024 Sabor & Brasa. Todos os direitos reservados. Design para Portfólio.</p>
+        </div>
+    </footer>
+
+    <!-- Botão Flutuante WhatsApp -->
+    <a href="#" class="fixed bottom-6 right-6 bg-green-600 text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center text-3xl z-40 hover:bg-green-500 hover:scale-110 transition-all duration-300">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Modal de Sucesso -->
+    <div id="success-modal" class="fixed inset-0 z-[60] hidden flex items-center justify-center bg-black/80 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+        <div class="bg-brand-gray border border-brand-gold p-8 max-w-sm mx-4 text-center shadow-2xl transform scale-90 transition-transform duration-300" id="modal-content">
+            <div class="w-16 h-16 bg-brand-gold rounded-full flex items-center justify-center mx-auto mb-4 text-brand-black text-2xl">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="text-2xl font-serif text-white mb-2">Reserva Recebida!</h3>
+            <p class="text-gray-400 mb-6">Obrigado pelo contato. Confirmaremos sua reserva por email ou WhatsApp em breve.</p>
+            <button onclick="closeModal()" class="bg-transparent border border-white text-white px-6 py-2 hover:bg-white hover:text-black transition-colors uppercase tracking-widest text-sm">Fechar</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Lógica do Menu Mobile
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            const isHidden = mobileMenu.classList.contains('translate-x-full');
+            if (isHidden) {
+                mobileMenu.classList.remove('translate-x-full');
+            } else {
+                mobileMenu.classList.add('translate-x-full');
+            }
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMenu);
+        closeMenuBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // Lógica da Navbar ao rolar (Mudar cor de fundo)
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-brand-black/95', 'shadow-lg', 'py-2');
+                navbar.classList.remove('bg-transparent', 'py-4');
+            } else {
+                navbar.classList.remove('bg-brand-black/95', 'shadow-lg', 'py-2');
+                navbar.classList.add('bg-transparent', 'py-4');
+            }
+        });
+
+        // Lógica das Abas do Menu
+        function filterMenu(category) {
+            // Atualizar botões
+            document.querySelectorAll('.menu-tab').forEach(btn => {
+                if(btn.dataset.target === category) {
+                    btn.classList.add('border-brand-gold', 'text-brand-gold');
+                    btn.classList.remove('border-gray-600', 'text-gray-400');
+                } else {
+                    btn.classList.remove('border-brand-gold', 'text-brand-gold');
+                    btn.classList.add('border-gray-600', 'text-gray-400');
+                }
+            });
+
+            // Atualizar itens
+            const items = document.querySelectorAll('.menu-item');
+            items.forEach(item => {
+                item.classList.add('hidden');
+                if(item.classList.contains(category)) {
+                    // Pequeno delay para animação (opcional)
+                    item.classList.remove('hidden');
+                    item.classList.add('fade-in-up'); 
+                }
+            });
+        }
+
+        // Lógica do Formulário de Reserva
+        function handleReservation(e) {
+            e.preventDefault();
+            const modal = document.getElementById('success-modal');
+            const modalContent = document.getElementById('modal-content');
+            
+            modal.classList.remove('hidden');
+            // Força um reflow para permitir a transição
+            void modal.offsetWidth; 
+            modal.classList.remove('opacity-0');
+            modalContent.classList.remove('scale-90');
+            modalContent.classList.add('scale-100');
+            
+            // Limpa o formulário
+            e.target.reset();
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('success-modal');
+            const modalContent = document.getElementById('modal-content');
+            
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-90');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Intersection Observer para animações de scroll
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Anima apenas uma vez
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtuoso Music Academy | Domine seu Ritmo</title>
+    <!-- Fontes do Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Ícones (Phosphor Icons) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* --- VARIÁVEIS E RESET --- */
+        :root {
+            --bg-color: #050505;
+            --surface-color: #121212;
+            --primary-color: #8A2BE2; /* BlueViolet */
+            --secondary-color: #00F0FF; /* Cyan Neon */
+            --text-color: #ffffff;
+            --text-muted: #a0a0a0;
+            --gradient-main: linear-gradient(135deg, var(--primary-color), #4B0082);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- UTILITÁRIOS --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-main);
+            color: white;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.6);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--secondary-color);
+            color: var(--bg-color);
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        h2 span {
+            color: var(--primary-color);
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 0;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: var(--glass-border);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Estilo do Instagram no Header */
+        .header-social {
+            color: white;
+            font-size: 1.8rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .header-social:hover {
+            color: #E1306C; /* Cor da marca do Instagram */
+            transform: translateY(-2px);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: url('https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.7) 50%, rgba(5,5,5,0.3) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            padding-top: 60px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(138, 43, 226, 0.2);
+            border: 1px solid var(--primary-color);
+            border-radius: 20px;
+            color: var(--primary-color);
+            font-size: 0.8rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            -webkit-text-stroke: 1px var(--secondary-color);
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* --- STATS BAR --- */
+        .stats-bar {
+            background: var(--surface-color);
+            padding: 40px 0;
+            border-bottom: var(--glass-border);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+
+        .stat-item p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- COURSES SECTION --- */
+        .courses {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .course-card {
+            background: var(--glass-bg);
+            border: var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+            group: ;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+        }
+
+        .course-img {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .course-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .course-card:hover .course-img img {
+            transform: scale(1.1);
+        }
+
+        .course-overlay {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--bg-color);
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .course-info {
+            padding: 30px;
+        }
+
+        .course-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .course-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .course-link {
+            color: var(--primary-color);
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .course-link:hover {
+            gap: 10px;
+        }
+
+        /* --- WHY US (FEATURES) --- */
+        .why-us {
+            padding: 100px 0;
+            background: linear-gradient(to bottom, var(--bg-color), #0f0f0f);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative Elements */
+        .blob {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: var(--primary-color);
+            filter: blur(150px);
+            opacity: 0.2;
+            border-radius: 50%;
+            z-index: 0;
+        }
+        .blob-1 { top: -100px; left: -100px; }
+        .blob-2 { bottom: -100px; right: -100px; background: var(--secondary-color); }
+
+        .features-container {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            flex-shrink: 0;
+        }
+
+        .feature-text h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .feature-text p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .feature-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: -20px 20px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        /* --- CALL TO ACTION --- */
+        .cta-section {
+            padding: 100px 0;
+            text-align: center;
+            background: url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover fixed;
+            position: relative;
+        }
+
+        .cta-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(138, 43, 226, 0.85);
+            mix-blend-mode: multiply;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-content h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #020202;
+            padding: 60px 0 20px;
+            border-top: var(--glass-border);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .footer-desc {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            max-width: 300px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-col h4 {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        /* --- WHATSAPP FLUTUANTE --- */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 32px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            background-color: #128C7E;
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        /* --- ANIMATIONS --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 3.5rem; }
+            .features-container { grid-template-columns: 1fr; }
+            .feature-image { display: none; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .hero { text-align: center; justify-content: center; }
+            .hero-content { padding: 0 20px; }
+            .hero h1 { font-size: 2.8rem; }
+            .hero-btns { justify-content: center; flex-direction: column; }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+            .social-icons { justify-content: center; }
+            /* Ajuste whatsapp mobile */
+            .whatsapp-float { bottom: 20px; right: 20px; width: 50px; height: 50px; font-size: 28px; }
+        }
+    </style>
+
+<style>
+  .pwBackToSite{
+    position:fixed;
+    left:16px;
+    top:16px;
+    z-index:99999;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 12px;
+    border-radius:999px;
+    background:rgba(10,12,20,.72);
+    color:#fff;
+    text-decoration:none;
+    border:1px solid rgba(255,255,255,.16);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 26px rgba(0,0,0,.35);
+    font: 600 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  }
+  .pwBackToSite:hover{
+    transform: translateY(-1px);
+  }
+  .pwBackToSite:focus{
+    outline:2px solid rgba(124, 58, 237, .55);
+    outline-offset:2px;
+  }
+  @media (max-width: 520px){
+    .pwBackToSite{left:12px;top:12px;padding:9px 11px;font-size:13px}
+  }
+</style>
+</head>
+<body>
+<a class="pwBackToSite" href="/#portfolio" aria-label="Voltar para o site">← Voltar para o site</a>
+
+
+    <!-- NAV -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="ph ph-waveform"></i> VIRTUOSO
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#cursos">Cursos</a></li>
+                    <li><a href="#metodo">O Método</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <!-- Botão Instagram Header -->
+                    <a href="https://instagram.com" target="_blank" class="header-social" title="Siga nosso Instagram">
+                        <i class="ph ph-instagram-logo"></i>
+                    </a>
+                    
+                    <a href="#matricula" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.8rem;">Área do Aluno</a>
+                    
+                    <div class="mobile-menu-btn">
+                        <i class="ph ph-list"></i>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content reveal">
+                <span class="badge">Matrículas Abertas</span>
+                <h1>A Música Vive em <br><span>Você.</span></h1>
+                <p>Descubra o músico que existe em você com nossa metodologia exclusiva focada em prática, performance e criatividade. Do zero ao palco em tempo recorde.</p>
+                <div class="hero-btns">
+                    <a href="#agendar" class="btn btn-primary">Agendar Aula Grátis</a>
+                    <a href="#cursos" class="btn btn-outline">Ver Cursos</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="stats-bar reveal">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>1.5k+</h3>
+                    <p>Alunos Formados</p>
+                </div>
+                <div class="stat-item">
+                    <h3>12</h3>
+                    <p>Prêmios Musicais</p>
+                </div>
+                <div class="stat-item">
+                    <h3>30+</h3>
+                    <p>Professores Pro</p>
+                </div>
+                <div class="stat-item">
+                    <h3>100%</h3>
+                    <p>Prática Real</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COURSES -->
+    <section class="courses" id="cursos">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Nossas <span>Modalidades</span></h2>
+                <p style="color: var(--text-muted);">Escolha seu instrumento e comece sua jornada. Oferecemos aulas individuais e em grupo para todos os níveis.</p>
+            </div>
+
+            <div class="courses-grid">
+                <!-- Guitarra -->
+                <div class="course-card reveal">
+                    <div class="course-img">
+                        <div class="course-overlay">Popular</div>
+                        <img src="https://images.unsplash.com/photo-1550291652-6ea9114a47b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Guitarra">
+                    </div>
+                    <div class="course-info">
+                        <h3>Guitarra & Violão</h3>
+                        <p>Domine acordes, solos e improvisação. Do Blues ao Metal, aprenda as técnicas dos seus ídolos.</p>
+                        <a href="#" class="course-link">Saiba Mais <i class="ph ph-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Piano -->
+                <div class="course-card reveal">
+                    <div class="course-img">
+                        <div class="course-overlay">Clássico & Jazz</div>
+                        <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Piano">
+                    </div>
+                    <div class="course-info">
+                        <h3>Piano & Teclado</h3>
+                        <p>Desenvolva leitura de partitura, harmonia e independência das mãos em um ambiente inspirador.</p>
+                        <a href="#" class="course-link">Saiba Mais <i class="ph ph-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Bateria -->
+                <div class="course-card reveal">
+                    <div class="course-img">
+                        <div class="course-overlay">Intensivo</div>
+                        <img src="https://images.unsplash.com/photo-1543796023-e9bf10685254?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Bateria">
+                    </div>
+                    <div class="course-info">
+                        <h3>Bateria</h3>
+                        <p>Ritmo, coordenação e muita energia. Aprenda a ser o coração da banda em nossos estúdios acústicos.</p>
+                        <a href="#" class="course-link">Saiba Mais <i class="ph ph-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                 <!-- Canto -->
+                 <div class="course-card reveal">
+                    <div class="course-img">
+                        <div class="course-overlay">Técnica</div>
+                        <img src="https://images.unsplash.com/photo-1535581652167-3d6b98c3664d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Canto">
+                    </div>
+                    <div class="course-info">
+                        <h3>Canto & Vocal</h3>
+                        <p>Descubra sua voz. Aulas de técnica vocal, respiração, afinação e performance de palco.</p>
+                        <a href="#" class="course-link">Saiba Mais <i class="ph ph-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY US -->
+    <section class="why-us" id="metodo">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="container">
+            <div class="features-container">
+                <div class="feature-list reveal">
+                    <h2>Por que a <br><span>Virtuoso?</span></h2>
+                    <p style="color: var(--text-muted); margin-bottom: 30px;">Não somos apenas uma escola, somos uma comunidade de artistas apaixonados.</p>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="ph ph-microphone-stage"></i></div>
+                        <div class="feature-text">
+                            <h4>Prática de Banda</h4>
+                            <p>Aqui você não toca sozinho. Organizamos bandas entre alunos para apresentações reais.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="ph ph-equalizer"></i></div>
+                        <div class="feature-text">
+                            <h4>Estúdios Pro</h4>
+                            <p>Salas equipadas com amplificadores valvulados, pianos de cauda e tratamento acústico.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="ph ph-certificate"></i></div>
+                        <div class="feature-text">
+                            <h4>Certificação Internacional</h4>
+                            <p>Metodologia reconhecida que prepara você para audições e carreira profissional.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-image reveal">
+                    <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Estúdio de Música">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" id="contato">
+        <div class="cta-overlay"></div>
+        <div class="container">
+            <div class="cta-content reveal">
+                <h2>Pronto para fazer barulho?</h2>
+                <p style="color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto 30px;">Agende sua aula experimental gratuita hoje mesmo e sinta a diferença de aprender com quem vive de música.</p>
+                <a href="#" class="btn btn-primary" style="padding: 15px 40px; font-size: 1.1rem;">Quero minha aula grátis</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="#" class="footer-logo"><i class="ph ph-waveform" style="color: var(--primary-color);"></i> VIRTUOSO</a>
+                    <p class="footer-desc">Transformando paixão em arte desde 2010. A maior escola de música moderna da região.</p>
+                    <div class="social-icons">
+                        <a href="https://instagram.com" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+                        <a href="#"><i class="ph ph-facebook-logo"></i></a>
+                        <a href="#"><i class="ph ph-youtube-logo"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Cursos</h4>
+                    <ul>
+                        <li><a href="#">Guitarra</a></li>
+                        <li><a href="#">Piano</a></li>
+                        <li><a href="#">Bateria</a></li>
+                        <li><a href="#">Produção Musical</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Empresa</h4>
+                    <ul>
+                        <li><a href="#">Sobre Nós</a></li>
+                        <li><a href="#">Professores</a></li>
+                        <li><a href="#">Eventos</a></li>
+                        <li><a href="#">Carreiras</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contato</h4>
+                    <ul>
+                        <li><i class="ph ph-map-pin"></i> Av. da Música, 123 - Centro</li>
+                        <li><i class="ph ph-whatsapp-logo"></i> (11) 99999-9999</li>
+                        <li><i class="ph ph-envelope-simple"></i> contato@virtuoso.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; Virtuoso Music Academy. Design para Portfólio.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOTÃO FLUTUANTE DO WHATSAPP -->
+    <a href="https://wa.me/5532985072741" class="whatsapp-float" target="_blank">
+        <i class="ph ph-whatsapp-logo"></i>
+    </a>
+
+    <script>
+        // Animação de Reveal ao rolar a página
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+
+        // Menu Mobile (Simples)
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuBtn.addEventListener('click', () => {
+            if(navLinks.style.display === 'flex') {
+                navLinks.style.display = 'none';
+            } else {
+                navLinks.style.display = 'flex';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '70px';
+                navLinks.style.left = '0';
+                navLinks.style.width = '100%';
+                navLinks.style.background = 'rgba(5,5,5,0.95)';
+                navLinks.style.padding = '20px';
+                navLinks.style.zIndex = '999';
+            }
+        });
+
+        // Trigger reveal on load
+        reveal();
+    </script>
+</body>
+</html>
