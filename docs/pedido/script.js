@@ -121,6 +121,7 @@ form.addEventListener("submit", async (e) => {
       body: JSON.stringify({
         _subject: subject,
         kind: "pedido",
+        order_id: payload.order_id || null,
         name: payload.name,
         phone: payload.phone,
         email: payload.email,
