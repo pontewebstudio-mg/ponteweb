@@ -17,12 +17,43 @@ function b64urlFromUtf8(str) {
   return b64urlFromBuffer(Buffer.from(str, 'utf8'));
 }
 
+function encodeHeaderValue(value) {
+  // RFC 2047 (Q-encoding) for non-ASCII header values.
+  // Keep ASCII as-is.
+  const s = String(value ?? '');
+  if (/^[\x00-\x7F]*$/.test(s)) return s;
+
+  const b = Buffer.from(s, 'utf8');
+  let out = '';
+  for (const byte of b) {
+    // safe chars in Q-encoding
+    if (
+      (byte >= 0x30 && byte <= 0x39) || // 0-9
+      (byte >= 0x41 && byte <= 0x5a) || // A-Z
+      (byte >= 0x61 && byte <= 0x7a) || // a-z
+      byte === 0x21 || // !
+      byte === 0x2a || // *
+      byte === 0x2b || // +
+      byte === 0x2d || // -
+      byte === 0x2f // /
+    ) {
+      out += String.fromCharCode(byte);
+    } else if (byte === 0x20) {
+      out += '_';
+    } else {
+      out += '=' + byte.toString(16).toUpperCase().padStart(2, '0');
+    }
+  }
+
+  return `=?UTF-8?Q?${out}?=`;
+}
+
 function buildRawEmailText({ from, to, subject, text }) {
   // Basic RFC 5322 message (UTF-8)
   const lines = [
     `From: ${from}`,
     `To: ${to}`,
-    `Subject: ${subject}`,
+    `Subject: ${encodeHeaderValue(subject)}`,
     'MIME-Version: 1.0',
     'Content-Type: text/plain; charset="UTF-8"',
     'Content-Transfer-Encoding: 8bit',
@@ -44,7 +75,7 @@ function buildRawEmailWithAttachment({ from, to, subject, text, attachPath, atta
   const lines = [
     `From: ${from}`,
     `To: ${to}`,
-    `Subject: ${subject}`,
+    `Subject: ${encodeHeaderValue(subject)}`,
     'MIME-Version: 1.0',
     `Content-Type: multipart/mixed; boundary="${boundary}"`,
     '',

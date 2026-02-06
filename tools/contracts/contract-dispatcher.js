@@ -16,7 +16,29 @@ Usage:
 
 const path = require('path');
 const fs = require('fs');
-require('dotenv').config({ path: path.join(__dirname, '..', 'integrations', '.env') });
+
+function loadDotEnv(filePath) {
+  try {
+    const raw = fs.readFileSync(filePath, 'utf8');
+    for (const line of raw.split(/\r?\n/)) {
+      const t = line.trim();
+      if (!t || t.startsWith('#')) continue;
+      const i = t.indexOf('=');
+      if (i === -1) continue;
+      const key = t.slice(0, i).trim();
+      let val = t.slice(i + 1).trim();
+      // Remove surrounding quotes if present
+      if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+        val = val.slice(1, -1);
+      }
+      if (process.env[key] == null) process.env[key] = val;
+    }
+  } catch {
+    // ignore missing .env
+  }
+}
+
+loadDotEnv(path.join(__dirname, '..', 'integrations', '.env'));
 
 const { createClient } = require('@supabase/supabase-js');
 const { execFileSync } = require('child_process');
@@ -108,12 +130,14 @@ async function main() {
 
       if (!fs.existsSync(outPath)) throw new Error('PDF not created');
 
-      const subject = `Contrato PonteWeb Studio — ${order.plan} — Pedido ${String(order.id).slice(0, 8)}`;
+      // Avoid fancy unicode in Subject to prevent mojibake on some clients.
+      const subject = `Contrato PonteWeb Studio - ${order.plan} - Pedido ${String(order.id).slice(0, 8)}`;
       const text =
         `Olá, ${order.name}!\n\n` +
-        `Segue em anexo o contrato referente ao seu pedido (${order.plan}).\n\n` +
+        `Segue em anexo o contrato referente ao seu pedido (${order.plan}).\n` +
+        `Valor do plano: R$ ${String(plan.price_total || '—')}\n\n` +
         `Qualquer dúvida, responda este e-mail.\n\n` +
-        `— PonteWeb Studio\n`;
+        `PonteWeb Studio\n`;
 
       // Send to client
       execFileSync(
@@ -148,9 +172,13 @@ async function main() {
           '--to',
           providerEmail,
           '--subject',
-          `[CÓPIA] ${subject}`,
+          `[COPIA] ${subject}`,
           '--text',
-          `Cópia do contrato enviado para ${order.email}.\nPedido: ${order.id}\nPagamento: ${job.payment_provider} (${job.payment_id || '—'})\n`,
+          `Cópia do contrato enviado para ${order.email}.\n` +
+            `Pedido: ${order.id}\n` +
+            `Plano: ${order.plan}\n` +
+            `Valor: R$ ${String(plan.price_total || '—')}\n` +
+            `Pagamento: ${job.payment_provider} (${job.payment_id || '—'})\n`,
           '--attach',
           outPath,
           '--attach-name',

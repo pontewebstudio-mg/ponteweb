@@ -67,7 +67,7 @@ async function main() {
 
   const city = getArg(args, 'city') || 'Brasil (remoto)';
   const date = getArg(args, 'date') || new Date().toISOString().slice(0, 10);
-  const foroCity = getArg(args, 'foro-city') || 'Juiz de Fora';
+  const foroCity = getArg(args, 'foro-city') || 'São João del Rei';
   const foroState = getArg(args, 'foro-state') || 'MG';
 
   const cfgPath = path.join(__dirname, 'plan-config.json');
