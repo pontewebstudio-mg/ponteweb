@@ -1,0 +1,23 @@
+{
+  "Starter": {
+    "plan_name": "Starter — Publicar no seu domínio",
+    "price_total": "500",
+    "deliverable_type": "Landing page",
+    "delivery_days": 5,
+    "revision_rounds": 1
+  },
+  "Pro": {
+    "plan_name": "Pro — + Analytics & Search Console",
+    "price_total": "700",
+    "deliverable_type": "Landing page",
+    "delivery_days": 7,
+    "revision_rounds": 2
+  },
+  "Prime": {
+    "plan_name": "Prime — Sob medida",
+    "price_total": "A combinar",
+    "deliverable_type": "Site institucional / projeto sob medida",
+    "delivery_days": 10,
+    "revision_rounds": 2
+  }
+}
