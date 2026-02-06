@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PonteWeb Studio — Finalizar pedido</title>
+  <meta name="description" content="Finalize seu pedido da PonteWeb Studio. Selecione o plano e a forma de pagamento." />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" href="/assets/logo-ponteweb.svg" type="image/svg+xml" />
+  <meta name="robots" content="noindex" />
+  <link rel="canonical" href="https://pontewebstudio.com.br/pedido/" />
+</head>
+<body>
+  <div class="bg" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+  </div>
+
+  <header class="nav scrolled" id="nav">
+    <div class="container navInner">
+      <a class="brand" href="/" aria-label="PonteWeb Studio">
+        <img class="logo" src="/assets/logo-ponteweb.svg" alt="PonteWeb Studio" />
+        <span class="brandText">Ponte<span>Web</span> Studio</span>
+      </a>
+      <nav class="menu" aria-label="Menu principal">
+        <a href="/">Voltar ao site</a>
+        <a href="/#planos">Planos</a>
+        <a href="/#contato" class="pill">Falar no WhatsApp</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="hero" style="padding-top:120px">
+    <div class="container" style="max-width:920px">
+      <div class="sectionHead">
+        <h2>Finalizar pedido</h2>
+        <p>Preencha seus dados, escolha o plano e selecione a forma de pagamento. Em seguida você será redirecionado para concluir.</p>
+      </div>
+
+      <div class="contactForm" style="margin-top:14px">
+        <form id="orderForm">
+          <div class="row">
+            <label>
+              <span>Nome</span>
+              <input required name="name" type="text" placeholder="Seu nome" autocomplete="name" />
+            </label>
+            <label>
+              <span>WhatsApp</span>
+              <input required name="phone" type="tel" placeholder="(DDD) 9xxxx-xxxx" autocomplete="tel" />
+            </label>
+          </div>
+
+          <label>
+            <span>Email</span>
+            <input required name="email" type="email" placeholder="seu@email.com" autocomplete="email" />
+          </label>
+
+          <div class="row">
+            <label>
+              <span>Plano</span>
+              <select name="plan" required>
+                <option value="Starter">Starter</option>
+                <option value="Pro">Pro</option>
+                <option value="Prime">Prime</option>
+              </select>
+            </label>
+            <label>
+              <span>Pagamento</span>
+              <select name="payment" required>
+                <option value="pix_direto">Pix direto (5% OFF)</option>
+                <option value="link_mercadopago">Link (Mercado Pago: cartão / Pix / boleto / saldo)</option>
+                <option value="transferencia">Transferência</option>
+                <option value="cripto">Cripto (BTC/USDT/USDC)</option>
+              </select>
+            </label>
+          </div>
+
+          <label>
+            <span>Resumo do que você quer</span>
+            <textarea name="notes" rows="4" placeholder="Ex.: Landing para restaurante, foco em WhatsApp, quero formulário + mapa + fotos..."></textarea>
+          </label>
+
+          <div class="noteBox" style="margin-top:14px">
+            <strong>Importante:</strong> este checkout é uma V1. 
+            <span style="color: rgba(229,231,235,.9)">O salvamento em banco (Supabase) e o redirecionamento automático pós-pagamento dependem das integrações e dos links de pagamento.</span>
+          </div>
+
+          <button class="btn primary full" type="submit">Continuar</button>
+          <p class="fine" id="status"></p>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="/pedido/script.js"></script>
+</body>
+</html>
