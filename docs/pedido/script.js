@@ -6,14 +6,18 @@
 // - save to Supabase (orders table) before redirect
 
 const ORDER_CONFIG = {
-  // TODO (Romulo): paste your Mercado Pago links per plan.
+  // Supabase (public)
+  // Project: openclaw-memory (sirflbkdqulxxnrfxmqy)
+  supabaseUrl: "https://sirflbkdqulxxnrfxmqy.supabase.co",
+  supabaseAnonKey: "sb_publishable_Fli6YW2y1vcWoTR_eXYIJw_c6asiVVd",
+
   mercadoPagoLinks: {
     // Links Mercado Pago (enviados pelo Rômulo)
     Starter: "https://mpago.la/2Yg94M2", // R$ 500
     Pro: "https://mpago.la/29GDvpS",      // R$ 700
-    Prime: "",                            // TODO: enviar link do Prime
+    Prime: "",                            // negociado no WhatsApp
   },
-  // TODO (Romulo): set your WhatsApp number for Pix direct / transfer / crypto.
+
   whatsappNumberE164: "5532984042502",
 };
 
@@ -45,9 +49,47 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
-  // TODO: save to Supabase here
+  // Save lead + order to Supabase (best-effort)
+  try {
+    const payload = {
+      name: String(data.name || "").trim(),
+      phone: String(data.phone || "").trim(),
+      email: String(data.email || "").trim(),
+      plan,
+      payment,
+      notes: String(data.notes || "").trim() || null,
+      user_agent: navigator.userAgent,
+      referer: document.referrer || null,
+    };
+
+    // Minimal required checks
+    if (payload.name && payload.phone && payload.email) {
+      await fetch(`${ORDER_CONFIG.supabaseUrl}/rest/v1/pw_orders`, {
+        method: "POST",
+        headers: {
+          apikey: ORDER_CONFIG.supabaseAnonKey,
+          Authorization: `Bearer ${ORDER_CONFIG.supabaseAnonKey}`,
+          "Content-Type": "application/json",
+          Prefer: "return=minimal",
+        },
+        body: JSON.stringify(payload),
+      });
+    }
+  } catch (err) {
+    // Don't block checkout on logging failure.
+    // eslint-disable-next-line no-console
+    console.warn("order save failed", err);
+  }
 
   if (payment === "link_mercadopago") {
+    // Prime is negotiated case-by-case
+    if (plan === "Prime") {
+      window.location.href = waLink(
+        `Olá! Quero fechar o plano Prime (negociável) e pagar por link (Mercado Pago).\n\nNome: ${data.name}\nWhatsApp: ${data.phone}\nEmail: ${data.email}\nResumo: ${data.notes || ""}`
+      );
+      return;
+    }
+
     const url = ORDER_CONFIG.mercadoPagoLinks[plan];
     if (!url) {
       statusEl.textContent = "Link de pagamento ainda não configurado para este plano. Vamos te atender via WhatsApp.";
