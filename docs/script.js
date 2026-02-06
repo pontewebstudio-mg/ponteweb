@@ -66,7 +66,7 @@ $('#year').textContent = new Date().getFullYear();
   }
 
   const pageSize = 6;
-  const step = 3;
+  const step = 1; // carousel style: move 1 card per click
   let start = 0;
 
   const render = () => {
