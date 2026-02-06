@@ -360,21 +360,26 @@
           </div>
         </div>
 
-        <form class="contactForm" onsubmit="return submitEmail(event)">
+        <form class="contactForm" action="https://formspree.io/f/REPLACE_ME" method="POST">
           <div class="row">
             <label>
               <span>Nome</span>
-              <input required name="name" type="text" placeholder="Seu nome" />
+              <input required name="name" type="text" placeholder="Seu nome" autocomplete="name" />
             </label>
             <label>
               <span>WhatsApp</span>
-              <input required name="phone" type="tel" placeholder="(32) 9xxxx-xxxx" />
+              <input required name="phone" type="tel" placeholder="(32) 9xxxx-xxxx" autocomplete="tel" />
             </label>
           </div>
 
           <label>
+            <span>Email</span>
+            <input required name="email" type="email" placeholder="seu@email.com" autocomplete="email" />
+          </label>
+
+          <label>
             <span>Cidade</span>
-            <input name="city" type="text" placeholder="São João del Rei" />
+            <input name="city" type="text" placeholder="São João del Rei" autocomplete="address-level2" />
           </label>
 
           <label>
@@ -393,8 +398,9 @@
             <textarea name="details" rows="4" placeholder="Conte um pouco do seu negócio e objetivo (mensagens, reservas, orçamento)..."></textarea>
           </label>
 
+          <input type="hidden" name="_subject" value="Novo lead — PonteWeb Studio" />
           <button class="btn primary full" type="submit">Solicitar orçamento</button>
-          <p class="fine">Ao enviar, você será redirecionado para o WhatsApp com uma mensagem pronta. Sem spam.</p>
+          <p class="fine">Resposta em até 24 horas úteis.</p>
         </form>
       </div>
     </div>
@@ -411,5 +417,6 @@
   </footer>
 
   <script src="script.js"></script>
+  <!-- TODO: Replace Formspree endpoint: https://formspree.io/f/REPLACE_ME -->
 </body>
 </html>

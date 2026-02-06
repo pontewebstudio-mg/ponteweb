@@ -51,39 +51,21 @@ function closeMenu(){
 // Footer year
 $('#year').textContent = new Date().getFullYear();
 
-// Contact form: opens the user's email client with a prefilled email (static site)
-// NOTE: truly "sending" requires a backend (Formspree/Netlify/Worker). This mailto is the safest no-backend option.
-function submitEmail(ev){
-  ev.preventDefault();
-  const f = ev.target;
-  const name = (f.name.value || '').trim();
-  const phone = (f.phone.value || '').trim();
-  const city = (f.city.value || '').trim();
-  const need = (f.need.value || '').trim();
-  const details = (f.details.value || '').trim();
-
-  const subject = `Orçamento — PonteWeb Studio (${need || 'Site'})`;
-  const lines = [
-    'Olá! Quero um orçamento com a PonteWeb Studio.',
-    '',
-    `Nome: ${name}`,
-    `WhatsApp: ${phone}`,
-    city ? `Cidade: ${city}` : null,
-    need ? `Preciso: ${need}` : null,
-    details ? `Detalhes: ${details}` : null,
-  ].filter(Boolean);
-
-  const body = lines.join('\n');
-  const to = 'oprodutormusic@gmail.com';
-  const url = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-  window.location.href = url;
-
-  const btn = f.querySelector('button[type="submit"]');
-  const original = btn.textContent;
-  btn.textContent = 'Abrindo e-mail…';
-  btn.disabled = true;
-  setTimeout(()=>{ btn.textContent = original; btn.disabled = false; }, 1500);
-
-  return false;
-}
+// Formspree handles submission via HTML form action.
+// Optional: small UX for submit button.
+(function initFormUX(){
+  const form = document.querySelector('.contactForm');
+  if (!form) return;
+  form.addEventListener('submit', () => {
+    const btn = form.querySelector('button[type="submit"]');
+    if (!btn) return;
+    btn.dataset.originalText = btn.textContent;
+    btn.textContent = 'Enviando…';
+    btn.disabled = true;
+    setTimeout(()=>{
+      // Formspree will redirect/replace page depending on config; this is just a fallback.
+      btn.textContent = btn.dataset.originalText || 'Solicitar orçamento';
+      btn.disabled = false;
+    }, 3500);
+  });
+})();
