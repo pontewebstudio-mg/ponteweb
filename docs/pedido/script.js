@@ -146,18 +146,75 @@ form.addEventListener("submit", async (e) => {
       return;
     }
 
-    const url = ORDER_CONFIG.mercadoPagoLinks[plan];
-    if (!url) {
-      statusEl.textContent = "Link de pagamento ainda não configurado para este plano. Vamos te atender via WhatsApp.";
+    // NEW: create a Mercado Pago preference via Supabase Edge Function so we can set external_reference=order_id
+    const PLAN_PRICES = { Starter: 500, Pro: 700 };
+    const price = PLAN_PRICES[plan];
+
+    if (!payload.order_id) {
+      // Fallback to legacy link if order_id wasn't captured (should be rare)
+      const url = ORDER_CONFIG.mercadoPagoLinks[plan];
+      if (url) {
+        window.open(url, "_blank", "noopener,noreferrer");
+        statusEl.textContent = "Abrimos o pagamento em uma nova aba.";
+        return;
+      }
+
+      statusEl.textContent = "Não conseguimos registrar o pedido para vincular o pagamento. Vamos te atender via WhatsApp.";
       window.location.href = waLink(
         `Olá! Quero fechar o plano ${plan} e pagar por link (Mercado Pago).\n\nNome: ${data.name}\nWhatsApp: ${data.phone}\nEmail: ${data.email}\nResumo: ${data.notes || ""}`
       );
       return;
     }
-    window.open(url, "_blank", "noopener,noreferrer");
-    // keep the checkout page open; user can come back after payment
-    statusEl.textContent = "Abrimos o pagamento em uma nova aba. Se preferir, volte aqui depois para qualquer ajuste.";
-    return;
+
+    if (!price) {
+      statusEl.textContent = "Valor do plano não configurado. Vamos te atender via WhatsApp.";
+      window.location.href = waLink(
+        `Olá! Quero fechar o plano ${plan} e pagar por link (Mercado Pago).\n\nNome: ${data.name}\nWhatsApp: ${data.phone}\nEmail: ${data.email}\nResumo: ${data.notes || ""}`
+      );
+      return;
+    }
+
+    try {
+      statusEl.textContent = "Gerando link de pagamento...";
+
+      const res = await fetch(`${ORDER_CONFIG.supabaseUrl}/functions/v1/super-api/create-checkout`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          order_id: payload.order_id,
+          plan,
+          price,
+          email: payload.email,
+        }),
+      });
+
+      const out = await res.json();
+      if (!res.ok || !out?.ok || !out?.init_point) {
+        throw new Error(out?.error || `Falha ao criar checkout (HTTP ${res.status})`);
+      }
+
+      window.open(out.init_point, "_blank", "noopener,noreferrer");
+      statusEl.textContent = "Abrimos o pagamento em uma nova aba. Se preferir, volte aqui depois.";
+      return;
+    } catch (err) {
+      console.warn("mp create-checkout failed", err);
+
+      // Fallback to legacy static link
+      const url = ORDER_CONFIG.mercadoPagoLinks[plan];
+      if (url) {
+        window.open(url, "_blank", "noopener,noreferrer");
+        statusEl.textContent = "Abrimos o pagamento em uma nova aba.";
+        return;
+      }
+
+      statusEl.textContent = "Não foi possível gerar o link agora. Vamos te atender via WhatsApp.";
+      window.location.href = waLink(
+        `Olá! Quero fechar o plano ${plan} e pagar por link (Mercado Pago).\n\nNome: ${data.name}\nWhatsApp: ${data.phone}\nEmail: ${data.email}\nResumo: ${data.notes || ""}`
+      );
+      return;
+    }
   }
 
   if (payment === "pix_direto") {
