@@ -1,0 +1,541 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo Restaurante Premium | PonteWeb Studio</title>
+  <meta name="description" content="Demo de landing page premium (restaurante) â€” por PonteWeb Studio. SeÃ§Ãµes, fotos, prova social e CTAs.">
+  <link rel="icon" href="./assets/favicon.jpg" type="image/jpeg" />
+
+  <!-- Fonts: DM Serif Display (TÃ­tulos) & Inter (Texto) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Config for Brand Colors -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"DM Serif Display"', 'serif'],
+            sans: ['"Inter"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              gold: '#D4A373',
+              brown: '#8B5E3C',
+              dark: '#2C1810',
+              cream: '#FEFAE0',
+              stone: '#E5E5E5',
+              accent: '#BC4749',
+            }
+          },
+          backgroundImage: {
+            'hero-pattern': "url('./assets/sao-joao/03.jpg')",
+            'texture': "url('https://www.transparenttextures.com/patterns/cream-paper.png')"
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Smooth reveal animation */
+    .reveal { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #FEFAE0; }
+    ::-webkit-scrollbar-thumb { background: #D4A373; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #8B5E3C; }
+
+    /* simple ken burns */
+    @keyframes kenburns { 0% { transform: scale(1.05) translateY(0); } 100% { transform: scale(1.15) translateY(-10px); } }
+    .animate-kenburns { animation: kenburns 18s ease-in-out infinite alternate; }
+
+    /* iframe rounding fix */
+    .map-frame { width: 100%; height: 100%; border: 0; }
+  </style>
+</head>
+
+<body class="bg-brand-cream text-brand-dark font-sans antialiased overflow-x-hidden selection:bg-brand-gold selection:text-white">
+
+  <!-- Navigation -->
+  <nav class="fixed w-full z-50 bg-brand-cream/90 backdrop-blur-md border-b border-brand-gold/20 transition-all duration-300" id="navbar">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-20">
+
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-3 group">
+          <img src="./assets/logo.jpg" alt="Logo Demo Restaurante Premium" class="h-10 w-10 rounded-full object-cover ring-2 ring-brand-gold/40 shadow-sm" />
+          <span class="font-serif text-2xl text-brand-dark tracking-wide">Demo Restaurante Premium</span>
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex space-x-8 items-center">
+          <a href="#sobre" class="text-brand-dark/80 hover:text-brand-accent transition-colors font-medium">A Taberna</a>
+          <a href="#menu" class="text-brand-dark/80 hover:text-brand-accent transition-colors font-medium">CardÃ¡pio</a>
+          <a href="#localizacao" class="text-brand-dark/80 hover:text-brand-accent transition-colors font-medium">LocalizaÃ§Ã£o</a>
+          <a href="#contato" class="px-5 py-2.5 bg-brand-dark text-brand-cream rounded-full hover:bg-brand-brown transition-all transform hover:scale-105 shadow-lg flex items-center gap-2">
+            <i data-lucide="calendar" class="h-4 w-4"></i>
+            Reservar
+          </a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden flex items-center">
+          <button id="mobile-menu-btn" class="text-brand-dark hover:text-brand-accent focus:outline-none p-2" aria-label="Abrir menu">
+            <i data-lucide="menu" class="h-6 w-6"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Menu Panel -->
+    <div id="mobile-menu" class="hidden md:hidden absolute w-full bg-brand-cream border-b border-brand-gold/20 shadow-xl">
+      <div class="px-4 pt-2 pb-6 space-y-2">
+        <a href="#sobre" class="block px-3 py-3 rounded-md text-base font-medium text-brand-dark hover:bg-brand-gold/10 hover:text-brand-accent">A Taberna</a>
+        <a href="#menu" class="block px-3 py-3 rounded-md text-base font-medium text-brand-dark hover:bg-brand-gold/10 hover:text-brand-accent">CardÃ¡pio</a>
+        <a href="#localizacao" class="block px-3 py-3 rounded-md text-base font-medium text-brand-dark hover:bg-brand-gold/10 hover:text-brand-accent">LocalizaÃ§Ã£o</a>
+        <a href="#contato" class="block px-3 py-3 mt-4 text-center rounded-md text-base font-medium bg-brand-dark text-brand-cream hover:bg-brand-brown">Fazer Reserva</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="relative h-screen flex items-center justify-center overflow-hidden">
+    <!-- Background with Overlay -->
+    <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center bg-fixed transform scale-105 animate-kenburns"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-brand-dark/70 via-brand-dark/40 to-brand-cream"></div>
+
+    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto reveal active">
+      <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-brand-cream/10 backdrop-blur-sm border border-brand-cream/20 text-brand-cream mb-6">
+        <i data-lucide="star" class="h-3 w-3 text-brand-gold"></i>
+        <span class="text-sm tracking-widest uppercase font-medium">SÃ£o JoÃ£o del-Rei & Tiradentes</span>
+        <i data-lucide="star" class="h-3 w-3 text-brand-gold"></i>
+      </div>
+
+      <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-brand-cream mb-6 leading-tight drop-shadow-lg">
+        FermentaÃ§Ã£o <br/>
+        <span class="text-brand-gold italic">Natural</span> & Alma
+      </h1>
+
+      <p class="text-lg md:text-xl text-brand-cream/90 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+        PÃ£es de verdade, pizzas artesanais e brunches inesquecÃ­veis. Uma experiÃªncia gastronÃ´mica no coraÃ§Ã£o da histÃ³ria.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <a href="https://www.instagram.com/pontewebstudio_mg/" target="_blank" rel="noopener" class="px-8 py-4 bg-brand-gold text-brand-dark font-semibold rounded-full hover:bg-white hover:scale-105 transition-all shadow-lg w-full sm:w-auto flex justify-center items-center gap-2">
+          <i data-lucide="instagram" class="h-5 w-5"></i>
+          Ver Instagram
+        </a>
+        <a href="#menu" class="px-8 py-4 bg-transparent border-2 border-brand-cream text-brand-cream font-semibold rounded-full hover:bg-brand-cream hover:text-brand-dark transition-all w-full sm:w-auto">
+          Explorar CardÃ¡pio
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <i data-lucide="chevron-down" class="h-8 w-8 text-brand-cream/70"></i>
+    </div>
+  </header>
+
+  <!-- Sobre Section -->
+  <section id="sobre" class="py-24 px-4 bg-brand-cream relative">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+      <!-- Text Content -->
+      <div class="order-2 lg:order-1 reveal">
+        <h2 class="font-serif text-4xl md:text-5xl text-brand-dark mb-6">
+          A arte de fazer <span class="text-brand-accent italic">pÃ£o</span> e receber bem.
+        </h2>
+        <div class="w-20 h-1 bg-brand-gold mb-8"></div>
+
+        <p class="text-brand-dark/70 text-lg leading-relaxed mb-6">
+          Na Demo Restaurante Premium, acreditamos que a comida conta histÃ³rias. Nossa cozinha Ã© movida pelo tempo: o tempo da fermentaÃ§Ã£o natural,
+          o tempo de preparo dos ingredientes locais e o tempo que vocÃª passa Ã  mesa com quem ama.
+        </p>
+        <p class="text-brand-dark/70 text-lg leading-relaxed mb-8">
+          Situados em casarÃµes histÃ³ricos, oferecemos uma fusÃ£o entre a padaria artesanal rÃºstica e a cozinha contemporÃ¢nea.
+          Seja para um cafÃ© da manhÃ£ demorado ou uma pizza Ã  noite, nossa casa Ã© sua.
+        </p>
+
+        <div class="grid grid-cols-2 gap-6">
+          <div class="flex items-start gap-3">
+            <div class="p-2 bg-brand-gold/20 rounded-lg text-brand-brown">
+              <i data-lucide="clock" class="h-6 w-6"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-brand-dark">Slow Food</h4>
+              <p class="text-sm text-brand-dark/60">FermentaÃ§Ã£o longa (48h+)</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="p-2 bg-brand-gold/20 rounded-lg text-brand-brown">
+              <i data-lucide="map-pin" class="h-6 w-6"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-brand-dark">Duas Unidades</h4>
+              <p class="text-sm text-brand-dark/60">SÃ£o JoÃ£o del-Rei e Tiradentes</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Mosaic -->
+      <div class="order-1 lg:order-2 relative reveal">
+        <div class="grid grid-cols-2 gap-4">
+          <img src="./assets/sao-joao/04.jpg" alt="Brunch na Taberna (SÃ£o JoÃ£o del Rei)" class="rounded-2xl shadow-xl w-full h-64 object-cover transform hover:-translate-y-2 transition-transform duration-500">
+          <img src="./assets/tiradentes/07.jpg" alt="SanduÃ­che artesanal (Tiradentes)" class="rounded-2xl shadow-xl w-full h-64 object-cover mt-8 transform hover:-translate-y-2 transition-transform duration-500">
+        </div>
+        <div class="absolute -z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-brand-gold/10 rounded-full blur-3xl"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Menu Highlights -->
+  <section id="menu" class="py-24 bg-brand-dark text-brand-cream relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5" style="background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');"></div>
+
+    <div class="max-w-7xl mx-auto px-4 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <span class="text-brand-gold font-medium tracking-wider uppercase text-sm">Nossas Especialidades</span>
+        <h2 class="font-serif text-4xl md:text-6xl mt-2 mb-6">Do Forno para a Alma</h2>
+        <p class="text-brand-cream/60 max-w-xl mx-auto">Ingredientes selecionados e processos artesanais definem nosso menu sazonal.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <!-- Card 1: Brunch -->
+        <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors group reveal">
+          <div class="h-48 mb-6 overflow-hidden rounded-xl">
+            <img src="./assets/tiradentes/05.jpg" alt="Brunch" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+          </div>
+          <h3 class="font-serif text-2xl text-brand-gold mb-2">O Brunch da Taberna</h3>
+          <p class="text-brand-cream/70 mb-4 text-sm leading-relaxed">
+            PÃ£es de fermentaÃ§Ã£o natural, acompanhamentos da casa, cafÃ© e sabores que fazem o dia comeÃ§ar do jeito certo.
+          </p>
+          <span class="inline-block px-3 py-1 bg-brand-gold/20 text-brand-gold text-xs rounded-full">Carro Chefe</span>
+        </div>
+
+        <!-- Card 2: Sourdough -->
+        <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors group reveal" style="transition-delay: 100ms;">
+          <div class="h-48 mb-6 overflow-hidden rounded-xl">
+            <img src="./assets/sao-joao/02.jpg" alt="PÃ£es" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+          </div>
+          <h3 class="font-serif text-2xl text-brand-gold mb-2">PÃ£es de FermentaÃ§Ã£o</h3>
+          <p class="text-brand-cream/70 mb-4 text-sm leading-relaxed">
+            Farinha, Ã¡gua, sal e tempo. A fermentaÃ§Ã£o longa traz sabor, casca crocante e miolo leve.
+          </p>
+          <span class="inline-block px-3 py-1 bg-brand-gold/20 text-brand-gold text-xs rounded-full">Diariamente</span>
+        </div>
+
+        <!-- Card 3: Pizzas -->
+        <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors group reveal" style="transition-delay: 200ms;">
+          <div class="h-48 mb-6 overflow-hidden rounded-xl">
+            <img src="./assets/tiradentes/03.jpg" alt="HambÃºrgueres" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+          </div>
+          <h3 class="font-serif text-2xl text-brand-gold mb-2">Artesanal da Casa</h3>
+          <p class="text-brand-cream/70 mb-4 text-sm leading-relaxed">
+            Massa, fermentaÃ§Ã£o e ingredientes frescos: uma cozinha artesanal para curtir sem pressa.
+          </p>
+          <span class="inline-block px-3 py-1 bg-brand-gold/20 text-brand-gold text-xs rounded-full">Jantar</span>
+        </div>
+      </div>
+
+      <div class="text-center mt-12">
+        <a href="https://www.instagram.com/pontewebstudio_mg/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border-b border-brand-gold text-brand-gold hover:text-white hover:border-white transition-colors pb-1 uppercase tracking-widest text-sm font-semibold">
+          Ver Menu Completo no Instagram <i data-lucide="arrow-right" class="h-4 w-4"></i>
+        </a>
+      </div>
+
+      <!-- CardÃ¡pios (Linktree/PDF) -->
+      <div class="mt-10 grid grid-cols-1 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
+        <a href="https://ugc.production.linktr.ee/bf860725-9443-434e-a9c3-bac50bdac840_CARDPIO-BAR-QUERIDINHOS--2-.pdf" target="_blank" rel="noopener"
+          class="px-6 py-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors flex items-center justify-between gap-3">
+          <span class="font-semibold">CardÃ¡pio Restaurante (SÃ£o JoÃ£o)</span>
+          <i data-lucide="file-text" class="h-5 w-5 text-brand-gold"></i>
+        </a>
+        <a href="https://ugc.production.linktr.ee/f962a291-0bdd-42e3-bd6c-ff84aecb31a6_CARDPIO-CAFETERIA-020725--2-.pdf" target="_blank" rel="noopener"
+          class="px-6 py-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors flex items-center justify-between gap-3">
+          <span class="font-semibold">CardÃ¡pio Cafeteria (SÃ£o JoÃ£o)</span>
+          <i data-lucide="file-text" class="h-5 w-5 text-brand-gold"></i>
+        </a>
+        <a href="https://ugc.production.linktr.ee/bacf42f9-34fb-41c7-a2eb-c3575cb09126_TIRADENTES-CARDAPIO-QUERIDINHOS.pdf" target="_blank" rel="noopener"
+          class="px-6 py-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors flex items-center justify-between gap-3">
+          <span class="font-semibold">CardÃ¡pio (Tiradentes)</span>
+          <i data-lucide="file-text" class="h-5 w-5 text-brand-gold"></i>
+        </a>
+        <a href="https://wa.me/5532984042502" target="_blank" rel="noopener"
+          class="px-6 py-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors flex items-center justify-between gap-3">
+          <span class="font-semibold">Linktree (todos os links)</span>
+          <i data-lucide="external-link" class="h-5 w-5 text-brand-gold"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials / Social Proof -->
+  <section class="py-20 bg-brand-stone/30">
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <i data-lucide="quote" class="h-10 w-10 text-brand-gold mx-auto mb-4 opacity-50"></i>
+        <h2 class="font-serif text-3xl md:text-4xl text-brand-dark">O que dizem nossos clientes</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Review 1 -->
+        <div class="bg-brand-cream p-8 rounded-tr-3xl rounded-bl-3xl shadow-sm reveal">
+          <div class="flex gap-1 text-brand-gold mb-4">
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+          </div>
+          <p class="text-brand-dark/80 italic mb-6">"Parada obrigatÃ³ria. O pÃ£o Ã© incrÃ­vel e o ambiente Ã© lindo."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-brand-brown rounded-full flex items-center justify-center text-brand-cream font-bold">M</div>
+            <div>
+              <p class="font-bold text-sm text-brand-dark">Cliente</p>
+              <p class="text-xs text-brand-dark/50">AvaliaÃ§Ã£o</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="bg-brand-cream p-8 rounded-tl-3xl rounded-br-3xl shadow-sm reveal">
+          <div class="flex gap-1 text-brand-gold mb-4">
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+          </div>
+          <p class="text-brand-dark/80 italic mb-6">"Brunch espetacular, cafÃ© excelente e atendimento acolhedor."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-brand-brown rounded-full flex items-center justify-center text-brand-cream font-bold">R</div>
+            <div>
+              <p class="font-bold text-sm text-brand-dark">Cliente</p>
+              <p class="text-xs text-brand-dark/50">AvaliaÃ§Ã£o</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-10">
+        <a href="https://www.google.com/search?q=taberna+do+omar+avaliacoes" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-brand-accent font-semibold hover:underline">
+          Ver avaliaÃ§Ãµes no Google <i data-lucide="external-link" class="h-4 w-4"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LocalizaÃ§Ã£o (2 unidades) -->
+  <section id="localizacao" class="py-24 bg-brand-cream relative">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-12 reveal">
+        <span class="text-brand-accent font-bold tracking-widest text-sm uppercase">Visite-nos</span>
+        <h2 class="font-serif text-4xl md:text-5xl text-brand-dark mt-2">Duas unidades, a mesma alma.</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+
+        <!-- SÃ£o JoÃ£o -->
+        <article class="rounded-3xl overflow-hidden bg-white shadow-2xl border border-brand-gold/20 reveal">
+          <div class="h-72 bg-brand-stone">
+            <iframe class="map-frame" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=R.%20Get%C3%BAlio%20Vargas%2C%20238%20-%20Centro%2C%20S%C3%A3o%20Jo%C3%A3o%20del%20Rei%20-%20MG%2C%2036300-086&output=embed"
+              title="Mapa â€” Taberna dâ€™Omar (SÃ£o JoÃ£o del Rei)"></iframe>
+          </div>
+          <div class="p-10">
+            <h3 class="font-serif text-3xl text-brand-dark">SÃ£o JoÃ£o del Rei</h3>
+            <p class="text-brand-dark/70 mt-2">R. GetÃºlio Vargas, 238 - Centro, SÃ£o JoÃ£o del Rei - MG, 36300-086</p>
+
+            <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <p class="font-bold text-brand-dark mb-2">HorÃ¡rio</p>
+                <ul class="text-sm text-brand-dark/70 space-y-1">
+                  <li><strong>Seg</strong>: Fechado</li>
+                  <li><strong>Ter</strong>: 10:00â€“20:00</li>
+                  <li><strong>Qua</strong>: 10:00â€“23:00</li>
+                  <li><strong>Qui</strong>: 10:00â€“23:00</li>
+                  <li><strong>Sex</strong>: 10:00â€“23:00</li>
+                  <li><strong>SÃ¡b</strong>: 09:00â€“23:00</li>
+                  <li><strong>Dom</strong>: 09:00â€“19:00</li>
+                </ul>
+              </div>
+              <div>
+                <p class="font-bold text-brand-dark mb-2">Contato</p>
+                <p class="text-sm text-brand-dark/70">WhatsApp: (32) 98404-2502</p>
+                <div class="mt-4 flex flex-col gap-3">
+                  <a href="https://wa.me/5532984042502?text=Oi!%20Vim%20pelo%20Google%20e%20quero%20fazer%20uma%20reserva%20na%20unidade%20de%20S%C3%A3o%20Jo%C3%A3o%20del%20Rei." target="_blank" rel="noopener" class="px-5 py-3 bg-brand-dark text-brand-cream rounded-full hover:bg-brand-brown transition-all text-center font-semibold">
+                    Reservar no WhatsApp
+                  </a>
+                  <a href="https://www.google.com/maps?q=R.%20Get%C3%BAlio%20Vargas%2C%20238%20-%20Centro%2C%20S%C3%A3o%20Jo%C3%A3o%20del%20Rei%20-%20MG%2C%2036300-086" target="_blank" rel="noopener" class="px-5 py-3 border border-brand-dark/20 rounded-full hover:bg-brand-gold/10 transition-all text-center font-semibold">
+                    Abrir no Maps
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Tiradentes -->
+        <article class="rounded-3xl overflow-hidden bg-white shadow-2xl border border-brand-gold/20 reveal">
+          <div class="h-72 bg-brand-stone">
+            <iframe class="map-frame" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=R.%20Direita%2C%20187%20-%20Centro%2C%20Tiradentes%20-%20MG%2C%2036325-000&output=embed"
+              title="Mapa â€” Taberna dâ€™Omar (Tiradentes)"></iframe>
+          </div>
+          <div class="p-10">
+            <h3 class="font-serif text-3xl text-brand-dark">Tiradentes</h3>
+            <p class="text-brand-dark/70 mt-2">R. Direita, 187 - Centro, Tiradentes - MG, 36325-000</p>
+
+            <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <p class="font-bold text-brand-dark mb-2">HorÃ¡rio</p>
+                <ul class="text-sm text-brand-dark/70 space-y-1">
+                  <li><strong>Seg</strong>: 09:00â€“20:00</li>
+                  <li><strong>Ter</strong>: Fechado</li>
+                  <li><strong>Qua</strong>: Fechado</li>
+                  <li><strong>Qui</strong>: 09:00â€“20:00</li>
+                  <li><strong>Sex</strong>: 09:00â€“22:00</li>
+                  <li><strong>SÃ¡b</strong>: 09:00â€“22:00</li>
+                  <li><strong>Dom</strong>: 09:00â€“20:00</li>
+                </ul>
+              </div>
+              <div>
+                <p class="font-bold text-brand-dark mb-2">Contato</p>
+                <p class="text-sm text-brand-dark/70">WhatsApp: (32) 98404-2502</p>
+                <div class="mt-4 flex flex-col gap-3">
+                  <a href="https://wa.me/5532984042502?text=Oi!%20Vim%20pelo%20Google%20e%20quero%20fazer%20uma%20reserva%20na%20unidade%20de%20Tiradentes." target="_blank" rel="noopener" class="px-5 py-3 bg-brand-dark text-brand-cream rounded-full hover:bg-brand-brown transition-all text-center font-semibold">
+                    Reservar no WhatsApp
+                  </a>
+                  <a href="https://www.google.com/maps?q=R.%20Direita%2C%20187%20-%20Centro%2C%20Tiradentes%20-%20MG%2C%2036325-000" target="_blank" rel="noopener" class="px-5 py-3 border border-brand-dark/20 rounded-full hover:bg-brand-gold/10 transition-all text-center font-semibold">
+                    Abrir no Maps
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Contato / CTA -->
+  <section id="contato" class="py-20 bg-brand-dark text-brand-cream">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+      <div class="reveal">
+        <h2 class="font-serif text-4xl md:text-5xl">Reservas e informaÃ§Ãµes</h2>
+        <p class="text-brand-cream/70 mt-4 leading-relaxed">
+          Escolha a unidade e fale direto pelo WhatsApp. Para ver novidades e o menu completo, confira tambÃ©m o Instagram.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-4">
+          <a href="https://wa.me/5532984042502" target="_blank" rel="noopener" class="px-7 py-4 bg-brand-gold text-brand-dark rounded-full font-semibold hover:bg-white transition-all text-center">
+            CardÃ¡pio (Linktree)
+          </a>
+          <a href="https://www.instagram.com/pontewebstudio_mg/" target="_blank" rel="noopener" class="px-7 py-4 border-2 border-brand-cream/60 rounded-full font-semibold hover:bg-brand-cream hover:text-brand-dark transition-all text-center">
+            Instagram
+          </a>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal">
+        <a href="https://wa.me/5532984042502?text=Oi!%20Quero%20fazer%20uma%20reserva%20na%20unidade%20de%20S%C3%A3o%20Jo%C3%A3o%20del%20Rei." target="_blank" rel="noopener"
+          class="p-6 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+          <p class="text-brand-gold font-semibold uppercase tracking-widest text-xs">SÃ£o JoÃ£o del Rei</p>
+          <p class="font-serif text-2xl mt-2">Reservar</p>
+          <p class="text-brand-cream/60 text-sm mt-2">(32) 98404-2502</p>
+        </a>
+
+        <a href="https://wa.me/5532984042502?text=Oi!%20Quero%20fazer%20uma%20reserva%20na%20unidade%20de%20Tiradentes." target="_blank" rel="noopener"
+          class="p-6 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+          <p class="text-brand-gold font-semibold uppercase tracking-widest text-xs">Tiradentes</p>
+          <p class="font-serif text-2xl mt-2">Reservar</p>
+          <p class="text-brand-cream/60 text-sm mt-2">(32) 98404-2502</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-brand-dark text-brand-cream py-12 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="flex items-center gap-3">
+        <img src="./assets/logo.jpg" alt="Logo Demo Restaurante Premium" class="h-8 w-8 rounded-full object-cover ring-2 ring-brand-gold/40" />
+        <span class="font-serif text-xl tracking-wide">Demo Restaurante Premium</span>
+      </div>
+
+      <div class="flex gap-8 text-sm text-brand-cream/60">
+        <a href="#" class="hover:text-brand-gold transition-colors">InÃ­cio</a>
+        <a href="#sobre" class="hover:text-brand-gold transition-colors">Sobre</a>
+        <a href="#menu" class="hover:text-brand-gold transition-colors">Menu</a>
+        <a href="#contato" class="hover:text-brand-gold transition-colors">Contato</a>
+      </div>
+
+      <div class="flex gap-4">
+        <a href="https://www.instagram.com/pontewebstudio_mg/" target="_blank" rel="noopener" class="p-2 bg-white/5 rounded-full hover:bg-brand-gold hover:text-brand-dark transition-all" aria-label="Instagram">
+          <i data-lucide="instagram" class="h-5 w-5"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="text-center mt-12 text-xs text-brand-cream/30">&copy; <span id="year"></span> Demo Restaurante Premium. Todos os direitos reservados.</div>
+  </footer>
+
+  <script>
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (!navbar) return;
+      if (window.scrollY > 50) {
+        navbar.classList.add('shadow-lg');
+      } else {
+        navbar.classList.remove('shadow-lg');
+      }
+    });
+
+    // Mobile Menu Toggle
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    if (btn && menu) {
+      btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+    }
+
+    // Scroll Reveal Animation
+    function reveal() {
+      const reveals = document.querySelectorAll('.reveal');
+      for (let i = 0; i < reveals.length; i++) {
+        const windowHeight = window.innerHeight;
+        const elementTop = reveals[i].getBoundingClientRect().top;
+        const elementVisible = 150;
+        if (elementTop < windowHeight - elementVisible) {
+          reveals[i].classList.add('active');
+        }
+      }
+    }
+    window.addEventListener('scroll', reveal);
+    reveal();
+  </script>
+</body>
+</html>
