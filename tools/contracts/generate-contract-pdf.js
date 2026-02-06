@@ -63,7 +63,7 @@ async function main() {
 
   const providerName = getArg(args, 'provider-name') || 'PonteWeb Studio';
   const providerEmail = getArg(args, 'provider-email') || 'oprodutormusic@gmail.com';
-  const providerPhone = getArg(args, 'provider-phone') || '(32) 98404-2502';
+  const providerPhone = getArg(args, 'provider-phone') || '32985072741';
 
   const city = getArg(args, 'city') || 'Brasil (remoto)';
   const date = getArg(args, 'date') || new Date().toISOString().slice(0, 10);
