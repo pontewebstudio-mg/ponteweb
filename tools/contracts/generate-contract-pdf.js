@@ -146,9 +146,10 @@ async function main() {
     ['4. PUBLICAÇÃO / DOMÍNIO', 'Custos de domínio/hospedagem são do CONTRATANTE, salvo contratação expressa.'],
     ['5. CANCELAMENTO / DESISTÊNCIA / REEMBOLSO',
       '5.1. O CONTRATANTE pode solicitar cancelamento por escrito (e-mail/WhatsApp).\n' +
-      '5.2. Se o cancelamento ocorrer antes do início da execução (antes do kickoff/material mínimo), a CONTRATADA poderá realizar reembolso integral, descontadas eventuais taxas do meio de pagamento.\n' +
-      '5.3. Se o cancelamento ocorrer após o início da execução, o reembolso (se aplicável) será proporcional às etapas já realizadas e ao tempo alocado, podendo incluir custos não-reembolsáveis (ex.: taxas, ferramentas e deslocamentos).\n' +
-      '5.4. Após a entrega da primeira versão (V1) ou publicação, não há reembolso do valor pago, pois o serviço é considerado entregue em sua etapa principal.'
+      '5.2. Condição comercial: 50% do valor no início (para reservar agenda e iniciar a execução) e 50% na entrega (ou antes da publicação, quando aplicável).\n' +
+      '5.3. Em caso de rescisão/cancelamento após o início da execução, incide multa rescisória de 10% sobre o valor total do contrato, além da cobrança proporcional às etapas já realizadas.\n' +
+      '5.4. Se o cancelamento ocorrer antes do início da execução (antes do kickoff/material mínimo), a CONTRATADA poderá realizar reembolso integral, descontadas eventuais taxas do meio de pagamento.\n' +
+      '5.5. Após a entrega da primeira versão (V1) ou publicação, não há reembolso do valor pago, pois o serviço é considerado entregue em sua etapa principal.'
     ],
     ['6. AUTORIZAÇÃO DE PORTFÓLIO', 'O CONTRATANTE autoriza a CONTRATADA a exibir o site/landing (prints e link) em portfólio, redes sociais e apresentações comerciais.'],
     ['7. FORO', `Fica eleito o foro de ${foroCity}/${foroState}.`],
