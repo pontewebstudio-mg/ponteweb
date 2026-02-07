@@ -68,8 +68,7 @@ async function main() {
   const providerEmail = process.env.PROVIDER_EMAIL || 'oprodutormusic@gmail.com';
   const providerPhone = process.env.PROVIDER_PHONE || '(32) 98507-2741';
 
- const providerCnpj = '64.990.841/0001-76';
-  const gmailFrom = process.env.GMAIL_FROM || providerEmail;
+const gmailFrom = process.env.GMAIL_FROM || providerEmail;
 
   const supabase = createClient(supabaseUrl, serviceKey, {
     auth: { persistSession: false },
