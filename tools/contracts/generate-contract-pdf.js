@@ -64,6 +64,7 @@ async function main() {
   const providerName = getArg(args, 'provider-name') || 'PonteWeb Studio';
   const providerEmail = getArg(args, 'provider-email') || 'oprodutormusic@gmail.com';
   const providerPhone = getArg(args, 'provider-phone') || '(32) 98507-2741';
+  const providerCnpj = '64.990.841/0001-76';
 
   const city = getArg(args, 'city') || 'Brasil (remoto)';
   const date = getArg(args, 'date') || new Date().toISOString().slice(0, 10);
@@ -201,7 +202,7 @@ async function main() {
   y -= 16;
   page.drawText('Assinatura: ________________________________________________', { x: margin, y, size: 10, font, color: rgb(0, 0, 0) });
   y -= 14;
-  page.drawText(`${providerName} — PonteWeb Studio`, { x: margin, y, size: 10, font, color: rgb(0, 0, 0) });
+  page.drawText(`${providerName} — PonteWeb Studio (CNPJ: ${providerCnpj})`, { x: margin, y: size: 10, font, color: rgb(0, 0, 0) });
 
   const pdfBytes = await pdfDoc.save();
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
