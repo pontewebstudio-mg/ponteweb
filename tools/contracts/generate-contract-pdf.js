@@ -87,15 +87,19 @@ async function main() {
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
   const fontBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
 
-  // Embed logo (JPG/PNG) if present
+  // Embed logo (PNG/JPG) if present
   let logo;
+  const logoPngPath = path.join(process.cwd(), 'docs', 'assets', 'brand', 'ponteweb-logo.png');
   const logoJpgPath = path.join(process.cwd(), 'docs', 'assets', 'brand', 'ponteweb-logo.jpg');
-  const logoPngPath = path.join(process.cwd(), 'docs', 'assets', 'brand', 'ponteweb-avatar-512.png');
-  if (fs.existsSync(logoJpgPath)) {
+  const fallbackPngPath = path.join(process.cwd(), 'docs', 'assets', 'brand', 'ponteweb-avatar-512.png');
+  if (fs.existsSync(logoPngPath)) {
+    const pngBytes = fs.readFileSync(logoPngPath);
+    logo = await pdfDoc.embedPng(pngBytes);
+  } else if (fs.existsSync(logoJpgPath)) {
     const jpgBytes = fs.readFileSync(logoJpgPath);
     logo = await pdfDoc.embedJpg(jpgBytes);
-  } else if (fs.existsSync(logoPngPath)) {
-    const pngBytes = fs.readFileSync(logoPngPath);
+  } else if (fs.existsSync(fallbackPngPath)) {
+    const pngBytes = fs.readFileSync(fallbackPngPath);
     logo = await pdfDoc.embedPng(pngBytes);
   }
 
