@@ -1,0 +1,2943 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harmonia Escola de Música | A música que existe em você</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --petrol: #1A3A4A;
+      --copper: #D4722A;
+      --copper-light: #E8934F;
+      --cream: #FBF7F0;
+      --piano: #1C1C1E;
+      --brass: #B8953E;
+      --graphite: #4A4A52;
+      --violet: #5B3E7A;
+      --gradient-main: linear-gradient(135deg, var(--petrol), var(--copper), var(--violet));
+      --gradient-border: linear-gradient(90deg, var(--petrol), var(--copper), var(--violet));
+      
+      --bg: var(--cream);
+      --bg-alt: #F5EFE6;
+      --fg: var(--piano);
+      --fg-muted: var(--graphite);
+      --accent: var(--copper);
+      --accent-hover: var(--copper-light);
+      --card: #FFFFFF;
+      --card-hover: #FFFDF9;
+      --border: rgba(26, 58, 74, 0.1);
+      --shadow: rgba(26, 58, 74, 0.08);
+      --shadow-accent: rgba(212, 114, 42, 0.2);
+      --glass-bg: rgba(251, 247, 240, 0.85);
+      --glow: rgba(212, 114, 42, 0.4);
+    }
+
+    [data-theme="dark"] {
+      --bg: var(--piano);
+      --bg-alt: #0A0A0B;
+      --fg: var(--cream);
+      --fg-muted: #9A9AA2;
+      --accent: var(--copper-light);
+      --accent-hover: #F5A560;
+      --card: #252528;
+      --card-hover: #2D2D31;
+      --border: rgba(251, 247, 240, 0.08);
+      --shadow: rgba(0, 0, 0, 0.3);
+      --shadow-accent: rgba(212, 114, 42, 0.3);
+      --glass-bg: rgba(28, 28, 30, 0.9);
+      --glow: rgba(212, 114, 42, 0.5);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .display-title {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      font-size: 1.125rem;
+      color: var(--fg-muted);
+      max-width: 600px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 clamp(1rem, 5vw, 3rem);
+    }
+
+    /* Utility */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.75rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s;
+    }
+
+    .btn:hover::before {
+      transform: translateX(100%);
+    }
+
+    .btn-primary {
+      background: var(--copper);
+      color: white;
+      box-shadow: 0 4px 20px var(--shadow-accent);
+    }
+
+    .btn-primary:hover {
+      background: var(--brass);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px var(--shadow-accent);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--fg);
+      border: 2px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(212, 114, 42, 0.05);
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    /* Animated Underline */
+    .animated-link {
+      position: relative;
+      text-decoration: none;
+      color: var(--fg);
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .animated-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--gradient-border);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .animated-link:hover {
+      color: var(--accent);
+    }
+
+    .animated-link:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    /* Card Base */
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px var(--shadow), 0 0 0 1px var(--accent);
+      background: var(--card-hover);
+    }
+
+    /* Scroll Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-stagger > * {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal-stagger.visible > *:nth-child(1) { transition-delay: 0ms; }
+    .reveal-stagger.visible > *:nth-child(2) { transition-delay: 100ms; }
+    .reveal-stagger.visible > *:nth-child(3) { transition-delay: 200ms; }
+    .reveal-stagger.visible > *:nth-child(4) { transition-delay: 300ms; }
+    .reveal-stagger.visible > *:nth-child(5) { transition-delay: 400ms; }
+    .reveal-stagger.visible > *:nth-child(6) { transition-delay: 500ms; }
+    .reveal-stagger.visible > *:nth-child(7) { transition-delay: 600ms; }
+    .reveal-stagger.visible > *:nth-child(8) { transition-delay: 700ms; }
+
+    .reveal-stagger.visible > * {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* TOP BAR */
+    .top-bar {
+      background: var(--petrol);
+      color: var(--cream);
+      padding: 0.5rem 0;
+      font-size: 0.8125rem;
+      position: relative;
+      z-index: 1001;
+    }
+
+    .top-bar-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .top-bar a {
+      color: var(--cream);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      transition: color 0.3s;
+    }
+
+    .top-bar a:hover {
+      color: var(--copper-light);
+    }
+
+    .top-bar-promo {
+      background: var(--copper);
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      font-weight: 600;
+      animation: pulse-promo 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-promo {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    /* HEADER */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1rem 0;
+      transition: all 0.4s ease;
+    }
+
+    .header.scrolled {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 0;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--fg);
+    }
+
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      position: relative;
+    }
+
+    .logo-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .logo-icon .note {
+      fill: var(--copper);
+      animation: logo-float 3s ease-in-out infinite;
+    }
+
+    @keyframes logo-float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-3px) rotate(5deg); }
+    }
+
+    .logo-text {
+      font-family: 'Fraunces', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-text span {
+      color: var(--copper);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .header-cta {
+      margin-left: 1rem;
+    }
+
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      color: var(--fg);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+    }
+
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      animation: ken-burns 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes ken-burns {
+      0% { transform: scale(1) translateY(0); }
+      100% { transform: scale(1.1) translateY(-2%); }
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(26, 58, 74, 0.85) 0%,
+        rgba(26, 58, 74, 0.6) 50%,
+        rgba(91, 62, 122, 0.7) 100%
+      );
+      z-index: -1;
+    }
+
+    .hero-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.1;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L35 20 L50 20 L38 30 L42 45 L30 36 L18 45 L22 30 L10 20 L25 20 Z' fill='none' stroke='%23FBF7F0' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 60px 60px;
+      z-index: -1;
+    }
+
+    #notes-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      color: var(--cream);
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 8rem 2rem 4rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, var(--cream), var(--copper-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.375rem);
+      opacity: 0.9;
+      margin-bottom: 2.5rem;
+      font-weight: 400;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat-value {
+      font-family: 'Fraunces', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--copper-light);
+    }
+
+    .hero-stat-label {
+      font-size: 0.875rem;
+      opacity: 0.8;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-10px); }
+      60% { transform: translateX(-50%) translateY(-5px); }
+    }
+
+    /* DIFFERENTIALS */
+    .differentials {
+      padding: 8rem 0;
+      background: var(--bg);
+      position: relative;
+    }
+
+    .differentials::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 200px;
+      background: linear-gradient(to bottom, var(--bg-alt), var(--bg));
+    }
+
+    .differentials-header {
+      text-align: center;
+      margin-bottom: 4rem;
+      position: relative;
+    }
+
+    .differentials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .diff-card {
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .diff-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      padding: 2px;
+      background: linear-gradient(135deg, transparent, transparent);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .diff-card:hover::before {
+      background: var(--gradient-border);
+      opacity: 1;
+    }
+
+    .diff-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 1.25rem;
+      background: var(--gradient-border);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: transform 0.4s;
+    }
+
+    .diff-card:hover .diff-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .diff-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .diff-text {
+      font-size: 0.9375rem;
+      color: var(--fg-muted);
+      line-height: 1.5;
+    }
+
+    /* COURSES */
+    .courses {
+      padding: 8rem 0;
+      background: var(--bg-alt);
+      position: relative;
+    }
+
+    .courses-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .courses-filters {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .filter-btn {
+      padding: 0.625rem 1.25rem;
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: 50px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      color: var(--fg);
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--copper);
+      border-color: var(--copper);
+      color: white;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .course-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .course-image {
+      height: 180px;
+      overflow: hidden;
+    }
+
+    .course-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s;
+    }
+
+    .course-card:hover .course-image img {
+      transform: scale(1.1);
+    }
+
+    .course-badges {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .course-badge {
+      padding: 0.25rem 0.625rem;
+      border-radius: 4px;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .badge-hot {
+      background: #DC2626;
+      color: white;
+    }
+
+    .badge-new {
+      background: var(--violet);
+      color: white;
+    }
+
+    .badge-kids {
+      background: var(--brass);
+      color: white;
+    }
+
+    .course-content {
+      padding: 1.5rem;
+    }
+
+    .course-title {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .course-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.8125rem;
+      color: var(--fg-muted);
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .course-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .course-price {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .price-value {
+      font-family: 'Fraunces', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--copper);
+    }
+
+    .price-label {
+      font-size: 0.8125rem;
+      color: var(--fg-muted);
+    }
+
+    .course-footer {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .course-footer .btn {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+    }
+
+    /* METHODOLOGY */
+    .methodology {
+      padding: 8rem 0;
+      background: var(--bg);
+      overflow: hidden;
+    }
+
+    .methodology-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .methodology-timeline {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      position: relative;
+      flex-wrap: wrap;
+    }
+
+    .methodology-timeline::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: 10%;
+      right: 10%;
+      height: 4px;
+      background: var(--gradient-border);
+      border-radius: 2px;
+    }
+
+    .step {
+      flex: 1;
+      min-width: 200px;
+      max-width: 240px;
+      text-align: center;
+      padding: 0 1rem;
+      position: relative;
+    }
+
+    .step-number {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      background: var(--card);
+      border: 4px solid var(--copper);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fraunces', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--copper);
+      position: relative;
+      z-index: 1;
+      transition: all 0.4s;
+    }
+
+    .step:hover .step-number {
+      background: var(--copper);
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .step-icon {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 32px;
+      height: 32px;
+      background: var(--violet);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .step-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .step-text {
+      font-size: 0.875rem;
+      color: var(--fg-muted);
+      line-height: 1.5;
+    }
+
+    /* TEACHERS */
+    .teachers {
+      padding: 8rem 0;
+      background: var(--bg-alt);
+    }
+
+    .teachers-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .teachers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .teacher-card {
+      text-align: center;
+    }
+
+    .teacher-photo {
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 1.25rem;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid var(--copper);
+      position: relative;
+      transition: all 0.4s;
+    }
+
+    .teacher-card:hover .teacher-photo {
+      transform: scale(1.05);
+      box-shadow: 0 0 0 8px var(--glow);
+    }
+
+    .teacher-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .teacher-name {
+      font-size: 1.25rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .teacher-instrument {
+      color: var(--copper);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .teacher-bio {
+      font-size: 0.875rem;
+      color: var(--fg-muted);
+      margin-bottom: 1rem;
+    }
+
+    .teacher-socials {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .teacher-social {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--fg-muted);
+      transition: all 0.3s;
+    }
+
+    .teacher-social:hover {
+      background: var(--copper);
+      color: white;
+    }
+
+    /* PRICING */
+    .pricing {
+      padding: 8rem 0;
+      background: var(--bg);
+    }
+
+    .pricing-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      padding: 2.5rem 2rem;
+      position: relative;
+    }
+
+    .pricing-card.featured {
+      border: 2px solid var(--copper);
+      transform: scale(1.02);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--copper);
+      color: white;
+      padding: 0.375rem 1rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .pricing-title {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .pricing-desc {
+      font-size: 0.9375rem;
+      color: var(--fg-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .pricing-value {
+      margin-bottom: 1.5rem;
+    }
+
+    .price-amount {
+      font-family: 'Fraunces', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--copper);
+    }
+
+    .price-period {
+      font-size: 0.9375rem;
+      color: var(--fg-muted);
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.625rem 0;
+      font-size: 0.9375rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pricing-features li:last-child {
+      border-bottom: none;
+    }
+
+    .pricing-features i {
+      color: var(--copper);
+    }
+
+    .pricing-card .btn {
+      width: 100%;
+    }
+
+    .pricing-note {
+      text-align: center;
+      margin-top: 3rem;
+      padding: 2rem;
+      background: var(--card);
+      border-radius: 12px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* TRIAL SECTION */
+    .trial {
+      padding: 8rem 0;
+      background: var(--gradient-main);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .trial::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='%23ffffff' stroke-width='0.5' opacity='0.1'/%3E%3C/svg%3E");
+      background-size: 100px 100px;
+    }
+
+    .trial-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .trial-text {
+      color: white;
+    }
+
+    .trial-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 1rem;
+    }
+
+    .trial-subtitle {
+      font-size: 1.125rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+
+    .trial-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .trial-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9375rem;
+    }
+
+    .trial-form-wrapper {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    [data-theme="dark"] .trial-form-wrapper {
+      background: var(--card);
+    }
+
+    .trial-form-title {
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+      color: var(--fg);
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: var(--fg);
+    }
+
+    .form-input,
+    .form-select {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.9375rem;
+      background: var(--bg);
+      color: var(--fg);
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .form-input:focus,
+    .form-select:focus {
+      outline: none;
+      border-color: var(--copper);
+      box-shadow: 0 0 0 3px var(--glow);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .form-success.show {
+      display: block;
+    }
+
+    .form-success-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1rem;
+      background: linear-gradient(135deg, var(--copper), var(--brass));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      animation: success-pop 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes success-pop {
+      0% { transform: scale(0); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .form-success-title {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--fg);
+    }
+
+    .form-success-text {
+      color: var(--fg-muted);
+    }
+
+    /* TESTIMONIALS */
+    .testimonials {
+      padding: 8rem 0;
+      background: var(--bg-alt);
+    }
+
+    .testimonials-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    .testimonial-card {
+      padding: 2rem;
+    }
+
+    .testimonial-stars {
+      display: flex;
+      gap: 0.25rem;
+      margin-bottom: 1rem;
+      color: var(--brass);
+    }
+
+    .testimonial-text {
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      color: var(--fg);
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .testimonial-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    .testimonial-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .testimonial-name {
+      font-weight: 600;
+      color: var(--fg);
+    }
+
+    .testimonial-info {
+      font-size: 0.8125rem;
+      color: var(--fg-muted);
+    }
+
+    /* COUNTERS */
+    .counters {
+      padding: 4rem 0;
+      background: var(--petrol);
+      color: white;
+    }
+
+    .counters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .counter-item {
+      padding: 1rem;
+    }
+
+    .counter-value {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--copper-light);
+      margin-bottom: 0.25rem;
+    }
+
+    .counter-label {
+      font-size: 0.9375rem;
+      opacity: 0.8;
+    }
+
+    /* FAQ */
+    .faq {
+      padding: 8rem 0;
+      background: var(--bg);
+    }
+
+    .faq-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      background: var(--card);
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--fg);
+      text-align: left;
+      transition: color 0.3s;
+    }
+
+    .faq-question:hover {
+      color: var(--copper);
+    }
+
+    .faq-icon {
+      transition: transform 0.3s;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 500px;
+    }
+
+    .faq-answer-content {
+      padding: 0 1.5rem 1.5rem;
+      color: var(--fg-muted);
+      line-height: 1.7;
+    }
+
+    /* CONTACT */
+    .contact {
+      padding: 8rem 0;
+      background: var(--bg-alt);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+
+    .contact-info h2 {
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-info p {
+      color: var(--fg-muted);
+      margin-bottom: 2rem;
+      max-width: 400px;
+    }
+
+    .contact-items {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .contact-item-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--card);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--copper);
+      flex-shrink: 0;
+    }
+
+    .contact-item-text {
+      font-weight: 500;
+    }
+
+    .contact-item-sub {
+      font-size: 0.875rem;
+      color: var(--fg-muted);
+    }
+
+    .contact-socials {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .social-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--fg-muted);
+      transition: all 0.3s;
+    }
+
+    .social-btn:hover {
+      background: var(--copper);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .contact-form {
+      background: var(--card);
+      padding: 2.5rem;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+    }
+
+    .contact-form .form-group:last-of-type {
+      margin-bottom: 1.5rem;
+    }
+
+    textarea.form-input {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    /* FOOTER */
+    .footer {
+      padding: 4rem 0 2rem;
+      background: var(--petrol);
+      color: white;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr repeat(3, 1fr);
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand p {
+      opacity: 0.7;
+      margin: 1rem 0 1.5rem;
+      max-width: 300px;
+    }
+
+    .footer-newsletter {
+      margin-top: 1.5rem;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.875rem;
+    }
+
+    .newsletter-form button {
+      padding: 0.75rem 1rem;
+      background: var(--copper);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .newsletter-form button:hover {
+      background: var(--brass);
+    }
+
+    .footer-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.125rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-links a {
+      color: white;
+      opacity: 0.7;
+      text-decoration: none;
+      transition: opacity 0.3s;
+    }
+
+    .footer-links a:hover {
+      opacity: 1;
+    }
+
+    .footer-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.875rem;
+      opacity: 0.7;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .footer-socials a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: all 0.3s;
+    }
+
+    .footer-socials a:hover {
+      background: var(--copper);
+      transform: translateY(-3px);
+    }
+
+    /* FLOATING ELEMENTS */
+    .floating-buttons {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      z-index: 999;
+    }
+
+    .floating-btn {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .floating-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .floating-btn.whatsapp {
+      background: #25D366;
+      color: white;
+    }
+
+    .floating-btn.top {
+      background: var(--copper);
+      color: white;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .floating-btn.top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .floating-btn.theme {
+      background: var(--card);
+      color: var(--fg);
+      border: 1px solid var(--border);
+    }
+
+    .floating-btn.player {
+      background: var(--violet);
+      color: white;
+    }
+
+    .floating-btn.player.playing {
+      animation: pulse-player 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse-player {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(91, 62, 122, 0.5); }
+      50% { box-shadow: 0 0 0 10px rgba(91, 62, 122, 0); }
+    }
+
+    /* CTA BAR */
+    .cta-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      padding: 1rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      z-index: 998;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+    }
+
+    .cta-bar.visible {
+      transform: translateY(0);
+    }
+
+    .cta-bar-text {
+      font-weight: 600;
+      color: var(--fg);
+    }
+
+    .cta-bar .btn {
+      padding: 0.75rem 1.5rem;
+    }
+
+    /* MOBILE MENU */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 1002;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .mobile-menu.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-menu-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--fg);
+      padding: 0.5rem;
+    }
+
+    .mobile-menu-links {
+      list-style: none;
+      text-align: center;
+    }
+
+    .mobile-menu-links li {
+      margin-bottom: 1.5rem;
+    }
+
+    .mobile-menu-links a {
+      font-family: 'Fraunces', serif;
+      font-size: 1.5rem;
+      color: var(--fg);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .mobile-menu-links a:hover {
+      color: var(--copper);
+    }
+
+    /* EQUALIZER */
+    .equalizer {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 16px;
+    }
+
+    .eq-bar {
+      width: 3px;
+      background: currentColor;
+      border-radius: 2px;
+      animation: eq-dance 0.8s ease-in-out infinite;
+    }
+
+    .eq-bar:nth-child(1) { animation-delay: 0ms; }
+    .eq-bar:nth-child(2) { animation-delay: 100ms; }
+    .eq-bar:nth-child(3) { animation-delay: 200ms; }
+    .eq-bar:nth-child(4) { animation-delay: 100ms; }
+    .eq-bar:nth-child(5) { animation-delay: 0ms; }
+
+    @keyframes eq-dance {
+      0%, 100% { height: 4px; }
+      50% { height: 16px; }
+    }
+
+    .equalizer.paused .eq-bar {
+      animation-play-state: paused;
+      height: 4px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .trial-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .top-bar-content {
+        justify-content: center;
+        text-align: center;
+      }
+
+      .nav-links,
+      .header-cta {
+        display: none;
+      }
+
+      .mobile-toggle {
+        display: block;
+      }
+
+      .hero-content {
+        padding: 6rem 1.5rem 3rem;
+      }
+
+      .hero-stats {
+        gap: 1.5rem;
+      }
+
+      .methodology-timeline::before {
+        display: none;
+      }
+
+      .step {
+        min-width: 100%;
+        padding: 1.5rem 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .step:last-child {
+        border-bottom: none;
+      }
+
+      .pricing-card.featured {
+        transform: none;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .footer-brand {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .floating-buttons {
+        bottom: 5rem;
+        right: 1rem;
+      }
+
+      .floating-btn {
+        width: 48px;
+        height: 48px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-ctas {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .hero-ctas .btn {
+        width: 100%;
+      }
+
+      .courses-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-bar {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem 1rem 1.5rem;
+      }
+    }
+
+    /* SEPARATOR */
+    .section-separator {
+      height: 60px;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='60' viewBox='0 0 100 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='0' y1='30' x2='45' y2='30' stroke='%23D4722A' stroke-width='1'/%3E%3Ccircle cx='50' cy='30' r='5' fill='%23D4722A'/%3E%3Cline x1='55' y1='30' x2='100' y2='30' stroke='%23D4722A' stroke-width='1'/%3E%3C/svg%3E") center no-repeat;
+      margin: 2rem 0;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="container top-bar-content">
+      <div style="display: flex; gap: 1.5rem; align-items: center;">
+        <a href="tel:+5511999999999"><i data-lucide="phone" style="width: 14px; height: 14px;"></i> (11) 9999-9999</a>
+        <a href="https://wa.me/5511999999999"><i data-lucide="message-circle" style="width: 14px; height: 14px;"></i> WhatsApp</a>
+      </div>
+      <span class="top-bar-promo">1a Aula Grátis</span>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="container header-content">
+      <a href="#" class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 48 48" fill="none">
+            <path class="note" d="M32 8v20c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8c1.5 0 2.9.4 4.1 1.1V12l-12 3.4v15.6c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8c1.5 0 2.9.4 4.1 1.1V8l16-4.5V8z" fill="currentColor"/>
+            <ellipse cx="24" cy="36" rx="6" ry="4" fill="currentColor" opacity="0.3"/>
+          </svg>
+        </div>
+        <span class="logo-text">Harmonia</span>
+      </a>
+
+      <nav class="nav">
+        <ul class="nav-links">
+          <li><a href="#cursos" class="animated-link">Cursos</a></li>
+          <li><a href="#metodologia" class="animated-link">Metodologia</a></li>
+          <li><a href="#professores" class="animated-link">Professores</a></li>
+          <li><a href="#precos" class="animated-link">Planos</a></li>
+          <li><a href="#contato" class="animated-link">Contato</a></li>
+        </ul>
+        <a href="#aula-gratis" class="btn btn-primary header-cta">Agende sua Aula</a>
+      </nav>
+
+      <button class="mobile-toggle" id="mobile-toggle" aria-label="Abrir menu">
+        <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu">
+    <button class="mobile-menu-close" id="mobile-close" aria-label="Fechar menu">
+      <i data-lucide="x" style="width: 28px; height: 28px;"></i>
+    </button>
+    <ul class="mobile-menu-links">
+      <li><a href="#cursos">Cursos</a></li>
+      <li><a href="#metodologia">Metodologia</a></li>
+      <li><a href="#professores">Professores</a></li>
+      <li><a href="#precos">Planos</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <a href="#aula-gratis" class="btn btn-primary">Agende sua Aula Grátis</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <img src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=1920&q=80" alt="Piano em sala iluminada" loading="eager">
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-pattern"></div>
+    <canvas id="notes-canvas"></canvas>
+
+    <div class="hero-content">
+      <div class="hero-badge reveal">
+        <i data-lucide="trophy" style="width: 16px; height: 16px;"></i>
+        <span>Mais de 2.000 alunos formados desde 2005</span>
+      </div>
+
+      <h1 class="hero-title reveal">Descubra a Música que Existe em Você</h1>
+      <p class="hero-subtitle reveal">Piano • Violão • Bateria • Canto • Guitarra • Saxofone • Mais de 15 instrumentos para todas as idades</p>
+
+      <div class="hero-ctas reveal">
+        <a href="#aula-gratis" class="btn btn-primary">Agende sua Aula Grátis</a>
+        <a href="#cursos" class="btn btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);">Conheça Nossos Cursos</a>
+      </div>
+
+      <div class="hero-stats reveal">
+        <div class="hero-stat">
+          <div class="hero-stat-value">4.9</div>
+          <div class="hero-stat-label">no Google</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">800+</div>
+          <div class="hero-stat-label">avaliações</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">19</div>
+          <div class="hero-stat-label">anos de história</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <i data-lucide="chevron-down" style="width: 32px; height: 32px; color: white; opacity: 0.6;"></i>
+    </div>
+  </section>
+
+  <!-- DIFFERENTIALS -->
+  <section class="differentials" id="diferenciais">
+    <div class="container">
+      <div class="differentials-header reveal">
+        <h2 class="section-title">Por que escolher a Harmonia?</h2>
+        <p class="section-subtitle" style="margin: 0 auto;">Não ensinamos apenas música. Ensinamos a se expressar.</p>
+      </div>
+
+      <div class="differentials-grid reveal-stagger">
+        <div class="card diff-card">
+          <div class="diff-icon">
+            <i data-lucide="book-open" style="width: 28px; height: 28px;"></i>
+          </div>
+          <h3 class="diff-title">Metodologia Exclusiva</h3>
+          <p class="diff-text">Programa personalizado que respeita seu ritmo e objetivos musicais</p>
+        </div>
+
+        <div class="card diff-card">
+          <div class="diff-icon">
+            <i data-lucide="mic-2" style="width: 28px; height: 28px;"></i>
+          </div>
+          <h3 class="diff-title">Professores Ativos</h3>
+          <p class="diff-text">Músicos que tocam profissionalmente em bandas e orquestras</p>
+        </div>
+
+        <div class="card diff-card">
+          <div class="diff-icon">
+            <i data-lucide="users" style="width: 28px; height: 28px;"></i>
+          </div>
+          <h3 class="diff-title">Aulas Individuais e em Grupo</h3>
+          <p class="diff-text">Escolha o formato que melhor se adapta ao seu estilo de aprendizado</p>
+        </div>
+
+        <div class="card diff-card">
+          <div class="diff-icon">
+            <i data-lucide="headphones" style="width: 28px; height: 28px;"></i>
+          </div>
+          <h3 class="diff-title">Estúdio Profissional</h3>
+          <p class="diff-text">Ambiente com tratamento acústico e equipamentos de alta qualidade</p>
+        </div>
+
+        <div class="card diff-card">
+          <div class="diff-icon">
+            <i data-lucide="theater" style="width: 28px; height: 28px;"></i>
+          </div>
+          <h3 class="diff-title">Recitais Semestrais</h3>
+          <p class="diff-text">Apresentações para você vivenciar a emoção de tocar em público</p>
+        </div>
+
+        <div class="card diff-card">
+          <div class="diff-icon">
+            <i data-lucide="award" style="width: 28px; height: 28px;"></i>
+          </div>
+          <h3 class="diff-title">Certificado Reconhecido</h3>
+          <p class="diff-text">Certificação oficial ao concluir cada módulo de aprendizado</p>
+        </div>
+
+        <div class="card diff-card">
+          <div class="diff-icon">
+            <i data-lucide="trending-up" style="width: 28px; height: 28px;"></i>
+          </div>
+          <h3 class="diff-title">Do Iniciante ao Avançado</h3>
+          <p class="diff-text">Níveis progressivos para você evoluir no seu próprio tempo</p>
+        </div>
+
+        <div class="card diff-card">
+          <div class="diff-icon">
+            <i data-lucide="clock" style="width: 28px; height: 28px;"></i>
+          </div>
+          <h3 class="diff-title">Flexibilidade Total</h3>
+          <p class="diff-text">Horários matutinos, vespertinos e noturnos incluindo sábados</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COURSES -->
+  <section class="courses" id="cursos">
+    <div class="container">
+      <div class="courses-header reveal">
+        <h2 class="section-title">Nossos Cursos</h2>
+        <p class="section-subtitle" style="margin: 0 auto 2rem;">Escolha seu instrumento e comece sua jornada musical</p>
+      </div>
+
+      <div class="courses-filters reveal">
+        <button class="filter-btn active" data-filter="todos">Todos</button>
+        <button class="filter-btn" data-filter="cordas">Cordas</button>
+        <button class="filter-btn" data-filter="teclas">Teclas</button>
+        <button class="filter-btn" data-filter="percussao">Percussão</button>
+        <button class="filter-btn" data-filter="sopro">Sopro</button>
+        <button class="filter-btn" data-filter="voz">Voz</button>
+      </div>
+
+      <div class="courses-grid reveal-stagger" id="courses-grid">
+        <!-- Courses will be populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- METHODOLOGY -->
+  <section class="methodology" id="metodologia">
+    <div class="container">
+      <div class="methodology-header reveal">
+        <h2 class="section-title">Nossa Metodologia</h2>
+        <p class="section-subtitle" style="margin: 0 auto;">Seu ritmo é o que importa. A gente te acompanha.</p>
+      </div>
+
+      <div class="methodology-timeline reveal-stagger">
+        <div class="step">
+          <div class="step-number">
+            1
+            <div class="step-icon"><i data-lucide="search" style="width: 16px; height: 16px;"></i></div>
+          </div>
+          <h3 class="step-title">Avaliação Inicial</h3>
+          <p class="step-text">Entendemos seu nível, objetivos e estilo musical preferido</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">
+            2
+            <div class="step-icon"><i data-lucide="file-text" style="width: 16px; height: 16px;"></i></div>
+          </div>
+          <h3 class="step-title">Plano Personalizado</h3>
+          <p class="step-text">Montamos um programa sob medida pra você</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">
+            3
+            <div class="step-icon"><i data-lucide="music" style="width: 16px; height: 16px;"></i></div>
+          </div>
+          <h3 class="step-title">Prática Guiada</h3>
+          <p class="step-text">Aulas com professor + material + exercícios para casa</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">
+            4
+            <div class="step-icon"><i data-lucide="star" style="width: 16px; height: 16px;"></i></div>
+          </div>
+          <h3 class="step-title">Performance</h3>
+          <p class="step-text">Recitais, jams e apresentações para ganhar palco</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">
+            5
+            <div class="step-icon"><i data-lucide="rocket" style="width: 16px; height: 16px;"></i></div>
+          </div>
+          <h3 class="step-title">Evolução Contínua</h3>
+          <p class="step-text">Avaliações periódicas e novos desafios sempre</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEACHERS -->
+  <section class="teachers" id="professores">
+    <div class="container">
+      <div class="teachers-header reveal">
+        <h2 class="section-title">Nossos Professores</h2>
+        <p class="section-subtitle" style="margin: 0 auto;">Eles não só ensinam — eles vivem a música.</p>
+      </div>
+
+      <div class="teachers-grid reveal-stagger" id="teachers-grid">
+        <!-- Teachers will be populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" id="precos">
+    <div class="container">
+      <div class="pricing-header reveal">
+        <h2 class="section-title">Planos e Valores</h2>
+        <p class="section-subtitle" style="margin: 0 auto;">Escolha o plano que se encaixa na sua rotina e orçamento</p>
+      </div>
+
+      <div class="pricing-grid reveal-stagger" id="pricing-grid">
+        <!-- Pricing will be populated by JS -->
+      </div>
+
+      <div class="pricing-note reveal">
+        <p style="font-weight: 600; margin-bottom: 0.5rem;">Descontos Especiais</p>
+        <p style="font-size: 0.9375rem; color: var(--fg-muted);">Plano semestral: 10% off | Anual: 20% off | PIX: 5% off</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRIAL SECTION -->
+  <section class="trial" id="aula-gratis">
+    <div class="container">
+      <div class="trial-content">
+        <div class="trial-text reveal">
+          <h2 class="trial-title">Sua Primeira Aula é Por Nossa Conta</h2>
+          <p class="trial-subtitle">Sem compromisso. Venha sentir como é aprender música com a gente.</p>
+          <div class="trial-features">
+            <div class="trial-feature">
+              <i data-lucide="check-circle" style="width: 20px; height: 20px;"></i>
+              <span>Sem cartão de crédito</span>
+            </div>
+            <div class="trial-feature">
+              <i data-lucide="check-circle" style="width: 20px; height: 20px;"></i>
+              <span>Sem pegadinha</span>
+            </div>
+            <div class="trial-feature">
+              <i data-lucide="check-circle" style="width: 20px; height: 20px;"></i>
+              <span>Só música</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="trial-form-wrapper reveal">
+          <h3 class="trial-form-title">Agende sua aula experimental</h3>
+          <form id="trial-form">
+            <div class="form-group">
+              <label class="form-label" for="trial-name">Seu nome</label>
+              <input type="text" id="trial-name" class="form-input" placeholder="Como podemos te chamar?" required>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="trial-whatsapp">WhatsApp</label>
+                <input type="tel" id="trial-whatsapp" class="form-input" placeholder="(11) 99999-9999" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="trial-email">E-mail</label>
+                <input type="email" id="trial-email" class="form-input" placeholder="seu@email.com" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="trial-instrument">Instrumento</label>
+                <select id="trial-instrument" class="form-select" required>
+                  <option value="">Selecione...</option>
+                  <option value="piano">Piano</option>
+                  <option value="violao">Violão</option>
+                  <option value="guitarra">Guitarra</option>
+                  <option value="bateria">Bateria</option>
+                  <option value="canto">Canto</option>
+                  <option value="saxofone">Saxofone</option>
+                  <option value="outro">Outro</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="trial-period">Horário preferido</label>
+                <select id="trial-period" class="form-select" required>
+                  <option value="">Selecione...</option>
+                  <option value="manha">Manhã</option>
+                  <option value="tarde">Tarde</option>
+                  <option value="noite">Noite</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Agendar Minha Aula Grátis</button>
+          </form>
+          <div class="form-success" id="form-success">
+            <div class="form-success-icon">
+              <i data-lucide="check" style="width: 40px; height: 40px;"></i>
+            </div>
+            <h4 class="form-success-title">Agendado!</h4>
+            <p class="form-success-text">Te esperamos! Entraremos em contato em breve.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="depoimentos">
+    <div class="container">
+      <div class="testimonials-header reveal">
+        <h2 class="section-title">O que dizem nossos alunos</h2>
+        <p class="section-subtitle" style="margin: 0 auto;">Histórias reais de quem descobriu a música aqui</p>
+      </div>
+
+      <div class="testimonials-grid reveal-stagger" id="testimonials-grid">
+        <!-- Testimonials will be populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- COUNTERS -->
+  <section class="counters">
+    <div class="container">
+      <div class="counters-grid reveal">
+        <div class="counter-item">
+          <div class="counter-value" data-target="2000">0</div>
+          <div class="counter-label">Alunos formados</div>
+        </div>
+        <div class="counter-item">
+          <div class="counter-value" data-target="15">0</div>
+          <div class="counter-label">Instrumentos</div>
+        </div>
+        <div class="counter-item">
+          <div class="counter-value" data-target="20">0</div>
+          <div class="counter-label">Professores</div>
+        </div>
+        <div class="counter-item">
+          <div class="counter-value" data-target="50">0</div>
+          <div class="counter-label">Recitais realizados</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="faq-header reveal">
+        <h2 class="section-title">Perguntas Frequentes</h2>
+        <p class="section-subtitle" style="margin: 0 auto;">Tire suas dúvidas sobre como funcionam nossas aulas</p>
+      </div>
+
+      <div class="faq-list reveal" id="faq-list">
+        <!-- FAQ will be populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contato">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <h2 class="section-title">Fale Conosco</h2>
+          <p>Estamos prontos para tirar suas dúvidas e ajudar você a dar o primeiro passo na sua jornada musical.</p>
+
+          <div class="contact-items">
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <i data-lucide="map-pin" style="width: 20px; height: 20px;"></i>
+              </div>
+              <div>
+                <div class="contact-item-text">Rua das Notas Musicais, 123</div>
+                <div class="contact-item-sub">Pinheiros, São Paulo - SP</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <i data-lucide="phone" style="width: 20px; height: 20px;"></i>
+              </div>
+              <div>
+                <div class="contact-item-text">(11) 9999-9999</div>
+                <div class="contact-item-sub">WhatsApp e telefone</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <i data-lucide="mail" style="width: 20px; height: 20px;"></i>
+              </div>
+              <div>
+                <div class="contact-item-text">contato@harmonia.edu.br</div>
+                <div class="contact-item-sub">Resposta em até 24h</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <i data-lucide="clock" style="width: 20px; height: 20px;"></i>
+              </div>
+              <div>
+                <div class="contact-item-text">Seg-Sáb: 8h às 21h</div>
+                <div class="contact-item-sub">Horário flexível</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-socials">
+            <a href="#" class="social-btn" aria-label="Instagram"><i data-lucide="instagram" style="width: 20px; height: 20px;"></i></a>
+            <a href="#" class="social-btn" aria-label="YouTube"><i data-lucide="youtube" style="width: 20px; height: 20px;"></i></a>
+            <a href="#" class="social-btn" aria-label="Facebook"><i data-lucide="facebook" style="width: 20px; height: 20px;"></i></a>
+            <a href="#" class="social-btn" aria-label="Spotify"><i data-lucide="music" style="width: 20px; height: 20px;"></i></a>
+          </div>
+        </div>
+
+        <form class="contact-form reveal" id="contact-form">
+          <div class="form-group">
+            <label class="form-label" for="contact-name">Nome completo</label>
+            <input type="text" id="contact-name" class="form-input" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="contact-email">E-mail</label>
+              <input type="email" id="contact-email" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contact-whatsapp">WhatsApp</label>
+              <input type="tel" id="contact-whatsapp" class="form-input">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="contact-subject">Assunto</label>
+            <select id="contact-subject" class="form-select">
+              <option value="matricula">Matrícula</option>
+              <option value="aula-gratis">Aula Experimental</option>
+              <option value="informacoes">Informações gerais</option>
+              <option value="trabalhe">Trabalhe conosco</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="contact-message">Mensagem</label>
+            <textarea id="contact-message" class="form-input" placeholder="Como podemos ajudar?" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="logo" style="color: white;">
+            <div class="logo-icon">
+              <svg viewBox="0 0 48 48" fill="none">
+                <path class="note" d="M32 8v20c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8c1.5 0 2.9.4 4.1 1.1V12l-12 3.4v15.6c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8c1.5 0 2.9.4 4.1 1.1V8l16-4.5V8z" fill="#D4722A"/>
+              </svg>
+            </div>
+            <span class="logo-text" style="color: white;">Harmonia</span>
+          </a>
+          <p>A música transforma. A gente te conecta a ela.</p>
+          <div class="footer-newsletter">
+            <p style="font-weight: 500; margin-bottom: 0.5rem;">Receba novidades</p>
+            <form class="newsletter-form">
+              <input type="email" placeholder="seu@email.com">
+              <button type="submit"><i data-lucide="send" style="width: 18px; height: 18px;"></i></button>
+            </form>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Cursos</h4>
+          <ul class="footer-links">
+            <li><a href="#">Piano</a></li>
+            <li><a href="#">Violão</a></li>
+            <li><a href="#">Guitarra</a></li>
+            <li><a href="#">Bateria</a></li>
+            <li><a href="#">Canto</a></li>
+            <li><a href="#">Todos os cursos</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Sobre</h4>
+          <ul class="footer-links">
+            <li><a href="#">Nossa história</a></li>
+            <li><a href="#">Metodologia</a></li>
+            <li><a href="#">Professores</a></li>
+            <li><a href="#">Estrutura</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Contato</h4>
+          <ul class="footer-links">
+            <li><a href="tel:+5511999999999">(11) 9999-9999</a></li>
+            <li><a href="mailto:contato@harmonia.edu.br">contato@harmonia.edu.br</a></li>
+            <li><a href="#">WhatsApp</a></li>
+            <li><a href="#">Como chegar</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>2024 Harmonia Escola de Música. Todos os direitos reservados. CNPJ: 00.000.000/0001-00</p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Instagram"><i data-lucide="instagram" style="width: 18px; height: 18px;"></i></a>
+          <a href="#" aria-label="YouTube"><i data-lucide="youtube" style="width: 18px; height: 18px;"></i></a>
+          <a href="#" aria-label="Facebook"><i data-lucide="facebook" style="width: 18px; height: 18px;"></i></a>
+          <a href="#" aria-label="TikTok"><i data-lucide="music-2" style="width: 18px; height: 18px;"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING BUTTONS -->
+  <div class="floating-buttons">
+    <button class="floating-btn theme" id="theme-toggle" aria-label="Alternar tema">
+      <i data-lucide="sun" style="width: 22px; height: 22px;" id="theme-icon"></i>
+    </button>
+    <button class="floating-btn player" id="player-toggle" aria-label="Player de música">
+      <div class="equalizer paused" id="equalizer">
+        <div class="eq-bar"></div>
+        <div class="eq-bar"></div>
+        <div class="eq-bar"></div>
+        <div class="eq-bar"></div>
+        <div class="eq-bar"></div>
+      </div>
+    </button>
+    <a href="https://wa.me/5511999999999" class="floating-btn whatsapp" aria-label="WhatsApp">
+      <i data-lucide="message-circle" style="width: 24px; height: 24px;"></i>
+    </a>
+    <button class="floating-btn top" id="scroll-top" aria-label="Voltar ao topo">
+      <i data-lucide="arrow-up" style="width: 22px; height: 22px;"></i>
+    </button>
+  </div>
+
+  <!-- CTA BAR -->
+  <div class="cta-bar" id="cta-bar">
+    <span class="cta-bar-text">1a Aula Grátis - Sem compromisso</span>
+    <a href="#aula-gratis" class="btn btn-primary">Agende Agora</a>
+  </div>
+
+  <script>
+    // DATA
+    const coursesData = [
+      { id: 1, name: 'Piano', category: 'teclas', image: 'https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=400&q=80', price: 290, duration: '30-60min', level: 'Todos os níveis', age: 'Todas as idades', badge: 'hot' },
+      { id: 2, name: 'Violão', category: 'cordas', image: 'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=400&q=80', price: 290, duration: '30-60min', level: 'Todos os níveis', age: 'Todas as idades', badge: 'hot' },
+      { id: 3, name: 'Guitarra', category: 'cordas', image: 'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=400&q=80', price: 290, duration: '30-60min', level: 'Todos os níveis', age: 'A partir de 8 anos' },
+      { id: 4, name: 'Bateria', category: 'percussao', image: 'https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=400&q=80', price: 320, duration: '45-60min', level: 'Todos os níveis', age: 'A partir de 6 anos' },
+      { id: 5, name: 'Canto', category: 'voz', image: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=400&q=80', price: 290, duration: '30-60min', level: 'Todos os níveis', age: 'Todas as idades', badge: 'new' },
+      { id: 6, name: 'Saxofone', category: 'sopro', image: 'https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=400&q=80', price: 320, duration: '45-60min', level: 'Todos os níveis', age: 'A partir de 10 anos' },
+      { id: 7, name: 'Violino', category: 'cordas', image: 'https://images.unsplash.com/photo-1612225330812-01a9c6b355ec?w=400&q=80', price: 320, duration: '45-60min', level: 'Todos os níveis', age: 'A partir de 5 anos', badge: 'kids' },
+      { id: 8, name: 'Teclado', category: 'teclas', image: 'https://images.unsplash.com/photo-1552422535-c45813c61732?w=400&q=80', price: 270, duration: '30-60min', level: 'Todos os níveis', age: 'Todas as idades' },
+    ];
+
+    const teachersData = [
+      { id: 1, name: 'Ricardo Mendes', instrument: 'Piano e Teclado', bio: 'Concertista com 15 anos de carreira. Mestre em música pela USP.', photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80' },
+      { id: 2, name: 'Ana Carolina Silva', instrument: 'Violão e Guitarra', bio: 'Guitarrista de bandas de rock e MPB. 12 anos ensinando.', photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80' },
+      { id: 3, name: 'Pedro Santos', instrument: 'Bateria', bio: 'Baterista de jazz e música brasileira. Tocou com grandes nomes.', photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80' },
+      { id: 4, name: 'Mariana Costa', instrument: 'Canto', bio: 'Cantora lírica e popular. Coach vocal de artistas renomados.', photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80' },
+    ];
+
+    const pricingData = [
+      { id: 1, name: 'Individual 30min', desc: '1 aula por semana', price: 290, features: ['Aulas individuais', 'Material didático', 'Acesso ao estúdio', 'Participação em recitais'] },
+      { id: 2, name: 'Individual 60min', desc: '1 aula por semana', price: 490, features: ['Aulas individuais', 'Material didático', 'Acesso ao estúdio', 'Participação em recitais', 'Gravação de performances'], featured: true },
+      { id: 3, name: 'Em Dupla', desc: 'Aulas em pequenos grupos', price: 220, features: ['Aulas em dupla/trio', 'Material didático', 'Dinâmica de conjunto'] },
+      { id: 4, name: 'Online', desc: 'Ao vivo por videochamada', price: 250, features: ['Aulas ao vivo', 'Flexibilidade de horário', 'Material digital'] },
+    ];
+
+    const testimonialsData = [
+      { id: 1, name: 'Carlos Eduardo', instrument: 'Piano', time: '2 anos', text: 'Sempre sonhei em tocar piano e finalmente encontrei uma escola que me faz acreditar que é possível. Os professores são incríveis e a metodologia é muito bem feita.', stars: 5, photo: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&q=80' },
+      { id: 2, name: 'Fernanda Oliveira', instrument: 'Violão', time: '1 ano', text: 'Minha filha de 8 anos ama as aulas! Os professores têm uma paciência enorme e sabem como engajar as crianças. Recomendo demais!', stars: 5, photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80' },
+      { id: 3, name: 'Roberto Lima', instrument: 'Bateria', time: '6 meses', text: 'Aos 45 anos achei que seria impossível aprender um instrumento. A Harmonia me provou o contrário. Nunca foi tarde demais!', stars: 5, photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80' },
+    ];
+
+    const faqData = [
+      { q: 'Preciso ter instrumento próprio?', a: 'Não necessariamente. Oferecemos aluguel de instrumentos por um valor acessível (R$ 80/mês) e você pode usar nossos instrumentos durante as aulas. Para praticar em casa, indicamos que tenha seu próprio instrumento após alguns meses.' },
+      { q: 'Qual a idade mínima para começar?', a: 'Aceitamos alunos a partir de 4 anos para musicalização infantil. Para instrumentos específicos, recomendamos: piano e violino a partir de 5 anos, guitarra e bateria a partir de 8 anos, sopro a partir de 10 anos.' },
+      { q: 'Posso trocar de instrumento?', a: 'Sim! Você pode trocar de instrumento a qualquer momento, respeitando a disponibilidade de vagas. Muitos alunos começam com um instrumento e depois descobrem paixão por outro.' },
+      { q: 'Como funciona a reposição de aulas?', a: 'Aulas perdidas por falta do aluno podem ser repostas mediante aviso prévio de 24h, sujeitas à disponibilidade. Aulas canceladas pela escola são sempre repostas.' },
+      { q: 'As aulas online funcionam bem?', a: 'Sim! Nossas aulas online são ao vivo e personalizadas, com a mesma qualidade das presenciais. Muitos alunos optam por um modelo híbrido, alternando aulas presenciais e online.' },
+      { q: 'Preciso saber ler partitura?', a: 'Não! Ensinamos partitura gradualmente, mas não é pré-requisito. Trabalhamos também com métodos mais práticos e cifras, dependendo do seu objetivo.' },
+    ];
+
+    // DOM Elements - Initialize after defining data
+    let coursesGrid, teachersGrid, pricingGrid, testimonialsGrid, faqList;
+    let header, mobileToggle, mobileMenu, mobileClose;
+    let themeToggle, themeIcon, scrollTopBtn, ctaBar, playerToggle, equalizer;
+    let notesCanvas, ctx;
+    let trialForm, formSuccess;
+
+    // Initialize DOM elements
+    function initDOMElements() {
+      coursesGrid = document.getElementById('courses-grid');
+      teachersGrid = document.getElementById('teachers-grid');
+      pricingGrid = document.getElementById('pricing-grid');
+      testimonialsGrid = document.getElementById('testimonials-grid');
+      faqList = document.getElementById('faq-list');
+      header = document.getElementById('header');
+      mobileToggle = document.getElementById('mobile-toggle');
+      mobileMenu = document.getElementById('mobile-menu');
+      mobileClose = document.getElementById('mobile-close');
+      themeToggle = document.getElementById('theme-toggle');
+      themeIcon = document.getElementById('theme-icon');
+      scrollTopBtn = document.getElementById('scroll-top');
+      ctaBar = document.getElementById('cta-bar');
+      playerToggle = document.getElementById('player-toggle');
+      equalizer = document.getElementById('equalizer');
+      notesCanvas = document.getElementById('notes-canvas');
+      trialForm = document.getElementById('trial-form');
+      formSuccess = document.getElementById('form-success');
+      
+      if (notesCanvas) {
+        ctx = notesCanvas.getContext('2d');
+      }
+    }
+
+    // Render Functions
+    function renderCourses(filter = 'todos') {
+      if (!coursesGrid) return;
+      const filtered = filter === 'todos' ? coursesData : coursesData.filter(c => c.category === filter);
+      coursesGrid.innerHTML = filtered.map(course => `
+        <article class="card course-card" data-category="${course.category}">
+          <div class="course-image">
+            <img src="${course.image}" alt="${course.name}" loading="lazy">
+          </div>
+          ${course.badge ? `<div class="course-badges"><span class="course-badge badge-${course.badge}">${course.badge === 'hot' ? 'Mais procurado' : course.badge === 'new' ? 'Novo' : 'Kids'}</span></div>` : ''}
+          <div class="course-content">
+            <h3 class="course-title">${course.name}</h3>
+            <div class="course-meta">
+              <span><i data-lucide="clock" style="width: 14px; height: 14px;"></i> ${course.duration}</span>
+              <span><i data-lucide="bar-chart-2" style="width: 14px; height: 14px;"></i> ${course.level}</span>
+            </div>
+            <div class="course-price">
+              <span class="price-value">R$ ${course.price}</span>
+              <span class="price-label">/mês</span>
+            </div>
+            <div class="course-footer">
+              <a href="#aula-gratis" class="btn btn-primary">Aula Grátis</a>
+              <button class="btn btn-outline">Saiba mais</button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    function renderTeachers() {
+      if (!teachersGrid) return;
+      teachersGrid.innerHTML = teachersData.map(teacher => `
+        <article class="card teacher-card">
+          <div class="teacher-photo">
+            <img src="${teacher.photo}" alt="${teacher.name}" loading="lazy">
+          </div>
+          <h3 class="teacher-name">${teacher.name}</h3>
+          <p class="teacher-instrument">${teacher.instrument}</p>
+          <p class="teacher-bio">${teacher.bio}</p>
+          <div class="teacher-socials">
+            <a href="#" class="teacher-social" aria-label="Instagram"><i data-lucide="instagram" style="width: 16px; height: 16px;"></i></a>
+            <a href="#" class="teacher-social" aria-label="YouTube"><i data-lucide="youtube" style="width: 16px; height: 16px;"></i></a>
+            <a href="#" class="teacher-social" aria-label="Spotify"><i data-lucide="music" style="width: 16px; height: 16px;"></i></a>
+          </div>
+        </article>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    function renderPricing() {
+      if (!pricingGrid) return;
+      pricingGrid.innerHTML = pricingData.map(plan => `
+        <article class="card pricing-card ${plan.featured ? 'featured' : ''}">
+          ${plan.featured ? '<span class="pricing-badge">Mais Escolhido</span>' : ''}
+          <h3 class="pricing-title">${plan.name}</h3>
+          <p class="pricing-desc">${plan.desc}</p>
+          <div class="pricing-value">
+            <span class="price-amount">R$ ${plan.price}</span>
+            <span class="price-period">/mês</span>
+          </div>
+          <ul class="pricing-features">
+            ${plan.features.map(f => `<li><i data-lucide="check" style="width: 16px; height: 16px;"></i> ${f}</li>`).join('')}
+          </ul>
+          <a href="#aula-gratis" class="btn ${plan.featured ? 'btn-primary' : 'btn-outline'}">Começar Agora</a>
+        </article>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    function renderTestimonials() {
+      if (!testimonialsGrid) return;
+      testimonialsGrid.innerHTML = testimonialsData.map(t => `
+        <article class="card testimonial-card">
+          <div class="testimonial-stars">
+            ${Array(t.stars).fill('<i data-lucide="star" style="width: 16px; height: 16px; fill: currentColor;"></i>').join('')}
+          </div>
+          <p class="testimonial-text">"${t.text}"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">
+              <img src="${t.photo}" alt="${t.name}" loading="lazy">
+            </div>
+            <div>
+              <div class="testimonial-name">${t.name}</div>
+              <div class="testimonial-info">${t.instrument} • ${t.time}</div>
+            </div>
+          </div>
+        </article>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    function renderFAQ() {
+      if (!faqList) return;
+      faqList.innerHTML = faqData.map((item, i) => `
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            ${item.q}
+            <i data-lucide="chevron-down" class="faq-icon" style="width: 20px; height: 20px;"></i>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">${item.a}</div>
+          </div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    // Notes Canvas Animation
+    const notes = [];
+    const noteSymbols = ['\u266A', '\u266B', '\u266C', '\u2669'];
+    
+    function initNotesCanvas() {
+      if (!notesCanvas || !ctx) return;
+      
+      function resizeCanvas() {
+        notesCanvas.width = notesCanvas.offsetWidth;
+        notesCanvas.height = notesCanvas.offsetHeight;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      for (let i = 0; i < 20; i++) {
+        notes.push({
+          x: Math.random() * notesCanvas.width,
+          y: Math.random() * notesCanvas.height,
+          size: Math.max(12, Math.random() * 24 + 12),
+          speed: Math.random() * 0.5 + 0.2,
+          opacity: Math.random() * 0.3 + 0.1,
+          symbol: noteSymbols[Math.floor(Math.random() * noteSymbols.length)],
+          drift: (Math.random() - 0.5) * 0.5
+        });
+      }
+
+      function animate() {
+        if (!ctx || !notesCanvas) return;
+        ctx.clearRect(0, 0, notesCanvas.width, notesCanvas.height);
+        
+        notes.forEach(note => {
+          ctx.font = `${note.size}px serif`;
+          ctx.fillStyle = `rgba(251, 247, 240, ${note.opacity})`;
+          ctx.fillText(note.symbol, note.x, note.y);
+          
+          note.y -= note.speed;
+          note.x += note.drift;
+          
+          if (note.y < -note.size) {
+            note.y = notesCanvas.height + note.size;
+            note.x = Math.random() * notesCanvas.width;
+          }
+        });
+        
+        requestAnimationFrame(animate);
+      }
+      
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!prefersReducedMotion) {
+        animate();
+      }
+    }
+
+    // Scroll Effects
+    function initScrollEffects() {
+      const revealElements = document.querySelectorAll('.reveal, .reveal-stagger');
+      
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+      revealElements.forEach(el => revealObserver.observe(el));
+
+      // Header scroll
+      window.addEventListener('scroll', () => {
+        if (header) {
+          if (window.scrollY > 100) {
+            header.classList.add('scrolled');
+          } else {
+            header.classList.remove('scrolled');
+          }
+        }
+        
+        // Scroll top button
+        if (scrollTopBtn) {
+          if (window.scrollY > 500) {
+            scrollTopBtn.classList.add('visible');
+          } else {
+            scrollTopBtn.classList.remove('visible');
+          }
+        }
+        
+        // CTA bar
+        if (ctaBar) {
+          const hero = document.getElementById('hero');
+          if (hero) {
+            const heroBottom = hero.offsetTop + hero.offsetHeight;
+            if (window.scrollY > heroBottom) {
+              ctaBar.classList.add('visible');
+            } else {
+              ctaBar.classList.remove('visible');
+            }
+          }
+        }
+      });
+
+      // Scroll top action
+      if (scrollTopBtn) {
+        scrollTopBtn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+    }
+
+    // Counter Animation
+    function initCounters() {
+      const counters = document.querySelectorAll('.counter-value');
+      
+      const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const target = parseInt(entry.target.dataset.target);
+            let current = 0;
+            const increment = target / 60;
+            
+            const updateCounter = () => {
+              current += increment;
+              if (current < target) {
+                entry.target.textContent = Math.floor(current) + (target > 100 ? '+' : '');
+                requestAnimationFrame(updateCounter);
+              } else {
+                entry.target.textContent = target + '+';
+              }
+            };
+            
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) {
+              entry.target.textContent = target + '+';
+            } else {
+              updateCounter();
+            }
+            
+            counterObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      counters.forEach(counter => counterObserver.observe(counter));
+    }
+
+    // Mobile Menu
+    function initMobileMenu() {
+      if (mobileToggle && mobileMenu && mobileClose) {
+        mobileToggle.addEventListener('click', () => {
+          mobileMenu.classList.add('open');
+        });
+
+        mobileClose.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+          });
+        });
+      }
+    }
+
+    // Theme Toggle
+    function initTheme() {
+      if (!themeToggle || !themeIcon) return;
+      
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      document.documentElement.dataset.theme = savedTheme;
+      updateThemeIcon(savedTheme);
+
+      themeToggle.addEventListener('click', () => {
+        const newTheme = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+        document.documentElement.dataset.theme = newTheme;
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+      });
+
+      function updateThemeIcon(theme) {
+        if (themeIcon) {
+          themeIcon.setAttribute('data-lucide', theme === 'light' ? 'moon' : 'sun');
+          lucide.createIcons();
+        }
+      }
+    }
+
+    // Course Filter
+    function initCourseFilter() {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          renderCourses(btn.dataset.filter);
+        });
+      });
+    }
+
+    // FAQ Accordion
+    function initFAQ() {
+      document.querySelectorAll('.faq-question').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const item = btn.parentElement;
+          const isOpen = item.classList.contains('open');
+          
+          document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+          document.querySelectorAll('.faq-question').forEach(b => b.setAttribute('aria-expanded', 'false'));
+          
+          if (!isOpen) {
+            item.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+          }
+        });
+      });
+    }
+
+    // Form Handling
+    function initForms() {
+      if (trialForm && formSuccess) {
+        trialForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          trialForm.style.display = 'none';
+          formSuccess.classList.add('show');
+        });
+      }
+
+      const contactForm = document.getElementById('contact-form');
+      if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+          contactForm.reset();
+        });
+      }
+    }
+
+    // Player Toggle (visual only)
+    function initPlayer() {
+      let isPlaying = false;
+      if (playerToggle && equalizer) {
+        playerToggle.addEventListener('click', () => {
+          isPlaying = !isPlaying;
+          if (isPlaying) {
+            playerToggle.classList.add('playing');
+            equalizer.classList.remove('paused');
+          } else {
+            playerToggle.classList.remove('playing');
+            equalizer.classList.add('paused');
+          }
+        });
+      }
+    }
+
+    // Initialize everything
+    document.addEventListener('DOMContentLoaded', () => {
+      initDOMElements();
+      
+      // Render content
+      renderCourses();
+      renderTeachers();
+      renderPricing();
+      renderTestimonials();
+      renderFAQ();
+      
+      // Initialize features
+      initNotesCanvas();
+      initScrollEffects();
+      initCounters();
+      initMobileMenu();
+      initTheme();
+      initCourseFilter();
+      initFAQ();
+      initForms();
+      initPlayer();
+      
+      // Initialize Lucide icons
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>

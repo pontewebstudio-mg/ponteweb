@@ -1,0 +1,2634 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clínica Sorriso | Odontologia de Excelência</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --azul-clinico: #1B6B9E;
+      --branco-sorriso: #FFFFFF;
+      --menta-fresca: #A8DCD1;
+      --cinza-titanio: #4D5B6A;
+      --perola-dente: #F5F1EB;
+      --dourado-premium: #C9A861;
+      --grafite-radiografia: #2B2D33;
+      --verde-agua: #5AAFAF;
+      --bg: var(--branco-sorriso);
+      --bg-alt: var(--perola-dente);
+      --fg: var(--grafite-radiografia);
+      --fg-muted: var(--cinza-titanio);
+      --accent: var(--azul-clinico);
+      --accent-soft: var(--menta-fresca);
+      --card: var(--branco-sorriso);
+      --border: rgba(27, 107, 158, 0.15);
+      --glow: rgba(168, 220, 209, 0.4);
+    }
+
+    [data-theme="dark"] {
+      --bg: var(--grafite-radiografia);
+      --bg-alt: #1a1b1f;
+      --fg: var(--branco-sorriso);
+      --fg-muted: var(--menta-fresca);
+      --accent: #3BA3D4;
+      --accent-soft: var(--verde-agua);
+      --card: #35373f;
+      --border: rgba(168, 220, 209, 0.2);
+      --glow: rgba(90, 175, 175, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      overflow-x: hidden;
+      transition: background 0.5s ease, color 0.3s ease;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'DM Serif Display', serif;
+      font-weight: 400;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-alt); }
+    ::-webkit-scrollbar-thumb { 
+      background: var(--accent); 
+      border-radius: 4px;
+    }
+
+    /* Hero Particles Canvas */
+    #particles-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Gradient Backgrounds */
+    .gradient-hero {
+      background: linear-gradient(135deg, var(--azul-clinico) 0%, var(--verde-agua) 50%, var(--menta-fresca) 100%);
+    }
+
+    .gradient-soft {
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%);
+    }
+
+    .gradient-accent {
+      background: linear-gradient(90deg, var(--accent) 0%, var(--verde-agua) 100%);
+    }
+
+    .gradient-card {
+      background: linear-gradient(145deg, var(--card) 0%, var(--bg-alt) 100%);
+    }
+
+    /* Texture Overlay */
+    .texture-ceramic {
+      position: relative;
+    }
+    .texture-ceramic::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Glass Effect */
+    .glass {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    [data-theme="dark"] .glass {
+      background: rgba(43, 45, 51, 0.9);
+    }
+
+    /* Header */
+    .header {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .header.scrolled {
+      background: var(--card);
+      box-shadow: 0 4px 30px rgba(27, 107, 158, 0.1);
+    }
+
+    /* Menu Link Animation */
+    .menu-link {
+      position: relative;
+    }
+    .menu-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateX(-50%);
+    }
+    .menu-link:hover::after {
+      width: 100%;
+    }
+
+    /* Button Styles */
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s ease;
+    }
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+    .btn-primary:hover {
+      background: var(--verde-agua);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(27, 107, 158, 0.3);
+    }
+
+    .btn-outline {
+      border: 2px solid var(--accent-soft);
+      color: var(--accent);
+      padding: 12px 26px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      background: transparent;
+    }
+    .btn-outline:hover {
+      background: var(--accent-soft);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* Card Styles */
+    .card {
+      background: var(--card);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(27, 107, 158, 0.15);
+    }
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    /* Glow Effect */
+    .glow-menta {
+      box-shadow: 0 0 40px var(--glow);
+    }
+
+    /* Section Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger Children */
+    .stagger > * {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .stagger.active > *:nth-child(1) { animation: fadeUp 0.6s 0.1s forwards; }
+    .stagger.active > *:nth-child(2) { animation: fadeUp 0.6s 0.2s forwards; }
+    .stagger.active > *:nth-child(3) { animation: fadeUp 0.6s 0.3s forwards; }
+    .stagger.active > *:nth-child(4) { animation: fadeUp 0.6s 0.4s forwards; }
+    .stagger.active > *:nth-child(5) { animation: fadeUp 0.6s 0.5s forwards; }
+    .stagger.active > *:nth-child(6) { animation: fadeUp 0.6s 0.6s forwards; }
+    .stagger.active > *:nth-child(7) { animation: fadeUp 0.6s 0.7s forwards; }
+    .stagger.active > *:nth-child(8) { animation: fadeUp 0.6s 0.8s forwards; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Title Underline Animation */
+    .title-underline {
+      position: relative;
+      display: inline-block;
+    }
+    .title-underline::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+      border-radius: 3px;
+    }
+
+    /* Ken Burns Effect */
+    .ken-burns {
+      animation: kenBurns 20s ease-in-out infinite alternate;
+    }
+    @keyframes kenBurns {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.1); }
+    }
+
+    /* Before/After Slider */
+    .ba-slider {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+    .ba-slider img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .ba-after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
+      height: 100%;
+      overflow: hidden;
+    }
+    .ba-after img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+    }
+    .ba-handle {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 4px;
+      height: 100%;
+      background: var(--accent);
+      cursor: ew-resize;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+    .ba-handle::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44px;
+      height: 44px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 4px 20px rgba(27, 107, 158, 0.4);
+    }
+    .ba-handle::after {
+      content: '⟷';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      z-index: 1;
+    }
+
+    /* Shimmer Effect */
+    .shimmer {
+      position: relative;
+      overflow: hidden;
+    }
+    .shimmer::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      animation: shimmer 3s infinite;
+    }
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 200%; }
+    }
+
+    /* Counter Animation */
+    .counter {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Accordion */
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .accordion-item.active .accordion-content {
+      max-height: 500px;
+    }
+    .accordion-item.active .accordion-icon {
+      transform: rotate(180deg);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--verde-agua) 100%);
+      z-index: 100;
+      transform: translateX(100%);
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .mobile-menu.active {
+      transform: translateX(0);
+    }
+
+    /* Floating Buttons */
+    .floating-btn {
+      position: fixed;
+      z-index: 90;
+      transition: all 0.3s ease;
+    }
+    .floating-btn:hover {
+      transform: scale(1.1);
+    }
+
+    /* WhatsApp Button */
+    .whatsapp-btn {
+      bottom: 100px;
+      right: 24px;
+      width: 60px;
+      height: 60px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    }
+
+    /* Emergency Button */
+    .emergency-btn {
+      bottom: 170px;
+      right: 24px;
+      padding: 12px 20px;
+      background: #DC2626;
+      border-radius: 50px;
+      color: white;
+      font-weight: 600;
+      font-size: 14px;
+      animation: pulse-emergency 2s infinite;
+    }
+    @keyframes pulse-emergency {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.5); }
+      50% { box-shadow: 0 0 0 15px rgba(220, 38, 38, 0); }
+    }
+
+    /* Back to Top */
+    .back-top {
+      bottom: 30px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+    .back-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      bottom: 240px;
+      right: 24px;
+      width: 50px;
+      height: 50px;
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 90;
+      transition: all 0.3s ease;
+    }
+    .theme-toggle:hover {
+      border-color: var(--accent);
+    }
+
+    /* Fixed CTA Bar */
+    .fixed-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--card);
+      padding: 12px 24px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      z-index: 80;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+    }
+    .fixed-cta.visible {
+      transform: translateY(0);
+    }
+
+    /* Treatment Tabs */
+    .tab-btn {
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      color: var(--fg-muted);
+      background: transparent;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+    .tab-btn:hover {
+      color: var(--accent);
+    }
+    .tab-btn.active {
+      background: var(--accent);
+      color: white;
+    }
+
+    /* Focus States */
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* Form Inputs */
+    .form-input {
+      width: 100%;
+      padding: 16px 20px;
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      color: var(--fg);
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+    .form-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(27, 107, 158, 0.1);
+    }
+    .form-input::placeholder {
+      color: var(--fg-muted);
+    }
+
+    /* Scanner Animation */
+    .scanner-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      animation: scan 2s ease-in-out infinite;
+    }
+    @keyframes scan {
+      0%, 100% { top: 0; opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+
+    /* Tooth Decoration */
+    .tooth-decoration {
+      position: absolute;
+      opacity: 0.05;
+      pointer-events: none;
+    }
+
+    /* Section Divider */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 60px 0;
+    }
+    .section-divider::before,
+    .section-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+    .section-divider svg {
+      color: var(--accent-soft);
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .badge-primary {
+      background: var(--accent);
+      color: white;
+    }
+    .badge-soft {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    .badge-premium {
+      background: linear-gradient(135deg, var(--dourado-premium), #E8C87A);
+      color: var(--grafite-radiografia);
+    }
+
+    /* Logo Animation */
+    .logo-tooth {
+      animation: toothSparkle 3s ease-in-out infinite;
+    }
+    @keyframes toothSparkle {
+      0%, 100% { filter: drop-shadow(0 0 0 transparent); }
+      50% { filter: drop-shadow(0 0 10px var(--accent-soft)); }
+    }
+
+    /* Hide on mobile */
+    @media (max-width: 768px) {
+      .hide-mobile {
+        display: none !important;
+      }
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 640px) {
+      .floating-btn.right-side {
+        right: 16px;
+      }
+      .whatsapp-btn { bottom: 80px; width: 54px; height: 54px; }
+      .emergency-btn { bottom: 145px; padding: 10px 16px; font-size: 13px; }
+      .back-top { bottom: 24px; width: 44px; height: 44px; }
+      .theme-toggle { bottom: 200px; width: 44px; height: 44px; }
+    }
+
+    /* Print */
+    @media print {
+      .floating-btn, .fixed-cta, #particles-canvas { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Bar -->
+  <div class="bg-gradient-to-r from-[#1B6B9E] to-[#5AAFAF] text-white py-2 px-4 text-sm">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+      <div class="flex items-center gap-4 flex-wrap">
+        <a href="tel:+5511999999999" class="flex items-center gap-1 hover:text-[#A8DCD1] transition-colors">
+          <i data-lucide="phone" class="w-4 h-4"></i>
+          <span>(11) 99999-9999</span>
+        </a>
+        <a href="https://wa.me/5511999999999" class="flex items-center gap-1 hover:text-[#A8DCD1] transition-colors">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>WhatsApp</span>
+        </a>
+        <span class="hidden sm:flex items-center gap-1">
+          <i data-lucide="award" class="w-4 h-4"></i>
+          <span>CRO/SP 123456</span>
+        </span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-[#A8DCD1]">Avaliacao gratuita + radiografia panoramica</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header sticky top-0 z-50 transition-all">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-3">
+        <div class="logo-tooth relative">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 4C16 4 12 8 12 14C12 20 14 28 16 34C17.5 38 19 40 22 40C25 40 26.5 38 28 34C30 28 32 20 32 14C32 8 28 4 22 4Z" fill="url(#toothGrad)" stroke="#1B6B9E" stroke-width="2"/>
+            <ellipse cx="18" cy="16" rx="3" ry="4" fill="white" opacity="0.6"/>
+            <defs>
+              <linearGradient id="toothGrad" x1="12" y1="4" x2="32" y2="40" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FFFFFF"/>
+                <stop offset="1" stop-color="#A8DCD1"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full animate-pulse"></div>
+        </div>
+        <div>
+          <span class="text-2xl font-serif text-[var(--accent)]">Clinica Sorriso</span>
+        </div>
+      </a>
+
+      <!-- Desktop Menu -->
+      <nav class="hidden lg:flex items-center gap-8">
+        <a href="#sobre" class="menu-link text-[var(--fg)] font-medium hover:text-[var(--accent)] transition-colors">Sobre</a>
+        <a href="#tratamentos" class="menu-link text-[var(--fg)] font-medium hover:text-[var(--accent)] transition-colors">Tratamentos</a>
+        <a href="#equipe" class="menu-link text-[var(--fg)] font-medium hover:text-[var(--accent)] transition-colors">Equipe</a>
+        <a href="#tecnologia" class="menu-link text-[var(--fg)] font-medium hover:text-[var(--accent)] transition-colors">Tecnologia</a>
+        <a href="#depoimentos" class="menu-link text-[var(--fg)] font-medium hover:text-[var(--accent)] transition-colors">Depoimentos</a>
+        <a href="#contato" class="menu-link text-[var(--fg)] font-medium hover:text-[var(--accent)] transition-colors">Contato</a>
+      </nav>
+
+      <!-- CTA Header -->
+      <div class="flex items-center gap-4">
+        <a href="#agendamento" class="btn-primary hidden sm:inline-flex items-center gap-2">
+          <i data-lucide="calendar" class="w-4 h-4"></i>
+          <span>Agende sua Consulta</span>
+        </a>
+        
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg hover:bg-[var(--bg-alt)] transition-colors" aria-label="Abrir menu">
+          <i data-lucide="menu" class="w-6 h-6 text-[var(--accent)]"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="mobile-menu">
+    <div class="p-6 flex flex-col h-full">
+      <div class="flex justify-between items-center mb-12">
+        <span class="text-2xl font-serif text-white">Clinica Sorriso</span>
+        <button id="close-menu" class="p-2 text-white" aria-label="Fechar menu">
+          <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+      </div>
+      <nav class="flex flex-col gap-6">
+        <a href="#sobre" class="text-white text-xl font-medium hover:text-[#A8DCD1] transition-colors mobile-link">Sobre</a>
+        <a href="#tratamentos" class="text-white text-xl font-medium hover:text-[#A8DCD1] transition-colors mobile-link">Tratamentos</a>
+        <a href="#equipe" class="text-white text-xl font-medium hover:text-[#A8DCD1] transition-colors mobile-link">Equipe</a>
+        <a href="#tecnologia" class="text-white text-xl font-medium hover:text-[#A8DCD1] transition-colors mobile-link">Tecnologia</a>
+        <a href="#depoimentos" class="text-white text-xl font-medium hover:text-[#A8DCD1] transition-colors mobile-link">Depoimentos</a>
+        <a href="#contato" class="text-white text-xl font-medium hover:text-[#A8DCD1] transition-colors mobile-link">Contato</a>
+      </nav>
+      <div class="mt-auto">
+        <a href="#agendamento" class="btn-primary w-full justify-center inline-flex items-center gap-2 bg-white text-[var(--accent)]">
+          <i data-lucide="calendar" class="w-5 h-5"></i>
+          <span>Agende sua Consulta</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section id="hero" class="relative min-h-screen flex items-center overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1920&q=80" 
+           alt="Sorriso saudavel" 
+           class="w-full h-full object-cover ken-burns">
+      <div class="absolute inset-0 bg-gradient-to-r from-[#1B6B9E]/90 via-[#1B6B9E]/70 to-transparent"></div>
+    </div>
+
+    <!-- Particles -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-4 py-20 lg:py-32">
+      <div class="max-w-2xl">
+        <div class="reveal">
+          <span class="badge badge-soft mb-6 inline-flex items-center gap-2">
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+            Transformando sorrisos desde 2009
+          </span>
+        </div>
+        
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl text-white leading-tight mb-6 reveal" style="transition-delay: 0.1s;">
+          O Sorriso Que Voce Merece Comeca Aqui
+        </h1>
+        
+        <p class="text-xl text-white/90 mb-8 reveal" style="transition-delay: 0.2s;">
+          Implantes • Ortodontia • Clareamento • Lentes de contato • Estetica dental • Odontopediatria
+        </p>
+
+        <div class="flex flex-wrap gap-4 mb-10 reveal" style="transition-delay: 0.3s;">
+          <a href="#agendamento" class="btn-primary text-lg px-8 py-4 inline-flex items-center gap-2">
+            <i data-lucide="calendar-check" class="w-5 h-5"></i>
+            Agende sua Avaliacao Gratuita
+          </a>
+          <a href="#tratamentos" class="btn-outline border-white/40 text-white hover:bg-white/20 inline-flex items-center gap-2">
+            <span>Conheca Nossos Tratamentos</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <div class="reveal" style="transition-delay: 0.4s;">
+          <div class="flex flex-wrap items-center gap-6 text-white/80 text-sm">
+            <div class="flex items-center gap-2">
+              <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                <i data-lucide="award" class="w-5 h-5"></i>
+              </div>
+              <span>+15 anos de excelencia</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                <i data-lucide="smile" class="w-5 h-5"></i>
+              </div>
+              <span>+20.000 sorrisos transformados</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                <i data-lucide="shield-check" class="w-5 h-5"></i>
+              </div>
+              <span>CRO/SP 123456</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trust Bar -->
+    <div class="absolute bottom-0 left-0 right-0 z-10 bg-white/10 backdrop-blur-md">
+      <div class="max-w-7xl mx-auto px-4 py-4 flex flex-wrap justify-center items-center gap-6 text-white/90 text-sm">
+        <span class="flex items-center gap-2">
+          <i data-lucide="badge-check" class="w-5 h-5 text-[#A8DCD1]"></i>
+          Invisalign Provider
+        </span>
+        <span class="flex items-center gap-2">
+          <i data-lucide="badge-check" class="w-5 h-5 text-[#A8DCD1]"></i>
+          Certified Digital Smile Design
+        </span>
+        <span class="flex items-center gap-2">
+          <i data-lucide="badge-check" class="w-5 h-5 text-[#A8DCD1]"></i>
+          Radiografia digital 3D
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre Section -->
+  <section id="sobre" class="py-20 lg:py-32 gradient-soft texture-ceramic relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <!-- Image -->
+        <div class="reveal order-2 lg:order-1">
+          <div class="relative">
+            <div class="aspect-[4/3] rounded-3xl overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80" 
+                   alt="Consultorio moderno" 
+                   class="w-full h-full object-cover">
+            </div>
+            <!-- Floating Stats Card -->
+            <div class="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-xl p-6 hidden md:block">
+              <div class="flex items-center gap-4">
+                <div class="w-14 h-14 bg-gradient-to-br from-[#1B6B9E] to-[#5AAFAF] rounded-full flex items-center justify-center">
+                  <i data-lucide="heart-handshake" class="w-7 h-7 text-white"></i>
+                </div>
+                <div>
+                  <p class="text-3xl font-bold text-[var(--accent)]">4.9</p>
+                  <p class="text-sm text-[var(--fg-muted)]">Avaliacao Google</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="order-1 lg:order-2">
+          <span class="badge badge-soft mb-4 reveal">Sobre a Clinica</span>
+          <h2 class="text-3xl lg:text-4xl text-[var(--fg)] mb-6 reveal title-underline">
+            Por Que Escolher Nossa Clinica?
+          </h2>
+          <p class="text-lg text-[var(--fg-muted)] mb-8 reveal">
+            Sabemos que ir ao dentista pode gerar ansiedade. Por isso, criamos um espaço onde voce se sente cuidado desde a recepcao. Nossa missao e transformar sua experiencia odontologica em algo positivo e acolhedor.
+          </p>
+
+          <!-- Features Grid -->
+          <div class="grid sm:grid-cols-2 gap-4 mb-10 stagger">
+            <div class="card p-5 flex items-start gap-4">
+              <div class="w-12 h-12 bg-[var(--accent-soft)]/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                <i data-lucide="scan" class="w-6 h-6 text-[var(--accent)]"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-[var(--fg)]">Tecnologia 3D</h4>
+                <p class="text-sm text-[var(--fg-muted)]">Scanner digital e planejamento preciso</p>
+              </div>
+            </div>
+            <div class="card p-5 flex items-start gap-4">
+              <div class="w-12 h-12 bg-[var(--accent-soft)]/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                <i data-lucide="cloud" class="w-6 h-6 text-[var(--accent)]"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-[var(--fg)]">Sedacao Consciente</h4>
+                <p class="text-sm text-[var(--fg-muted)]">Para pacientes ansiosos</p>
+              </div>
+            </div>
+            <div class="card p-5 flex items-start gap-4">
+              <div class="w-12 h-12 bg-[var(--accent-soft)]/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                <i data-lucide="heart" class="w-6 h-6 text-[var(--accent)]"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-[var(--fg)]">Atendimento Humanizado</h4>
+                <p class="text-sm text-[var(--fg-muted)]">Voce em primeiro lugar</p>
+              </div>
+            </div>
+            <div class="card p-5 flex items-start gap-4">
+              <div class="w-12 h-12 bg-[var(--accent-soft)]/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                <i data-lucide="graduation-cap" class="w-6 h-6 text-[var(--accent)]"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-[var(--fg)]">Profissionais Especializados</h4>
+                <p class="text-sm text-[var(--fg-muted)]">Equipe qualificada</p>
+              </div>
+            </div>
+            <div class="card p-5 flex items-start gap-4">
+              <div class="w-12 h-12 bg-[var(--accent-soft)]/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                <i data-lucide="clock" class="w-6 h-6 text-[var(--accent)]"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-[var(--fg)]">Pontualidade</h4>
+                <p class="text-sm text-[var(--fg-muted)]">Respeito ao seu tempo</p>
+              </div>
+            </div>
+            <div class="card p-5 flex items-start gap-4">
+              <div class="w-12 h-12 bg-[var(--accent-soft)]/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                <i data-lucide="shield-check" class="w-6 h-6 text-[var(--accent)]"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-[var(--fg)]">Esterilizacao Rigorosa</h4>
+                <p class="text-sm text-[var(--fg-muted)]">Protocolo hospitalar</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats Counter -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 reveal">
+            <div class="text-center">
+              <p class="text-3xl lg:text-4xl font-bold text-[var(--accent)] counter" data-target="15">0</p>
+              <p class="text-sm text-[var(--fg-muted)]">Anos de experiencia</p>
+            </div>
+            <div class="text-center">
+              <p class="text-3xl lg:text-4xl font-bold text-[var(--accent)]"><span class="counter" data-target="20000">0</span>+</p>
+              <p class="text-sm text-[var(--fg-muted)]">Pacientes atendidos</p>
+            </div>
+            <div class="text-center">
+              <p class="text-3xl lg:text-4xl font-bold text-[var(--accent)] counter" data-target="8">0</p>
+              <p class="text-sm text-[var(--fg-muted)]">Especialidades</p>
+            </div>
+            <div class="text-center">
+              <p class="text-3xl lg:text-4xl font-bold text-[var(--accent)] counter" data-target="10">0</p>
+              <p class="text-sm text-[var(--fg-muted)]">Dentistas</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tratamentos Section -->
+  <section id="tratamentos" class="py-20 lg:py-32 relative">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-12 reveal">
+        <span class="badge badge-soft mb-4">Nossos Tratamentos</span>
+        <h2 class="text-3xl lg:text-4xl text-[var(--fg)] mb-4 title-underline inline-block">
+          Especialidades Odontologicas
+        </h2>
+        <p class="text-lg text-[var(--fg-muted)] max-w-2xl mx-auto">
+          Tratamentos personalizados com tecnologia de ponta para devolver sua saude e estetica dental
+        </p>
+      </div>
+
+      <!-- Tabs -->
+      <div class="mb-10 reveal">
+        <div class="flex flex-wrap justify-center gap-2" id="treatment-tabs">
+          <button class="tab-btn active" data-tab="implantes">Implantes</button>
+          <button class="tab-btn" data-tab="ortodontia">Ortodontia</button>
+          <button class="tab-btn" data-tab="estetica">Estetica</button>
+          <button class="tab-btn" data-tab="protese">Protese</button>
+          <button class="tab-btn" data-tab="canal">Canal</button>
+          <button class="tab-btn" data-tab="outros">Outros</button>
+        </div>
+      </div>
+
+      <!-- Treatment Cards -->
+      <div id="treatments-content">
+        <!-- Implantes -->
+        <div class="treatment-panel active" id="panel-implantes">
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger">
+            <div class="card p-6">
+              <div class="aspect-video rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-[#1B6B9E]/10 to-[#A8DCD1]/10 flex items-center justify-center">
+                <i data-lucide="target" class="w-16 h-16 text-[var(--accent)]"></i>
+              </div>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-primary text-xs">Mais procurado</span>
+              </div>
+              <h3 class="text-xl font-semibold text-[var(--fg)] mb-2">Implante Unitario</h3>
+              <p class="text-sm text-[var(--fg-muted)] mb-4">Substituicao de um dente perdido com implante de titanio e coroa protetica. Resultado natural e duradouro.</p>
+              <div class="flex items-center justify-between text-sm text-[var(--fg-muted)] mb-4">
+                <span>Sessoes: 2-3</span>
+                <span>Recuperacao: 3-6 meses</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-lg font-bold text-[var(--accent)]">A partir de R$ 4.500</span>
+                <a href="#agendamento" class="text-[var(--accent)] font-semibold hover:underline">Agendar</a>
+              </div>
+            </div>
+
+            <div class="card p-6 shimmer">
+              <div class="aspect-video rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-[#1B6B9E]/10 to-[#A8DCD1]/10 flex items-center justify-center">
+                <i data-lucide="layout-grid" class="w-16 h-16 text-[var(--accent)]"></i>
+              </div>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-premium text-xs">Premium</span>
+              </div>
+              <h3 class="text-xl font-semibold text-[var(--fg)] mb-2">Protocolo All-on-4</h3>
+              <p class="text-sm text-[var(--fg-muted)] mb-4">Arcada completa com apenas 4 implantes. Tecnica avancada para quem perdeu todos os dentes.</p>
+              <div class="flex items-center justify-between text-sm text-[var(--fg-muted)] mb-4">
+                <span>Sessoes: 3-4</span>
+                <span>Carga imediata</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-lg font-bold text-[var(--accent)]">Consulte</span>
+                <a href="#agendamento" class="text-[var(--accent)] font-semibold hover:underline">Agendar</a>
+              </div>
+            </div>
+
+            <div class="card p-6">
+              <div class="aspect-video rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-[#1B6B9E]/10 to-[#A8DCD1]/10 flex items-center justify-center">
+                <i data-lucide="bone" class="w-16 h-16 text-[var(--accent)]"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-[var(--fg)] mb-2">Enxerto Osseo</h3>
+              <p class="text-sm text-[var(--fg-muted)] mb-4">Reconstrucao do osso para receber implantes quando ha perda ossea acentuada.</p>
+              <div class="flex items-center justify-between text-sm text-[var(--fg-muted)] mb-4">
+                <span>Sessao unica</span>
+                <span>Recuperacao: 4-6 meses</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-lg font-bold text-[var(--accent)]">A partir de R$ 2.000</span>
+                <a href="#agendamento" class="text-[var(--accent)] font-semibold hover:underline">Agendar</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ortodontia -->
+        <div class="treatment-panel hidden" id="panel-ortodontia">
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger">
+            <div class="card p-6 shimmer">
+              <div class="aspect-video rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-[#1B6B9E]/10 to-[#A8DCD1]/10 flex items-center justify-center">
+                <i data-lucide="sparkles" class="w-16 h-16 text-[var(--accent)]"></i>
+              </div>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-premium text-xs">Invisivel</span>
+              </div>
+              <h3 class="text-xl font-semibold text-[var(--fg)] mb-2">Invisalign</h3>
+              <p class="text-sm text-[var(--fg-muted)] mb-4">Alinhadores transparentes removiveis. Corrija seus dentes sem aparecer que esta usando aparelho.</p>
+              <div class="flex items-center justify-between text-sm text-[var(--fg-muted)] mb-4">
+                <span>Duracao: 12-18 meses</span>
+                <span>Invisivel</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-lg font-bold text-[var(--accent)]">A partir de R$ 12.000</span>
+                <a href="#agendamento" class="text-[var(--accent)] font-semibold hover:underline">Agendar</a>
+              </div>
+            </div>
+
+            <div class="card p-6">
+              <div class="aspect-video rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-[#1B6B9E]/10 to-[#A8DCD1]/10 flex items-center justify-center">
+                <i data-lucide="square" class="w-16 h-16 text-[var(--accent)]"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-[var(--fg)] mb-2">Aparelho Fixo Ceramic</h3>
+              <p class="text-sm text-[var(--fg-muted)] mb-4">Brackets transparentes ou da cor do dente. Estetica durante o tratamento.</p>
+              <div class="flex items-center justify-between text-sm text-[var(--fg-muted)] mb-4">
+                <span>Duracao: 18-24 meses</span>
+                <span>Discreto</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-lg font-bold text-[var(--accent)]">A partir de R$ 6.000</span>
+                <a href="#agendamento" class="text-[var(--accent)] font-semibold hover:underline">Agendar</a>
+              </div>
+            </div>
+
+            <div class="card p-6">
+              <div class="aspect-video rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-[#1B6B9E]/10 to-[#A8DCD1]/10 flex items-center justify-center">
+                <i data-lucide="move-horizontal" class="w-16 h-16 text-[var(--accent)]"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-[var(--fg)] mb-2">Aparelho Autoligado</h3>
+              <p class="text-sm text-[var(--fg-muted)] mb-4">Tecnologia que reduz atrito e acelera o tratamento. Menos consultas.</p>
+              <div class="flex items-center justify-between text-sm text-[var(--fg-muted)] mb-4">
+                <span>Mais rapido</span>
+                <span>Menos dor</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-lg font-bold text-[var(--accent)]">A partir de R$ 7.500</span>
+                <a href="#agendamento" class="text-[var(--accent)] font-semibold hover:underline">Agendar</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Estetica -->
+        <div class="treatment-panel hidden" id="panel-estetica">
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger">
+            <div class="card p-6 shimmer">
+              <div class="aspect-video rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-[#1B6B9E]/10 to-[#A8DCD1]/10 flex items-center justify-center">
+                <i data-lucide="sun" class="w-16 h-16 text-[var(--accent)]"></i>
+              </div>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-primary text-xs">Resultado imediato</span>
+              </div>
+              <h3 class="text-xl font-semibold text-[var(--fg)] mb-2">Clareamento Dental</h3>
+              <p class="text-sm text-[var(--fg-muted)] mb-4">Dentes ate 8 tons mais brancos em uma unica sessao. Consultorio + caseiro completo.</p>
+              <div class="flex items-center justify-between text-sm text-[var(--fg-muted)] mb-4">
+                <span>Sessao: 1-2h</span>
+                <span>Sem dor</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-lg font-bold text-[var(--accent)]">A partir de R$ 800</span>
+                <a href="#agendamento" class="text-[var(--accent)] font-semibold hover:underline">Agendar</a>
+              </div>
+            </div>
+
+            <div class="card p-6 shimmer">
+              <div class="aspect-video rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-[#1B6B9E]/10 to-[#A8DCD1]/10 flex items-center justify-center">
+                <i data-lucide="diamond" class="w-16 h-16 text-[var(--accent)]"></i>
+              </div>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-premium text-xs">Premium</span>
+              </div>
+              <h3 class="text-xl font-semibold text-[var(--fg)] mb-2">Lentes de Contato</h3>
+              <p class="text-sm text-[var(--fg-muted)] mb-4">Laminas ultra-finas de porcelana que transformam seu sorriso. Minima desgaste.</p>
+              <div class="flex items-center justify-between text-sm text-[var(--fg-muted)] mb-4">
+                <span>Sessoes: 2-3</span>
+                <span>Duravel 15+ anos</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-lg font-bold text-[var(--accent)]">A partir de R$ 1.500/dente</span>
+                <a href="#agendamento" class="text-[var(--accent)] font-semibold hover:underline">Agendar</a>
+              </div>
+            </div>
+
+            <div class="card p-6">
+              <div class="aspect-video rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-[#1B6B9E]/10 to-[#A8DCD1]/10 flex items-center justify-center">
+                <i data-lucide="palette" class="w-16 h-16 text-[var(--accent)]"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-[var(--fg)] mb-2">Design do Sorriso Digital</h3>
+              <p class="text-sm text-[var(--fg-muted)] mb-4">Veja seu novo sorriso antes de comecar. Planejamento 3D personalizado.</p>
+              <div class="flex items-center justify-between text-sm text-[var(--fg-muted)] mb-4">
+                <span>Sessao unica</span>
+                <span>Tecnologia DSD</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-lg font-bold text-[var(--accent)]">Gratuito na avaliacao</span>
+                <a href="#agendamento" class="text-[var(--accent)] font-semibold hover:underline">Agendar</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Protese -->
+        <div class="treatment-panel hidden" id="panel-protese">
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger">
+            <div class="card p-6">
+              <div class="aspect-video rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-[#1B6B9E]/10 to-[#A8DCD1]/10 flex items-center justify-center">
+                <i data-lucide="crown" class="w-16 h-16 text-[var(--accent)]"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-[var(--fg)] mb-2">Coroa de Porcelana</h3>
+              <p class="text-sm text-[var(--fg-muted)] mb-4">Capa protetora que cobre todo o dente. Aparencia natural e resistencia.</p>
+              <div class="flex items-center justify-between text-sm text-[var(--fg-muted)] mb-4">
+                <span>Sessoes: 2-3</span>
+                <span>Duravel 15+ anos</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-lg font-bold text-[var(--accent)]">A partir de R$ 1.200</span>
+                <a href="#agendamento" class="text-[var(--accent)] font-semibold hover:underline">Agendar</a>
+              </div>
+            </div>
+
+            <div class="card p-6">
+              <div class="aspect-video rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-[#1B6B9E]/10 to-[#A8DCD1]/10 flex items-center justify-center">
+                <i data-lucide="link" class="w-16 h-16 text-[var(--accent)]"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-[var(--fg)] mb-2">Protese Fixa</h3>
+              <p class="text-sm text-[var(--fg-muted)] mb-4">Substituicao de um ou mais dentes com estrutura fixa. Conforto e estabilidade.</p>
+              <div class="flex items-center justify-between text-sm text-[var(--fg-muted)] mb-4">
+                <span>Sessoes: 3-4</span>
+                <span>Fixa</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-lg font-bold text-[var(--accent)]">Consulte</span>
+                <a href="#agendamento" class="text-[var(--accent)] font-semibold hover:underline">Agendar</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Canal -->
+        <div class="treatment-panel hidden" id="panel-canal">
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger">
+            <div class="card p-6">
+              <div class="aspect-video rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-[#1B6B9E]/10 to-[#A8DCD1]/10 flex items-center justify-center">
+                <i data-lucide="activity" class="w-16 h-16 text-[var(--accent)]"></i>
+              </div>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-soft text-xs">Sem dor</span>
+              </div>
+              <h3 class="text-xl font-semibold text-[var(--fg)] mb-2">Tratamento de Canal</h3>
+              <p class="text-sm text-[var(--fg-muted)] mb-4">Remocao do nervo inflamado ou infeccionado. Salva o dente natural com anestesia eficiente.</p>
+              <div class="flex items-center justify-between text-sm text-[var(--fg-muted)] mb-4">
+                <span>Sessoes: 1-3</span>
+                <span>Com anestesia</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-lg font-bold text-[var(--accent)]">A partir de R$ 800</span>
+                <a href="#agendamento" class="text-[var(--accent)] font-semibold hover:underline">Agendar</a>
+              </div>
+            </div>
+
+            <div class="card p-6">
+              <div class="aspect-video rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-[#1B6B9E]/10 to-[#A8DCD1]/10 flex items-center justify-center">
+                <i data-lucide="microscope" class="w-16 h-16 text-[var(--accent)]"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-[var(--fg)] mb-2">Microscopia Endodontica</h3>
+              <p class="text-sm text-[var(--fg-muted)] mb-4">Canais complexos tratados com microscopio de alta precisao. Maior taxa de sucesso.</p>
+              <div class="flex items-center justify-between text-sm text-[var(--fg-muted)] mb-4">
+                <span>Precisao maxima</span>
+                <span>Tecnologia avancada</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-lg font-bold text-[var(--accent)]">A partir de R$ 1.200</span>
+                <a href="#agendamento" class="text-[var(--accent)] font-semibold hover:underline">Agendar</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Outros -->
+        <div class="treatment-panel hidden" id="panel-outros">
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger">
+            <div class="card p-6">
+              <div class="aspect-video rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-[#1B6B9E]/10 to-[#A8DCD1]/10 flex items-center justify-center">
+                <i data-lucide="baby" class="w-16 h-16 text-[var(--accent)]"></i>
+              </div>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-soft text-xs">Para criancas</span>
+              </div>
+              <h3 class="text-xl font-semibold text-[var(--fg)] mb-2">Odontopediatria</h3>
+              <p class="text-sm text-[var(--fg-muted)] mb-4">Atendimento especializado para bebes e criancas. Ambiente ludico e acolhedor.</p>
+              <div class="flex items-center justify-between text-sm text-[var(--fg-muted)] mb-4">
+                <span>Todas idades</span>
+                <span>Sem medo</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-lg font-bold text-[var(--accent)]">A partir de R$ 200</span>
+                <a href="#agendamento" class="text-[var(--accent)] font-semibold hover:underline">Agendar</a>
+              </div>
+            </div>
+
+            <div class="card p-6">
+              <div class="aspect-video rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-[#1B6B9E]/10 to-[#A8DCD1]/10 flex items-center justify-center">
+                <i data-lucide="shield-alert" class="w-16 h-16 text-[var(--accent)]"></i>
+              </div>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-primary text-xs">Emergencia</span>
+              </div>
+              <h3 class="text-xl font-semibold text-[var(--fg)] mb-2">Extracao de Siso</h3>
+              <p class="text-sm text-[var(--fg-muted)] mb-4">Remocao de dentes do siso incluso ou impactado. Procedimento rapido e seguro.</p>
+              <div class="flex items-center justify-between text-sm text-[var(--fg-muted)] mb-4">
+                <span>Sessao unica</span>
+                <span>Com sedacao</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-lg font-bold text-[var(--accent)]">A partir de R$ 400</span>
+                <a href="#agendamento" class="text-[var(--accent)] font-semibold hover:underline">Agendar</a>
+              </div>
+            </div>
+
+            <div class="card p-6">
+              <div class="aspect-video rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-[#1B6B9E]/10 to-[#A8DCD1]/10 flex items-center justify-center">
+                <i data-lucide="sparkle" class="w-16 h-16 text-[var(--accent)]"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-[var(--fg)] mb-2">Limpeza Profissional</h3>
+              <p class="text-sm text-[var(--fg-muted)] mb-4">Profilaxia completa para remover tartaro e manchas. Dentes limpos e saudaveis.</p>
+              <div class="flex items-center justify-between text-sm text-[var(--fg-muted)] mb-4">
+                <span>Sessao: 40min</span>
+                <span>Prevencao</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-lg font-bold text-[var(--accent)]">A partir de R$ 250</span>
+                <a href="#agendamento" class="text-[var(--accent)] font-semibold hover:underline">Agendar</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-12 reveal">
+        <a href="#agendamento" class="btn-primary inline-flex items-center gap-2">
+          <i data-lucide="calendar" class="w-5 h-5"></i>
+          <span>Agende sua Avaliacao Gratuita</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Antes & Depois Section -->
+  <section id="antes-depois" class="py-20 lg:py-32 gradient-soft texture-ceramic">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-12 reveal">
+        <span class="badge badge-soft mb-4">Resultados Reais</span>
+        <h2 class="text-3xl lg:text-4xl text-[var(--fg)] mb-4 title-underline inline-block">
+          Sorrisos Transformados
+        </h2>
+        <p class="text-lg text-[var(--fg-muted)] max-w-2xl mx-auto">
+          Cada sorriso conta uma historia de transformacao. Veja alguns de nossos resultados
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 stagger">
+        <!-- BA Slider 1 -->
+        <div class="reveal">
+          <div class="ba-slider h-72 relative cursor-ew-resize" data-slider>
+            <img src="https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?w=600&q=80" alt="Antes" class="w-full h-full object-cover">
+            <div class="ba-after" data-after>
+              <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600&q=80" alt="Depois">
+            </div>
+            <div class="ba-handle" data-handle></div>
+            <div class="absolute top-4 left-4 badge badge-soft">Antes</div>
+            <div class="absolute top-4 right-4 badge badge-primary">Depois</div>
+          </div>
+          <div class="mt-4">
+            <h4 class="font-semibold text-[var(--fg)]">Clareamento + Lentes</h4>
+            <p class="text-sm text-[var(--fg-muted)]">3 sessoes • 15 dias</p>
+          </div>
+        </div>
+
+        <!-- BA Slider 2 -->
+        <div class="reveal">
+          <div class="ba-slider h-72 relative cursor-ew-resize" data-slider>
+            <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&q=80" alt="Antes" class="w-full h-full object-cover">
+            <div class="ba-after" data-after>
+              <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600&q=80" alt="Depois">
+            </div>
+            <div class="ba-handle" data-handle></div>
+            <div class="absolute top-4 left-4 badge badge-soft">Antes</div>
+            <div class="absolute top-4 right-4 badge badge-primary">Depois</div>
+          </div>
+          <div class="mt-4">
+            <h4 class="font-semibold text-[var(--fg)]">Ortodontia + Facetas</h4>
+            <p class="text-sm text-[var(--fg-muted)]">18 meses</p>
+          </div>
+        </div>
+
+        <!-- BA Slider 3 -->
+        <div class="reveal">
+          <div class="ba-slider h-72 relative cursor-ew-resize" data-slider>
+            <img src="https://images.unsplash.com/photo-1606811971618-4f four 9e3e95?w=600&q=80" alt="Antes" class="w-full h-full object-cover">
+            <div class="ba-after" data-after>
+              <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600&q=80" alt="Depois">
+            </div>
+            <div class="ba-handle" data-handle></div>
+            <div class="absolute top-4 left-4 badge badge-soft">Antes</div>
+            <div class="absolute top-4 right-4 badge badge-primary">Depois</div>
+          </div>
+          <div class="mt-4">
+            <h4 class="font-semibold text-[var(--fg)]">Implantes Unitarios</h4>
+            <p class="text-sm text-[var(--fg-muted)]">4 implantes • 6 meses</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-center text-sm text-[var(--fg-muted)] mb-8 reveal">
+        Resultados podem variar. Imagens de pacientes reais com autorizacao. Consulte seu dentista.
+      </p>
+
+      <div class="text-center reveal">
+        <a href="#agendamento" class="btn-primary inline-flex items-center gap-2">
+          <span>Quer um sorriso assim? Agende sua avaliacao</span>
+          <i data-lucide="arrow-right" class="w-5 h-5"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DSD Section -->
+  <section id="dsd" class="py-20 lg:py-32 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Content -->
+        <div class="reveal">
+          <span class="badge badge-premium mb-4">Tecnologia Exclusiva</span>
+          <h2 class="text-3xl lg:text-4xl text-[var(--fg)] mb-6 title-underline">
+            Design do Sorriso Digital
+          </h2>
+          <p class="text-lg text-[var(--fg-muted)] mb-8">
+            Veja como ficara seu novo sorriso ANTES de iniciar qualquer tratamento. Tecnologia de ponta para resultados previsiveis e personalizados.
+          </p>
+
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-[var(--accent-soft)] rounded-full flex items-center justify-center flex-shrink-0">
+                <span class="font-bold text-[var(--accent)]">1</span>
+              </div>
+              <div>
+                <h4 class="font-semibold text-[var(--fg)]">Fotos + Scanner 3D</h4>
+                <p class="text-sm text-[var(--fg-muted)]">Capturamos imagens digitais precisas da sua boca e rosto</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-[var(--accent-soft)] rounded-full flex items-center justify-center flex-shrink-0">
+                <span class="font-bold text-[var(--accent)]">2</span>
+              </div>
+              <div>
+                <h4 class="font-semibold text-[var(--fg)]">Simulacao Digital</h4>
+                <p class="text-sm text-[var(--fg-muted)]">Criamos seu novo sorriso no computador com precisao</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-[var(--accent-soft)] rounded-full flex items-center justify-center flex-shrink-0">
+                <span class="font-bold text-[var(--accent)]">3</span>
+              </div>
+              <div>
+                <h4 class="font-semibold text-[var(--fg)]">Aprovacao + Execucao</h4>
+                <p class="text-sm text-[var(--fg-muted)]">Voce aprova o resultado antes de comecar o tratamento</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="#agendamento" class="btn-primary inline-flex items-center gap-2">
+            <i data-lucide="eye" class="w-5 h-5"></i>
+            <span>Quer ver como ficaria seu sorriso?</span>
+          </a>
+        </div>
+
+        <!-- Visual -->
+        <div class="reveal">
+          <div class="relative">
+            <div class="aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-[#1B6B9E]/10 to-[#A8DCD1]/20 p-8">
+              <!-- Scanner Effect -->
+              <div class="relative h-full rounded-2xl bg-white shadow-xl overflow-hidden">
+                <div class="scanner-line"></div>
+                <div class="p-6">
+                  <div class="flex items-center gap-3 mb-4">
+                    <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                  </div>
+                  <div class="aspect-video bg-gradient-to-br from-[#1B6B9E]/20 to-[#A8DCD1]/30 rounded-lg flex items-center justify-center mb-4">
+                    <svg width="120" height="80" viewBox="0 0 120 80" fill="none">
+                      <path d="M10 50 Q30 30 60 50 Q90 70 110 50" stroke="#1B6B9E" stroke-width="3" fill="none" stroke-dasharray="5,5">
+                        <animate attributeName="stroke-dashoffset" from="100" to="0" dur="2s" repeatCount="indefinite"/>
+                      </path>
+                      <ellipse cx="25" cy="45" rx="8" ry="12" fill="#A8DCD1" opacity="0.5"/>
+                      <ellipse cx="45" cy="42" rx="8" ry="12" fill="#A8DCD1" opacity="0.5"/>
+                      <ellipse cx="65" cy="42" rx="8" ry="12" fill="#A8DCD1" opacity="0.5"/>
+                      <ellipse cx="85" cy="45" rx="8" ry="12" fill="#A8DCD1" opacity="0.5"/>
+                    </svg>
+                  </div>
+                  <div class="h-3 bg-[var(--bg-alt)] rounded-full w-3/4 mb-2"></div>
+                  <div class="h-3 bg-[var(--bg-alt)] rounded-full w-1/2"></div>
+                </div>
+              </div>
+            </div>
+            <div class="absolute -bottom-4 -right-4 bg-[var(--accent)] text-white px-6 py-3 rounded-full shadow-lg">
+              <span class="font-semibold">Poucos consultorios oferecem</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Equipe Section -->
+  <section id="equipe" class="py-20 lg:py-32 gradient-soft texture-ceramic">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-12 reveal">
+        <span class="badge badge-soft mb-4">Nossa Equipe</span>
+        <h2 class="text-3xl lg:text-4xl text-[var(--fg)] mb-4 title-underline inline-block">
+          Profissionais Especializados
+        </h2>
+        <p class="text-lg text-[var(--fg-muted)] max-w-2xl mx-auto">
+          Dentistas qualificados e em constante atualizacao para oferecer o melhor tratamento
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 stagger">
+        <!-- Dentist 1 -->
+        <div class="card overflow-hidden group">
+          <div class="aspect-[3/4] overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=80" 
+                 alt="Dr. Ricardo Silva" 
+                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-lg font-semibold text-[var(--fg)]">Dr. Ricardo Silva</h3>
+            <p class="text-sm text-[var(--accent)] mb-2">Implantodontista</p>
+            <p class="text-xs text-[var(--fg-muted)] mb-3">CRO/SP 65432 • Especialista em Implantodontia - USP</p>
+            <p class="text-sm text-[var(--fg-muted)] italic">"Minha missao e devolver sorrisos com confianca"</p>
+          </div>
+        </div>
+
+        <!-- Dentist 2 -->
+        <div class="card overflow-hidden group">
+          <div class="aspect-[3/4] overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=80" 
+                 alt="Dra. Marina Costa" 
+                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-lg font-semibold text-[var(--fg)]">Dra. Marina Costa</h3>
+            <p class="text-sm text-[var(--accent)] mb-2">Ortodontista</p>
+            <p class="text-xs text-[var(--fg-muted)] mb-3">CRO/SP 54321 • Certificada Invisalign Provider</p>
+            <p class="text-sm text-[var(--fg-muted)] italic">"Cada sorriso e unico e merece atencao especial"</p>
+          </div>
+        </div>
+
+        <!-- Dentist 3 -->
+        <div class="card overflow-hidden group">
+          <div class="aspect-[3/4] overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&q=80" 
+                 alt="Dr. Andre Santos" 
+                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-lg font-semibold text-[var(--fg)]">Dr. Andre Santos</h3>
+            <p class="text-sm text-[var(--accent)] mb-2">Endodontista</p>
+            <p class="text-xs text-[var(--fg-muted)] mb-3">CRO/SP 76543 • Mestre em Endodontia - UNESP</p>
+            <p class="text-sm text-[var(--fg-muted)] italic">"Tratamento de canal sem dor e possivel"</p>
+          </div>
+        </div>
+
+        <!-- Dentist 4 -->
+        <div class="card overflow-hidden group">
+          <div class="aspect-[3/4] overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&q=80" 
+                 alt="Dra. Carolina Lima" 
+                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h3 class="text-lg font-semibold text-[var(--fg)]">Dra. Carolina Lima</h3>
+            <p class="text-sm text-[var(--accent)] mb-2">Odontopediatra</p>
+            <p class="text-xs text-[var(--fg-muted)] mb-3">CRO/SP 87654 • Especialista em Odontopediatria</p>
+            <p class="text-sm text-[var(--fg-muted)] italic">"Criancas merecem uma experiencia positiva"</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-10 reveal">
+        <a href="#agendamento" class="btn-outline inline-flex items-center gap-2">
+          <span>Escolha seu dentista ou deixe que indicamos</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tecnologia Section -->
+  <section id="tecnologia" class="py-20 lg:py-32 relative">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-12 reveal">
+        <span class="badge badge-soft mb-4">Infraestrutura</span>
+        <h2 class="text-3xl lg:text-4xl text-[var(--fg)] mb-4 title-underline inline-block">
+          Tecnologia de Ponta
+        </h2>
+        <p class="text-lg text-[var(--fg-muted)] max-w-2xl mx-auto">
+          Equipamentos modernos para maior precisao, conforto e rapidez nos tratamentos
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger">
+        <div class="card p-6 flex items-start gap-4">
+          <div class="w-14 h-14 bg-gradient-to-br from-[#1B6B9E] to-[#5AAFAF] rounded-2xl flex items-center justify-center flex-shrink-0">
+            <i data-lucide="scan" class="w-7 h-7 text-white"></i>
+          </div>
+          <div>
+            <h4 class="font-semibold text-[var(--fg)] mb-1">Scanner Intraoral 3D</h4>
+            <p class="text-sm text-[var(--fg-muted)]">Moldes digitais sem massa desconfortavel. Precisao milimetrica em segundos.</p>
+          </div>
+        </div>
+
+        <div class="card p-6 flex items-start gap-4">
+          <div class="w-14 h-14 bg-gradient-to-br from-[#1B6B9E] to-[#5AAFAF] rounded-2xl flex items-center justify-center flex-shrink-0">
+            <i data-lucide="radio" class="w-7 h-7 text-white"></i>
+          </div>
+          <div>
+            <h4 class="font-semibold text-[var(--fg)] mb-1">Tomografia Cone Beam</h4>
+            <p class="text-sm text-[var(--fg-muted)]">Imagens 3D para planejamento preciso de implantes. Menos radiacao.</p>
+          </div>
+        </div>
+
+        <div class="card p-6 flex items-start gap-4">
+          <div class="w-14 h-14 bg-gradient-to-br from-[#1B6B9E] to-[#5AAFAF] rounded-2xl flex items-center justify-center flex-shrink-0">
+            <i data-lucide="zap" class="w-7 h-7 text-white"></i>
+          </div>
+          <div>
+            <h4 class="font-semibold text-[var(--fg)] mb-1">Laser Odontologico</h4>
+            <p class="text-sm text-[var(--fg-muted)]">Procedimentos menos invasivos, sem sangramento e recuperacao mais rapida.</p>
+          </div>
+        </div>
+
+        <div class="card p-6 flex items-start gap-4">
+          <div class="w-14 h-14 bg-gradient-to-br from-[#1B6B9E] to-[#5AAFAF] rounded-2xl flex items-center justify-center flex-shrink-0">
+            <i data-lucide="camera" class="w-7 h-7 text-white"></i>
+          </div>
+          <div>
+            <h4 class="font-semibold text-[var(--fg)] mb-1">Camera Intraoral</h4>
+            <p class="text-sm text-[var(--fg-muted)]">Voce ve o que o dentista ve em tempo real. Transparencia total.</p>
+          </div>
+        </div>
+
+        <div class="card p-6 flex items-start gap-4">
+          <div class="w-14 h-14 bg-gradient-to-br from-[#1B6B9E] to-[#5AAFAF] rounded-2xl flex items-center justify-center flex-shrink-0">
+            <i data-lucide="microscope" class="w-7 h-7 text-white"></i>
+          </div>
+          <div>
+            <h4 class="font-semibold text-[var(--fg)] mb-1">Microscopio Odontologico</h4>
+            <p class="text-sm text-[var(--fg-muted)]">Precisao em tratamentos de canal. Visualizacao de canais ocultos.</p>
+          </div>
+        </div>
+
+        <div class="card p-6 flex items-start gap-4">
+          <div class="w-14 h-14 bg-gradient-to-br from-[#1B6B9E] to-[#5AAFAF] rounded-2xl flex items-center justify-center flex-shrink-0">
+            <i data-lucide="cloud" class="w-7 h-7 text-white"></i>
+          </div>
+          <div>
+            <h4 class="font-semibold text-[var(--fg)] mb-1">Sedacao Consciente</h4>
+            <p class="text-sm text-[var(--fg-muted)]">Oxido nitroso para pacientes ansiosos. Procedimento relaxante e seguro.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Clinic Photos -->
+      <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 reveal">
+        <div class="aspect-square rounded-2xl overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?w=400&q=80" alt="Recepcao" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+        </div>
+        <div class="aspect-square rounded-2xl overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&q=80" alt="Sala de atendimento" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+        </div>
+        <div class="aspect-square rounded-2xl overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=400&q=80" alt="Equipamentos" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+        </div>
+        <div class="aspect-square rounded-2xl overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=400&q=80" alt="Sala de espera" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Agendamento Section -->
+  <section id="agendamento" class="py-20 lg:py-32 bg-gradient-to-br from-[#1B6B9E] via-[#5AAFAF] to-[#A8DCD1] relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <svg width="100%" height="100%">
+        <pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+          <circle cx="20" cy="20" r="2" fill="white"/>
+        </pattern>
+        <rect width="100%" height="100%" fill="url(#dots)"/>
+      </svg>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 relative z-10">
+      <div class="text-center mb-12 reveal">
+        <span class="badge bg-white/20 text-white mb-4">Oferta Especial</span>
+        <h2 class="text-3xl lg:text-4xl text-white mb-4">
+          Sua Avaliacao Completa e Gratuita
+        </h2>
+        <p class="text-xl text-white/90">
+          Consulta + radiografia panoramica + plano de tratamento personalizado. Sem compromisso.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-3xl p-8 lg:p-10 shadow-2xl reveal">
+        <form id="schedule-form" class="space-y-6">
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-[var(--fg)] mb-2">Nome completo</label>
+              <input type="text" class="form-input" placeholder="Seu nome" required>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-[var(--fg)] mb-2">WhatsApp</label>
+              <input type="tel" class="form-input" placeholder="(11) 99999-9999" required>
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-[var(--fg)] mb-2">E-mail</label>
+              <input type="email" class="form-input" placeholder="seu@email.com">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-[var(--fg)] mb-2">Tratamento de interesse</label>
+              <select class="form-input">
+                <option value="">Selecione...</option>
+                <option value="implante">Implante</option>
+                <option value="ortodontia">Ortodontia / Aparelho</option>
+                <option value="clareamento">Clareamento</option>
+                <option value="lentes">Lentes de Contato</option>
+                <option value="canal">Tratamento de Canal</option>
+                <option value="limpeza">Limpeza / Preventivo</option>
+                <option value="nao-sei">Nao sei / Avaliacao geral</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-[var(--fg)] mb-2">Convenio?</label>
+              <select class="form-input">
+                <option value="">Selecione...</option>
+                <option value="particular">Particular</option>
+                <option value="amil">Amil Dental</option>
+                <option value="bradesco">Bradesco Dental</option>
+                <option value="sulamerica">SulAmerica</option>
+                <option value="porto">Porto Seguro</option>
+                <option value="odontoprev">Odontoprev</option>
+                <option value="outro">Outro</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-[var(--fg)] mb-2">Horario preferido</label>
+              <select class="form-input">
+                <option value="">Selecione...</option>
+                <option value="manha">Manha (8h - 12h)</option>
+                <option value="tarde">Tarde (14h - 18h)</option>
+                <option value="noite">Noite (18h - 21h)</option>
+                <option value="sabado">Sabado</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary w-full py-4 text-lg justify-center inline-flex items-center gap-2">
+            <i data-lucide="calendar-check" class="w-5 h-5"></i>
+            <span>Agendar Minha Avaliacao Gratuita</span>
+          </button>
+
+          <div class="flex flex-wrap justify-center gap-6 text-sm text-[var(--fg-muted)]">
+            <span class="flex items-center gap-2">
+              <i data-lucide="lock" class="w-4 h-4"></i>
+              Dados protegidos
+            </span>
+            <span class="flex items-center gap-2">
+              <i data-lucide="clock" class="w-4 h-4"></i>
+              Resposta em ate 1h
+            </span>
+            <span class="flex items-center gap-2">
+              <i data-lucide="smile" class="w-4 h-4"></i>
+              Sem pressao
+            </span>
+          </div>
+        </form>
+
+        <!-- Success Message -->
+        <div id="success-message" class="hidden text-center py-8">
+          <div class="w-20 h-20 bg-[var(--accent-soft)] rounded-full flex items-center justify-center mx-auto mb-6">
+            <i data-lucide="check" class="w-10 h-10 text-[var(--accent)]"></i>
+          </div>
+          <h3 class="text-2xl text-[var(--fg)] mb-2">Agendado com Sucesso!</h3>
+          <p class="text-[var(--fg-muted)]">Entraremos em contato em ate 1 hora. Obrigado pela confianca!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Odontofobia Section -->
+  <section id="odontofobia" class="py-20 lg:py-32 gradient-soft texture-ceramic">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Content -->
+        <div class="reveal">
+          <span class="badge badge-soft mb-4">Atendimento Acolhedor</span>
+          <h2 class="text-3xl lg:text-4xl text-[var(--fg)] mb-6 title-underline">
+            Tem Medo de Dentista?
+          </h2>
+          <p class="text-lg text-[var(--fg-muted)] mb-6">
+            Voce nao esta sozinho. 30% das pessoas sentem ansiedade ao ir ao dentista. Aqui, entendemos isso e temos solucoes.
+          </p>
+
+          <div class="space-y-4 mb-8">
+            <div class="card p-4 flex items-center gap-4">
+              <div class="w-12 h-12 bg-[var(--accent-soft)]/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                <i data-lucide="wind" class="w-6 h-6 text-[var(--accent)]"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-[var(--fg)]">Sedacao Consciente</h4>
+                <p class="text-sm text-[var(--fg-muted)]">Oxido nitroso ("gas do riso") — relaxamento seguro e controlado</p>
+              </div>
+            </div>
+
+            <div class="card p-4 flex items-center gap-4">
+              <div class="w-12 h-12 bg-[var(--accent-soft)]/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                <i data-lucide="syringe" class="w-6 h-6 text-[var(--accent)]"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-[var(--fg)]">Anestesia Computadorizada</h4>
+                <p class="text-sm text-[var(--fg-muted)]">Aplicacao sem dor, controlada por computador</p>
+              </div>
+            </div>
+
+            <div class="card p-4 flex items-center gap-4">
+              <div class="w-12 h-12 bg-[var(--accent-soft)]/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                <i data-lucide="heart" class="w-6 h-6 text-[var(--accent)]"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-[var(--fg)]">Atendimento Compassivo</h4>
+                <p class="text-sm text-[var(--fg-muted)]">Sem pressa, com empatia e paciencia</p>
+              </div>
+            </div>
+
+            <div class="card p-4 flex items-center gap-4">
+              <div class="w-12 h-12 bg-[var(--accent-soft)]/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                <i data-lucide="flower-2" class="w-6 h-6 text-[var(--accent)]"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-[var(--fg)]">Ambiente Relaxante</h4>
+                <p class="text-sm text-[var(--fg-muted)]">Aromaterapia e musica calma nas salas</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="#agendamento" class="btn-primary inline-flex items-center gap-2">
+            <span>Venha conversar. Sem julgamento.</span>
+            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+          </a>
+        </div>
+
+        <!-- Testimonial -->
+        <div class="reveal">
+          <div class="card p-8 bg-gradient-to-br from-white to-[var(--bg-alt)]">
+            <div class="flex items-center gap-1 mb-4">
+              <i data-lucide="star" class="w-5 h-5 text-[#C9A861] fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 text-[#C9A861] fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 text-[#C9A861] fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 text-[#C9A861] fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 text-[#C9A861] fill-current"></i>
+            </div>
+            <p class="text-lg text-[var(--fg)] mb-6 italic">
+              "Tinha pavor de dentista desde crianca. A Dra. Marina foi tao paciente e acolhedora que ate dormi durante o tratamento! Recomendo de olhos fechados para quem tem medo."
+            </p>
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80" alt="Ana Paula" class="w-full h-full object-cover">
+              </div>
+              <div>
+                <p class="font-semibold text-[var(--fg)]">Ana Paula M.</p>
+                <p class="text-sm text-[var(--fg-muted)]">Paciente desde 2021</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Odontopediatria Section -->
+  <section id="odontopediatria" class="py-20 lg:py-32 relative">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-12 reveal">
+        <span class="badge badge-soft mb-4">Para Criancas</span>
+        <h2 class="text-3xl lg:text-4xl text-[var(--fg)] mb-4 title-underline inline-block">
+          Odontopediatria
+        </h2>
+        <p class="text-lg text-[var(--fg-muted)] max-w-2xl mx-auto">
+          Sorriso saudavel se constroi desde cedo. Ambiente ludico e dentistas especializados
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 stagger">
+        <div class="card p-6 text-center">
+          <div class="w-16 h-16 bg-[var(--accent-soft)]/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="baby" class="w-8 h-8 text-[var(--accent)]"></i>
+          </div>
+          <h4 class="font-semibold text-[var(--fg)] mb-2">Primeira Consulta</h4>
+          <p class="text-sm text-[var(--fg-muted)]">A partir de 6 meses. Acolhimento especial para bebes</p>
+        </div>
+
+        <div class="card p-6 text-center">
+          <div class="w-16 h-16 bg-[var(--accent-soft)]/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="shield" class="w-8 h-8 text-[var(--accent)]"></i>
+          </div>
+          <h4 class="font-semibold text-[var(--fg)] mb-2">Prevencao</h4>
+          <p class="text-sm text-[var(--fg-muted)]">Selante, fluoreto e orientacao de escovacao</p>
+        </div>
+
+        <div class="card p-6 text-center">
+          <div class="w-16 h-16 bg-[var(--accent-soft)]/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="tv" class="w-8 h-8 text-[var(--accent)]"></i>
+          </div>
+          <h4 class="font-semibold text-[var(--fg)] mb-2">Sem Medo</h4>
+          <p class="text-sm text-[var(--fg-muted)]">TV no teto, ambiente kids e dentista especializado</p>
+        </div>
+
+        <div class="card p-6 text-center">
+          <div class="w-16 h-16 bg-[var(--accent-soft)]/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="activity" class="w-8 h-8 text-[var(--accent)]"></i>
+          </div>
+          <h4 class="font-semibold text-[var(--fg)] mb-2">Emergencia</h4>
+          <p class="text-sm text-[var(--fg-muted)]">Caiu e bateu o dente? Atendemos urgencias infantis</p>
+        </div>
+      </div>
+
+      <div class="mt-12 text-center reveal">
+        <a href="#agendamento" class="btn-primary inline-flex items-center gap-2">
+          <i data-lucide="calendar" class="w-5 h-5"></i>
+          <span>Agende a primeira consulta do seu pequeno</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Depoimentos Section -->
+  <section id="depoimentos" class="py-20 lg:py-32 gradient-soft texture-ceramic">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-12 reveal">
+        <span class="badge badge-soft mb-4">Depoimentos</span>
+        <h2 class="text-3xl lg:text-4xl text-[var(--fg)] mb-4 title-underline inline-block">
+          O Que Nossos Pacientes Dizem
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 stagger">
+        <div class="card p-6">
+          <div class="flex items-center gap-1 mb-4">
+            <i data-lucide="star" class="w-5 h-5 text-[#C9A861] fill-current"></i>
+            <i data-lucide="star" class="w-5 h-5 text-[#C9A861] fill-current"></i>
+            <i data-lucide="star" class="w-5 h-5 text-[#C9A861] fill-current"></i>
+            <i data-lucide="star" class="w-5 h-5 text-[#C9A861] fill-current"></i>
+            <i data-lucide="star" class="w-5 h-5 text-[#C9A861] fill-current"></i>
+          </div>
+          <p class="text-[var(--fg)] mb-6">
+            "O clareamento mudou minha autoestima. Agora sorrio sem vergonha nas fotos. Profissionais incredveis!"
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-full overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Roberto" class="w-full h-full object-cover">
+            </div>
+            <div>
+              <p class="font-semibold text-[var(--fg)]">Roberto S.</p>
+              <p class="text-sm text-[var(--fg-muted)]">Clareamento</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card p-6">
+          <div class="flex items-center gap-1 mb-4">
+            <i data-lucide="star" class="w-5 h-5 text-[#C9A861] fill-current"></i>
+            <i data-lucide="star" class="w-5 h-5 text-[#C9A861] fill-current"></i>
+            <i data-lucide="star" class="w-5 h-5 text-[#C9A861] fill-current"></i>
+            <i data-lucide="star" class="w-5 h-5 text-[#C9A861] fill-current"></i>
+            <i data-lucide="star" class="w-5 h-5 text-[#C9A861] fill-current"></i>
+          </div>
+          <p class="text-[var(--fg)] mb-6">
+            "Meu implante ficou perfeito. Parece um dente natural. Voltei a comer tudo que gostava. Muito obrigado!"
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-full overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80" alt="Carlos" class="w-full h-full object-cover">
+            </div>
+            <div>
+              <p class="font-semibold text-[var(--fg)]">Carlos M.</p>
+              <p class="text-sm text-[var(--fg-muted)]">Implante</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card p-6">
+          <div class="flex items-center gap-1 mb-4">
+            <i data-lucide="star" class="w-5 h-5 text-[#C9A861] fill-current"></i>
+            <i data-lucide="star" class="w-5 h-5 text-[#C9A861] fill-current"></i>
+            <i data-lucide="star" class="w-5 h-5 text-[#C9A861] fill-current"></i>
+            <i data-lucide="star" class="w-5 h-5 text-[#C9A861] fill-current"></i>
+            <i data-lucide="star" class="w-5 h-5 text-[#C9A861] fill-current"></i>
+          </div>
+          <p class="text-[var(--fg)] mb-6">
+            "Minha filha adorou a consulta. A dentista foi tao carinhosa que ela ja pediu para voltar. Recomendo muito!"
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-full overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" alt="Patricia" class="w-full h-full object-cover">
+            </div>
+            <div>
+              <p class="font-semibold text-[var(--fg)]">Patricia L.</p>
+              <p class="text-sm text-[var(--fg-muted)]">Maes de paciente infantil</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 reveal">
+        <div class="text-center">
+          <p class="text-3xl font-bold text-[var(--accent)]">4.9</p>
+          <p class="text-sm text-[var(--fg-muted)]">Avaliacao Google</p>
+        </div>
+        <div class="text-center">
+          <p class="text-3xl font-bold text-[var(--accent)]">+20.000</p>
+          <p class="text-sm text-[var(--fg-muted)]">Pacientes atendidos</p>
+        </div>
+        <div class="text-center">
+          <p class="text-3xl font-bold text-[var(--accent)]">+15</p>
+          <p class="text-sm text-[var(--fg-muted)]">Anos de experiencia</p>
+        </div>
+        <div class="text-center">
+          <p class="text-3xl font-bold text-[var(--accent)]">99%</p>
+          <p class="text-sm text-[var(--fg-muted)]">Recomendariam</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="py-20 lg:py-32 relative">
+    <div class="max-w-3xl mx-auto px-4">
+      <div class="text-center mb-12 reveal">
+        <span class="badge badge-soft mb-4">Duvidas Frequentes</span>
+        <h2 class="text-3xl lg:text-4xl text-[var(--fg)] mb-4 title-underline inline-block">
+          Perguntas Frequentes
+        </h2>
+      </div>
+
+      <div class="space-y-4 stagger" id="faq-list">
+        <div class="accordion-item card overflow-hidden">
+          <button class="w-full p-6 text-left flex items-center justify-between gap-4" aria-expanded="false">
+            <span class="font-semibold text-[var(--fg)]">A avaliacao e realmente gratuita?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--accent)] accordion-icon transition-transform"></i>
+          </button>
+          <div class="accordion-content px-6">
+            <p class="pb-6 text-[var(--fg-muted)]">
+              Sim! A avaliacao completa e gratuita, incluindo consulta com o dentista, radiografia panoramica digital e plano de tratamento personalizado. Sem compromisso.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion-item card overflow-hidden">
+          <button class="w-full p-6 text-left flex items-center justify-between gap-4" aria-expanded="false">
+            <span class="font-semibold text-[var(--fg)]">Doi fazer implante?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--accent)] accordion-icon transition-transform"></i>
+          </button>
+          <div class="accordion-content px-6">
+            <p class="pb-6 text-[var(--fg-muted)]">
+              O procedimento e feito com anestesia local, entao voce nao sente dor durante. Pos operatorio e geralmente tranquilo, controlado com analgesicos. Oferecemos sedacao consciente para pacientes ansiosos.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion-item card overflow-hidden">
+          <button class="w-full p-6 text-left flex items-center justify-between gap-4" aria-expanded="false">
+            <span class="font-semibold text-[var(--fg)]">Clareamento estraga o dente?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--accent)] accordion-icon transition-transform"></i>
+          </button>
+          <div class="accordion-content px-6">
+            <p class="pb-6 text-[var(--fg-muted)]">
+              Nao! O clareamento profissional e seguro quando feito por um dentista. O gel utilizado apenas remove pigmentos, sem danificar o esmalte. Pode haver sensibilidade temporaria que passa em poucos dias.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion-item card overflow-hidden">
+          <button class="w-full p-6 text-left flex items-center justify-between gap-4" aria-expanded="false">
+            <span class="font-semibold text-[var(--fg)]">Invisalign funciona mesmo?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--accent)] accordion-icon transition-transform"></i>
+          </button>
+          <div class="accordion-content px-6">
+            <p class="pb-6 text-[var(--fg-muted)]">
+              Sim! Invisalign e uma tecnologia comprovada com mais de 20 anos de uso. E tao eficiente quanto aparelho fixo para maioria dos casos. Durante a avaliacao, verificamos se e indicado para seu caso.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion-item card overflow-hidden">
+          <button class="w-full p-6 text-left flex items-center justify-between gap-4" aria-expanded="false">
+            <span class="font-semibold text-[var(--fg)]">Como funciona o parcelamento?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--accent)] accordion-icon transition-transform"></i>
+          </button>
+          <div class="accordion-content px-6">
+            <p class="pb-6 text-[var(--fg-muted)]">
+              Parcelamos em ate 18x no cartao de credito. Tambem aceitamos PIX com 10% de desconto e convenios odontologicos. Consulte nossas condicoes especiais para tratamentos completos.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion-item card overflow-hidden">
+          <button class="w-full p-6 text-left flex items-center justify-between gap-4" aria-expanded="false">
+            <span class="font-semibold text-[var(--fg)]">Voces atendem emergencias?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--accent)] accordion-icon transition-transform"></i>
+          </button>
+          <div class="accordion-content px-6">
+            <p class="pb-6 text-[var(--fg-muted)]">
+              Sim! Atendemos emergencias dentais como dor aguda, dente quebrado, abscesso e trauma dental. Ligue para nosso numero de emergencia que encaixamos você no mesmo dia.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-8 reveal">
+        <p class="text-[var(--fg-muted)] mb-4">Ainda com duvida?</p>
+        <a href="https://wa.me/5511999999999?text=Olá! Tenho uma dúvida:" target="_blank" class="btn-outline inline-flex items-center gap-2">
+          <i data-lucide="message-circle" class="w-5 h-5"></i>
+          <span>Pergunte pelo WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contato Section -->
+  <section id="contato" class="py-20 lg:py-32 gradient-soft texture-ceramic">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid lg:grid-cols-2 gap-12">
+        <!-- Info -->
+        <div class="reveal">
+          <span class="badge badge-soft mb-4">Contato</span>
+          <h2 class="text-3xl lg:text-4xl text-[var(--fg)] mb-6 title-underline">
+            Entre em Contato
+          </h2>
+          <p class="text-lg text-[var(--fg-muted)] mb-8">
+            Estamos prontos para atender você. Entre em contato pelo canal de sua preferencia.
+          </p>
+
+          <div class="space-y-6">
+            <a href="https://wa.me/5511999999999" target="_blank" class="card p-5 flex items-center gap-4 hover:glow-menta">
+              <div class="w-14 h-14 bg-[#25D366] rounded-2xl flex items-center justify-center">
+                <i data-lucide="message-circle" class="w-7 h-7 text-white"></i>
+              </div>
+              <div>
+                <p class="font-semibold text-[var(--fg)]">WhatsApp</p>
+                <p class="text-[var(--fg-muted)]">(11) 99999-9999</p>
+              </div>
+            </a>
+
+            <a href="tel:+551133334444" class="card p-5 flex items-center gap-4 hover:glow-menta">
+              <div class="w-14 h-14 bg-[var(--accent)] rounded-2xl flex items-center justify-center">
+                <i data-lucide="phone" class="w-7 h-7 text-white"></i>
+              </div>
+              <div>
+                <p class="font-semibold text-[var(--fg)]">Telefone</p>
+                <p class="text-[var(--fg-muted)]">(11) 3333-4444</p>
+              </div>
+            </a>
+
+            <div class="card p-5 flex items-center gap-4">
+              <div class="w-14 h-14 bg-[var(--accent-soft)] rounded-2xl flex items-center justify-center">
+                <i data-lucide="map-pin" class="w-7 h-7 text-[var(--accent)]"></i>
+              </div>
+              <div>
+                <p class="font-semibold text-[var(--fg)]">Endereco</p>
+                <p class="text-[var(--fg-muted)]">Av. Paulista, 1234 - Bela Vista, Sao Paulo - SP</p>
+              </div>
+            </div>
+
+            <div class="card p-5 flex items-center gap-4">
+              <div class="w-14 h-14 bg-[var(--accent-soft)] rounded-2xl flex items-center justify-center">
+                <i data-lucide="clock" class="w-7 h-7 text-[var(--accent)]"></i>
+              </div>
+              <div>
+                <p class="font-semibold text-[var(--fg)]">Horario</p>
+                <p class="text-[var(--fg-muted)]">Seg a Sex: 8h as 21h | Sab: 8h as 14h</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Links -->
+          <div class="flex gap-4 mt-8">
+            <a href="#" class="w-12 h-12 bg-[var(--card)] rounded-full flex items-center justify-center border border-[var(--border)] hover:border-[var(--accent)] transition-colors" aria-label="Instagram">
+              <i data-lucide="instagram" class="w-5 h-5 text-[var(--accent)]"></i>
+            </a>
+            <a href="#" class="w-12 h-12 bg-[var(--card)] rounded-full flex items-center justify-center border border-[var(--border)] hover:border-[var(--accent)] transition-colors" aria-label="Facebook">
+              <i data-lucide="facebook" class="w-5 h-5 text-[var(--accent)]"></i>
+            </a>
+            <a href="#" class="w-12 h-12 bg-[var(--card)] rounded-full flex items-center justify-center border border-[var(--border)] hover:border-[var(--accent)] transition-colors" aria-label="YouTube">
+              <i data-lucide="youtube" class="w-5 h-5 text-[var(--accent)]"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="reveal">
+          <div class="aspect-square lg:aspect-auto lg:h-full min-h-[400px] rounded-3xl overflow-hidden">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.1076481673745!2d-46.65390268502154!3d-23.561734284680625!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sAv.%20Paulista%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1635959481234!5m2!1spt-BR!2sbr" 
+              width="100%" 
+              height="100%" 
+              style="border:0;" 
+              allowfullscreen="" 
+              loading="lazy"
+              class="grayscale hover:grayscale-0 transition-all duration-500">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Convenios Section -->
+  <section class="py-12 border-t border-b border-[var(--border)]">
+    <div class="max-w-7xl mx-auto px-4">
+      <p class="text-center text-[var(--fg-muted)] mb-8">Convenios aceitos</p>
+      <div class="flex flex-wrap justify-center items-center gap-8 opacity-60">
+        <span class="text-xl font-semibold text-[var(--fg-muted)]">Amil Dental</span>
+        <span class="text-xl font-semibold text-[var(--fg-muted)]">Bradesco Dental</span>
+        <span class="text-xl font-semibold text-[var(--fg-muted)]">SulAmerica</span>
+        <span class="text-xl font-semibold text-[var(--fg-muted)]">Porto Seguro</span>
+        <span class="text-xl font-semibold text-[var(--fg-muted)]">Odontoprev</span>
+        <span class="text-xl font-semibold text-[var(--fg-muted)]">Interodonto</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-16 bg-[var(--grafite-radiografia)] text-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid md:grid-cols-4 gap-12 mb-12">
+        <!-- Logo & Info -->
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-3 mb-6">
+            <svg width="40" height="40" viewBox="0 0 44 44" fill="none">
+              <path d="M22 4C16 4 12 8 12 14C12 20 14 28 16 34C17.5 38 19 40 22 40C25 40 26.5 38 28 34C30 28 32 20 32 14C32 8 28 4 22 4Z" fill="url(#footerTooth)" stroke="white" stroke-width="2"/>
+              <defs>
+                <linearGradient id="footerTooth" x1="12" y1="4" x2="32" y2="40" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#FFFFFF"/>
+                  <stop offset="1" stop-color="#A8DCD1"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span class="text-2xl font-serif">Clinica Sorriso</span>
+          </div>
+          <p class="text-white/70 mb-6">
+            Cuidando do seu sorriso com ciencia e carinho desde 2009. Mais de 20.000 pacientes atendidos com excelencia e humanizacao.
+          </p>
+          <p class="text-sm text-white/50">
+            Responsavel Tecnico: Dr. Ricardo Silva - CRO/SP 65432<br>
+            CNPJ: 00.000.000/0001-00
+          </p>
+        </div>
+
+        <!-- Links -->
+        <div>
+          <h4 class="font-semibold mb-4">Links Rapidos</h4>
+          <ul class="space-y-2">
+            <li><a href="#sobre" class="text-white/70 hover:text-white transition-colors">Sobre Nos</a></li>
+            <li><a href="#tratamentos" class="text-white/70 hover:text-white transition-colors">Tratamentos</a></li>
+            <li><a href="#equipe" class="text-white/70 hover:text-white transition-colors">Equipe</a></li>
+            <li><a href="#agendamento" class="text-white/70 hover:text-white transition-colors">Agendar Consulta</a></li>
+            <li><a href="#faq" class="text-white/70 hover:text-white transition-colors">Duvidas Frequentes</a></li>
+          </ul>
+        </div>
+
+        <!-- Contato -->
+        <div>
+          <h4 class="font-semibold mb-4">Contato</h4>
+          <ul class="space-y-2 text-white/70">
+            <li class="flex items-center gap-2">
+              <i data-lucide="phone" class="w-4 h-4"></i>
+              (11) 3333-4444
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="smartphone" class="w-4 h-4"></i>
+              (11) 99999-9999
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="mail" class="w-4 h-4"></i>
+              contato@clinicasorriso.com.br
+            </li>
+            <li class="flex items-start gap-2">
+              <i data-lucide="map-pin" class="w-4 h-4 mt-1"></i>
+              <span>Av. Paulista, 1234<br>Bela Vista, Sao Paulo - SP</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom -->
+      <div class="pt-8 border-t border-white/10 flex flex-wrap justify-between items-center gap-4">
+        <p class="text-sm text-white/50">
+          Este site tem carater informativo e nao substitui consulta odontologica. Resultados podem variar. Procure sempre um cirurgiao-dentista habilitado. Clinica inscrita no CRO/SP sob no 123456.
+        </p>
+        <div class="flex gap-4 text-sm text-white/50">
+          <a href="#" class="hover:text-white transition-colors">Privacidade</a>
+          <a href="#" class="hover:text-white transition-colors">Termos</a>
+          <a href="#" class="hover:text-white transition-colors">LGPD</a>
+        </div>
+      </div>
+
+      <div class="text-center mt-8">
+        <p class="text-sm text-white/30">2024 Clinica Sorriso. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Buttons -->
+  <!-- Emergency -->
+  <a href="tel:+5511999999999" class="floating-btn emergency-btn right-side" aria-label="Emergencia">
+    <span class="flex items-center gap-2">
+      <i data-lucide="alert-circle" class="w-4 h-4"></i>
+      Urgencia
+    </span>
+  </a>
+
+  <!-- WhatsApp -->
+  <a href="https://wa.me/5511999999999?text=Olá! Gostaria de agendar uma consulta." target="_blank" class="floating-btn whatsapp-btn right-side" aria-label="WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- Theme Toggle -->
+  <button id="theme-toggle" class="theme-toggle right-side" aria-label="Alternar tema">
+    <i data-lucide="sun" class="w-5 h-5 text-[var(--accent)]" id="theme-icon-light"></i>
+    <i data-lucide="moon" class="w-5 h-5 text-[var(--accent)] hidden" id="theme-icon-dark"></i>
+  </button>
+
+  <!-- Back to Top -->
+  <button id="back-top" class="floating-btn back-top right-side" aria-label="Voltar ao topo">
+    <i data-lucide="chevron-up" class="w-5 h-5 text-white"></i>
+  </button>
+
+  <!-- Fixed CTA Bar -->
+  <div id="fixed-cta" class="fixed-cta lg:hidden">
+    <div class="flex items-center justify-between gap-4">
+      <p class="text-sm text-[var(--fg)]">
+        <span class="font-semibold">Avaliacao + radiografia gratis</span>
+      </p>
+      <a href="#agendamento" class="btn-primary py-3 px-4 text-sm">
+        Agende agora
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIconLight = document.getElementById('theme-icon-light');
+    const themeIconDark = document.getElementById('theme-icon-dark');
+    let isDark = false;
+
+    themeToggle.addEventListener('click', () => {
+      isDark = !isDark;
+      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      themeIconLight.classList.toggle('hidden', isDark);
+      themeIconDark.classList.toggle('hidden', !isDark);
+    });
+
+    // Mobile menu
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMenuBtn = document.getElementById('close-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+
+    closeMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Header scroll effect
+    const header = document.querySelector('.header');
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      
+      if (currentScroll > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+      
+      lastScroll = currentScroll;
+    });
+
+    // Back to top visibility
+    const backTop = document.getElementById('back-top');
+    const fixedCta = document.getElementById('fixed-cta');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 500) {
+        backTop.classList.add('visible');
+        fixedCta.classList.add('visible');
+      } else {
+        backTop.classList.remove('visible');
+        fixedCta.classList.remove('visible');
+      }
+    });
+
+    backTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Intersection Observer for reveal animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          
+          // Counter animation
+          if (entry.target.querySelector('.counter')) {
+            entry.target.querySelectorAll('.counter').forEach(counter => {
+              animateCounter(counter);
+            });
+          }
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal, .stagger').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Counter animation
+    function animateCounter(counter) {
+      const target = parseInt(counter.dataset.target) || 0;
+      const duration = 2000;
+      const step = target / (duration / 16);
+      let current = 0;
+
+      const update = () => {
+        current += step;
+        if (current < target) {
+          counter.textContent = Math.floor(current).toLocaleString('pt-BR');
+          requestAnimationFrame(update);
+        } else {
+          counter.textContent = target.toLocaleString('pt-BR');
+        }
+      };
+
+      update();
+    }
+
+    // Treatment tabs
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.treatment-panel');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tab = btn.dataset.tab;
+        
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        panels.forEach(panel => {
+          if (panel.id === `panel-${tab}`) {
+            panel.classList.remove('hidden');
+            panel.classList.add('active');
+            // Re-trigger stagger animation
+            const stagger = panel.querySelector('.stagger');
+            if (stagger) {
+              stagger.classList.remove('active');
+              setTimeout(() => stagger.classList.add('active'), 50);
+            }
+          } else {
+            panel.classList.add('hidden');
+            panel.classList.remove('active');
+          }
+        });
+      });
+    });
+
+    // Before/After sliders
+    const sliders = document.querySelectorAll('[data-slider]');
+    
+    sliders.forEach(slider => {
+      const handle = slider.querySelector('[data-handle]');
+      const after = slider.querySelector('[data-after]');
+      let isDown = false;
+
+      const updateSlider = (x) => {
+        const rect = slider.getBoundingClientRect();
+        let percent = ((x - rect.left) / rect.width) * 100;
+        percent = Math.max(0, Math.min(100, percent));
+        
+        handle.style.left = `${percent}%`;
+        after.style.width = `${percent}%`;
+      };
+
+      slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        updateSlider(e.clientX);
+      });
+
+      slider.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        updateSlider(e.clientX);
+      });
+
+      slider.addEventListener('mouseup', () => isDown = false);
+      slider.addEventListener('mouseleave', () => isDown = false);
+
+      // Touch support
+      slider.addEventListener('touchstart', (e) => {
+        isDown = true;
+        updateSlider(e.touches[0].clientX);
+      });
+
+      slider.addEventListener('touchmove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        updateSlider(e.touches[0].clientX);
+      });
+
+      slider.addEventListener('touchend', () => isDown = false);
+    });
+
+    // FAQ Accordion
+    const accordionItems = document.querySelectorAll('.accordion-item');
+
+    accordionItems.forEach(item => {
+      const btn = item.querySelector('button');
+      
+      btn.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        
+        accordionItems.forEach(i => i.classList.remove('active'));
+        
+        if (!isActive) {
+          item.classList.add('active');
+        }
+        
+        btn.setAttribute('aria-expanded', !isActive);
+      });
+    });
+
+    // Form submission
+    const scheduleForm = document.getElementById('schedule-form');
+    const successMessage = document.getElementById('success-message');
+
+    scheduleForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Simulate form submission
+      scheduleForm.style.display = 'none';
+      successMessage.classList.remove('hidden');
+      
+      // Scroll to success message
+      successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    // Particles canvas
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let animationId = null;
+
+    function resizeCanvas() {
+      const hero = document.getElementById('hero');
+      canvas.width = hero.offsetWidth;
+      canvas.height = hero.offsetHeight;
+    }
+
+    function createParticles() {
+      particles = [];
+      const numParticles = Math.min(50, Math.floor(canvas.width * canvas.height / 20000));
+      
+      for (let i = 0; i < numParticles; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.max(1, Math.random() * 3),
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          alpha: Math.random() * 0.5 + 0.2
+        });
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+        
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, Math.max(1, p.radius), 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+        ctx.fill();
+      });
+      
+      animationId = requestAnimationFrame(animateParticles);
+    }
+
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    function initParticles() {
+      if (prefersReducedMotion.matches) return;
+      
+      resizeCanvas();
+      createParticles();
+      animateParticles();
+    }
+
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      createParticles();
+    });
+
+    initParticles();
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          const headerHeight = header.offsetHeight;
+          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,2106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dra. Marina Oliveira | Psicóloga Clínica</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lavenda: #9B8EC4;
+      --branco: #FDFBF9;
+      --verde: #8FA98B;
+      --areia: #D4C5B2;
+      --terracota: #C4907A;
+      --grafite: #33313B;
+      --creme: #F6F1EA;
+      --azul-noite: #3B4F6B;
+      
+      --bg: var(--creme);
+      --bg-alt: var(--branco);
+      --fg: var(--grafite);
+      --fg-muted: #6B6B7B;
+      --accent: var(--lavenda);
+      --accent-hover: var(--verde);
+      --card-bg: var(--branco);
+      --border: rgba(155, 142, 196, 0.2);
+      --shadow: rgba(155, 142, 196, 0.1);
+      --gradient: linear-gradient(135deg, var(--lavenda), var(--verde), var(--creme));
+    }
+
+    [data-theme="dark"] {
+      --bg: var(--grafite);
+      --bg-alt: #2A2833;
+      --fg: var(--creme);
+      --fg-muted: #A0A0B0;
+      --accent: #B5A8D4;
+      --accent-hover: #A8C4A4;
+      --card-bg: var(--bg-alt);
+      --border: rgba(181, 168, 212, 0.15);
+      --shadow: rgba(0, 0, 0, 0.3);
+      --gradient: linear-gradient(135deg, #B5A8D4, #A8C4A4, #4A4858);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--bg);
+      color: var(--fg);
+      line-height: 1.7;
+      transition: background-color 0.8s ease, color 0.8s ease;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Lora', serif;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    /* Texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Breathing animation */
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes expandLine {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes kenBurns {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.1); }
+    }
+
+    @keyframes butterflyFly {
+      0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+      25% { transform: translate(50px, -80px) rotate(10deg); }
+      50% { transform: translate(100px, -40px) rotate(-5deg); }
+      75% { transform: translate(150px, -100px) rotate(15deg); }
+      100% { transform: translate(200px, -150px) rotate(0deg); opacity: 0; }
+    }
+
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stagger-1 { transition-delay: 0.1s; }
+    .stagger-2 { transition-delay: 0.2s; }
+    .stagger-3 { transition-delay: 0.3s; }
+    .stagger-4 { transition-delay: 0.4s; }
+    .stagger-5 { transition-delay: 0.5s; }
+    .stagger-6 { transition-delay: 0.6s; }
+
+    .breathing {
+      animation: breathe 6s ease-in-out infinite;
+    }
+
+    .floating {
+      animation: float 8s ease-in-out infinite;
+    }
+
+    /* Header styles */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      transition: all 0.5s ease;
+    }
+
+    .header.scrolled {
+      background: rgba(246, 241, 234, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    [data-theme="dark"] .header.scrolled {
+      background: rgba(51, 49, 59, 0.9);
+    }
+
+    /* Button styles */
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.5s ease;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px var(--shadow);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--fg);
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.5s ease;
+      border: 2px solid var(--accent);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .btn-outline:hover {
+      background: var(--accent);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* Card styles */
+    .card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 32px;
+      border: 1px solid var(--border);
+      transition: all 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px var(--shadow);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    /* Section title with underline */
+    .section-title {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 80px;
+      height: 3px;
+      background: var(--gradient);
+      border-radius: 3px;
+    }
+
+    /* Hero organic shapes */
+    .organic-shape {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    /* Navigation link hover */
+    .nav-link {
+      position: relative;
+      padding: 8px 0;
+      color: var(--fg);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.5s ease;
+      border-radius: 2px;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* FAQ Accordion */
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--fg);
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      transition: color 0.3s ease;
+    }
+
+    .faq-question:hover {
+      color: var(--accent);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, padding 0.5s ease;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+      padding-bottom: 24px;
+    }
+
+    .faq-icon {
+      transition: transform 0.5s ease;
+    }
+
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    /* Form styles */
+    .form-input {
+      width: 100%;
+      padding: 16px 20px;
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      background: var(--card-bg);
+      color: var(--fg);
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(155, 142, 196, 0.15);
+    }
+
+    .form-input::placeholder {
+      color: var(--fg-muted);
+    }
+
+    /* Floating buttons */
+    .floating-btn {
+      position: fixed;
+      z-index: 90;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.5s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .whatsapp-btn {
+      bottom: 100px;
+      right: 24px;
+      background: #25D366;
+      box-shadow: 0 8px 30px rgba(37, 211, 102, 0.3);
+    }
+
+    .whatsapp-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 40px rgba(37, 211, 102, 0.4);
+    }
+
+    .top-btn {
+      bottom: 168px;
+      right: 24px;
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      opacity: 0;
+      visibility: hidden;
+      color: var(--fg);
+    }
+
+    .top-btn.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .top-btn:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .theme-toggle {
+      bottom: 32px;
+      right: 24px;
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      color: var(--fg);
+    }
+
+    .theme-toggle:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      padding: 80px 32px;
+      transform: translateX(100%);
+      transition: transform 0.5s ease;
+    }
+
+    .mobile-menu.active {
+      transform: translateX(0);
+    }
+
+    /* Testimonial carousel */
+    .testimonial-track {
+      display: flex;
+      gap: 24px;
+      transition: transform 0.5s ease;
+    }
+
+    .testimonial-card {
+      min-width: 100%;
+      padding: 40px;
+    }
+
+    @media (min-width: 768px) {
+      .testimonial-card {
+        min-width: calc(50% - 12px);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .testimonial-card {
+        min-width: calc(33.333% - 16px);
+      }
+    }
+
+    /* Progress stepper */
+    .step-line {
+      position: absolute;
+      left: 24px;
+      top: 48px;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .step-dot {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 3px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Lora', serif;
+      font-weight: 600;
+      color: var(--accent);
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+
+    /* Image gallery */
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+    }
+
+    .gallery-item img {
+      transition: transform 0.8s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* CTA bar */
+    .cta-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--card-bg);
+      border-top: 1px solid var(--border);
+      padding: 16px 24px;
+      transform: translateY(100%);
+      transition: transform 0.5s ease;
+      z-index: 80;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .cta-bar.visible {
+      transform: translateY(0);
+    }
+
+    /* Success animation */
+    .success-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 300;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s ease;
+    }
+
+    .success-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .success-content {
+      background: var(--card-bg);
+      padding: 48px;
+      border-radius: 24px;
+      text-align: center;
+      max-width: 400px;
+      transform: scale(0.9);
+      transition: transform 0.5s ease;
+    }
+
+    .success-overlay.active .success-content {
+      transform: scale(1);
+    }
+
+    .butterfly {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    /* Leaf decoration */
+    .leaf-decor {
+      position: absolute;
+      opacity: 0.1;
+      pointer-events: none;
+    }
+
+    /* Gradient text */
+    .gradient-text {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 4px;
+    }
+
+    /* Focus styles */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    /* Skip link */
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      z-index: 1000;
+      transition: top 0.3s ease;
+    }
+
+    .skip-link:focus {
+      top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Pular para o conteúdo principal</a>
+
+  <!-- Top bar -->
+  <div class="bg-[var(--accent)] text-white py-2 px-4 text-center text-sm relative z-[101]">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-center items-center gap-4 md:gap-8">
+      <span class="flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        (11) 99999-9999
+      </span>
+      <span class="flex items-center gap-2">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </span>
+      <span>CRP 06/123456</span>
+      <span class="hidden md:inline">Primeira sessao com acolhimento especial</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header pt-12" id="header">
+    <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3 group" aria-label="Inicio">
+        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--lavenda)] to-[var(--verde)] flex items-center justify-center breathing">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+          </svg>
+        </div>
+        <div>
+          <span class="font-['Lora'] text-xl font-medium text-[var(--fg)]">Dra. Marina Oliveira</span>
+          <span class="block text-xs text-[var(--fg-muted)]">Psicologa Clinica</span>
+        </div>
+      </a>
+
+      <div class="hidden lg:flex items-center gap-8">
+        <a href="#sobre" class="nav-link">Sobre</a>
+        <a href="#como-posso-ajudar" class="nav-link">Como posso ajudar</a>
+        <a href="#abordagem" class="nav-link">Abordagem</a>
+        <a href="#depoimentos" class="nav-link">Depoimentos</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+        <a href="#contato" class="nav-link">Contato</a>
+      </div>
+
+      <div class="hidden lg:block">
+        <a href="#agendamento" class="btn-primary">
+          Agende sua sessao
+        </a>
+      </div>
+
+      <button class="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5" id="menuToggle" aria-label="Abrir menu">
+        <span class="w-6 h-0.5 bg-[var(--fg)] transition-all duration-300"></span>
+        <span class="w-6 h-0.5 bg-[var(--fg)] transition-all duration-300"></span>
+        <span class="w-6 h-0.5 bg-[var(--fg)] transition-all duration-300"></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="absolute top-6 right-6 w-10 h-10" id="menuClose" aria-label="Fechar menu">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+    <nav class="flex flex-col gap-6 text-2xl font-['Lora']">
+      <a href="#sobre" class="text-[var(--fg)] hover:text-[var(--accent)] transition-colors">Sobre</a>
+      <a href="#como-posso-ajudar" class="text-[var(--fg)] hover:text-[var(--accent)] transition-colors">Como posso ajudar</a>
+      <a href="#abordagem" class="text-[var(--fg)] hover:text-[var(--accent)] transition-colors">Abordagem</a>
+      <a href="#depoimentos" class="text-[var(--fg)] hover:text-[var(--accent)] transition-colors">Depoimentos</a>
+      <a href="#faq" class="text-[var(--fg)] hover:text-[var(--accent)] transition-colors">FAQ</a>
+      <a href="#contato" class="text-[var(--fg)] hover:text-[var(--accent)] transition-colors">Contato</a>
+    </nav>
+    <a href="#agendamento" class="btn-primary mt-8 justify-center">Agende sua sessao</a>
+  </div>
+
+  <main id="main">
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden" id="hero">
+      <!-- Organic shapes -->
+      <div class="organic-shape w-96 h-96 bg-[var(--lavenda)] top-20 -left-48"></div>
+      <div class="organic-shape w-80 h-80 bg-[var(--verde)] bottom-20 right-0"></div>
+      <div class="organic-shape w-64 h-64 bg-[var(--areia)] top-1/2 left-1/3"></div>
+
+      <!-- Floating leaves -->
+      <svg class="absolute top-40 left-[10%] w-8 h-8 text-[var(--verde)] opacity-20 floating" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/>
+      </svg>
+      <svg class="absolute top-60 right-[15%] w-6 h-6 text-[var(--lavenda)] opacity-20 floating" style="animation-delay: -2s;" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/>
+      </svg>
+      <svg class="absolute bottom-40 left-[20%] w-10 h-10 text-[var(--verde)] opacity-15 floating" style="animation-delay: -4s;" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/>
+      </svg>
+
+      <div class="max-w-7xl mx-auto px-6 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div class="animate-on-scroll">
+            <span class="inline-block px-4 py-2 rounded-full bg-[var(--accent)] bg-opacity-10 text-[var(--accent)] text-sm font-medium mb-6">
+              Psicologia Clinica | CRP 06/123456
+            </span>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-['Lora'] font-medium leading-tight mb-6 text-[var(--fg)]">
+              Voce nao precisa enfrentar isso sozinho(a)
+            </h1>
+            <p class="text-lg md:text-xl text-[var(--fg-muted)] mb-4 leading-relaxed">
+              Um espaco seguro para ser quem voce e. Onde o silencio e confortavel, o olhar e gentil, e cada palavra e acolhida com cuidado.
+            </p>
+            <p class="text-[var(--fg-muted)] mb-8">
+              Terapia individual | Casal | Adolescentes | Online | Presencial | Abordagem humanizada
+            </p>
+            <div class="flex flex-wrap gap-4 mb-8">
+              <a href="#agendamento" class="btn-primary">
+                Agende sua primeira sessao
+              </a>
+              <a href="#como-posso-ajudar" class="btn-outline">
+                Saiba como posso ajudar
+              </a>
+            </div>
+            <div class="flex items-center gap-6 text-sm text-[var(--fg-muted)]">
+              <span class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-[var(--verde)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                +10 anos de experiencia
+              </span>
+              <span class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-[var(--verde)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                Atendimento online e presencial
+              </span>
+            </div>
+          </div>
+
+          <div class="relative animate-on-scroll stagger-2">
+            <div class="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
+              <img 
+                src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=800&h=1000&fit=crop" 
+                alt="Consultorio acolhedor com poltrona confortavel e iluminação natural" 
+                class="w-full h-full object-cover"
+                style="animation: kenBurns 30s ease-in-out infinite alternate;"
+                loading="eager"
+              >
+            </div>
+            <!-- Floating card -->
+            <div class="absolute -bottom-6 -left-6 bg-[var(--card-bg)] rounded-2xl p-5 shadow-xl border border-[var(--border)] breathing">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-full bg-[var(--verde)] bg-opacity-20 flex items-center justify-center">
+                  <svg class="w-6 h-6 text-[var(--verde)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-semibold text-[var(--fg)]">Espaco seguro</p>
+                  <p class="text-sm text-[var(--fg-muted)]">para ser quem voce e</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sobre Section -->
+    <section class="py-24 relative" id="sobre">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+          <div class="relative animate-on-scroll">
+            <div class="aspect-square rounded-3xl overflow-hidden">
+              <img 
+                src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600&h=600&fit=crop" 
+                alt="Dra. Marina Oliveira - Psicologa Clinica" 
+                class="w-full h-full object-cover"
+                loading="lazy"
+              >
+            </div>
+            <div class="absolute -bottom-8 -right-8 bg-[var(--accent)] text-white rounded-2xl p-6 shadow-xl">
+              <p class="text-3xl font-['Lora'] font-semibold">+10</p>
+              <p class="text-sm opacity-90">anos de experiencia</p>
+            </div>
+          </div>
+
+          <div class="animate-on-scroll stagger-2">
+            <h2 class="section-title text-3xl md:text-4xl font-['Lora'] text-[var(--fg)]">Sobre mim</h2>
+            <p class="text-lg text-[var(--fg-muted)] mb-6 leading-relaxed">
+              Eu acredito que cada pessoa carrega dentro de si a capacidade de se transformar. Meu papel e caminhar ao seu lado nessa jornada — sem julgamento, com escuta e com ciencia.
+            </p>
+            <p class="text-[var(--fg-muted)] mb-8">
+              Sou psicologa clinica formada pela USP, com especializacao em Terapia Cognitivo-Comportamental e pos-graduacao em Psicologia Positiva. Atendo ha mais de 10 anos ajudando pessoas a encontrar seu proprio caminho.
+            </p>
+
+            <div class="grid grid-cols-2 gap-4 mb-8">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-[var(--lavenda)] bg-opacity-20 flex items-center justify-center">
+                  <svg class="w-5 h-5 text-[var(--lavenda)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"/>
+                  </svg>
+                </div>
+                <span class="text-sm text-[var(--fg)]">Escuta sem julgamento</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-[var(--lavenda)] bg-opacity-20 flex items-center justify-center">
+                  <svg class="w-5 h-5 text-[var(--lavenda)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"/>
+                  </svg>
+                </div>
+                <span class="text-sm text-[var(--fg)]">Etica e sigilo absoluto</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-[var(--lavenda)] bg-opacity-20 flex items-center justify-center">
+                  <svg class="w-5 h-5 text-[var(--lavenda)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"/>
+                  </svg>
+                </div>
+                <span class="text-sm text-[var(--fg)]">Ciencia com humanidade</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-[var(--lavenda)] bg-opacity-20 flex items-center justify-center">
+                  <svg class="w-5 h-5 text-[var(--lavenda)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"/>
+                  </svg>
+                </div>
+                <span class="text-sm text-[var(--fg)]">Seu ritmo e respeitado</span>
+              </div>
+            </div>
+
+            <blockquote class="border-l-4 border-[var(--accent)] pl-6 py-2 italic text-[var(--fg-muted)]">
+              "Nao existe caminho certo. Existe o SEU caminho — e eu estou aqui para percorre-lo com voce."
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Como posso ajudar -->
+    <section class="py-24 bg-[var(--bg-alt)]" id="como-posso-ajudar">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16 animate-on-scroll">
+          <h2 class="section-title text-3xl md:text-4xl font-['Lora'] text-[var(--fg)] inline-block">Como posso ajudar</h2>
+          <p class="text-[var(--fg-muted)] mt-6 max-w-2xl mx-auto">
+            Cada pessoa e unica, e cada jornada merece ser acolhida. Atendo diversas queixas e situacoes com empatia e profissionalismo.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="queixasGrid">
+          <!-- Cards will be populated by JS -->
+        </div>
+
+        <p class="text-center text-[var(--fg-muted)] mt-12 animate-on-scroll">
+          Nao precisa ter um diagnostico para buscar terapia. As vezes, so precisamos de um espaco para respirar.
+        </p>
+      </div>
+    </section>
+
+    <!-- Abordagem -->
+    <section class="py-24 relative overflow-hidden" id="abordagem">
+      <div class="organic-shape w-80 h-80 bg-[var(--lavenda)] -top-40 -right-40 opacity-30"></div>
+      <div class="max-w-7xl mx-auto px-6 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+          <div class="animate-on-scroll">
+            <h2 class="section-title text-3xl md:text-4xl font-['Lora'] text-[var(--fg)]">Abordagem Terapeutica</h2>
+            <p class="text-lg text-[var(--fg-muted)] mb-6">
+              <strong class="text-[var(--fg)]">Terapia Cognitivo-Comportamental (TCC)</strong>
+            </p>
+            <p class="text-[var(--fg-muted)] mb-6 leading-relaxed">
+              A TCC e uma abordagem cientifica que ajuda a identificar e modificar padroes de pensamento e comportamento que causam sofrimento. Na pratica, trabalhamos juntos para entender como seus pensamentos influenciam suas emocoes e acoes.
+            </p>
+            <div class="space-y-4 mb-8">
+              <div class="flex items-start gap-4">
+                <div class="w-8 h-8 rounded-full bg-[var(--verde)] bg-opacity-20 flex items-center justify-center flex-shrink-0 mt-1">
+                  <svg class="w-4 h-4 text-[var(--verde)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-medium text-[var(--fg)]">Para quem e indicada</p>
+                  <p class="text-sm text-[var(--fg-muted)]">Ansiedade, depressao, fobias, TOC, estresse, problemas relacionais e mais</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-8 h-8 rounded-full bg-[var(--verde)] bg-opacity-20 flex items-center justify-center flex-shrink-0 mt-1">
+                  <svg class="w-4 h-4 text-[var(--verde)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-medium text-[var(--fg)]">O que esperar das sessoes</p>
+                  <p class="text-sm text-[var(--fg-muted)]">Um espaco seguro para explorar seus pensamentos, com tecnicas praticas para o dia a dia</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-8 h-8 rounded-full bg-[var(--verde)] bg-opacity-20 flex items-center justify-center flex-shrink-0 mt-1">
+                  <svg class="w-4 h-4 text-[var(--verde)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-medium text-[var(--fg)]">Diferencial</p>
+                  <p class="text-sm text-[var(--fg-muted)]">Abordagem humanizada, respeitando seu ritmo e individualidade</p>
+                </div>
+              </div>
+            </div>
+            <a href="#agendamento" class="btn-primary">Saiba mais na sua primeira sessao</a>
+          </div>
+
+          <div class="animate-on-scroll stagger-2">
+            <!-- Visual metaphor -->
+            <div class="bg-[var(--card-bg)] rounded-3xl p-8 border border-[var(--border)]">
+              <div class="flex items-center justify-center gap-4 mb-8">
+                <div class="text-center">
+                  <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-[var(--lavenda)] bg-opacity-20 flex items-center justify-center">
+                    <svg class="w-12 h-12 text-[var(--lavenda)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                    </svg>
+                  </div>
+                  <p class="text-sm font-medium text-[var(--fg)]">Confusao</p>
+                </div>
+                <svg class="w-8 h-8 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+                <div class="text-center">
+                  <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-[var(--verde)] bg-opacity-20 flex items-center justify-center">
+                    <svg class="w-12 h-12 text-[var(--verde)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                  </div>
+                  <p class="text-sm font-medium text-[var(--fg)]">Clareza</p>
+                </div>
+              </div>
+              <p class="text-center text-[var(--fg-muted)] text-sm">
+                Da confusao para a clareza, um passo de cada vez
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modalidades -->
+    <section class="py-24 bg-[var(--bg-alt)]" id="modalidades">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16 animate-on-scroll">
+          <h2 class="section-title text-3xl md:text-4xl font-['Lora'] text-[var(--fg)] inline-block">Modalidades de Atendimento</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="modalidadesGrid">
+          <!-- Cards will be populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Como funciona -->
+    <section class="py-24" id="como-funciona">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16 animate-on-scroll">
+          <h2 class="section-title text-3xl md:text-4xl font-['Lora'] text-[var(--fg)] inline-block">Como Funciona a Terapia</h2>
+          <p class="text-[var(--fg-muted)] mt-6 max-w-2xl mx-auto">
+            Cada jornada e unica, mas aqui esta o que voce pode esperar
+          </p>
+        </div>
+
+        <div class="max-w-3xl mx-auto">
+          <div class="space-y-12" id="stepsContainer">
+            <!-- Steps will be populated by JS -->
+          </div>
+        </div>
+
+        <p class="text-center text-[var(--fg-muted)] mt-16 animate-on-scroll text-lg italic">
+          "Terapia nao e sobre consertar. E sobre se encontrar."
+        </p>
+      </div>
+    </section>
+
+    <!-- Valores -->
+    <section class="py-24 bg-[var(--bg-alt)]" id="valores">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16 animate-on-scroll">
+          <h2 class="section-title text-3xl md:text-4xl font-['Lora'] text-[var(--fg)] inline-block">Valores e Investimento</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div class="card animate-on-scroll">
+            <h3 class="text-xl font-['Lora'] text-[var(--fg)] mb-6">Sessao Individual</h3>
+            <p class="text-3xl font-['Lora'] text-[var(--accent)] mb-4">R$ 200,00</p>
+            <p class="text-[var(--fg-muted)] text-sm mb-4">Duracao: 50 minutos</p>
+            <ul class="space-y-2 text-[var(--fg-muted)] text-sm">
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[var(--verde)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                Presencial ou online
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[var(--verde)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                Semanal ou quinzenal
+              </li>
+            </ul>
+          </div>
+
+          <div class="card animate-on-scroll stagger-2">
+            <h3 class="text-xl font-['Lora'] text-[var(--fg)] mb-6">Sessao de Casal</h3>
+            <p class="text-3xl font-['Lora'] text-[var(--accent)] mb-4">R$ 280,00</p>
+            <p class="text-[var(--fg-muted)] text-sm mb-4">Duracao: 60-90 minutos</p>
+            <ul class="space-y-2 text-[var(--fg-muted)] text-sm">
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[var(--verde)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                Ambos presentes
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[var(--verde)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                Foco em comunicacao e vinculo
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-12 text-center animate-on-scroll">
+          <div class="bg-[var(--card-bg)] rounded-2xl p-8 border border-[var(--border)] max-w-2xl mx-auto">
+            <h4 class="font-['Lora'] text-lg text-[var(--fg)] mb-4">Formas de Pagamento</h4>
+            <div class="flex flex-wrap justify-center gap-4 mb-6">
+              <span class="px-4 py-2 bg-[var(--bg)] rounded-full text-sm text-[var(--fg-muted)]">PIX (5% desconto)</span>
+              <span class="px-4 py-2 bg-[var(--bg)] rounded-full text-sm text-[var(--fg-muted)]">Cartao ate 3x</span>
+              <span class="px-4 py-2 bg-[var(--bg)] rounded-full text-sm text-[var(--fg-muted)]">Transferencia</span>
+              <span class="px-4 py-2 bg-[var(--bg)] rounded-full text-sm text-[var(--fg-muted)]">Boleto</span>
+            </div>
+            <p class="text-sm text-[var(--fg-muted)]">
+              Valor social disponivel (vagas limitadas) | Reembolso por convenio orientado | Cancelamento ate 24h antes
+            </p>
+          </div>
+        </div>
+
+        <p class="text-center text-[var(--fg-muted)] mt-8 animate-on-scroll">
+          Investir em saude mental e o investimento mais importante que voce pode fazer.
+        </p>
+      </div>
+    </section>
+
+    <!-- Agendamento -->
+    <section class="py-24 relative overflow-hidden" id="agendamento">
+      <div class="absolute inset-0 bg-gradient-to-br from-[var(--lavenda)] via-[var(--verde)] to-[var(--creme)] opacity-10"></div>
+      <div class="max-w-4xl mx-auto px-6 relative z-10">
+        <div class="text-center mb-12 animate-on-scroll">
+          <h2 class="text-3xl md:text-4xl font-['Lora'] text-[var(--fg)] mb-4">Pronto(a) para comecar?</h2>
+          <p class="text-[var(--fg-muted)] text-lg">
+            O primeiro passo e sempre o mais corajoso. E eu estarei aqui quando voce der.
+          </p>
+        </div>
+
+        <form class="bg-[var(--card-bg)] rounded-3xl p-8 md:p-12 border border-[var(--border)] shadow-xl animate-on-scroll stagger-2" id="agendamentoForm">
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-[var(--fg)] mb-2" for="nome">Nome completo</label>
+              <input type="text" id="nome" name="nome" class="form-input" placeholder="Seu nome" required>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-[var(--fg)] mb-2" for="whatsapp">WhatsApp</label>
+              <input type="tel" id="whatsapp" name="whatsapp" class="form-input" placeholder="(11) 99999-9999" required>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-[var(--fg)] mb-2" for="email">E-mail</label>
+              <input type="email" id="email" name="email" class="form-input" placeholder="seu@email.com" required>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-[var(--fg)] mb-2" for="modalidade">Modalidade</label>
+              <select id="modalidade" name="modalidade" class="form-input">
+                <option value="">Selecione...</option>
+                <option value="individual">Individual</option>
+                <option value="casal">Casal</option>
+                <option value="adolescente">Adolescente</option>
+                <option value="orientacao-pais">Orientacao de pais</option>
+                <option value="nao-sei">Nao sei</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-[var(--fg)] mb-2" for="formato">Formato</label>
+              <select id="formato" name="formato" class="form-input">
+                <option value="">Selecione...</option>
+                <option value="presencial">Presencial</option>
+                <option value="online">Online</option>
+                <option value="indiferente">Indiferente</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-[var(--fg)] mb-2" for="horario">Horario preferido</label>
+              <select id="horario" name="horario" class="form-input">
+                <option value="">Selecione...</option>
+                <option value="manha">Manha</option>
+                <option value="tarde">Tarde</option>
+                <option value="noite">Noite</option>
+              </select>
+            </div>
+          </div>
+          <div class="mt-6">
+            <label class="block text-sm font-medium text-[var(--fg)] mb-2" for="mensagem">
+              O que te trouxe aqui? <span class="text-[var(--fg-muted)] font-normal">(opcional — so compartilhe se se sentir a vontade)</span>
+            </label>
+            <textarea id="mensagem" name="mensagem" rows="4" class="form-input" placeholder="Conte um pouco sobre voce..."></textarea>
+          </div>
+          <div class="mt-8">
+            <button type="submit" class="btn-primary w-full justify-center">
+              Enviar mensagem
+            </button>
+          </div>
+          <p class="text-center text-xs text-[var(--fg-muted)] mt-4">
+            Sigilo absoluto garantido por lei (CFP) | Sem compromisso | Seu ritmo, sempre
+          </p>
+        </form>
+      </div>
+    </section>
+
+    <!-- Depoimentos -->
+    <section class="py-24 bg-[var(--bg-alt)]" id="depoimentos">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16 animate-on-scroll">
+          <h2 class="section-title text-3xl md:text-4xl font-['Lora'] text-[var(--fg)] inline-block">O que dizem meus pacientes</h2>
+        </div>
+
+        <div class="relative overflow-hidden">
+          <div class="testimonial-track" id="testimonialTrack">
+            <!-- Testimonials will be populated by JS -->
+          </div>
+        </div>
+
+        <div class="flex justify-center gap-4 mt-8">
+          <button class="w-12 h-12 rounded-full border-2 border-[var(--border)] flex items-center justify-center hover:border-[var(--accent)] transition-colors" id="prevTestimonial" aria-label="Depoimento anterior">
+            <svg class="w-5 h-5 text-[var(--fg)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+          </button>
+          <button class="w-12 h-12 rounded-full border-2 border-[var(--border)] flex items-center justify-center hover:border-[var(--accent)] transition-colors" id="nextTestimonial" aria-label="Proximo depoimento">
+            <svg class="w-5 h-5 text-[var(--fg)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="mt-16 text-center animate-on-scroll">
+          <div class="flex flex-wrap justify-center gap-8">
+            <div>
+              <p class="text-3xl font-['Lora'] text-[var(--accent)] counter" data-target="10">0</p>
+              <p class="text-sm text-[var(--fg-muted)]">Anos de experiencia</p>
+            </div>
+            <div>
+              <p class="text-3xl font-['Lora'] text-[var(--accent)] counter" data-target="2000">0</p>
+              <p class="text-sm text-[var(--fg-muted)]">Sessoes realizadas</p>
+            </div>
+            <div>
+              <p class="text-3xl font-['Lora'] text-[var(--accent)] counter" data-target="500">0</p>
+              <p class="text-sm text-[var(--fg-muted)]">Pacientes atendidos</p>
+            </div>
+            <div>
+              <p class="text-3xl font-['Lora'] text-[var(--accent)]">4.9</p>
+              <p class="text-sm text-[var(--fg-muted)]">Avaliacao Google</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-center text-xs text-[var(--fg-muted)] mt-8 animate-on-scroll">
+          Depoimentos compartilhados voluntariamente. O sigilo terapeutico e inviolavel.
+        </p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-24" id="faq">
+      <div class="max-w-3xl mx-auto px-6">
+        <div class="text-center mb-16 animate-on-scroll">
+          <h2 class="section-title text-3xl md:text-4xl font-['Lora'] text-[var(--fg)] inline-block">Perguntas Frequentes</h2>
+        </div>
+
+        <div class="animate-on-scroll stagger-2" id="faqContainer">
+          <!-- FAQ items will be populated by JS -->
+        </div>
+
+        <p class="text-center text-[var(--fg-muted)] mt-12 animate-on-scroll">
+          Qualquer duvida, me mande uma mensagem. Sem formalidade, sem pressa.
+        </p>
+      </div>
+    </section>
+
+    <!-- Conteudo / Psicoeducacao -->
+    <section class="py-24 bg-[var(--bg-alt)]" id="conteudo">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16 animate-on-scroll">
+          <h2 class="section-title text-3xl md:text-4xl font-['Lora'] text-[var(--fg)] inline-block">Conteudo e Reflexoes</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="conteudoGrid">
+          <!-- Content cards will be populated by JS -->
+        </div>
+
+        <div class="text-center mt-12 animate-on-scroll">
+          <a href="#" class="btn-outline">Ver todos os conteudos</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Para Empresas -->
+    <section class="py-24" id="empresas">
+      <div class="max-w-4xl mx-auto px-6">
+        <div class="bg-gradient-to-br from-[var(--lavenda)] to-[var(--verde)] rounded-3xl p-8 md:p-12 text-white animate-on-scroll">
+          <h2 class="text-3xl md:text-4xl font-['Lora'] mb-6">Para Empresas</h2>
+          <p class="opacity-90 mb-8 leading-relaxed">
+            Ofereco atendimentos corporativos para promover a saude mental no ambiente de trabalho. Palestras, rodas de conversa, atendimento para colaboradores e consultoria em saude mental organizacional.
+          </p>
+          <div class="grid sm:grid-cols-2 gap-4 mb-8">
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"/>
+              </svg>
+              <span>Palestras sobre saude mental</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"/>
+              </svg>
+              <span>Grupos terapeuticos</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"/>
+              </svg>
+              <span>Prevencao ao burnout</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"/>
+              </svg>
+              <span>Programas de qualidade de vida</span>
+            </div>
+          </div>
+          <a href="#contato" class="inline-flex items-center gap-2 bg-white text-[var(--grafite)] px-8 py-4 rounded-full font-semibold hover:bg-opacity-90 transition-all">
+            Solicite uma proposta
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recursos de Crise -->
+    <section class="py-16 bg-[var(--grafite)]" id="crise">
+      <div class="max-w-4xl mx-auto px-6 text-center">
+        <h2 class="text-2xl font-['Lora'] text-white mb-4">Se voce esta em crise</h2>
+        <p class="text-gray-300 mb-8">
+          Se voce ou alguem que voce conhece esta em crise, busque ajuda imediatamente. Voce nao esta sozinho(a).
+        </p>
+        <div class="grid sm:grid-cols-3 gap-6">
+          <div class="bg-white bg-opacity-10 rounded-2xl p-6">
+            <p class="text-2xl font-['Lora'] text-white mb-2">CVV</p>
+            <p class="text-xl text-[var(--lavenda)]">188</p>
+            <p class="text-sm text-gray-400 mt-2">24 horas</p>
+          </div>
+          <div class="bg-white bg-opacity-10 rounded-2xl p-6">
+            <p class="text-2xl font-['Lora'] text-white mb-2">SAMU</p>
+            <p class="text-xl text-[var(--lavenda)]">192</p>
+            <p class="text-sm text-gray-400 mt-2">Emergencias</p>
+          </div>
+          <div class="bg-white bg-opacity-10 rounded-2xl p-6">
+            <p class="text-2xl font-['Lora'] text-white mb-2">CVV Online</p>
+            <p class="text-[var(--lavenda)]">cvv.org.br</p>
+            <p class="text-sm text-gray-400 mt-2">Chat 24h</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Consultorio -->
+    <section class="py-24" id="consultorio">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16 animate-on-scroll">
+          <h2 class="section-title text-3xl md:text-4xl font-['Lora'] text-[var(--fg)] inline-block">O Consultorio</h2>
+          <p class="text-[var(--fg-muted)] mt-6 max-w-2xl mx-auto">
+            Um espaco pensado para voce se sentir em casa
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 animate-on-scroll stagger-2">
+          <div class="gallery-item aspect-square">
+            <img src="https://images.unsplash.com/photo-1587582423116-ec07293f0395?w=500&h=500&fit=crop" alt="Sala de espera acolhedora" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <div class="gallery-item aspect-square">
+            <img src="https://images.unsplash.com/photo-1544660166-4454d2f2b808?w=500&h=500&fit=crop" alt="Consultorio com poltronas confortaveis" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <div class="gallery-item aspect-square">
+            <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=500&h=500&fit=crop" alt="Detalhes do ambiente" class="w-full h-full object-cover" loading="lazy">
+          </div>
+        </div>
+
+        <div class="mt-8 bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)] animate-on-scroll">
+          <p class="text-[var(--fg-muted)] text-center">
+            <strong class="text-[var(--fg)]">Atendimento online:</strong> Plataforma segura, criptografada, confortavel — como se estivessemos na mesma sala.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contato -->
+    <section class="py-24 bg-[var(--bg-alt)]" id="contato">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-16">
+          <div class="animate-on-scroll">
+            <h2 class="section-title text-3xl md:text-4xl font-['Lora'] text-[var(--fg)]">Entre em Contato</h2>
+            <p class="text-[var(--fg-muted)] mt-6 mb-8">
+              Tire suas duvidas ou agende sua primeira sessao. Respondo pessoalmente todas as mensagens.
+            </p>
+
+            <div class="space-y-6">
+              <a href="https://wa.me/5511999999999?text=Ola!%20Gostaria%20de%20saber%20mais%20sobre%20atendimento%20psicologico" class="flex items-center gap-4 group" target="_blank" rel="noopener">
+                <div class="w-14 h-14 rounded-2xl bg-[#25D366] bg-opacity-10 flex items-center justify-center group-hover:bg-opacity-20 transition-colors">
+                  <svg class="w-6 h-6 text-[#25D366]" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-medium text-[var(--fg)]">WhatsApp</p>
+                  <p class="text-[var(--fg-muted)]">(11) 99999-9999</p>
+                </div>
+              </a>
+
+              <a href="mailto:contato@dramarina.com.br" class="flex items-center gap-4 group">
+                <div class="w-14 h-14 rounded-2xl bg-[var(--accent)] bg-opacity-10 flex items-center justify-center group-hover:bg-opacity-20 transition-colors">
+                  <svg class="w-6 h-6 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-medium text-[var(--fg)]">E-mail</p>
+                  <p class="text-[var(--fg-muted)]">contato@dramarina.com.br</p>
+                </div>
+              </a>
+
+              <div class="flex items-center gap-4">
+                <div class="w-14 h-14 rounded-2xl bg-[var(--accent)] bg-opacity-10 flex items-center justify-center">
+                  <svg class="w-6 h-6 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-medium text-[var(--fg)]">Endereco</p>
+                  <p class="text-[var(--fg-muted)]">Rua das Flores, 123 - Jardim Paulista, Sao Paulo - SP</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex gap-4 mt-8">
+              <a href="#" class="w-12 h-12 rounded-full bg-[var(--bg)] border border-[var(--border)] flex items-center justify-center hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors" aria-label="Instagram">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+              </a>
+              <a href="#" class="w-12 h-12 rounded-full bg-[var(--bg)] border border-[var(--border)] flex items-center justify-center hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors" aria-label="LinkedIn">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="animate-on-scroll stagger-2">
+            <form class="bg-[var(--card-bg)] rounded-3xl p-8 border border-[var(--border)]" id="contatoForm">
+              <div class="space-y-6">
+                <div>
+                  <label class="block text-sm font-medium text-[var(--fg)] mb-2" for="contato-nome">Nome</label>
+                  <input type="text" id="contato-nome" class="form-input" placeholder="Seu nome" required>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-[var(--fg)] mb-2" for="contato-email">E-mail</label>
+                  <input type="email" id="contato-email" class="form-input" placeholder="seu@email.com" required>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-[var(--fg)] mb-2" for="contato-assunto">Assunto</label>
+                  <select id="contato-assunto" class="form-input">
+                    <option value="agendar">Agendar sessao</option>
+                    <option value="duvida">Duvida</option>
+                    <option value="empresa">Empresa</option>
+                    <option value="parceria">Parceria</option>
+                    <option value="outro">Outro</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-[var(--fg)] mb-2" for="contato-mensagem">Mensagem</label>
+                  <textarea id="contato-mensagem" rows="4" class="form-input" placeholder="Sua mensagem..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary w-full justify-center">Enviar mensagem</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Localizacao -->
+    <section class="py-24" id="localizacao">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16 animate-on-scroll">
+          <h2 class="section-title text-3xl md:text-4xl font-['Lora'] text-[var(--fg)] inline-block">Localizacao</h2>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-8 items-center">
+          <div class="animate-on-scroll">
+            <div class="bg-[var(--card-bg)] rounded-3xl overflow-hidden h-80">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.1976019670817!2d-46.67242902374028!3d-23.561689061674!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c7dbae5555%3A0x94ce59c7dbae5555!2sJardim%20Paulista%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1234567890"
+                class="w-full h-full border-0"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Localizacao do consultorio">
+              </iframe>
+            </div>
+          </div>
+
+          <div class="animate-on-scroll stagger-2">
+            <h3 class="text-xl font-['Lora'] text-[var(--fg)] mb-6">Informacoes do Consultorio</h3>
+            <div class="space-y-4">
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-full bg-[var(--accent)] bg-opacity-10 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-medium text-[var(--fg)]">Endereco</p>
+                  <p class="text-[var(--fg-muted)]">Rua das Flores, 123 - Conj. 45<br>Jardim Paulista, Sao Paulo - SP</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-full bg-[var(--accent)] bg-opacity-10 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-medium text-[var(--fg)]">Horarios</p>
+                  <p class="text-[var(--fg-muted)]">Segunda a Sexta: 8h - 20h<br>Sabado: 8h - 14h</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-full bg-[var(--accent)] bg-opacity-10 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-medium text-[var(--fg)]">Facilidades</p>
+                  <p class="text-[var(--fg-muted)]">Estacionamento proximo | Acessibilidade | WiFi</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex gap-4 mt-8">
+              <a href="https://maps.google.com" target="_blank" rel="noopener" class="btn-outline flex-1 justify-center">
+                Google Maps
+              </a>
+              <a href="https://waze.com" target="_blank" rel="noopener" class="btn-outline flex-1 justify-center">
+                Waze
+              </a>
+            </div>
+
+            <p class="text-center text-[var(--fg-muted)] text-sm mt-6">
+              Atendimento online para todo o Brasil — e brasileiros no exterior
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[var(--grafite)] text-white py-16">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        <div>
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--lavenda)] to-[var(--verde)] flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+              </svg>
+            </div>
+            <div>
+              <span class="font-['Lora'] text-lg">Dra. Marina Oliveira</span>
+              <span class="block text-xs text-gray-400">CRP 06/123456</span>
+            </div>
+          </div>
+          <p class="text-gray-400 text-sm">
+            Um espaco seguro para ser quem voce e.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-['Lora'] mb-4">Links Rapidos</h4>
+          <nav class="space-y-2">
+            <a href="#sobre" class="block text-gray-400 hover:text-white transition-colors text-sm">Sobre</a>
+            <a href="#como-posso-ajudar" class="block text-gray-400 hover:text-white transition-colors text-sm">Como posso ajudar</a>
+            <a href="#agendamento" class="block text-gray-400 hover:text-white transition-colors text-sm">Agendamento</a>
+            <a href="#faq" class="block text-gray-400 hover:text-white transition-colors text-sm">FAQ</a>
+          </nav>
+        </div>
+
+        <div>
+          <h4 class="font-['Lora'] mb-4">Contato</h4>
+          <div class="space-y-2 text-sm text-gray-400">
+            <p>(11) 99999-9999</p>
+Continuando de onde parei, no footer:
+
+```html
+            <p>contato@dramarina.com.br</p>
+            <p>Rua das Flores, 123 - Jardim Paulista<br>Sao Paulo - SP</p>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="font-['Lora'] mb-4">Newsletter</h4>
+          <p class="text-gray-400 text-sm mb-4">Receba reflexoes e dicas de saude mental</p>
+          <form class="flex gap-2" id="newsletterForm">
+            <input type="email" placeholder="seu@email.com" class="flex-1 px-4 py-2 rounded-full bg-white bg-opacity-10 border border-white border-opacity-20 text-white placeholder-gray-400 text-sm focus:outline-none focus:border-opacity-50" required>
+            <button type="submit" class="w-10 h-10 rounded-full bg-[var(--accent)] flex items-center justify-center hover:bg-[var(--verde)] transition-colors" aria-label="Inscrever">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Crisis resources -->
+      <div class="border-t border-white border-opacity-10 pt-8 mb-8">
+        <div class="flex flex-wrap justify-center gap-6 text-sm">
+          <span class="text-gray-400">Precisa de ajuda imediata?</span>
+          <a href="tel:188" class="text-[var(--lavenda)] hover:text-white transition-colors font-medium">CVV 188 (24h)</a>
+          <a href="https://cvv.org.br" target="_blank" rel="noopener" class="text-[var(--lavenda)] hover:text-white transition-colors">Chat CVV</a>
+        </div>
+      </div>
+
+      <div class="border-t border-white border-opacity-10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-xs text-gray-500 text-center md:text-left">
+          Este site tem carater informativo e nao substitui atendimento psicologico. Psicologa inscrita no CRP/06 sob nº 123456. Sigilo garantido conforme Codigo de Etica do CFP.
+        </p>
+        <div class="flex gap-6 text-xs text-gray-500">
+          <a href="#" class="hover:text-white transition-colors">Politica de Privacidade</a>
+          <a href="#" class="hover:text-white transition-colors">LGPD</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Buttons -->
+  <a href="https://wa.me/5511999999999?text=Ola!%20Gostaria%20de%20saber%20mais%20sobre%20atendimento%20psicologico" class="floating-btn whatsapp-btn" target="_blank" rel="noopener" aria-label="Contato via WhatsApp" title="Agende sua sessao">
+    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <button class="floating-btn top-btn" id="topBtn" aria-label="Voltar ao topo">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+    </svg>
+  </button>
+
+  <button class="floating-btn theme-toggle" id="themeToggle" aria-label="Alternar tema">
+    <svg class="w-5 h-5 sun-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+    </svg>
+    <svg class="w-5 h-5 moon-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+    </svg>
+  </button>
+
+  <!-- CTA Bar -->
+  <div class="cta-bar" id="ctaBar">
+    <span class="text-sm text-[var(--fg-muted)]">Pronto(a) para o primeiro passo?</span>
+    <a href="#agendamento" class="btn-primary text-sm py-3 px-6">Agende sua sessao</a>
+  </div>
+
+  <!-- Success Overlay -->
+  <div class="success-overlay" id="successOverlay">
+    <div class="success-content">
+      <svg class="w-16 h-16 mx-auto mb-6 text-[var(--verde)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      <h3 class="text-2xl font-['Lora'] text-[var(--fg)] mb-4">Mensagem enviada!</h3>
+      <p class="text-[var(--fg-muted)] mb-6">Recebemos seu contato. Responderemos com carinho em ate poucas horas.</p>
+      <button class="btn-primary" id="closeSuccess">Entendi</button>
+    </div>
+  </div>
+
+  <script>
+    // Data
+    const queixas = [
+      { icon: 'brain', title: 'Ansiedade e crises de panico', desc: 'Pensamentos acelerados, preocupacao constante, sensacao de sufocamento, medo sem motivo aparente' },
+      { icon: 'cloud', title: 'Depressao e tristeza profunda', desc: 'Falta de energia, desinteresse, choro frequente, sensacao de vazio' },
+      { icon: 'heart', title: 'Autoestima e autoconhecimento', desc: 'Inseguranca, comparacao, autocritica excessiva, dificuldade de se aceitar' },
+      { icon: 'users', title: 'Relacionamentos e conflitos', desc: 'Dificuldade de comunicacao, dependencia emocional, termos, ciumes, solidao' },
+      { icon: 'droplet', title: 'Luto e perdas', desc: 'Morte de entes queridos, termino, perda de emprego, mudancas dificeis' },
+      { icon: 'flame', title: 'Estresse e burnout', desc: 'Esgotamento profissional, sobrecarga, dificuldade de desligar, insonia' },
+      { icon: 'shield', title: 'Traumas e TEPT', desc: 'Experiencias traumaticas, flashbacks, hipervigilancia, evitacao' },
+      { icon: 'compass', title: 'Transicoes de vida', desc: 'Mudanca de carreira, maternidade/paternidade, aposentadoria, divorcio' },
+      { icon: 'home', title: 'Dificuldades familiares', desc: 'Conflitos com pais/filhos, limites, papeis familiares, comunicacao' },
+      { icon: 'eye', title: 'Fobias e medos especificos', desc: 'Medo de dirigir, fobia social, agorafobia, medo de aviao' },
+      { icon: 'repeat', title: 'Compulsoes e habitos', desc: 'Comer emocional, compras compulsivas, procrastinacao cronica, vicios digitais' },
+      { icon: 'star', title: 'Desenvolvimento pessoal', desc: 'Inteligencia emocional, proposito, tomada de decisao, assertividade' }
+    ];
+
+    const modalidades = [
+      { icon: 'user', title: 'Terapia Individual', desc: 'Sessoes de 50min, semanal ou quinzenal, presencial ou online', para: 'Adultos' },
+      { icon: 'heart', title: 'Terapia de Casal', desc: 'Sessoes de 60-90min, com ambos presentes, foco em comunicacao e vinculo', para: 'Casais' },
+      { icon: 'smile', title: 'Terapia para Adolescentes', desc: 'Abordagem adaptada, espaco seguro, envolvimento dos pais quando necessario', para: '12-17 anos' },
+      { icon: 'monitor', title: 'Terapia Online', desc: 'Por videoconferencia (plataforma segura), mesma qualidade do presencial', para: 'Todo o Brasil' },
+      { icon: 'users', title: 'Orientacao de Pais', desc: 'Sessoes focadas em parentalidade, limites, comunicacao com filhos', para: 'Pais e responsaveis' },
+      { icon: 'clock', title: 'Psicoterapia Breve', desc: 'Protocolo curto para queixas especificas (6-12 sessoes)', para: 'Demandas especificas' }
+    ];
+
+    const steps = [
+      { num: '1', title: 'O primeiro passo', desc: 'Voce entra em contato (WhatsApp, formulario). Sem julgamento, sem pressa. Respondemos com acolhimento.', icon: 'seed' },
+      { num: '2', title: 'Primeira sessao', desc: 'Nos conhecemos. Voce conta o que te trouxe, no seu ritmo. Eu escuto. Definimos juntos os caminhos.', icon: 'sprout' },
+      { num: '3', title: 'Sessoes regulares', desc: 'Semanais ou quinzenais. Cada sessao e um passo. Ha dias faceis e dificeis — tudo faz parte.', icon: 'leaf' },
+      { num: '4', title: 'Evolucao gradual', desc: 'Voce comeca a perceber mudancas: no olhar sobre si, nas relacoes, nas reacoes, na leveza.', icon: 'flower' },
+      { num: '5', title: 'Autonomia', desc: 'O objetivo da terapia e que voce nao precise mais dela. Quando chegar a hora, saberemos juntos.', icon: 'tree' }
+    ];
+
+    const testimonials = [
+      { name: 'A.M.', type: 'Terapia individual — 8 meses', text: 'Eu nao sabia que podia me sentir leve de novo. A Dra. Marina me ajudou a encontrar caminhos que eu nao via.' },
+      { name: 'R.S.', type: 'Terapia de casal — 6 meses', text: 'Salvou meu casamento. Aprendemos a nos comunicar de verdade e a respeitar nossas diferencas.' },
+      { name: 'J.P.', type: 'Ansiedade — 1 ano', text: 'Pela primeira vez em anos, consigo dormir sem pensamentos acelerados. A terapia mudou minha vida.' },
+      { name: 'M.L.', type: 'Luto — 4 meses', text: 'Apos perder meu pai, achei que nunca mais seria a mesma. Aprendi que o luto tem seu tempo e fui acolhida.' },
+      { name: 'C.F.', type: 'Autoestima — 10 meses', text: 'Descobri quem eu realmente sou, sem mascara. Hoje me aceito e me amo de uma forma que nunca imaginei.' }
+    ];
+
+    const faqData = [
+      { q: 'Preciso ter um problema grave para ir ao psicologo?', a: 'Nao! Terapia e para qualquer pessoa que deseja se conhecer melhor, lidar com emocoes dificeis ou simplesmente ter um espaco de fala acolhedor. Nao e preciso estar em crise para buscar ajuda.' },
+      { q: 'Como funciona a primeira sessao?', a: 'A primeira sessao e um momento de acolhimento e conhecimento mutuo. Voce contara um pouco sobre voce e o que te trouxe, sem pressa. Eu explicarei como funciona o processo e tirarei todas as suas duvidas.' },
+      { q: 'Quanto tempo dura o processo terapeutico?', a: 'Depende de cada pessoa e de cada demanda. Alguns objetivos sao alcancados em poucos meses, outros pedem mais tempo. O importante e que voce siga no seu ritmo.' },
+      { q: 'Qual a diferenca entre psicologo e psiquiatra?', a: 'O psicologo trabalha com a terapia (conversa, tecnicas, acolhimento). O psiquiatra e medico e pode prescrever medicamentos. Muitas vezes, os dois profissionais trabalham juntos.' },
+      { q: 'Terapia online funciona?', a: 'Sim! Estudos cientificos mostram que a terapia online tem a mesma eficacia da presencial. O importante e a relacao terapeutica, que pode ser construida a distancia.' },
+      { q: 'As sessoes sao sigilosas?', a: 'Absolutamente. O sigilo e garantido por lei e pelo Codigo de Etica do CFP. Nada do que voce falar sai da sala (exceto em situacoes extremas previstas em lei).' },
+      { q: 'Como sei se voce e a psicologa certa pra mim?', a: 'A conexao terapeutica e muito pessoal. Na primeira sessao, voce sentira se ha empatia e confianca. E perfeitamente valido experimentar antes de decidir.' },
+      { q: 'Posso trocar de psicologo se nao me adaptar?', a: 'Sim! A relacao terapeutica precisa funcionar para ambos. Se voce nao se sentir a vontade, conversaremos sobre isso com respeito e te ajudarei a encontrar outro profissional se for o caso.' },
+      { q: 'Voces aceitam convenio?', a: 'Atendo particular, mas emito recibos para reembolso. Oriento como solicitar junto ao seu plano de saude.' },
+      { q: 'E se eu chorar na sessao?', a: 'Aqui e lugar de chorar, sim. E de rir, refletir, desabafar. Tudo e bem-vindo. Emocoes sao bem-vindas neste espaco seguro.' },
+      { q: 'Com que frequencia devo ir?', a: 'Geralmente, sessoes semanais sao indicadas no inicio. Depois, podemos ajustar conforme sua evolucao e necessidade.' },
+      { q: 'Posso trazer alguem para a sessao?', a: 'Para terapia individual, a sessao e individual mesmo. Se quiser incluir familiares ou parceiro/a, podemos marcar sessoes especificas para isso.' }
+    ];
+
+    const conteudos = [
+      { img: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&h=250&fit=crop', title: 'Ansiedade: o que e normal e quando buscar ajuda', desc: 'Entenda a diferenca entre ansiedade saudavel e quando ela se torna um problema' },
+      { img: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=250&fit=crop', title: '5 sinais de que voce precisa de terapia', desc: 'Reconhecer que precisa de ajuda e o primeiro passo para a mudanca' },
+      { img: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=250&fit=crop', title: 'Como escolher seu psicologo', desc: 'Dicas para encontrar o profissional ideal para voce' },
+      { img: 'https://images.unsplash.com/photo-1512438248247-f0f2a5a8b7f0?w=400&h=250&fit=crop', title: 'O que acontece na primeira sessao', desc: 'Desmistificando o processo terapeutico desde o inicio' },
+      { img: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400&h=250&fit=crop', title: 'Terapia online funciona mesmo?', desc: 'Tudo o que voce precisa saber sobre atendimento a distancia' },
+      { img: 'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=400&h=250&fit=crop', title: 'Autocuidado nao e egoismo', desc: 'A importancia de cuidar de si mesmo para cuidar dos outros' }
+    ];
+
+    // Icons SVG
+    const icons = {
+      brain: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>',
+      cloud: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>',
+      heart: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>',
+      users: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>',
+      droplet: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 21c-4.418 0-8-3.134-8-7 0-4.5 8-11 8-11s8 6.5 8 11c0 3.866-3.582 7-8 7z"/>',
+      flame: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/>',
+      shield: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>',
+      compass: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>',
+      home: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>',
+      eye: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>',
+      repeat: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>',
+      star: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>',
+      user: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>',
+      smile: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>',
+      monitor: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>',
+      clock: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>',
+      seed: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19V5m0 0c-1.5 1.5-4 2-4 2s.5 2.5 4 4m0-6c1.5 1.5 4 2 4 2s-.5 2.5-4 4"/>',
+      sprout: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19V8m0 0c-2-2-5-2-7 0 2 2 5 2 7 0zm0 0c2-2 5-2 7 0-2 2-5 2-7 0z"/>',
+      leaf: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 21c.5-4.5 2.5-8 9-9-2 4-3 6.5-1 9m5-18c-3 1-6 4-6 9 0 4 2 7 5 9"/>',
+      flower: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15a3 3 0 100-6 3 3 0 000 6zm0 0v6m0-12V3m6 9h-6m0 0H6"/>',
+      tree: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 22v-6m0 0l-4-4m4 4l4-4m-8 0c0-2 2-4 4-4s4 2 4 4m-8 0H5m14 0h-3"/>'
+    };
+
+    function getIcon(name) {
+      return `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">${icons[name] || icons.heart}</svg>`;
+    }
+
+    // DOM Ready
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize components
+      initQueixas();
+      initModalidades();
+      initSteps();
+      initTestimonials();
+      initFAQ();
+      initConteudos();
+      initScrollAnimations();
+      initCounters();
+      initHeader();
+      initMobileMenu();
+      initThemeToggle();
+      initForms();
+      initScrollToTop();
+      initCTABar();
+    });
+
+    // Render Queixas
+    function initQueixas() {
+      const grid = document.getElementById('queixasGrid');
+      if (!grid) return;
+
+      queixas.forEach((q, i) => {
+        const card = document.createElement('div');
+        card.className = `card animate-on-scroll stagger-${(i % 6) + 1}`;
+        card.innerHTML = `
+          <div class="w-14 h-14 rounded-2xl bg-[var(--accent)] bg-opacity-10 flex items-center justify-center text-[var(--accent)] mb-4">
+            ${getIcon(q.icon)}
+          </div>
+          <h3 class="font-['Lora'] text-lg text-[var(--fg)] mb-2">${q.title}</h3>
+          <p class="text-sm text-[var(--fg-muted)] mb-4">${q.desc}</p>
+          <a href="#agendamento" class="text-sm text-[var(--accent)] hover:text-[var(--accent-hover)] transition-colors font-medium">Quero conversar sobre isso</a>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // Render Modalidades
+    function initModalidades() {
+      const grid = document.getElementById('modalidadesGrid');
+      if (!grid) return;
+
+      modalidades.forEach((m, i) => {
+        const card = document.createElement('div');
+        card.className = `card animate-on-scroll stagger-${(i % 6) + 1}`;
+        card.innerHTML = `
+          <div class="w-14 h-14 rounded-2xl bg-[var(--verde)] bg-opacity-10 flex items-center justify-center text-[var(--verde)] mb-4">
+            ${getIcon(m.icon)}
+          </div>
+          <span class="text-xs text-[var(--accent)] font-medium">${m.para}</span>
+          <h3 class="font-['Lora'] text-lg text-[var(--fg)] mt-1 mb-2">${m.title}</h3>
+          <p class="text-sm text-[var(--fg-muted)] mb-4">${m.desc}</p>
+          <a href="#agendamento" class="btn-primary text-sm py-2 px-4">Agendar</a>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // Render Steps
+    function initSteps() {
+      const container = document.getElementById('stepsContainer');
+      if (!container) return;
+
+      steps.forEach((s, i) => {
+        const step = document.createElement('div');
+        step.className = 'flex gap-6 animate-on-scroll stagger-' + (i + 1);
+        step.innerHTML = `
+          <div class="relative">
+            ${i < steps.length - 1 ? '<div class="step-line"></div>' : ''}
+            <div class="step-dot">${s.num}</div>
+          </div>
+          <div class="pb-12">
+            <h3 class="font-['Lora'] text-xl text-[var(--fg)] mb-2">${s.title}</h3>
+            <p class="text-[var(--fg-muted)]">${s.desc}</p>
+          </div>
+        `;
+        container.appendChild(step);
+      });
+    }
+
+    // Render Testimonials
+    function initTestimonials() {
+      const track = document.getElementById('testimonialTrack');
+      if (!track) return;
+
+      testimonials.forEach((t, i) => {
+        const card = document.createElement('div');
+        card.className = 'testimonial-card card';
+        card.innerHTML = `
+          <div class="flex items-center gap-1 text-yellow-500 mb-4">
+            ${'<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>'.repeat(5)}
+          </div>
+          <p class="text-[var(--fg-muted)] mb-6 italic">"${t.text}"</p>
+          <div>
+            <p class="font-medium text-[var(--fg)]">${t.name}</p>
+            <p class="text-sm text-[var(--fg-muted)]">${t.type}</p>
+          </div>
+        `;
+        track.appendChild(card);
+      });
+
+      // Carousel navigation
+      let currentSlide = 0;
+      const prevBtn = document.getElementById('prevTestimonial');
+      const nextBtn = document.getElementById('nextTestimonial');
+
+      function updateCarousel() {
+        const cardWidth = track.querySelector('.testimonial-card').offsetWidth + 24;
+        track.style.transform = `translateX(-${currentSlide * cardWidth}px)`;
+      }
+
+      if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => {
+          currentSlide = Math.max(0, currentSlide - 1);
+          updateCarousel();
+        });
+
+        nextBtn.addEventListener('click', () => {
+          const maxSlides = testimonials.length - Math.floor(track.parentElement.offsetWidth / (track.querySelector('.testimonial-card').offsetWidth + 24));
+          currentSlide = Math.min(maxSlides, currentSlide + 1);
+          updateCarousel();
+        });
+      }
+    }
+
+    // Render FAQ
+    function initFAQ() {
+      const container = document.getElementById('faqContainer');
+      if (!container) return;
+
+      faqData.forEach((f, i) => {
+        const item = document.createElement('div');
+        item.className = 'faq-item';
+        item.innerHTML = `
+          <button class="faq-question" aria-expanded="false">
+            <span>${f.q}</span>
+            <svg class="faq-icon w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p class="text-[var(--fg-muted)]">${f.a}</p>
+          </div>
+        `;
+
+        const btn = item.querySelector('.faq-question');
+        btn.addEventListener('click', () => {
+          const isActive = item.classList.contains('active');
+          container.querySelectorAll('.faq-item').forEach(fi => fi.classList.remove('active'));
+          if (!isActive) {
+            item.classList.add('active');
+            btn.setAttribute('aria-expanded', 'true');
+          } else {
+            btn.setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        container.appendChild(item);
+      });
+    }
+
+    // Render Conteudos
+    function initConteudos() {
+      const grid = document.getElementById('conteudoGrid');
+      if (!grid) return;
+
+      conteudos.forEach((c, i) => {
+        const card = document.createElement('article');
+        card.className = `card p-0 overflow-hidden animate-on-scroll stagger-${(i % 6) + 1}`;
+        card.innerHTML = `
+          <img src="${c.img}" alt="${c.title}" class="w-full h-40 object-cover" loading="lazy">
+          <div class="p-6">
+            <h3 class="font-['Lora'] text-[var(--fg)] mb-2">${c.title}</h3>
+            <p class="text-sm text-[var(--fg-muted)] mb-4">${c.desc}</p>
+            <a href="#" class="text-sm text-[var(--accent)] hover:text-[var(--accent-hover)] transition-colors font-medium">Ler</a>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // Scroll Animations
+    function initScrollAnimations() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+      document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        observer.observe(el);
+      });
+    }
+
+    // Counter Animation
+    function initCounters() {
+      const counters = document.querySelectorAll('.counter');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const counter = entry.target;
+            const target = parseInt(counter.dataset.target);
+            const duration = 2000;
+            const step = target / (duration / 16);
+            let current = 0;
+
+            const updateCounter = () => {
+              current += step;
+              if (current < target) {
+                counter.textContent = Math.floor(current).toLocaleString('pt-BR');
+                requestAnimationFrame(updateCounter);
+              } else {
+                counter.textContent = target.toLocaleString('pt-BR') + '+';
+              }
+            };
+            updateCounter();
+            observer.unobserve(counter);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      counters.forEach(c => observer.observe(c));
+    }
+
+    // Header
+    function initHeader() {
+      const header = document.getElementById('header');
+      let lastScroll = 0;
+
+      window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        if (currentScroll > 100) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+        lastScroll = currentScroll;
+      }, { passive: true });
+    }
+
+    // Mobile Menu
+    function initMobileMenu() {
+      const toggle = document.getElementById('menuToggle');
+      const close = document.getElementById('menuClose');
+      const menu = document.getElementById('mobileMenu');
+      const links = menu.querySelectorAll('a');
+
+      toggle.addEventListener('click', () => {
+        menu.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+
+      close.addEventListener('click', () => {
+        menu.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          menu.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+      });
+    }
+
+    // Theme Toggle
+    function initThemeToggle() {
+      const toggle = document.getElementById('themeToggle');
+      const sunIcon = toggle.querySelector('.sun-icon');
+      const moonIcon = toggle.querySelector('.moon-icon');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+      function setTheme(theme) {
+        if (theme === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          sunIcon.classList.add('hidden');
+          moonIcon.classList.remove('hidden');
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+          sunIcon.classList.remove('hidden');
+          moonIcon.classList.add('hidden');
+        }
+        localStorage.setItem('theme', theme);
+      }
+
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        setTheme(savedTheme);
+      } else if (prefersDark.matches) {
+        setTheme('dark');
+      }
+
+      toggle.addEventListener('click', () => {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        setTheme(isDark ? 'light' : 'dark');
+      });
+    }
+
+    // Forms
+    function initForms() {
+      const forms = ['agendamentoForm', 'contatoForm', 'newsletterForm'];
+      const overlay = document.getElementById('successOverlay');
+      const closeBtn = document.getElementById('closeSuccess');
+
+      forms.forEach(formId => {
+        const form = document.getElementById(formId);
+        if (form) {
+          form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            overlay.classList.add('active');
+            form.reset();
+          });
+        }
+      });
+
+      closeBtn.addEventListener('click', () => {
+        overlay.classList.remove('active');
+      });
+
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+          overlay.classList.remove('active');
+        }
+      });
+    }
+
+    // Scroll to Top
+    function initScrollToTop() {
+      const btn = document.getElementById('topBtn');
+
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 500) {
+          btn.classList.add('visible');
+        } else {
+          btn.classList.remove('visible');
+        }
+      }, { passive: true });
+
+      btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // CTA Bar
+    function initCTABar() {
+      const ctaBar = document.getElementById('ctaBar');
+      const hero = document.getElementById('hero');
+
+      window.addEventListener('scroll', () => {
+        const heroBottom = hero.offsetTop + hero.offsetHeight;
+        if (window.pageYOffset > heroBottom - 200) {
+          ctaBar.classList.add('visible');
+        } else {
+          ctaBar.classList.remove('visible');
+        }
+      }, { passive: true });
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          const headerOffset = 100;
+          const elementPosition = target.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

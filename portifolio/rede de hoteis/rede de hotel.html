@@ -1,0 +1,3303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAISON Collection — Hotéis de Luxo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        :root {
+            --gold: #C9A96E;
+            --gold-light: #D4BC8A;
+            --gold-dark: #A88B4A;
+            --pearl: #FAF8F5;
+            --pearl-muted: #F0EDE8;
+            --navy: #0C1B33;
+            --navy-light: #162540;
+            --navy-muted: #1E3A5F;
+            --sand: #E8DFD0;
+            --sand-light: #F5F0E6;
+            --emerald: #2D6A4F;
+            --emerald-light: #40916C;
+            --graphite: #4A4A4A;
+            --graphite-light: #6B6B6B;
+            
+            --bg-primary: var(--pearl);
+            --bg-secondary: var(--pearl-muted);
+            --bg-card: #FFFFFF;
+            --text-primary: var(--navy);
+            --text-secondary: var(--graphite);
+            --text-muted: var(--graphite-light);
+            --border: rgba(201, 169, 110, 0.3);
+            --border-strong: var(--gold);
+            --shadow-color: rgba(12, 27, 51, 0.1);
+            --overlay: rgba(12, 27, 51, 0.4);
+            --glass-bg: rgba(250, 248, 245, 0.85);
+            --glass-border: rgba(201, 169, 110, 0.2);
+            
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Outfit', system-ui, sans-serif;
+            
+            --transition-fast: 0.2s ease;
+            --transition-medium: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        [data-theme="dark"] {
+            --bg-primary: var(--navy);
+            --bg-secondary: var(--navy-light);
+            --bg-card: var(--navy-light);
+            --text-primary: var(--pearl);
+            --text-secondary: var(--sand);
+            --text-muted: var(--sand);
+            --border: rgba(201, 169, 110, 0.2);
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --overlay: rgba(0, 0, 0, 0.6);
+            --glass-bg: rgba(12, 27, 51, 0.9);
+            --glass-border: rgba(201, 169, 110, 0.15);
+        }
+        
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color var(--transition-medium), color var(--transition-medium);
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            font-weight: 400;
+            line-height: 1.2;
+        }
+        
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            max-width: 600px;
+        }
+        
+        .gold-text { color: var(--gold); }
+        .gold-gradient {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition-medium);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+            color: var(--navy);
+            border-radius: 0;
+        }
+        
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(201, 169, 110, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            border-radius: 0;
+        }
+        
+        .btn-outline:hover {
+            background: var(--gold);
+            color: var(--navy);
+        }
+        
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+        }
+        
+        .btn-ghost:hover {
+            color: var(--gold);
+        }
+        
+        /* Animated underline for links */
+        .link-underline {
+            position: relative;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .link-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width var(--transition-medium);
+        }
+        
+        .link-underline:hover::after {
+            width: 100%;
+        }
+        
+        /* Layout */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 clamp(1rem, 5vw, 3rem);
+        }
+        
+        section {
+            padding: clamp(4rem, 10vh, 8rem) 0;
+            position: relative;
+        }
+        
+        /* Decorative elements */
+        .ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .ornament-line {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+        
+        .ornament-diamond {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            transform: rotate(45deg);
+        }
+        
+        /* Background patterns */
+        .pattern-overlay {
+            position: absolute;
+            inset: 0;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30z' fill='none' stroke='%23C9A96E' stroke-width='0.5'/%3E%3C/svg%3E");
+            background-size: 60px 60px;
+        }
+        
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all var(--transition-medium);
+        }
+        
+        .header-top {
+            background: var(--navy);
+            color: var(--pearl);
+            padding: 0.5rem 0;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+        
+        .header-top-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .header-top a {
+            color: var(--pearl);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity var(--transition-fast);
+        }
+        
+        .header-top a:hover {
+            opacity: 1;
+            color: var(--gold);
+        }
+        
+        .header-main {
+            padding: 1rem 0;
+            transition: all var(--transition-medium);
+        }
+        
+        .header.scrolled .header-main {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--pearl);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            transition: color var(--transition-medium);
+        }
+        
+        .header.scrolled .logo {
+            color: var(--text-primary);
+        }
+        
+        .nav-desktop {
+            display: none;
+        }
+        
+        @media (min-width: 1024px) {
+            .nav-desktop {
+                display: flex;
+                align-items: center;
+                gap: 2.5rem;
+            }
+        }
+        
+        .nav-desktop a {
+            color: var(--pearl);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: color var(--transition-fast);
+            position: relative;
+        }
+        
+        .header.scrolled .nav-desktop a {
+            color: var(--text-primary);
+        }
+        
+        .nav-desktop a:hover {
+            color: var(--gold);
+        }
+        
+        .nav-desktop a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width var(--transition-medium);
+        }
+        
+        .nav-desktop a:hover::after {
+            width: 100%;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .header-btn {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.7rem;
+        }
+        
+        /* Mobile menu */
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+        
+        .menu-toggle span {
+            width: 24px;
+            height: 1.5px;
+            background: var(--pearl);
+            transition: all var(--transition-medium);
+        }
+        
+        .header.scrolled .menu-toggle span {
+            background: var(--text-primary);
+        }
+        
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+        
+        @media (min-width: 1024px) {
+            .menu-toggle { display: none; }
+        }
+        
+        .mobile-nav {
+            position: fixed;
+            inset: 0;
+            background: var(--navy);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-medium);
+        }
+        
+        .mobile-nav.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .mobile-nav a {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--pearl);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+        
+        .mobile-nav a:hover {
+            color: var(--gold);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            min-height: 700px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -2;
+        }
+        
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: kenBurns 20s ease-in-out infinite alternate;
+        }
+        
+        @keyframes kenBurns {
+            0% { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.1) translate(-2%, -2%); }
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(12, 27, 51, 0.7) 0%,
+                rgba(12, 27, 51, 0.4) 50%,
+                rgba(201, 169, 110, 0.2) 100%
+            );
+            z-index: -1;
+        }
+        
+        #particles-canvas {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: var(--pearl);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.5rem;
+            background: rgba(201, 169, 110, 0.15);
+            border: 1px solid rgba(201, 169, 110, 0.3);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.2s;
+            opacity: 0;
+        }
+        
+        .hero-title {
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.4s;
+            opacity: 0;
+        }
+        
+        .hero-title em {
+            font-style: italic;
+            color: var(--gold);
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-weight: 300;
+            opacity: 0.9;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.6s;
+            opacity: 0;
+        }
+        
+        .hero-ctas {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.8s;
+            opacity: 0;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gold);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Destinations Section */
+        .destinations {
+            background: var(--bg-secondary);
+        }
+        
+        .destinations-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .destinations-grid {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .destinations-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1200px) {
+            .destinations-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .destination-card {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .destination-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+        
+        .destination-card:hover img {
+            transform: scale(1.08);
+        }
+        
+        .destination-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(12, 27, 51, 0.9) 0%,
+                rgba(12, 27, 51, 0.3) 50%,
+                transparent 100%
+            );
+            transition: background var(--transition-medium);
+        }
+        
+        .destination-card:hover .destination-overlay {
+            background: linear-gradient(
+                to top,
+                rgba(12, 27, 51, 0.95) 0%,
+                rgba(201, 169, 110, 0.2) 50%,
+                rgba(201, 169, 110, 0.1) 100%
+            );
+        }
+        
+        .destination-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            color: var(--pearl);
+            transform: translateY(20px);
+            transition: transform var(--transition-medium);
+        }
+        
+        .destination-card:hover .destination-content {
+            transform: translateY(0);
+        }
+        
+        .destination-badge {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            padding: 0.4rem 1rem;
+            background: var(--gold);
+            color: var(--navy);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        
+        .destination-location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+        
+        .destination-name {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+        
+        .destination-tagline {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+        
+        .destination-price {
+            font-size: 0.85rem;
+            color: var(--sand);
+        }
+        
+        .destination-price span {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            color: var(--gold);
+        }
+        
+        .destination-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            color: var(--gold);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all var(--transition-medium);
+        }
+        
+        .destination-card:hover .destination-cta {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Experiences Section */
+        .experiences {
+            position: relative;
+        }
+        
+        .experiences-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        @media (min-width: 768px) {
+            .experiences-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .experiences-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .experience-card {
+            position: relative;
+            height: 350px;
+            overflow: hidden;
+            background: var(--bg-card);
+            transition: all var(--transition-medium);
+        }
+        
+        .experience-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(12, 27, 51, 0.15);
+        }
+        
+        .experience-card img {
+            width: 100%;
+            height: 60%;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+        
+        .experience-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .experience-info {
+            padding: 1.5rem;
+        }
+        
+        .experience-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+        
+        .experience-title {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .experience-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        /* Spa Section */
+        .spa {
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .spa-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+        }
+        
+        .spa-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .spa-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to right,
+                rgba(12, 27, 51, 0.9) 0%,
+                rgba(12, 27, 51, 0.6) 50%,
+                transparent 100%
+            );
+        }
+        
+        .spa-content {
+            position: relative;
+            max-width: 600px;
+            color: var(--pearl);
+        }
+        
+        .spa-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(201, 169, 110, 0.2);
+            color: var(--gold);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+        
+        .spa-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+        
+        .spa-desc {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .spa-treatments {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        @media (min-width: 480px) {
+            .spa-treatments {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .treatment-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(201, 169, 110, 0.2);
+            transition: all var(--transition-fast);
+        }
+        
+        .treatment-item:hover {
+            background: rgba(201, 169, 110, 0.1);
+            border-color: var(--gold);
+        }
+        
+        .treatment-item span {
+            color: var(--gold);
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            background: var(--bg-secondary);
+            text-align: center;
+        }
+        
+        .testimonials-carousel {
+            position: relative;
+            max-width: 800px;
+            margin: 3rem auto 0;
+            overflow: hidden;
+        }
+        
+        .testimonial-track {
+            display: flex;
+            transition: transform var(--transition-slow);
+        }
+        
+        .testimonial-slide {
+            flex: 0 0 100%;
+            padding: 0 2rem;
+        }
+        
+        .testimonial-quote {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-style: italic;
+            font-weight: 400;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+        
+        .testimonial-author {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--gold);
+        }
+        
+        .testimonial-name {
+            font-weight: 500;
+            color: var(--gold);
+        }
+        
+        .testimonial-location {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        .testimonial-stars {
+            display: flex;
+            justify-content: center;
+            gap: 0.25rem;
+            margin-top: 0.5rem;
+            color: var(--gold);
+        }
+        
+        .testimonials-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .testimonials-nav button {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        
+        .testimonials-nav button:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--navy);
+        }
+        
+        /* Awards logos */
+        .awards-strip {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        .award-logo {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            opacity: 0.6;
+            transition: opacity var(--transition-fast);
+        }
+        
+        .award-logo:hover {
+            opacity: 1;
+        }
+        
+        /* Offers Section */
+        .offers {
+            position: relative;
+        }
+        
+        .offers-grid {
+            display: grid;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        @media (min-width: 768px) {
+            .offers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .offers-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .offer-card {
+            background: var(--bg-card);
+            overflow: hidden;
+            transition: all var(--transition-medium);
+            border: 1px solid var(--border);
+        }
+        
+        .offer-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px var(--shadow-color);
+            border-color: var(--gold);
+        }
+        
+        .offer-image {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .offer-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+        
+        .offer-card:hover .offer-image img {
+            transform: scale(1.05);
+        }
+        
+        .offer-urgent {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.4rem 0.8rem;
+            background: #c41e3a;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+        
+        .offer-content {
+            padding: 1.5rem;
+        }
+        
+        .offer-title {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .offer-includes {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .offer-includes li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            padding: 0.3rem 0;
+        }
+        
+        .offer-includes li svg {
+            color: var(--emerald);
+            flex-shrink: 0;
+        }
+        
+        .offer-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        .offer-price-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .offer-price {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            color: var(--gold);
+        }
+        
+        .offer-price small {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: var(--font-body);
+        }
+        
+        /* Gallery Section */
+        .gallery {
+            background: var(--bg-secondary);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+        
+        @media (min-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (min-width: 1200px) {
+            .gallery-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .gallery-item:nth-child(1) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            min-height: 200px;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(12, 27, 51, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity var(--transition-medium);
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-overlay svg {
+            color: var(--gold);
+            width: 32px;
+            height: 32px;
+        }
+        
+        /* Info Section */
+        .info {
+            background: var(--bg-card);
+        }
+        
+        .info-grid {
+            display: grid;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        @media (min-width: 768px) {
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .info-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            transition: all var(--transition-fast);
+        }
+        
+        .info-item:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+        }
+        
+        .info-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: var(--navy);
+            flex-shrink: 0;
+        }
+        
+        .info-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.25rem;
+        }
+        
+        .info-value {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        
+        /* FAQ Section */
+        .faq {
+            background: var(--bg-secondary);
+        }
+        
+        .faq-list {
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .faq-question {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            transition: color var(--transition-fast);
+        }
+        
+        .faq-question:hover {
+            color: var(--gold);
+        }
+        
+        .faq-question svg {
+            flex-shrink: 0;
+            transition: transform var(--transition-medium);
+            color: var(--gold);
+        }
+        
+        .faq-item.active .faq-question svg {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height var(--transition-medium), padding var(--transition-medium);
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding-bottom: 1.5rem;
+        }
+        
+        .faq-answer p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        /* Contact Section */
+        .contact {
+            background: var(--bg-card);
+        }
+        
+        .contact-grid {
+            display: grid;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        @media (min-width: 1024px) {
+            .contact-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .contact-form {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border: 1px solid var(--border);
+        }
+        
+        .form-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        @media (min-width: 480px) {
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+        
+        .form-label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .form-input,
+        .form-select,
+        .form-textarea {
+            padding: 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text-primary);
+            transition: border-color var(--transition-fast);
+        }
+        
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .contact-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            transition: all var(--transition-fast);
+        }
+        
+        .contact-card:hover {
+            border-color: var(--gold);
+        }
+        
+        .contact-card-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: var(--navy);
+            flex-shrink: 0;
+        }
+        
+        .contact-card-title {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .contact-card-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .contact-card-link {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        /* Loyalty Section */
+        .loyalty {
+            position: relative;
+            background: var(--navy);
+            color: var(--pearl);
+            overflow: hidden;
+        }
+        
+        .loyalty-pattern {
+            position: absolute;
+            inset: 0;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A96E' fill-opacity='1'%3E%3Cpath d='M40 40L0 0h80L40 40zm0 0l40 40H0l40-40z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .loyalty-content {
+            position: relative;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .loyalty-logo {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+        
+        .loyalty-desc {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 3rem;
+        }
+        
+        .loyalty-tiers {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .tier-card {
+            flex: 1;
+            min-width: 180px;
+            max-width: 220px;
+            padding: 2rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(201, 169, 110, 0.2);
+            transition: all var(--transition-medium);
+        }
+        
+        .tier-card:hover {
+            background: rgba(201, 169, 110, 0.1);
+            border-color: var(--gold);
+            transform: translateY(-8px);
+        }
+        
+        .tier-name {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tier-color {
+            width: 40px;
+            height: 4px;
+            margin: 0 auto 1rem;
+            background: var(--gold);
+        }
+        
+        .tier-card:nth-child(1) .tier-color { background: #C0C0C0; }
+        .tier-card:nth-child(2) .tier-color { background: var(--gold); }
+        .tier-card:nth-child(3) .tier-color { background: #E5E4E2; }
+        .tier-card:nth-child(4) .tier-color { background: #1a1a1a; }
+        
+        .tier-benefits {
+            list-style: none;
+            font-size: 0.85rem;
+            text-align: left;
+            opacity: 0.8;
+        }
+        
+        .tier-benefits li {
+            padding: 0.4rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .loyalty-stats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--gold);
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--navy);
+            color: var(--pearl);
+            padding: 5rem 0 2rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 2fr 1fr 1fr 1fr;
+            }
+        }
+        
+        .footer-brand p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin: 1rem 0 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(201, 169, 110, 0.3);
+            color: var(--pearl);
+            transition: all var(--transition-fast);
+        }
+        
+        .footer-social a:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--navy);
+        }
+        
+        .footer-title {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            color: var(--pearl);
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            transition: all var(--transition-fast);
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--gold);
+        }
+        
+        .footer-newsletter {
+            margin-top: 1rem;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            gap: 0;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(201, 169, 110, 0.3);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--pearl);
+        }
+        
+        .newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .newsletter-btn {
+            padding: 1rem 1.5rem;
+            background: var(--gold);
+            border: none;
+            color: var(--navy);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        
+        .newsletter-btn:hover {
+            background: var(--gold-light);
+        }
+        
+        .footer-bottom {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(201, 169, 110, 0.2);
+        }
+        
+        .footer-bottom p {
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+        
+        .footer-certifications {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        
+        .footer-certifications span {
+            font-size: 0.75rem;
+            opacity: 0.5;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Floating Elements */
+        .floating-buttons {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 100;
+        }
+        
+        .floating-btn {
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gold);
+            color: var(--navy);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(201, 169, 110, 0.4);
+            transition: all var(--transition-medium);
+        }
+        
+        .floating-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(201, 169, 110, 0.5);
+        }
+        
+        .floating-btn.secondary {
+            background: var(--bg-card);
+            color: var(--gold);
+            border: 1px solid var(--gold);
+        }
+        
+        .floating-tooltip {
+            position: absolute;
+            right: 70px;
+            white-space: nowrap;
+            padding: 0.5rem 1rem;
+            background: var(--navy);
+            color: var(--pearl);
+            font-size: 0.8rem;
+            border-radius: 4px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-fast);
+        }
+        
+        .floating-btn:hover .floating-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Reservation Bar */
+        .reservation-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform var(--transition-medium);
+            z-index: 99;
+        }
+        
+        .reservation-bar.visible {
+            transform: translateY(0);
+        }
+        
+        .reservation-bar-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .reservation-bar-text {
+            font-size: 0.9rem;
+        }
+        
+        .reservation-bar-text strong {
+            color: var(--gold);
+        }
+        
+        /* Theme Toggle */
+        .theme-toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all var(--transition-medium);
+        }
+        
+        .theme-toggle-indicator {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 22px;
+            height: 22px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-medium);
+        }
+        
+        [data-theme="dark"] .theme-toggle-indicator {
+            left: calc(100% - 25px);
+        }
+        
+        .theme-toggle-indicator svg {
+            width: 14px;
+            height: 14px;
+            color: var(--navy);
+        }
+        
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            z-index: 100;
+        }
+        
+        .music-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.25rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all var(--transition-medium);
+        }
+        
+        .music-btn:hover {
+            border-color: var(--gold);
+        }
+        
+        .music-waves {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 16px;
+        }
+        
+        .music-wave {
+            width: 3px;
+            background: var(--gold);
+            animation: wave 0.8s ease-in-out infinite;
+        }
+        
+        .music-wave:nth-child(1) { height: 4px; animation-delay: 0s; }
+        .music-wave:nth-child(2) { height: 8px; animation-delay: 0.1s; }
+        .music-wave:nth-child(3) { height: 12px; animation-delay: 0.2s; }
+        .music-wave:nth-child(4) { height: 6px; animation-delay: 0.3s; }
+        
+        .music-btn.paused .music-wave {
+            animation: none;
+            height: 3px;
+        }
+        
+        @keyframes wave {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(0.5); }
+        }
+        
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+        
+        /* Responsive */
+        @media (max-width: 767px) {
+            .hero-ctas {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .floating-buttons {
+                bottom: 5rem;
+                right: 1rem;
+            }
+            
+            .music-player {
+                left: 1rem;
+                bottom: 5rem;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-social {
+                justify-content: center;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        /* Focus styles */
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 2px;
+        }
+        
+        /* Print styles */
+        @media print {
+            .header, .floating-buttons, .music-player, .reservation-bar, #particles-canvas {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-top">
+            <div class="container header-top-content">
+                <div style="display: flex; gap: 1.5rem; align-items: center;">
+                    <a href="tel:+551140028922">
+                        <i data-lucide="phone" style="width: 12px; height: 12px; margin-right: 4px;"></i>
+                        +55 11 4002-8922
+                    </a>
+                    <span style="display: none;" class="show-mobile">Melhor Preço Garantido</span>
+                </div>
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                    <a href="#">PT</a>
+                    <span style="opacity: 0.3;">|</span>
+                    <a href="#">EN</a>
+                    <span style="opacity: 0.3;">|</span>
+                    <a href="#">ES</a>
+                </div>
+            </div>
+        </div>
+        <div class="header-main">
+            <div class="container header-content">
+                <a href="#" class="logo">MAISON</a>
+                
+                <nav class="nav-desktop">
+                    <a href="#destinations" class="link-underline">Destinos</a>
+                    <a href="#experiences" class="link-underline">Experiências</a>
+                    <a href="#spa" class="link-underline">Spa</a>
+                    <a href="#gastronomy" class="link-underline">Gastronomia</a>
+                    <a href="#offers" class="link-underline">Ofertas</a>
+                    <a href="#contact" class="link-underline">Contato</a>
+                </nav>
+                
+                <div class="header-actions">
+                    <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
+                        <div class="theme-toggle-indicator">
+                            <i data-lucide="sun" style="display: block;"></i>
+                        </div>
+                    </button>
+                    <a href="#contact" class="btn btn-outline header-btn" style="display: none;">
+                        RESERVE AGORA
+                    </a>
+                    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Mobile Nav -->
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="#destinations">Destinos</a>
+        <a href="#experiences">Experiências</a>
+        <a href="#spa">Spa</a>
+        <a href="#gastronomy">Gastronomia</a>
+        <a href="#offers">Ofertas</a>
+        <a href="#contact">Contato</a>
+        <a href="#contact" class="btn btn-gold" style="margin-top: 2rem;">RESERVE AGORA</a>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1920&q=80" alt="Resort de luxo à beira-mar" loading="eager">
+        </div>
+        <div class="hero-overlay"></div>
+        <canvas id="particles-canvas"></canvas>
+        
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                Eleito Melhor Rede de Hotéis 2024 — Condé Nast Traveler
+            </div>
+            <h1 class="hero-title">
+                Onde Cada Momento<br><em>Se Torna Memória</em>
+            </h1>
+            <p class="hero-subtitle">
+                5 destinos exclusivos • Spa & Wellness • Gastronomia premiada
+            </p>
+            <div class="hero-ctas">
+                <a href="#contact" class="btn btn-gold">RESERVE SUA ESTADIA</a>
+                <a href="#destinations" class="btn btn-outline" style="border-color: var(--pearl); color: var(--pearl);">
+                    CONHEÇA NOSSOS DESTINOS
+                </a>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <span>SCROLL</span>
+            <i data-lucide="chevron-down" style="width: 20px; height: 20px;"></i>
+        </div>
+    </section>
+    
+    <!-- Destinations Section -->
+    <section class="destinations" id="destinations">
+        <div class="pattern-overlay"></div>
+        <div class="container">
+            <div class="destinations-header reveal">
+                <div class="ornament">
+                    <div class="ornament-line"></div>
+                    <div class="ornament-diamond"></div>
+                    <div class="ornament-line"></div>
+                </div>
+                <h2 class="section-title">Nossos Destinos</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    Descubra propriedades únicas nas localizações mais deslumbrantes do Brasil e do mundo
+                </p>
+            </div>
+            
+            <div class="destinations-grid">
+                <div class="destination-card reveal">
+                    <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=800&q=80" alt="MAISON Trancoso" loading="lazy">
+                    <div class="destination-overlay"></div>
+                    <span class="destination-badge">Mais Reservado</span>
+                    <div class="destination-content">
+                        <div class="destination-location">
+                            <i data-lucide="map-pin" style="width: 14px; height: 14px;"></i>
+                            Trancoso, Bahia
+                        </div>
+                        <h3 class="destination-name">MAISON Trancoso</h3>
+                        <p class="destination-tagline">Onde a mata atlântica encontra o mar</p>
+                        <p class="destination-price">A partir de <span>R$ 2.450</span>/noite</p>
+                        <div class="destination-cta">
+                            EXPLORAR <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="destination-card reveal reveal-delay-1">
+                    <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80" alt="MAISON Gramado" loading="lazy">
+                    <div class="destination-overlay"></div>
+                    <span class="destination-badge" style="background: var(--emerald);">Novo</span>
+                    <div class="destination-content">
+                        <div class="destination-location">
+                            <i data-lucide="map-pin" style="width: 14px; height: 14px;"></i>
+                            Gramado, RS
+                        </div>
+                        <h3 class="destination-name">MAISON Serra</h3>
+                        <p class="destination-tagline">Luxo entre as montanhas da serra gaúcha</p>
+                        <p class="destination-price">A partir de <span>R$ 1.890</span>/noite</p>
+                        <div class="destination-cta">
+                            EXPLORAR <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="destination-card reveal reveal-delay-2">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80" alt="MAISON Maldivas" loading="lazy">
+                    <div class="destination-overlay"></div>
+                    <div class="destination-content">
+                        <div class="destination-location">
+                            <i data-lucide="map-pin" style="width: 14px; height: 14px;"></i>
+                            Maldivas
+                        </div>
+                        <h3 class="destination-name">MAISON Maldives</h3>
+                        <p class="destination-tagline">Um paraíso privado no Oceano Índico</p>
+                        <p class="destination-price">A partir de <span>USD 1.200</span>/noite</p>
+                        <div class="destination-cta">
+                            EXPLORAR <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="destination-card reveal reveal-delay-3">
+                    <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&q=80" alt="MAISON Lisbon" loading="lazy">
+                    <div class="destination-overlay"></div>
+                    <span class="destination-badge" style="background: var(--graphite);">Adults Only</span>
+                    <div class="destination-content">
+                        <div class="destination-location">
+                            <i data-lucide="map-pin" style="width: 14px; height: 14px;"></i>
+                            Lisboa, Portugal
+                        </div>
+                        <h3 class="destination-name">MAISON Lisbon</h3>
+                        <p class="destination-tagline">Sofisticação europeia com alma portuguesa</p>
+                        <p class="destination-price">A partir de <span>EUR 380</span>/noite</p>
+                        <div class="destination-cta">
+                            EXPLORAR <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="destination-card reveal reveal-delay-4">
+                    <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&q=80" alt="MAISON Rio" loading="lazy">
+                    <div class="destination-overlay"></div>
+                    <div class="destination-content">
+                        <div class="destination-location">
+                            <i data-lucide="map-pin" style="width: 14px; height: 14px;"></i>
+                            Rio de Janeiro, RJ
+                        </div>
+                        <h3 class="destination-name">MAISON Copacabana</h3>
+                        <p class="destination-tagline">Frente para a praia mais famosa do mundo</p>
+                        <p class="destination-price">A partir de <span>R$ 1.650</span>/noite</p>
+                        <div class="destination-cta">
+                            EXPLORAR <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="destination-card reveal reveal-delay-4">
+                    <img src="https://images.unsplash.com/photo-1602002418082-a4443e081dd1?w=800&q=80" alt="MAISON São Paulo" loading="lazy">
+                    <div class="destination-overlay"></div>
+                    <div class="destination-content">
+                        <div class="destination-location">
+                            <i data-lucide="map-pin" style="width: 14px; height: 14px;"></i>
+                            São Paulo, SP
+                        </div>
+                        <h3 class="destination-name">MAISON Paulista</h3>
+                        <p class="destination-tagline">Oásis urbano no coração financeiro</p>
+                        <p class="destination-price">A partir de <span>R$ 980</span>/noite</p>
+                        <div class="destination-cta">
+                            EXPLORAR <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Experiences Section -->
+    <section class="experiences" id="experiences">
+        <div class="container">
+            <div style="text-align: center;" class="reveal">
+                <div class="ornament">
+                    <div class="ornament-line"></div>
+                    <div class="ornament-diamond"></div>
+                    <div class="ornament-line"></div>
+                </div>
+                <h2 class="section-title">Experiências Inesquecíveis</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    Cada momento foi pensado para criar memórias que durarão para sempre
+                </p>
+            </div>
+            
+            <div class="experiences-grid">
+                <div class="experience-card reveal">
+                    <img src="https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=600&q=80" alt="Piscina infinita" loading="lazy">
+                    <div class="experience-info">
+                        <div class="experience-icon">
+                            <i data-lucide="waves"></i>
+                        </div>
+                        <h3 class="experience-title">Piscinas Infinitas</h3>
+                        <p class="experience-desc">Piscinas com vista panorâmica para o mar ou montanhas</p>
+                    </div>
+                </div>
+                
+                <div class="experience-card reveal reveal-delay-1">
+                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80" alt="Spa e wellness" loading="lazy">
+                    <div class="experience-info">
+                        <div class="experience-icon">
+                            <i data-lucide="flower-2"></i>
+                        </div>
+                        <h3 class="experience-title">Spa & Wellness</h3>
+                        <p class="experience-desc">Tratamentos exclusivos com produtos naturais premium</p>
+                    </div>
+                </div>
+                
+                <div class="experience-card reveal reveal-delay-2">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80" alt="Fitness" loading="lazy">
+                    <div class="experience-info">
+                        <div class="experience-icon">
+                            <i data-lucide="dumbbell"></i>
+                        </div>
+                        <h3 class="experience-title">Fitness & Esportes</h3>
+                        <p class="experience-desc">Academia completa, trilhas guiadas e esportes aquáticos</p>
+                    </div>
+                </div>
+                
+                <div class="experience-card reveal reveal-delay-3">
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80" alt="Aventuras" loading="lazy">
+                    <div class="experience-info">
+                        <div class="experience-icon">
+                            <i data-lucide="compass"></i>
+                        </div>
+                        <h3 class="experience-title">Aventuras</h3>
+                        <p class="experience-desc">Mergulho, passeios de barco e expedições exclusivas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Spa Section -->
+    <section class="spa" id="spa">
+        <div class="spa-bg">
+            <img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=1920&q=80" alt="Spa de luxo" loading="lazy">
+        </div>
+        <div class="spa-overlay"></div>
+        <div class="container">
+            <div class="spa-content reveal">
+                <span class="spa-tag">Spa & Bem-Estar</span>
+                <h2 class="spa-title">Permita-se.<br>Você Merece Cada Segundo.</h2>
+                <p class="spa-desc">
+                    Nosso spa oferece uma jornada de relaxamento e renovação. 
+                    Tratamentos exclusivos, produtos naturais e profissionais 
+                    dedicados ao seu bem-estar completo.
+                </p>
+                
+                <div class="spa-treatments">
+                    <div class="treatment-item">
+                        <i data-lucide="sparkles"></i>
+                        <span>Massagem Relaxante</span>
+                    </div>
+                    <div class="treatment-item">
+                        <i data-lucide="heart"></i>
+                        <span>Ritual de Casal</span>
+                    </div>
+                    <div class="treatment-item">
+                        <i data-lucide="droplets"></i>
+                        <span>Circuito de Águas</span>
+                    </div>
+                    <div class="treatment-item">
+                        <i data-lucide="leaf"></i>
+                        <span>Facial Premium</span>
+                    </div>
+                </div>
+                
+                <a href="#contact" class="btn btn-gold">AGENDE SEU SPA</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="reveal">
+                <div class="ornament">
+                    <div class="ornament-line"></div>
+                    <div class="ornament-diamond"></div>
+                    <div class="ornament-line"></div>
+                </div>
+                <h2 class="section-title">O Que Nossos Hóspedes Dizem</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    4.9 estrelas — Baseado em mais de 5.000 avaliações
+                </p>
+            </div>
+            
+            <div class="testimonials-carousel reveal">
+                <div class="testimonial-track" id="testimonialTrack">
+                    <div class="testimonial-slide">
+                        <p class="testimonial-quote">
+                            "Uma experiência que transcendeu todas as expectativas. 
+                            Cada detalhe foi pensado com carinho e sofisticação. 
+                            Voltaremos com certeza."
+                        </p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="Marina Silva" class="testimonial-avatar">
+                            <span class="testimonial-name">Marina Silva</span>
+                            <span class="testimonial-location">São Paulo, SP</span>
+                            <div class="testimonial-stars">
+                                <i data-lucide="star" style="fill: var(--gold);"></i>
+                                <i data-lucide="star" style="fill: var(--gold);"></i>
+                                <i data-lucide="star" style="fill: var(--gold);"></i>
+                                <i data-lucide="star" style="fill: var(--gold);"></i>
+                                <i data-lucide="star" style="fill: var(--gold);"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide">
+                        <p class="testimonial-quote">
+                            "O melhor hotel que já ficamos. O spa é simplesmente divino 
+                            e a gastronomia merece estrelas Michelin. Inesquecível."
+                        </p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Roberto Mendes" class="testimonial-avatar">
+                            <span class="testimonial-name">Roberto Mendes</span>
+                            <span class="testimonial-location">Rio de Janeiro, RJ</span>
+                            <div class="testimonial-stars">
+                                <i data-lucide="star" style="fill: var(--gold);"></i>
+                                <i data-lucide="star" style="fill: var(--gold);"></i>
+                                <i data-lucide="star" style="fill: var(--gold);"></i>
+                                <i data-lucide="star" style="fill: var(--gold);"></i>
+                                <i data-lucide="star" style="fill: var(--gold);"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide">
+                        <p class="testimonial-quote">
+                            "Nossa lua de mel foi perfeita. O upgrade para suíte, 
+                            o champagne de boas-vindas, o atendimento impecável. 
+                            Recomendo de olhos fechados."
+                        </p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" alt="Carolina Oliveira" class="testimonial-avatar">
+                            <span class="testimonial-name">Carolina Oliveira</span>
+                            <span class="testimonial-location">Belo Horizonte, MG</span>
+                            <div class="testimonial-stars">
+                                <i data-lucide="star" style="fill: var(--gold);"></i>
+                                <i data-lucide="star" style="fill: var(--gold);"></i>
+                                <i data-lucide="star" style="fill: var(--gold);"></i>
+                                <i data-lucide="star" style="fill: var(--gold);"></i>
+                                <i data-lucide="star" style="fill: var(--gold);"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonials-nav">
+                <button id="prevTestimonial" aria-label="Depoimento anterior">
+                    <i data-lucide="arrow-left"></i>
+                </button>
+                <button id="nextTestimonial" aria-label="Próximo depoimento">
+                    <i data-lucide="arrow-right"></i>
+                </button>
+            </div>
+            
+            <div class="awards-strip reveal">
+                <span class="award-logo">CONDÉ NAST TRAVELER</span>
+                <span class="award-logo">TRIPADVISOR</span>
+                <span class="award-logo">FORBES TRAVEL GUIDE</span>
+                <span class="award-logo">BOOKING.COM</span>
+                <span class="award-logo">MICHELIN</span>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Offers Section -->
+    <section class="offers" id="offers">
+        <div class="container">
+            <div style="text-align: center;" class="reveal">
+                <div class="ornament">
+                    <div class="ornament-line"></div>
+                    <div class="ornament-diamond"></div>
+                    <div class="ornament-line"></div>
+                </div>
+                <h2 class="section-title">Ofertas Especiais</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    Pacotes exclusivos para tornar sua estadia ainda mais especial
+                </p>
+            </div>
+            
+            <div class="offers-grid">
+                <div class="offer-card reveal">
+                    <div class="offer-image">
+                        <img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=600&q=80" alt="Lua de mel" loading="lazy">
+                        <span class="offer-urgent">Últimas vagas</span>
+                    </div>
+                    <div class="offer-content">
+                        <h3 class="offer-title">Lua de Mel Romântica</h3>
+                        <ul class="offer-includes">
+                            <li><i data-lucide="check" style="width: 16px; height: 16px;"></i> 5 noites em Suíte Premium</li>
+                            <li><i data-lucide="check" style="width: 16px; height: 16px;"></i> Jantar romântico com champagne</li>
+                            <li><i data-lucide="check" style="width: 16px; height: 16px;"></i> Tratamento a dois no spa</li>
+                        </ul>
+                        <div class="offer-footer">
+                            <div>
+                                <p class="offer-price-label">A partir de</p>
+                                <p class="offer-price">R$ 8.990 <small>/casal</small></p>
+                            </div>
+                            <a href="#contact" class="btn btn-gold" style="padding: 0.75rem 1.25rem; font-size: 0.7rem;">RESERVAR</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="offer-card reveal reveal-delay-1">
+                    <div class="offer-image">
+                        <img src="https://images.unsplash.com/photo-1471979215898-0f1a93117977?w=600&q=80" alt="Família" loading="lazy">
+                    </div>
+                    <div class="offer-content">
+                        <h3 class="offer-title">Família Feliz</h3>
+                        <ul class="offer-includes">
+                            <li><i data-lucide="check" style="width: 16px; height: 16px;"></i> 4 noites em Villa familiar</li>
+                            <li><i data-lucide="check" style="width: 16px; height: 16px;"></i> Acesso Kids Club incluso</li>
+                            <li><i data-lucide="check" style="width: 16px; height: 16px;"></i> 2 crianças até 12 anos grátis</li>
+                        </ul>
+                        <div class="offer-footer">
+                            <div>
+                                <p class="offer-price-label">A partir de</p>
+                                <p class="offer-price">R$ 5.490 <small>/família</small></p>
+                            </div>
+                            <a href="#contact" class="btn btn-gold" style="padding: 0.75rem 1.25rem; font-size: 0.7rem;">RESERVAR</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="offer-card reveal reveal-delay-2">
+                    <div class="offer-image">
+                        <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=600&q=80" alt="Long Stay" loading="lazy">
+                        <span class="offer-urgent">-25% OFF</span>
+                    </div>
+                    <div class="offer-content">
+                        <h3 class="offer-title">Long Stay 7+ Noites</h3>
+                        <ul class="offer-includes">
+                            <li><i data-lucide="check" style="width: 16px; height: 16px;"></i> 25% de desconto</li>
+                            <li><i data-lucide="check" style="width: 16px; height: 16px;"></i> Upgrade sujeito a disponibilidade</li>
+                            <li><i data-lucide="check" style="width: 16px; height: 16px;"></i> Late checkout gratuito</li>
+                        </ul>
+                        <div class="offer-footer">
+                            <div>
+                                <p class="offer-price-label">A partir de</p>
+                                <p class="offer-price">R$ 1.490 <small>/noite</small></p>
+                            </div>
+                            <a href="#contact" class="btn btn-gold" style="padding: 0.75rem 1.25rem; font-size: 0.7rem;">RESERVAR</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Loyalty Section -->
+    <section class="loyalty" id="loyalty">
+        <div class="loyalty-pattern"></div>
+        <div class="container">
+            <div class="loyalty-content reveal">
+                <div class="loyalty-logo">MAISON GOLD CLUB</div>
+                <p class="loyalty-desc">
+                    Junte-se ao nosso programa de fidelidade e desfrute de benefícios 
+                    exclusivos em todas as nossas propriedades.
+                </p>
+                
+                <div class="loyalty-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="50000">0</div>
+                        <div class="stat-label">Membros ativos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="12">0</div>
+                        <div class="stat-label">Milhões em benefícios</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="15">0</div>
+                        <div class="stat-label">Anos de excelência</div>
+                    </div>
+                </div>
+                
+                <div class="loyalty-tiers">
+                    <div class="tier-card">
+                        <h4 class="tier-name">Silver</h4>
+                        <div class="tier-color"></div>
+                        <ul class="tier-benefits">
+                            <li>5% desconto em diárias</li>
+                            <li>Early check-in</li>
+                            <li>Wi-Fi premium</li>
+                        </ul>
+                    </div>
+                    <div class="tier-card">
+                        <h4 class="tier-name">Gold</h4>
+                        <div class="tier-color"></div>
+                        <ul class="tier-benefits">
+                            <li>10% desconto em diárias</li>
+                            <li>Upgrade prioritário</li>
+                            <li>Late checkout</li>
+                        </ul>
+                    </div>
+                    <div class="tier-card">
+                        <h4 class="tier-name">Platinum</h4>
+                        <div class="tier-color"></div>
+                        <ul class="tier-benefits">
+                            <li>15% desconto em diárias</li>
+                            <li>Concierge exclusivo</li>
+                            <li>Spa incluso (1x/mês)</li>
+                        </ul>
+                    </div>
+                    <div class="tier-card">
+                        <h4 class="tier-name">Black</h4>
+                        <div class="tier-color"></div>
+                        <ul class="tier-benefits">
+                            <li>20% desconto vitalício</li>
+                            <li>Transfer privativo</li>
+                            <li>Acesso VIP eventos</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <a href="#contact" class="btn btn-gold">ASSOCIE-SE GRÁTIS</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div style="text-align: center;" class="reveal">
+                <div class="ornament">
+                    <div class="ornament-line"></div>
+                    <div class="ornament-diamond"></div>
+                    <div class="ornament-line"></div>
+                </div>
+                <h2 class="section-title">Galeria</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    Um vislumbre das experiências que esperam por você
+                </p>
+            </div>
+            
+            <div class="gallery-grid reveal">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80" alt="Suíte de luxo" loading="lazy">
+                    <div class="gallery-overlay">
+                        <i data-lucide="expand"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80" alt="Piscina" loading="lazy">
+                    <div class="gallery-overlay">
+                        <i data-lucide="expand"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400&q=80" alt="Gastronomia" loading="lazy">
+                    <div class="gallery-overlay">
+                        <i data-lucide="expand"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1596178065887-1198b6148b2b?w=400&q=80" alt="Spa" loading="lazy">
+                    <div class="gallery-overlay">
+                        <i data-lucide="expand"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1414609245224-afa02bfb3fda?w=400&q=80" alt="Vista mar" loading="lazy">
+                    <div class="gallery-overlay">
+                        <i data-lucide="expand"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&q=80" alt="Amenities" loading="lazy">
+                    <div class="gallery-overlay">
+                        <i data-lucide="expand"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&q=80" alt="Restaurante" loading="lazy">
+                    <div class="gallery-overlay">
+                        <i data-lucide="expand"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Info Section -->
+    <section class="info" id="info">
+        <div class="container">
+            <div style="text-align: center;" class="reveal">
+                <h2 class="section-title">Informações Úteis</h2>
+            </div>
+            
+            <div class="info-grid reveal">
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i data-lucide="log-in"></i>
+                    </div>
+                    <div>
+                        <p class="info-label">Check-in</p>
+                        <p class="info-value">15:00 horas</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i data-lucide="log-out"></i>
+                    </div>
+                    <div>
+                        <p class="info-label">Check-out</p>
+                        <p class="info-value">12:00 horas</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i data-lucide="wifi"></i>
+                    </div>
+                    <div>
+                        <p class="info-label">Wi-Fi</p>
+                        <p class="info-value">Alta velocidade gratuito</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i data-lucide="car"></i>
+                    </div>
+                    <div>
+                        <p class="info-label">Estacionamento</p>
+                        <p class="info-value">Valet gratuito</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i data-lucide="plane"></i>
+                    </div>
+                    <div>
+                        <p class="info-label">Transfer</p>
+                        <p class="info-value">Aeroporto disponível</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i data-lucide="paw-print"></i>
+                    </div>
+                    <div>
+                        <p class="info-label">Pet-friendly</p>
+                        <p class="info-value">Animais permitidos</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i data-lucide="accessibility"></i>
+                    </div>
+                    <div>
+                        <p class="info-label">Acessibilidade</p>
+                        <p class="info-value">Quartos adaptados</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i data-lucide="concierge-bell"></i>
+                    </div>
+                    <div>
+                        <p class="info-label">Concierge</p>
+                        <p class="info-value">Disponível 24 horas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div style="text-align: center;" class="reveal">
+                <div class="ornament">
+                    <div class="ornament-line"></div>
+                    <div class="ornament-diamond"></div>
+                    <div class="ornament-line"></div>
+                </div>
+                <h2 class="section-title">Perguntas Frequentes</h2>
+            </div>
+            
+            <div class="faq-list reveal">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Qual é a política de cancelamento?
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Oferecemos cancelamento gratuito até 48 horas antes do check-in. Cancelamentos feitos com menos de 48 horas estão sujeitos a uma taxa equivalente a uma diária. Para reservas de pacotes promocionais, as condições podem variar.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Quais formas de pagamento são aceitas?
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Aceitamos todos os cartões de crédito (Visa, Mastercard, American Express, Elo), PIX, transferência bancária e PayPal. Para reservas internacionais, aceitamos também Apple Pay e Google Pay.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        O hotel aceita animais de estimação?
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sim! Somos um hotel pet-friendly. Aceitamos animais de até 15kg com taxa adicional de R$ 150/noite. Oferecemos caminha, potes de água e comida, e amenities especiais para seu pet.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Como funciona o early check-in e late check-out?
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Early check-in (a partir das 12h) e late check-out (até às 16h) estão sujeitos a disponibilidade e podem ter taxa adicional de 50% da diária. Membros do MAISON GOLD CLUB têm esses benefícios gratuitos conforme seu tier.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        O café da manhã está incluso?
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sim, todas as diárias incluem nosso café da manhã premium servido das 6h30 às 10h30. Oferecemos opções vegetarianas, veganas, sem glúten e para restrições alimentares mediante solicitação prévia.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;" class="reveal">
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">Não encontrou o que procurava?</p>
+                <a href="#contact" class="btn btn-outline">FALE COM NOSSO CONCIERGE</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div style="text-align: center;" class="reveal">
+                <div class="ornament">
+                    <div class="ornament-line"></div>
+                    <div class="ornament-diamond"></div>
+                    <div class="ornament-line"></div>
+                </div>
+                <h2 class="section-title">Reserve Sua Experiência</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    Nossa equipe está pronta para criar a estadia perfeita para você
+                </p>
+            </div>
+            
+            <div class="contact-grid reveal">
+                <form class="contact-form" id="reservationForm">
+                    <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1.5rem;">Solicite sua Reserva</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="name">Nome Completo</label>
+                            <input type="text" id="name" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="email">E-mail</label>
+                            <input type="email" id="email" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="phone">Telefone</label>
+                            <input type="tel" id="phone" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="property">Propriedade</label>
+                            <select id="property" class="form-select" required>
+                                <option value="">Selecione...</option>
+                                <option value="trancoso">MAISON Trancoso</option>
+                                <option value="serra">MAISON Serra</option>
+                                <option value="maldives">MAISON Maldives</option>
+                                <option value="lisbon">MAISON Lisbon</option>
+                                <option value="copacabana">MAISON Copacabana</option>
+                                <option value="paulista">MAISON Paulista</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="checkin">Check-in</label>
+                            <input type="date" id="checkin" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="checkout">Check-out</label>
+                            <input type="date" id="checkout" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="adults">Adultos</label>
+                            <select id="adults" class="form-select">
+                                <option value="1">1</option>
+                                <option value="2" selected>2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="children">Crianças</label>
+                            <select id="children" class="form-select">
+                                <option value="0" selected>0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label" for="requests">Pedidos Especiais</label>
+                            <textarea id="requests" class="form-textarea" placeholder="Celebrações, preferências de quarto, restrições alimentares..."></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <button type="submit" class="btn btn-gold" style="width: 100%;">SOLICITAR RESERVA</button>
+                        </div>
+                    </div>
+                </form>
+                
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-card-icon">
+                            <i data-lucide="phone"></i>
+                        </div>
+                        <div>
+                            <h4 class="contact-card-title">Central de Reservas</h4>
+                            <p class="contact-card-text">Atendimento 24 horas</p>
+                            <a href="tel:+551140028922" class="contact-card-link">+55 11 4002-8922</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-card-icon">
+                            <i data-lucide="mail"></i>
+                        </div>
+                        <div>
+                            <h4 class="contact-card-title">E-mail</h4>
+                            <p class="contact-card-text">Resposta em até 2 horas</p>
+                            <a href="mailto:reservas@maison.com" class="contact-card-link">reservas@maison.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-card-icon">
+                            <i data-lucide="message-circle"></i>
+                        </div>
+                        <div>
+                            <h4 class="contact-card-title">WhatsApp Concierge</h4>
+                            <p class="contact-card-text">Atendimento personalizado</p>
+                            <a href="https://wa.me/551140028922" class="contact-card-link" target="_blank">Iniciar conversa</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-card-icon">
+                            <i data-lucide="clock"></i>
+                        </div>
+                        <div>
+                            <h4 class="contact-card-title">Horários</h4>
+                            <p class="contact-card-text">Check-in: 15h | Check-out: 12h</p>
+                            <span class="contact-card-link">Concierge 24 horas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" style="font-family: var(--font-display); font-size: 2rem; color: var(--gold); text-decoration: none;">MAISON</a>
+                    <p>Onde cada momento se torna memória. Uma coleção de hotéis de luxo dedicados a criar experiências inesquecíveis.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+                        <a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
+                        <a href="#" aria-label="YouTube"><i data-lucide="youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="footer-title">Navegação</h4>
+                    <ul class="footer-links">
+                        <li><a href="#destinations">Destinos</a></li>
+                        <li><a href="#experiences">Experiências</a></li>
+                        <li><a href="#spa">Spa</a></li>
+                        <li><a href="#offers">Ofertas</a></li>
+                        <li><a href="#gallery">Galeria</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="footer-title">Informações</h4>
+                    <ul class="footer-links">
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Privacidade</a></li>
+                        <li><a href="#">Trabalhe Conosco</a></li>
+                        <li><a href="#">Imprensa</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="footer-title">Newsletter</h4>
+                    <p style="font-size: 0.85rem; opacity: 0.7; margin-bottom: 1rem;">Receba ofertas exclusivas e inspirações de viagem</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Seu e-mail" required>
+                        <button type="submit" class="newsletter-btn">
+                            <i data-lucide="send" style="width: 18px; height: 18px;"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>2024 MAISON Collection. Todos os direitos reservados.</p>
+                <div class="footer-certifications">
+                    <span>SSL SEGURO</span>
+                    <span>CADASTUR</span>
+                    <span>ECOHOTEL</span>
+                    <span>TRIPADVISOR</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <button class="floating-btn secondary" id="backToTop" aria-label="Voltar ao topo">
+            <i data-lucide="arrow-up"></i>
+        </button>
+        <button class="floating-btn" id="whatsappBtn" aria-label="WhatsApp">
+            <span class="floating-tooltip">Fale com o Concierge</span>
+            <i data-lucide="message-circle"></i>
+        </button>
+    </div>
+    
+    <!-- Music Player -->
+    <div class="music-player">
+        <button class="music-btn paused" id="musicBtn" aria-label="Tocar música">
+            <div class="music-waves">
+                <div class="music-wave"></div>
+                <div class="music-wave"></div>
+                <div class="music-wave"></div>
+                <div class="music-wave"></div>
+            </div>
+            <span id="musicLabel">Ouça a trilha</span>
+        </button>
+    </div>
+    
+    <!-- Reservation Bar -->
+    <div class="reservation-bar" id="reservationBar">
+        <div class="container reservation-bar-content">
+            <p class="reservation-bar-text">
+                <i data-lucide="shield-check" style="width: 18px; height: 18px; color: var(--emerald); margin-right: 0.5rem;"></i>
+                <strong>Melhor Preço Garantido</strong> — Reserve direto e economize até 15%
+            </p>
+            <a href="#contact" class="btn btn-gold" style="padding: 0.75rem 1.5rem;">RESERVE AGORA</a>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // ========== VARIABLES ==========
+        const header = document.getElementById('header');
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileNav = document.getElementById('mobileNav');
+        const themeToggle = document.getElementById('themeToggle');
+        const reservationBar = document.getElementById('reservationBar');
+        const backToTop = document.getElementById('backToTop');
+        const testimonialTrack = document.getElementById('testimonialTrack');
+        const prevBtn = document.getElementById('prevTestimonial');
+        const nextBtn = document.getElementById('nextTestimonial');
+        const musicBtn = document.getElementById('musicBtn');
+        const musicLabel = document.getElementById('musicLabel');
+        const particlesCanvas = document.getElementById('particles-canvas');
+        
+        let currentTestimonial = 0;
+        const totalTestimonials = 3;
+        let particles = [];
+        let animationFrameId = null;
+        
+        // ========== THEME TOGGLE ==========
+        function initTheme() {
+            const savedTheme = localStorage.getItem('maison-theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+        }
+        
+        function updateThemeIcon(theme) {
+            const indicator = themeToggle.querySelector('.theme-toggle-indicator');
+            indicator.innerHTML = theme === 'dark' 
+                ? '<i data-lucide="moon" style="display: block;"></i>'
+                : '<i data-lucide="sun" style="display: block;"></i>';
+            lucide.createIcons();
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('maison-theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        // ========== HEADER SCROLL ==========
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            // Header glassmorphism
+            if (currentScroll > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            // Reservation bar
+            if (currentScroll > window.innerHeight) {
+                reservationBar.classList.add('visible');
+            } else {
+                reservationBar.classList.remove('visible');
+            }
+            
+            // Back to top
+            if (currentScroll > 500) {
+                backToTop.style.opacity = '1';
+                backToTop.style.visibility = 'visible';
+            } else {
+                backToTop.style.opacity = '0';
+                backToTop.style.visibility = 'hidden';
+            }
+            
+            lastScroll = currentScroll;
+        });
+        
+        // ========== MOBILE MENU ==========
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+        });
+        
+        mobileNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                mobileNav.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+        
+        // ========== TESTIMONIALS CAROUSEL ==========
+        function updateTestimonial() {
+            testimonialTrack.style.transform = `translateX(-${currentTestimonial * 100}%)`;
+        }
+        
+        prevBtn.addEventListener('click', () => {
+            currentTestimonial = currentTestimonial === 0 ? totalTestimonials - 1 : currentTestimonial - 1;
+            updateTestimonial();
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            currentTestimonial = currentTestimonial === totalTestimonials - 1 ? 0 : currentTestimonial + 1;
+            updateTestimonial();
+        });
+        
+        // Auto-rotate testimonials
+        setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
+            updateTestimonial();
+        }, 6000);
+        
+        // ========== FAQ ACCORDION ==========
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.parentElement;
+                const isActive = item.classList.contains('active');
+                
+                // Close all
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+                
+                // Open current if wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+        
+        // ========== BACK TO TOP ==========
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // ========== WHATSAPP BUTTON ==========
+        document.getElementById('whatsappBtn').addEventListener('click', () => {
+            window.open('https://wa.me/551140028922?text=Olá! Gostaria de mais informações sobre o MAISON.', '_blank');
+        });
+        
+        // ========== MUSIC PLAYER ==========
+        let isPlaying = false;
+        musicBtn.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            musicBtn.classList.toggle('paused', !isPlaying);
+            musicLabel.textContent = isPlaying ? 'Pausar' : 'Ouça a trilha';
+        });
+        
+        // ========== SCROLL REVEAL ==========
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+        
+        document.querySelectorAll('.reveal').forEach(el => {
+            revealObserver.observe(el);
+        });
+        
+        // ========== COUNTER ANIMATION ==========
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                if (target >= 1000) {
+                    element.textContent = '+' + Math.floor(current).toLocaleString('pt-BR');
+                } else {
+                    element.textContent = '+' + Math.floor(current);
+                }
+            }, 30);
+        }
+        
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.getAttribute('data-target'));
+                    animateCounter(entry.target, target);
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        document.querySelectorAll('.stat-number').forEach(el => {
+            statsObserver.observe(el);
+        });
+        
+        // ========== GOLDEN PARTICLES ==========
+        function initParticles() {
+            if (!particlesCanvas) return;
+            
+            const ctx = particlesCanvas.getContext('2d');
+            if (!ctx) return;
+            
+            // Set canvas size
+            function resizeCanvas() {
+                particlesCanvas.width = window.innerWidth;
+                particlesCanvas.height = window.innerHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            // Create particles
+            const particleCount = window.innerWidth < 768 ? 30 : 60;
+            particles = [];
+            
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * particlesCanvas.width,
+                    y: Math.random() * particlesCanvas.height,
+                    radius: Math.max(0.5, Math.random() * 2),
+                    speedX: (Math.random() - 0.5) * 0.3,
+                    speedY: (Math.random() - 0.5) * 0.3,
+                    opacity: Math.random() * 0.5 + 0.2
+                });
+            }
+            
+            function animate() {
+                if (!ctx) return;
+                ctx.clearRect(0, 0, particlesCanvas.width, particlesCanvas.height);
+                
+                particles.forEach(p => {
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+                    
+                    // Wrap around
+                    if (p.x < 0) p.x = particlesCanvas.width;
+                    if (p.x > particlesCanvas.width) p.x = 0;
+                    if (p.y < 0) p.y = particlesCanvas.height;
+                    if (p.y > particlesCanvas.height) p.y = 0;
+                    
+                    // Draw particle
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, Math.max(0.1, p.radius), 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(201, 169, 110, ${p.opacity})`;
+                    ctx.fill();
+                });
+                
+                animationFrameId = requestAnimationFrame(animate);
+            }
+            
+            // Check for reduced motion
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+            if (!prefersReducedMotion.matches) {
+                animate();
+            }
+        }
+        
+        // ========== FORM HANDLING ==========
+        document.getElementById('reservationForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Simple form validation feedback
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.textContent;
+            btn.textContent = 'ENVIANDO...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.textContent = 'SOLICITAÇÃO ENVIADA!';
+                btn.style.background = 'var(--emerald)';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                    btn.disabled = false;
+                    e.target.reset();
+                }, 2000);
+            }, 1500);
+        });
+        
+        // ========== NEWSLETTER FORM ==========
+        document.querySelector('.newsletter-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const input = e.target.querySelector('input');
+            const btn = e.target.querySelector('button');
+            
+            btn.innerHTML = '<i data-lucide="check" style="width: 18px; height: 18px;"></i>';
+            lucide.createIcons();
+            input.value = '';
+            input.placeholder = 'Inscrito!';
+            
+            setTimeout(() => {
+                btn.innerHTML = '<i data-lucide="send" style="width: 18px; height: 18px;"></i>';
+                lucide.createIcons();
+                input.placeholder = 'Seu e-mail';
+            }, 3000);
+        });
+        
+        // ========== SMOOTH SCROLL FOR ANCHOR LINKS ==========
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+        
+        // ========== INITIALIZE ==========
+        document.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            initParticles();
+            
+            // Set min date for check-in
+            const today = new Date().toISOString().split('T')[0];
+            const checkinInput = document.getElementById('checkin');
+            const checkoutInput = document.getElementById('checkout');
+            
+            if (checkinInput) {
+                checkinInput.setAttribute('min', today);
+                checkinInput.addEventListener('change', () => {
+                    if (checkoutInput) {
+                        checkoutInput.setAttribute('min', checkinInput.value);
+                    }
+                });
+            }
+        });
+        
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
+        });
+    </script>
+</body>
+</html>
