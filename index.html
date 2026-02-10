@@ -300,15 +300,18 @@
         .logo-icon {
             width: 40px;
             height: 40px;
-            background: var(--accent-gradient);
             border-radius: var(--radius-sm);
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 1.25rem;
             transition: transform var(--transition-fast);
+        }
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
         .logo:hover .logo-icon {
             transform: rotate(5deg);
@@ -1611,15 +1614,17 @@
         .footer-logo-icon {
             width: 40px;
             height: 40px;
-            background: var(--accent-gradient);
             border-radius: var(--radius-sm);
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 1.25rem;
-            font-family: var(--font-display);
+        }
+        .footer-logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
         .footer-logo-text {
             font-family: var(--font-display);
@@ -1978,7 +1983,7 @@
     <header class="header" id="header">
         <div class="header-container">
             <a href="#" class="logo">
-                <div class="logo-icon">P</div>
+                <div class="logo-icon"><img src="assets/logo.jpg" alt="PonteWeb Studio"></div>
                 <span>PonteWeb</span>
             </a>
             <nav class="nav-desktop">
@@ -3762,7 +3767,7 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <div class="footer-logo">
-                        <div class="footer-logo-icon">P</div>
+                        <div class="footer-logo-icon"><img src="assets/logo.jpg" alt="PonteWeb Studio"></div>
                         <span class="footer-logo-text">PonteWeb</span>
                     </div>
                     <p class="footer-description">Sites e landing pages premium para empresas em todo o Brasil. Design moderno, carregamento rapido e foco total em conversao.</p>
