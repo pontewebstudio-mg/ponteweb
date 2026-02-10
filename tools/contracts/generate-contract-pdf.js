@@ -62,7 +62,7 @@ async function main() {
   const outPath = required(getArg(args, 'out'), 'out');
 
   const providerName = getArg(args, 'provider-name') || 'PonteWeb Studio';
-  const providerEmail = getArg(args, 'provider-email') || 'oprodutormusic@gmail.com';
+  const providerEmail = getArg(args, 'provider-email') || 'pontewebstudio@gmail.com';
   const providerPhone = getArg(args, 'provider-phone') || '(32) 98507-2741';
   const providerCnpj = '64.990.841/0001-76';
 
@@ -87,11 +87,15 @@ async function main() {
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
   const fontBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
 
-  // Embed logo (PNG) if present
+  // Embed logo (JPG/PNG) if present
   let logo;
-  const logoPath = path.join(process.cwd(), 'docs', 'assets', 'brand', 'ponteweb-avatar-512.png');
-  if (fs.existsSync(logoPath)) {
-    const pngBytes = fs.readFileSync(logoPath);
+  const logoJpgPath = path.join(process.cwd(), 'docs', 'assets', 'brand', 'ponteweb-logo.jpg');
+  const logoPngPath = path.join(process.cwd(), 'docs', 'assets', 'brand', 'ponteweb-avatar-512.png');
+  if (fs.existsSync(logoJpgPath)) {
+    const jpgBytes = fs.readFileSync(logoJpgPath);
+    logo = await pdfDoc.embedJpg(jpgBytes);
+  } else if (fs.existsSync(logoPngPath)) {
+    const pngBytes = fs.readFileSync(logoPngPath);
     logo = await pdfDoc.embedPng(pngBytes);
   }
 
