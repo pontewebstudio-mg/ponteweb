@@ -210,7 +210,7 @@ async function main() {
   y -= 16;
   page.drawText('Assinatura: ________________________________________________', { x: margin, y, size: 10, font, color: rgb(0, 0, 0) });
   y -= 14;
-  page.drawText(`${providerName} — PonteWeb Studio (CNPJ: ${providerCnpj})`, { x: margin, y: size: 10, font, color: rgb(0, 0, 0) });
+  page.drawText(`${providerName} — PonteWeb Studio (CNPJ: ${providerCnpj})`, { x: margin, y, size: 10, font, color: rgb(0, 0, 0) });
 
   const pdfBytes = await pdfDoc.save();
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
