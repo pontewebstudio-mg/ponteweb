@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pagamento recebido — PonteWeb Studio</title>
+  <meta name="description" content="Obrigado! Recebemos seu pagamento e iniciaremos o projeto." />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" href="/assets/logo-ponteweb.svg" type="image/svg+xml" />
+  <meta name="robots" content="noindex" />
+  <link rel="canonical" href="https://pontewebstudio.com.br/obrigado-pagamento/" />
+</head>
+<body>
+  <div class="bg" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+  </div>
+
+  <main class="hero" style="padding-top:120px">
+    <div class="container" style="max-width:920px">
+      <div class="frame" style="padding:26px">
+        <h1 id="payTitle" style="margin:0 0 10px">Pagamento confirmado.</h1>
+        <p id="payMsg" class="lead" style="margin:0 0 18px">
+          Obrigado! Assim que o pagamento for identificado, iniciamos seu projeto e enviamos o cronograma e próximos passos.
+        </p>
+
+        <div class="ticks" style="margin-top:14px">
+          <span>✓ Brief do projeto</span>
+          <span>✓ V1 rápida</span>
+          <span>✓ Ajustes + publicação</span>
+        </div>
+
+        <div class="heroActions" style="margin-top:18px">
+          <a class="btn primary" href="https://wa.me/5532985072741?text=Oi!%20Acabei%20de%20pagar%20e%20quero%20enviar%20o%20comprovante.%20Meu%20nome%20%C3%A9%20..." target="_blank" rel="noopener">Enviar comprovante</a>
+          <a class="btn ghost" href="/">Voltar ao site</a>
+        </div>
+
+        <p class="fine" style="margin-top:14px">
+          Observação: se você pagou via link, o provedor pode levar alguns minutos para confirmar.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const status = (params.get('status') || params.get('collection_status') || '').toLowerCase();
+      const title = document.getElementById('payTitle');
+      const msg = document.getElementById('payMsg');
+
+      if (!title || !msg) return;
+
+      if (status === 'approved') {
+        title.textContent = 'Pagamento efetuado com sucesso.';
+        msg.textContent = 'Obrigado! Seu pagamento foi aprovado e já recebemos a confirmação. Em breve enviaremos os próximos passos por e-mail.';
+      } else if (status === 'pending' || status === 'in_process') {
+        title.textContent = 'Pagamento em análise.';
+        msg.textContent = 'Seu pagamento está sendo processado. Assim que for confirmado, enviaremos o contrato e os próximos passos.';
+      } else if (status === 'rejected' || status === 'failure' || status === 'cancelled') {
+        title.textContent = 'Pagamento não aprovado.';
+        msg.textContent = 'Não foi possível confirmar o pagamento. Se precisar, tente novamente ou fale com a gente.';
+      }
+    })();
+  </script>
+</body>
+</html>
