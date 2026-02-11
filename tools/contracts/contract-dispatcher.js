@@ -68,7 +68,10 @@ async function main() {
   const providerEmail = process.env.PROVIDER_EMAIL || 'pontewebstudio@gmail.com';
   const providerPhone = process.env.PROVIDER_PHONE || '(32) 98507-2741';
 
-const gmailFrom = process.env.GMAIL_FROM || providerEmail;
+  const planConfigPath = path.join(process.cwd(), 'tools', 'contracts', 'plan-config.json');
+  const planConfig = JSON.parse(fs.readFileSync(planConfigPath, 'utf8'));
+
+  const gmailFrom = process.env.GMAIL_FROM || providerEmail;
 
   const supabase = createClient(supabaseUrl, serviceKey, {
     auth: { persistSession: false },
@@ -95,6 +98,8 @@ const gmailFrom = process.env.GMAIL_FROM || providerEmail;
         .eq('id', job.order_id)
         .single();
       if (oErr) throw oErr;
+
+      const planMeta = planConfig[String(order.plan || '')] || {};
 
       const outPath = path.join(process.cwd(), 'tmp', `contrato-${order.id}.pdf`);
       const paymentDate = new Date().toISOString().slice(0, 10);
@@ -139,7 +144,7 @@ const gmailFrom = process.env.GMAIL_FROM || providerEmail;
         `Olá, ${order.name}!\n` +
         `\n` +
         `Conforme combinado, segue em anexo o contrato referente ao seu pedido (${order.plan}).\n` +
-        `Valor do plano: R$ ${String(plan.price_total || '—')}\n` +
+        `Valor do plano: R$ ${String(planMeta.price_total || '—')}\n` +
         `\n` +
         `Para dar andamento, basta confirmar por resposta neste e-mail (ou no WhatsApp) e enviar o material mínimo do projeto.\n` +
         `\n` +
@@ -187,7 +192,7 @@ const gmailFrom = process.env.GMAIL_FROM || providerEmail;
           `Cópia do contrato enviado para ${order.email}.\n` +
             `Pedido: ${order.id}\n` +
             `Plano: ${order.plan}\n` +
-            `Valor: R$ ${String(plan.price_total || '—')}\n` +
+            `Valor: R$ ${String(planMeta.price_total || '—')}\n` +
             `Pagamento: ${job.payment_provider} (${job.payment_id || '—'})`,
 
           '--attach',

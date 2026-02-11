@@ -1,22 +1,57 @@
 {
   "Starter": {
-    "plan_name": "Starter — Publicar no seu domínio",
-    "price_total": "500",
+    "plan_name": "Starter — Landing Page Essencial",
+    "price_total": "300",
     "deliverable_type": "Landing page",
     "delivery_days": 10,
     "revision_rounds": 1
   },
   "Pro": {
-    "plan_name": "Pro — + Analytics & Search Console",
-    "price_total": "700",
+    "plan_name": "Pro — Landing Page Premium",
+    "price_total": "500",
     "deliverable_type": "Landing page",
     "delivery_days": 10,
     "revision_rounds": 2
+  },
+  "Business": {
+    "plan_name": "Business — Pro + Analytics & Monitoramento",
+    "price_total": "700",
+    "deliverable_type": "Landing page",
+    "delivery_days": 10,
+    "revision_rounds": 3
   },
   "Prime": {
     "plan_name": "Prime — Sob medida",
     "price_total": "A combinar",
     "deliverable_type": "Site institucional / projeto sob medida",
+    "delivery_days": 10,
+    "revision_rounds": 2
+  },
+  "Social Essencial": {
+    "plan_name": "Social Essencial — Gerenciamento de Redes Sociais",
+    "price_total": "400/mês",
+    "deliverable_type": "Gestão de redes sociais",
+    "delivery_days": 10,
+    "revision_rounds": 1
+  },
+  "Social Premium": {
+    "plan_name": "Social Premium — Gerenciamento de Redes Sociais",
+    "price_total": "800/mês",
+    "deliverable_type": "Gestão de redes sociais",
+    "delivery_days": 10,
+    "revision_rounds": 2
+  },
+  "Tráfego Essencial": {
+    "plan_name": "Tráfego Essencial — Gestão de Tráfego Pago",
+    "price_total": "300/mês",
+    "deliverable_type": "Gestão de tráfego pago",
+    "delivery_days": 10,
+    "revision_rounds": 1
+  },
+  "Tráfego Pro": {
+    "plan_name": "Tráfego Pro — Gestão de Tráfego Pago",
+    "price_total": "500/mês",
+    "deliverable_type": "Gestão de tráfego pago",
     "delivery_days": 10,
     "revision_rounds": 2
   }

@@ -17,10 +17,17 @@ const ORDER_CONFIG = {
   formspreeEndpoint: "https://formspree.io/f/xqedznak",
 
   mercadoPagoLinks: {
-    // Links Mercado Pago (enviados pelo Rômulo)
-    Starter: "https://mpago.la/2Yg94M2", // R$ 500
-    Pro: "https://mpago.la/29GDvpS",      // R$ 700
-    Prime: "",                            // negociado no WhatsApp
+    // Links Mercado Pago (pagamento único)
+    Starter: "https://mpago.la/1W7LTZa", // R$ 300
+    Pro: "https://mpago.la/2Yg94M2",     // R$ 500
+    Business: "https://mpago.la/29GDvpS", // R$ 700
+  },
+  mercadoPagoSubscriptionPlans: {
+    // Planos de assinatura (Mercado Pago)
+    "Social Essencial": "2dfbc5f86c57461cba11dfdce9a68cb9",
+    "Social Premium": "0a96af3bece244b189383fdaac3dc751",
+    "Tráfego Essencial": "39eb42b3a8be4e4b8075e552abe8dd5b",
+    "Tráfego Pro": "ccd59cd34ac446cf81f15fd18aaf5904",
   },
 
   whatsappNumberE164: "5532985072741",
@@ -44,7 +51,7 @@ try {
   const planParam = (params.get("plan") || "").trim();
   if (planParam) {
     const planSelect = form.querySelector('select[name="plan"]');
-    const allowed = ["Starter", "Pro", "Prime"]; 
+    const allowed = ["Starter", "Pro", "Business", "Prime", "Social Essencial", "Social Premium", "Tráfego Essencial", "Tráfego Pro"]; 
     if (planSelect && allowed.includes(planParam)) {
       planSelect.value = planParam;
     }
@@ -147,12 +154,51 @@ form.addEventListener("submit", async (e) => {
       return;
     }
 
-    // NEW: create a Mercado Pago preference via Supabase Edge Function so we can set external_reference=order_id
-    const PLAN_PRICES = { Starter: 500, Pro: 700 };
+    const subscriptionPlanId = ORDER_CONFIG.mercadoPagoSubscriptionPlans[plan];
+    if (subscriptionPlanId) {
+      if (!payload.order_id) {
+        const url = `https://www.mercadopago.com.br/subscriptions/checkout?preapproval_plan_id=${subscriptionPlanId}`;
+        window.open(url, "_blank", "noopener,noreferrer");
+        statusEl.textContent = "Abrimos o pagamento em uma nova aba.";
+        return;
+      }
+
+      try {
+        statusEl.textContent = "Gerando assinatura...";
+
+        const res = await fetch(`${ORDER_CONFIG.supabaseUrl}/functions/v1/super-api/create-preapproval`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            order_id: payload.order_id,
+            plan,
+            preapproval_plan_id: subscriptionPlanId,
+            email: payload.email,
+          }),
+        });
+
+        const out = await res.json();
+        if (!res.ok || !out?.ok || !out?.init_point) {
+          throw new Error(out?.error || `Falha ao criar assinatura (HTTP ${res.status})`);
+        }
+
+        window.open(out.init_point, "_blank", "noopener,noreferrer");
+        statusEl.textContent = "Abrimos a assinatura em uma nova aba.";
+        return;
+      } catch (err) {
+        console.warn("mp create-preapproval failed", err);
+        const url = `https://www.mercadopago.com.br/subscriptions/checkout?preapproval_plan_id=${subscriptionPlanId}`;
+        window.open(url, "_blank", "noopener,noreferrer");
+        statusEl.textContent = "Abrimos o pagamento em uma nova aba.";
+        return;
+      }
+    }
+
+    // Pagamento único (checkout preference)
+    const PLAN_PRICES = { Starter: 300, Pro: 500, Business: 700 };
     const price = PLAN_PRICES[plan];
 
     if (!payload.order_id) {
-      // Fallback to legacy link if order_id wasn't captured (should be rare)
       const url = ORDER_CONFIG.mercadoPagoLinks[plan];
       if (url) {
         window.open(url, "_blank", "noopener,noreferrer");
@@ -202,7 +248,6 @@ form.addEventListener("submit", async (e) => {
     } catch (err) {
       console.warn("mp create-checkout failed", err);
 
-      // Fallback to legacy static link
       const url = ORDER_CONFIG.mercadoPagoLinks[plan];
       if (url) {
         window.open(url, "_blank", "noopener,noreferrer");

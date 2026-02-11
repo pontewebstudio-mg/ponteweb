@@ -83,6 +83,25 @@ async function mpCreatePreference(accessToken: string, body: any) {
   return { ok: res.ok, status: res.status, data, text }
 }
 
+async function mpCreatePreapproval(accessToken: string, body: any) {
+  const res = await fetch('https://api.mercadopago.com/preapproval', {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer ' + accessToken,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  })
+  const text = await res.text()
+  let data: any = null
+  try {
+    data = JSON.parse(text)
+  } catch {
+    // ignore
+  }
+  return { ok: res.ok, status: res.status, data, text }
+}
+
 Deno.serve(async (req) => {
   const origin = req.headers.get('origin')
   const cors = corsHeaders(origin)
@@ -98,6 +117,7 @@ Deno.serve(async (req) => {
     // Supabase function base path: /functions/v1/super-api
     // Anything after that is preserved in pathname.
     const isCreateCheckout = pathname.endsWith('/create-checkout')
+    const isCreatePreapproval = pathname.endsWith('/create-preapproval')
     const isMarkPaid = pathname.endsWith('/mark-paid')
 
     const accessToken = getEnv('MP_ACCESS_TOKEN')
@@ -165,6 +185,74 @@ Deno.serve(async (req) => {
       }
 
       return json({ ok: true, order_id: orderId }, 200, cors)
+    }
+
+    if (isCreatePreapproval) {
+      if (req.method !== 'POST') return json({ ok: false, error: 'method not allowed' }, 405, cors)
+
+      const bodyText = await req.text()
+      let payload: any = {}
+      try {
+        payload = bodyText ? JSON.parse(bodyText) : {}
+      } catch {
+        // ignore
+      }
+
+      const orderId = String(payload?.order_id ?? '')
+      const plan = String(payload?.plan ?? '')
+      const planId = String(payload?.preapproval_plan_id ?? '')
+      const email = payload?.email ? String(payload.email) : null
+
+      if (!orderId || !isUuid(orderId)) return json({ ok: false, error: 'invalid order_id' }, 400, cors)
+      if (!planId) return json({ ok: false, error: 'missing preapproval_plan_id' }, 400, cors)
+
+      const { data: orderRow, error: orderErr } = await supabase
+        .from('pw_orders')
+        .select('id, name, email, phone, plan, payment')
+        .eq('id', orderId)
+        .maybeSingle()
+
+      if (orderErr) return json({ ok: false, error: 'order lookup failed', details: orderErr.message }, 500, cors)
+      if (!orderRow) return json({ ok: false, error: 'order not found' }, 404, cors)
+
+      const reason = `PonteWeb Studio — Plano ${plan || (orderRow as any)?.plan || ''}`.trim()
+      const payerEmail = email || (orderRow as any)?.email || null
+
+      const preBody: any = {
+        preapproval_plan_id: planId,
+        external_reference: orderId,
+        reason,
+        back_url: 'https://pontewebstudio.com.br/obrigado-pagamento/',
+      }
+
+      if (payerEmail) preBody.payer_email = payerEmail
+
+      const preRes = await mpCreatePreapproval(accessToken, preBody)
+      if (!preRes.ok || !preRes.data) {
+        return json(
+          {
+            ok: false,
+            error: 'mp preapproval create failed',
+            status: preRes.status,
+            body: preRes.data ?? preRes.text,
+          },
+          502,
+          cors,
+        )
+      }
+
+      const initPoint = preRes.data.init_point || preRes.data.sandbox_init_point || preRes.data.redirect_url
+      const preId = preRes.data.id
+
+      await supabase.from('pw_payments').insert({
+        order_id: orderId,
+        provider: 'mercadopago',
+        provider_payment_id: String(preId),
+        status: 'created',
+        raw: preRes.data,
+      })
+
+      return json({ ok: true, order_id: orderId, preapproval_id: preId, init_point: initPoint }, 200, cors)
     }
 
     if (isCreateCheckout) {
@@ -289,6 +377,17 @@ Deno.serve(async (req) => {
         const payments: any[] = Array.isArray(orderRes.data.payments) ? orderRes.data.payments : []
         approved = payments.some((p) => String(p.status) === 'approved')
         externalRef = orderRes.data.external_reference ? String(orderRes.data.external_reference) : null
+      } else {
+        // 3) fallback preapproval (assinaturas)
+        const preRes = await mpFetchJson(
+          'https://api.mercadopago.com/preapproval/' + encodeURIComponent(pid),
+          accessToken,
+        )
+        if (preRes.ok && preRes.data) {
+          const status = String(preRes.data.status || '')
+          approved = status === 'authorized' || status === 'active'
+          externalRef = preRes.data.external_reference ? String(preRes.data.external_reference) : null
+        }
       }
     }
 
