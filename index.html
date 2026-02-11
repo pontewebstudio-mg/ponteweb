@@ -4578,7 +4578,7 @@
         
         function initContactForm() {
             const form = document.getElementById('contactForm');
-            form.addEventListener('submit', function(e) {
+            form.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 const name = document.getElementById('name').value;
                 const whatsapp = document.getElementById('whatsapp').value;
@@ -4587,20 +4587,30 @@
                 const service = document.getElementById('service').value;
                 const details = document.getElementById('details').value;
                 
-                let message = 'Ola! Vim pelo site e gostaria de um orcamento.\n\n';
-                message += 'Nome: ' + name + '\n';
-                message += 'WhatsApp: ' + whatsapp + '\n';
-                message += 'Email: ' + email + '\n';
-                if (city) message += 'Cidade: ' + city + '\n';
-                message += 'Servico: ' + service + '\n';
-                if (details) message += '\nDetalhes: ' + details;
+                const data = new FormData();
+                data.append('Nome', name);
+                data.append('WhatsApp', whatsapp);
+                data.append('Email', email);
+                if (city) data.append('Cidade', city);
+                data.append('Servico', service);
+                if (details) data.append('Detalhes', details);
+                data.append('_subject', 'Novo contato - PonteWeb Studio');
+                data.append('_template', 'table');
                 
-                window.open('https://wa.me/5532985072741?text=' + encodeURIComponent(message), '_blank');
-                
-                formSubmitted = true;
-                showToast('Mensagem enviada com sucesso! Resposta em ate 24h uteis.');
-                triggerConfetti();
-                form.reset();
+                try {
+                    const response = await fetch('https://formsubmit.co/ajax/pontewebstudio@gmail.com', {
+                        method: 'POST',
+                        body: data,
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    if (!response.ok) throw new Error('Erro ao enviar');
+                    formSubmitted = true;
+                    showToast('Mensagem enviada com sucesso! Em breve vamos te enviar um retorno.');
+                    triggerConfetti();
+                    form.reset();
+                } catch (err) {
+                    showToast('Nao foi possivel enviar agora. Tente novamente ou chame no WhatsApp.');
+                }
             });
         }
         
@@ -4691,15 +4701,32 @@
             popup.addEventListener('click', function(e) { if (e.target === popup) popup.classList.remove('active'); });
             document.addEventListener('keydown', function(e) { if (e.key === 'Escape') popup.classList.remove('active'); });
             
-            form.addEventListener('submit', function(e) {
+            form.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 const need = document.getElementById('exitNeed').value;
                 const whatsapp = document.getElementById('exitWhatsapp').value;
-                const message = 'Ola! Vim pelo popup do site. Preciso de: ' + need + '. Meu WhatsApp: ' + whatsapp;
-                window.open('https://wa.me/5532985072741?text=' + encodeURIComponent(message), '_blank');
-                formSubmitted = true;
-                popup.classList.remove('active');
-                showToast('Recebemos sua mensagem! Entraremos em contato em breve.');
+
+                const data = new FormData();
+                data.append('Origem', 'Popup de saída');
+                data.append('Necessidade', need);
+                data.append('WhatsApp', whatsapp);
+                data.append('_subject', 'Novo contato - Popup (PonteWeb Studio)');
+                data.append('_template', 'table');
+
+                try {
+                    const response = await fetch('https://formsubmit.co/ajax/pontewebstudio@gmail.com', {
+                        method: 'POST',
+                        body: data,
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    if (!response.ok) throw new Error('Erro ao enviar');
+                    formSubmitted = true;
+                    popup.classList.remove('active');
+                    showToast('Mensagem enviada com sucesso! Em breve vamos te enviar um retorno.');
+                    form.reset();
+                } catch (err) {
+                    showToast('Nao foi possivel enviar agora. Tente novamente ou chame no WhatsApp.');
+                }
             });
         }
         
