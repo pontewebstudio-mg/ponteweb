@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://pontewebstudio.com.br/sitemap.xml
